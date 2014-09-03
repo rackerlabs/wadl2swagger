@@ -41,7 +41,8 @@ class SwaggerBuilder:
           }[xsd_type]
         except KeyError:
           print "WARN: Using unknown type: %s" % xsd_type
-          return xsd_type
+          # return xsd_type
+          return None
 
     def style_to_in(self, style):
         return {
@@ -55,13 +56,20 @@ class SwaggerBuilder:
     def build_param(self, wadl_param):
         print "Found param: %s" % wadl_param.name
 
-        return {
+        type = self.xsd_to_json_type(wadl_param.tag.attrib['type'])
+        param = {
           "name": wadl_param.name,
           "required": wadl_param.is_required,
           "in": self.style_to_in(wadl_param.style),
-          "type": self.xsd_to_json_type(wadl_param.tag.attrib['type'])
         }
+        if type is not None:
+          param["type"] = type
+        return param
 
+    def build_response(self, wadl_response):
+        return {
+          "description": "Placeholder"
+        }
 
 wadl_file = os.path.realpath("wadls/identity-admin.wadl")
 swagger_file = os.path.realpath("swagger/identity-admin.yaml")
@@ -91,12 +99,13 @@ for resource_element in wadl.resources:
   resource = wadl.get_resource_by_path(path)
   swagger_resource = swagger["paths"][path] = {}
   print "  Processing resource for %s" % path
-  swagger_resource["parameters"] = []
 
   # Resource level parameters
   try:
     # for param_name in resource.parameter_names('application/json'):
     for param in resource.params('application/json'):
+      if not "parameters" in swagger_resource:
+        swagger_resource["parameters"] = []
       swagger_resource["parameters"].append(swagger_builder.build_param(param))
   except AttributeError:
     print "   WARN: wadllib can't get parameters, possibly a wadllib bug"
@@ -105,16 +114,18 @@ for resource_element in wadl.resources:
   for method in resource.method_iter:
     print "    Processing method %s %s" % (method.name, path)
     swagger_method = swagger_resource[method.name] = {}
-    swagger_method['consumes'] = []
+    # swagger_method['consumes'] = []
     swagger_method['produces'] = []
-    swagger_method['parameters'] = []
+    swagger_method['responses'] = {}
     if method.request.tag is not None:
       request = method.request
       for representation in request.representations:
-        print "Class: %s" % representation.__class__.__name__
-        swagger_method['consumes'].append(representation.media_type)
+        # Swagger schema needs to be updated to allow consumes here
+        # swagger_method['consumes'].append(representation.media_type)
         for param in representation.params(resource):
-          swagger_resource["parameters"].append(swagger_builder.build_param(param))
+          if not "parameters" in swagger_method:
+            swagger_method['parameters'] = []
+          swagger_method["parameters"].append(swagger_builder.build_param(param))
 
     if method.response.tag is not None:
       response = method.response
@@ -123,6 +134,8 @@ for resource_element in wadl.resources:
       representation = response.get_representation_definition('application/json')
       if representation is not None:
         swagger_method['produces'].append(representation.media_type)
+      for status in response.tag.attrib['status'].split():
+        swagger_method['responses'][int(status)] = swagger_builder.build_response(response)
 
 print "Saving swagger to %s" % swagger_file
 save_swagger(swagger, swagger_file)

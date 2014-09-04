@@ -8,11 +8,14 @@ def path2url(path):
     return urlparse.urljoin(
       'file:', urllib.pathname2url(path))
 
+WADL_NAMESPACE = "http://wadl.dev.java.net/2009/02"
+LEGACY_WADL_NAMESPACE = "http://research.sun.com/wadl/2006/10"
+
 # Hack around https://bugs.launchpad.net/wadllib/+bug/1273846
 def hack_namespace(wadl_string):
     return wadl_string.replace(
-      "http://wadl.dev.java.net/2009/02",
-      "http://research.sun.com/wadl/2006/10"
+      WADL_NAMESPACE,
+      LEGACY_WADL_NAMESPACE
     )
 
 def application_for(filename):
@@ -52,6 +55,12 @@ class SwaggerBuilder:
           "template": "path",
           "plain": "path"
         }[style]
+
+    def build_summary(self, documented_wadl_object):
+        def doc_tag(wadl_object, tag_name):
+          return wadl_object.tag.find('./{' + LEGACY_WADL_NAMESPACE + '}' + tag_name)
+
+        return doc_tag(documented_wadl_object, 'doc').attrib['title']
 
     def build_param(self, wadl_param):
         print "Found param: %s" % wadl_param.name
@@ -114,6 +123,11 @@ for resource_element in wadl.resources:
   for method in resource.method_iter:
     print "    Processing method %s %s" % (method.name, path)
     swagger_method = swagger_resource[method.name] = {}
+    # Rackspace specific...
+    if '{http://docs.rackspace.com/api}id' in method.tag.attrib:
+      swagger_method['operationId'] = method.tag.attrib['{http://docs.rackspace.com/api}id']
+    swagger_method['summary'] = swagger_builder.build_summary(method)
+    # swagger_method['operationId'] = method.tag.attrib['id']
     # swagger_method['consumes'] = []
     swagger_method['produces'] = []
     swagger_method['responses'] = {}

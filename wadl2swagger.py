@@ -29,6 +29,8 @@ def save_swagger(swagger, filename):
 
 class SwaggerBuilder:
     def xsd_to_json_type(self, xsd_type):
+        if xsd_type is None:
+          return "string"
         # This should probably be more namespace aware (e.g. handle xs:string or xsd:string)
         try:
           return {
@@ -65,7 +67,7 @@ class SwaggerBuilder:
     def build_param(self, wadl_param):
         print "Found param: %s" % wadl_param.name
 
-        type = self.xsd_to_json_type(wadl_param.tag.attrib['type'])
+        type = self.xsd_to_json_type(wadl_param.tag.get('type', 'string'))
         param = {
           "name": wadl_param.name,
           "required": wadl_param.is_required,
@@ -80,76 +82,90 @@ class SwaggerBuilder:
           "description": "Placeholder"
         }
 
-wadl_file = os.path.realpath("wadls/identity-admin.wadl")
-swagger_file = os.path.realpath("swagger/identity-admin.yaml")
-wadl = application_for(wadl_file)
-swagger_builder = SwaggerBuilder()
-print "Reading WADL from %s" % wadl_file
-swagger = {
-  "swagger": 2,
-  "info": {
-    "contact": {
-      "name": "Rackspace"
+def convert_wadl(wadl_file, swagger_file):
+  wadl = application_for(wadl_file)
+  swagger_builder = SwaggerBuilder()
+  print "Reading WADL from %s" % wadl_file
+  swagger = {
+    "swagger": 2,
+    "info": {
+      "contact": {
+        "name": "Rackspace"
+      },
+      "description": "Placeholder",
+      "license": {
+        "name": "Placeholder",
+        "url": "Placeholder"
+      },
+      "termsOfService": "Placeholder",
+      "title": "Placeholder",
+      "version": "Placeholder"
     },
-    "description": "Placeholder",
-    "license": {
-      "name": "Placeholder",
-      "url": "Placeholder"
-    },
-    "termsOfService": "Placeholder",
-    "title": "Placeholder",
-    "version": "Placeholder"
-  },
-  "paths": {}
-}
+    "paths": {},
+    "consumes": [ # default consumes, maybe it shouldn't be hardcoded?
+      "application/json"
+    ]
+  }
 
-for resource_element in wadl.resources:
-  path = resource_element.attrib['path']
-  resource = wadl.get_resource_by_path(path)
-  swagger_resource = swagger["paths"][path] = {}
-  print "  Processing resource for %s" % path
+  for resource_element in wadl.resources:
+    path = resource_element.attrib['path']
+    resource = wadl.get_resource_by_path(path)
+    swagger_resource = swagger["paths"][path] = {}
+    print "  Processing resource for %s" % path
 
-  # Resource level parameters
-  try:
-    # for param_name in resource.parameter_names('application/json'):
-    for param in resource.params('application/json'):
-      if not "parameters" in swagger_resource:
-        swagger_resource["parameters"] = []
-      swagger_resource["parameters"].append(swagger_builder.build_param(param))
-  except AttributeError:
-    print "   WARN: wadllib can't get parameters, possibly a wadllib bug"
-    print "     (It seems like it only works if the resource has a GET method"
+    # Resource level parameters
+    try:
+      for param in resource.params('application/json'):
+        if not "parameters" in swagger_resource:
+          swagger_resource["parameters"] = []
+        swagger_resource["parameters"].append(swagger_builder.build_param(param))
+    except AttributeError:
+      print "   WARN: wadllib can't get parameters, possibly a wadllib bug"
+      print "     (It seems like it only works if the resource has a GET method"
 
-  for method in resource.method_iter:
-    print "    Processing method %s %s" % (method.name, path)
-    swagger_method = swagger_resource[method.name] = {}
-    # Rackspace specific...
-    if '{http://docs.rackspace.com/api}id' in method.tag.attrib:
-      swagger_method['operationId'] = method.tag.attrib['{http://docs.rackspace.com/api}id']
-    swagger_method['summary'] = swagger_builder.build_summary(method)
-    # swagger_method['operationId'] = method.tag.attrib['id']
-    # swagger_method['consumes'] = []
-    swagger_method['produces'] = []
-    swagger_method['responses'] = {}
-    if method.request.tag is not None:
-      request = method.request
-      for representation in request.representations:
-        # Swagger schema needs to be updated to allow consumes here
-        # swagger_method['consumes'].append(representation.media_type)
-        for param in representation.params(resource):
-          if not "parameters" in swagger_method:
-            swagger_method['parameters'] = []
-          swagger_method["parameters"].append(swagger_builder.build_param(param))
+    for method in resource.method_iter:
+      print "    Processing method %s %s" % (method.name, path)
+      swagger_method = swagger_resource[method.name] = {}
+      # Rackspace specific...
+      if '{http://docs.rackspace.com/api}id' in method.tag.attrib:
+        swagger_method['operationId'] = method.tag.attrib['{http://docs.rackspace.com/api}id']
+      swagger_method['summary'] = swagger_builder.build_summary(method)
+      # swagger_method['operationId'] = method.tag.attrib['id']
+      # swagger_method['consumes'] = []
+      swagger_method['produces'] = []
+      swagger_method['responses'] = {}
+      if method.request.tag is not None:
+        request = method.request
+        for representation in request.representations:
+          # Swagger schema needs to be updated to allow consumes here
+          # swagger_method['consumes'].append(representation.media_type)
+          for param in representation.params(resource):
+            if not "parameters" in swagger_method:
+              swagger_method['parameters'] = []
+            swagger_method["parameters"].append(swagger_builder.build_param(param))
 
-    if method.response.tag is not None:
-      response = method.response
-      # Not properly iterable - plus we're focused on json
-      # for representation in response.representation:
-      representation = response.get_representation_definition('application/json')
-      if representation is not None:
-        swagger_method['produces'].append(representation.media_type)
-      for status in response.tag.attrib['status'].split():
-        swagger_method['responses'][int(status)] = swagger_builder.build_response(response)
+      if method.response.tag is not None:
+        response = method.response
+        # Not properly iterable - plus we're focused on json
+        # for representation in response.representation:
+        representation = response.get_representation_definition('application/json')
+        if representation is not None:
+          swagger_method['produces'].append(representation.media_type)
+        for status in response.tag.attrib['status'].split():
+          swagger_method['responses'][int(status)] = swagger_builder.build_response(response)
 
-print "Saving swagger to %s" % swagger_file
-save_swagger(swagger, swagger_file)
+  print "Saving swagger to %s" % swagger_file
+  save_swagger(swagger, swagger_file)
+
+import fnmatch
+import os
+
+wadl_dir = 'wadls/'
+swagger_dir = 'swagger/'
+
+for root, dirs, files in os.walk(wadl_dir):
+    for filename in fnmatch.filter(files, '*.wadl'):
+        filename, extname = os.path.splitext(filename)
+        wadl_file = os.path.join(wadl_dir, filename + extname)
+        swagger_file = os.path.join(swagger_dir, filename + '.yaml')
+        convert_wadl(wadl_file, swagger_file)

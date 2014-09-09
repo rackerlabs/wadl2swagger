@@ -3,6 +3,8 @@ import sys
 import urlparse, urllib
 from wadllib.application import Application, Resource
 import yaml
+from xml.etree import ElementTree
+from xml.etree.ElementTree import Element
 
 def path2url(path):
     return urlparse.urljoin(
@@ -28,6 +30,12 @@ def save_swagger(swagger, filename):
       yaml_file.write( yaml.dump(swagger, default_flow_style=False) )
 
 class SwaggerBuilder:
+    def wadl_tag(self, wadl_object, tag_name):
+        return wadl_object.tag.find('./{' + LEGACY_WADL_NAMESPACE + '}' + tag_name)
+
+    def doc_tag(self, wadl_object):
+        return self.wadl_tag(wadl_object, 'doc')
+
     def xsd_to_json_type(self, xsd_type):
         if xsd_type is None:
           return "string"
@@ -59,10 +67,7 @@ class SwaggerBuilder:
         }[style]
 
     def build_summary(self, documented_wadl_object):
-        def doc_tag(wadl_object, tag_name):
-          return wadl_object.tag.find('./{' + LEGACY_WADL_NAMESPACE + '}' + tag_name)
-
-        return doc_tag(documented_wadl_object, 'doc').attrib['title']
+        return self.doc_tag(documented_wadl_object).attrib['title']
 
     def build_param(self, wadl_param):
         print "Found param: %s" % wadl_param.name
@@ -75,31 +80,94 @@ class SwaggerBuilder:
         }
         if type is not None:
           param["type"] = type
+        if self.doc_tag(wadl_param) is not None and self.doc_tag(wadl_param).text is not None:
+          description_elem = self.convert_description(self.doc_tag(wadl_param))
+          param["description"] = ElementTree.tostring(description_elem)
         return param
 
     def build_response(self, wadl_response):
+        status = wadl_response.tag.attrib['status']
+        try:
+          description = ' '.join(self.doc_tag(wadl_response).text.split())
+        except:
+          description = "%s response" % status
+
         return {
-          "description": "Placeholder"
+          "description": description
         }
 
+    def convert_description(self, doc_tag, description = ''):
+      elem = self.element_for(doc_tag)
+      elem.text = doc_tag.text
+      for tag in list(doc_tag):
+        elem.append(self.convert_description(tag))
+      elem.tail = doc_tag.tail
+
+      return elem
+
+    def element_for(self, doc_tag):
+      tag_type = doc_tag.tag
+      attrs = {}
+      if tag_type == "{http://docbook.org/ns/docbook}citetitle":
+        tag = "p"
+      elif tag_type == "{http://docbook.org/ns/docbook}code":
+        tag = "code"
+      elif tag_type == "{http://docbook.org/ns/docbook}emphasis":
+        tag = "strong"
+      elif tag_type == "{http://docbook.org/ns/docbook}link":
+        tag = "a"
+        attrs['href'] = doc_tag.get('{http://www.w3.org/1999/xlink}href')
+      elif tag_type == "{http://docbook.org/ns/docbook}listitem":
+        tag = "li"
+      elif tag_type == "{http://docbook.org/ns/docbook}literal":
+        tag = "p"
+      elif tag_type == "{http://docbook.org/ns/docbook}note":
+        tag = "p"
+      elif tag_type == "{http://docbook.org/ns/docbook}olink":
+        tag = "p"
+      elif tag_type == "{http://docbook.org/ns/docbook}para":
+        tag = "p"
+      elif tag_type == "{http://docbook.org/ns/docbook}parameter":
+        tag = "p"
+      elif tag_type == "{http://docbook.org/ns/docbook}term":
+        tag = "p"
+      elif tag_type == "{http://docbook.org/ns/docbook}variablelist":
+        tag = "p"
+      elif tag_type == "{http://docbook.org/ns/docbook}varlistentry":
+        tag = "p"
+      elif tag_type == "{http://docbook.org/ns/docbook}warning":
+        tag = "p"
+      elif tag_type == "{http://research.sun.com/wadl/2006/10}doc":
+        tag = "p"
+      elif tag_type.startswith("{http://www.w3.org/1999/xhtml}"):
+        tag = tag_type.replace('{http://www.w3.org/1999/xhtml}', '')
+      else:
+        print "Unknown doc tag type: %s" % ElementTree.QName(tag_type)
+      e = Element(tag)
+      for key, value in attrs.iteritems():
+        if value is not None:
+          e.set(key, value)
+      return e
+
 def convert_wadl(wadl_file, swagger_file):
+  title = os.path.splitext(os.path.split(wadl_file)[1])[0]
   wadl = application_for(wadl_file)
   swagger_builder = SwaggerBuilder()
   print "Reading WADL from %s" % wadl_file
   swagger = {
     "swagger": 2,
     "info": {
-      "contact": {
-        "name": "Rackspace"
-      },
-      "description": "Placeholder",
-      "license": {
-        "name": "Placeholder",
-        "url": "Placeholder"
-      },
-      "termsOfService": "Placeholder",
-      "title": "Placeholder",
-      "version": "Placeholder"
+    #   "contact": {
+    #     "name": "Rackspace"
+    #   },
+    #   "description": "Placeholder",
+    #   "license": {
+    #     "name": "Placeholder",
+    #     "url": "Placeholder"
+    #   },
+    #   "termsOfService": "Placeholder",
+      "title": title,
+      "version": "Unknown"
     },
     "paths": {},
     "consumes": [ # default consumes, maybe it shouldn't be hardcoded?

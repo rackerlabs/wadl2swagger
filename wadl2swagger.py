@@ -132,7 +132,7 @@ class SwaggerBuilder:
             "query": "query",
             "header": "header",
             "template": "path",
-            "plain": "path"
+            "plain": "body"
         }[style]
 
     def build_summary(self, documented_wadl_object):

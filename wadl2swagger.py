@@ -1,9 +1,12 @@
+import fnmatch
 import os
 import sys
 import urlparse
 import urllib
+import textwrap
 from wadllib.application import Application, Resource
 import yaml
+from collections import OrderedDict
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element
 
@@ -14,6 +17,20 @@ def path2url(path):
 
 WADL_NAMESPACE = "http://wadl.dev.java.net/2009/02"
 LEGACY_WADL_NAMESPACE = "http://research.sun.com/wadl/2006/10"
+
+NAMESPACES = {
+  "docbook": "http://docbook.org/ns/docbook",
+  "xlink": "http://www.w3.org/1999/xlink",
+  "wadl": LEGACY_WADL_NAMESPACE,
+  "xsdxt": "http://docs.rackspacecloud.com/xsd-ext/v1.0",
+  "xhtml": "http://www.w3.org/1999/xhtml"
+}
+
+def qname(prefix, tag = ''):
+    return "{" + NAMESPACES[prefix] + "}" + tag
+
+for prefix in NAMESPACES:
+  ElementTree.register_namespace(prefix, NAMESPACES[prefix])
 
 # Hack around https://bugs.launchpad.net/wadllib/+bug/1273846
 
@@ -59,42 +76,42 @@ class DocHelper:
     @staticmethod
     def element_for(doc_tag):
         tag_type = doc_tag.tag
-        attrs = {}
-        if tag_type == "{http://docbook.org/ns/docbook}citetitle":
+        attrs = OrderedDict()
+        if tag_type == qname('docbook', 'citetitle'):
             tag = "p"
-        elif tag_type == "{http://docbook.org/ns/docbook}code":
+        elif tag_type == qname('docbook', 'code'):
             tag = "code"
-        elif tag_type == "{http://docbook.org/ns/docbook}emphasis":
+        elif tag_type == qname('docbook', 'emphasis'):
             tag = "strong"
-        elif tag_type == "{http://docbook.org/ns/docbook}link":
+        elif tag_type == qname('docbook', 'link'):
             tag = "a"
-            attrs['href'] = doc_tag.get('{http://www.w3.org/1999/xlink}href')
-        elif tag_type == "{http://docbook.org/ns/docbook}listitem":
+            attrs['href'] = doc_tag.get(qname('xlink', 'href'))
+        elif tag_type == qname('docbook', 'listitem'):
             tag = "li"
-        elif tag_type == "{http://docbook.org/ns/docbook}literal":
+        elif tag_type == qname('docbook', 'literal'):
             tag = "p"
-        elif tag_type == "{http://docbook.org/ns/docbook}note":
+        elif tag_type == qname('docbook', 'note'):
             tag = "p"
-        elif tag_type == "{http://docbook.org/ns/docbook}olink":
+        elif tag_type == qname('docbook', 'olink'):
             tag = "p"
-        elif tag_type == "{http://docbook.org/ns/docbook}para":
+        elif tag_type == qname('docbook', 'para'):
             tag = "p"
-        elif tag_type == "{http://docbook.org/ns/docbook}parameter":
+        elif tag_type == qname('docbook', 'parameter'):
             tag = "p"
-        elif tag_type == "{http://docbook.org/ns/docbook}term":
+        elif tag_type == qname('docbook', 'term'):
             tag = "p"
-        elif tag_type == "{http://docbook.org/ns/docbook}variablelist":
+        elif tag_type == qname('docbook', 'variablelist'):
             tag = "p"
-        elif tag_type == "{http://docbook.org/ns/docbook}varlistentry":
+        elif tag_type == qname('docbook', 'varlistentry'):
             tag = "p"
-        elif tag_type == "{http://docbook.org/ns/docbook}warning":
+        elif tag_type == qname('docbook', 'warning'):
             tag = "p"
-        elif tag_type == "{http://research.sun.com/wadl/2006/10}doc":
+        elif tag_type == qname('wadl', 'doc'):
             tag = "p"
-        elif tag_type.startswith("{http://www.w3.org/1999/xhtml}"):
-            tag = tag_type.replace('{http://www.w3.org/1999/xhtml}', '')
+        elif tag_type.startswith(qname('xhtml')):
+            tag = tag_type.replace(qname('xhtml'), '')
         else:
-            print "Unknown doc tag type: %s" % ElementTree.QName(tag_type)
+            print "Unknown doc tag type: %s" % tag_type
         e = Element(tag)
         for key, value in attrs.iteritems():
             if value is not None:
@@ -142,17 +159,20 @@ class SwaggerBuilder:
         print "Found param: %s" % wadl_param.name
 
         type = self.xsd_to_json_type(wadl_param.tag.get('type', 'string'))
-        param = {
-            "name": wadl_param.name,
-            "required": wadl_param.is_required,
-            "in": self.style_to_in(wadl_param.style),
-        }
+        param = OrderedDict()
+        param['name'] = wadl_param.name
+        param['required'] = wadl_param.is_required
+        param['in'] = self.style_to_in(wadl_param.style)
+
         if type is not None:
             param["type"] = type
         if DocHelper.doc_tag(wadl_param) is not None and DocHelper.doc_tag(wadl_param).text is not None:
             description_elem = DocHelper.convert_description(
                 DocHelper.doc_tag(wadl_param))
-            param["description"] = ElementTree.tostring(description_elem)
+            description = ElementTree.tostring(description_elem)
+            # Cleanup whitespace...
+            description = textwrap.dedent(description)
+            param["description"] = folded(description)
         return param
 
     def build_response(self, wadl_response):
@@ -164,7 +184,7 @@ class SwaggerBuilder:
             description = "%s response" % status
 
         return {
-            "description": description
+            "description": literal(description)
         }
 
 
@@ -173,31 +193,21 @@ def convert_wadl(wadl_file, swagger_file):
     wadl = application_for(wadl_file)
     swagger_builder = SwaggerBuilder()
     print "Reading WADL from %s" % wadl_file
-    swagger = {
-        "swagger": 2,
-        "info": {
-            #   "contact": {
-            #     "name": "Rackspace"
-            #   },
-            #   "description": "Placeholder",
-            #   "license": {
-            #     "name": "Placeholder",
-            #     "url": "Placeholder"
-            #   },
-            #   "termsOfService": "Placeholder",
-            "title": title,
-            "version": "Unknown"
-        },
-        "paths": {},
-        "consumes": [  # default consumes, maybe it shouldn't be hardcoded?
-            "application/json"
-        ]
-    }
+    swagger = OrderedDict()
+    swagger['swagger'] = 2
+    swagger['info'] = OrderedDict()
+    swagger['info']['title'] = title
+    swagger['info']['version'] = "Unknown"
+    swagger['paths'] = OrderedDict()
+    swagger["consumes"] = [
+      # default consumes, maybe it shouldn't be hardcoded?
+      "application/json"
+    ]
 
     for resource_element in wadl.resources:
         path = resource_element.attrib['path']
         resource = wadl.get_resource_by_path(path)
-        swagger_resource = swagger["paths"][path] = {}
+        swagger_resource = swagger["paths"][path] = OrderedDict()
         print "  Processing resource for %s" % path
 
         # Resource level parameters
@@ -213,7 +223,7 @@ def convert_wadl(wadl_file, swagger_file):
 
         for method in resource.method_iter:
             print "    Processing method %s %s" % (method.name, path)
-            swagger_method = swagger_resource[method.name] = {}
+            swagger_method = swagger_resource[method.name] = OrderedDict()
             # Rackspace specific...
             if '{http://docs.rackspace.com/api}id' in method.tag.attrib:
                 swagger_method['operationId'] = method.tag.attrib[
@@ -222,7 +232,7 @@ def convert_wadl(wadl_file, swagger_file):
             # swagger_method['operationId'] = method.tag.attrib['id']
             # swagger_method['consumes'] = []
             swagger_method['produces'] = []
-            swagger_method['responses'] = {}
+            swagger_method['responses'] = OrderedDict()
             if method.request.tag is not None:
                 request = method.request
                 for representation in request.representations:
@@ -247,11 +257,35 @@ def convert_wadl(wadl_file, swagger_file):
                     swagger_method['responses'][
                         int(status)] = swagger_builder.build_response(response)
 
+                    code_sample = response.tag.find('.//' + qname('docbook', 'programlisting'))
+                    if code_sample is not None:
+                        swagger_method['responses'][int(status)]['examples'] = examples = OrderedDict()
+                        examples['application/json'] = literal(code_sample.text)
+
     print "Saving swagger to %s" % swagger_file
     save_swagger(swagger, swagger_file)
 
-import fnmatch
-import os
+class quoted(str): pass
+
+def quoted_presenter(dumper, data):
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='"')
+yaml.add_representer(quoted, quoted_presenter)
+
+class folded(unicode): pass
+
+def folded_presenter(dumper, data):
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='>')
+yaml.add_representer(folded, folded_presenter)
+
+class literal(unicode): pass
+
+def literal_presenter(dumper, data):
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+yaml.add_representer(literal, literal_presenter)
+
+def ordered_dict_presenter(dumper, data):
+    return dumper.represent_dict(data.items())
+yaml.add_representer(OrderedDict, ordered_dict_presenter)
 
 wadl_dir = 'wadls/'
 swagger_dir = 'swagger/'

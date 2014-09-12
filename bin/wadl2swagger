@@ -1,0 +1,107 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import os
+import argparse
+
+import wadltools
+from wadltools import WADL, SwaggerBuilder
+from collections import OrderedDict
+import yaml
+
+def main():
+    parser = argparse.ArgumentParser()
+
+    parser = argparse.ArgumentParser(add_help=True)
+    parser.add_argument('--swagger-dir', type=str, default='swagger/', help='output folder for converted Swagger files')
+    parser.add_argument('wadl_file', nargs='+', metavar='WADL_FILE', help="wadl files to convert")
+
+    args = parser.parse_args()
+    for wadl_file in args.wadl_file:
+        filename, wadl_ext = os.path.splitext(os.path.split(wadl_file)[1]) # better way to get basename w/out ext?
+        swagger_file = os.path.join(args.swagger_dir, filename + '.yaml')
+        convert(filename, wadl_file, swagger_file)
+
+def save_swagger(swagger, filename):
+    with open(filename, 'w') as yaml_file:
+        yaml_file.write(yaml.dump(swagger, default_flow_style=False))
+
+def convert(title, wadl_file, swagger_file):
+    print "Converting: %s to %s" % (wadl_file, swagger_file)
+    wadl = WADL.application_for(wadl_file)
+    swagger_builder = SwaggerBuilder()
+    print "Reading WADL from %s" % wadl_file
+    swagger = OrderedDict()
+    swagger['swagger'] = 2
+    swagger['info'] = OrderedDict()
+    swagger['info']['title'] = title
+    swagger['info']['version'] = "Unknown"
+    swagger['paths'] = OrderedDict()
+    swagger["consumes"] = [
+      # default consumes, maybe it shouldn't be hardcoded?
+      "application/json"
+    ]
+
+    for resource_element in wadl.resources:
+        path = resource_element.attrib['path']
+        resource = wadl.get_resource_by_path(path)
+        swagger_resource = swagger["paths"][path] = OrderedDict()
+        print "  Processing resource for %s" % path
+
+        # Resource level parameters
+        try:
+            for param in resource.params('application/json'):
+                if "parameters" not in swagger_resource:
+                    swagger_resource["parameters"] = []
+                swagger_resource["parameters"].append(
+                    swagger_builder.build_param(param))
+        except AttributeError:
+            print "   WARN: wadllib can't get parameters, possibly a wadllib bug"
+            print "     (It seems like it only works if the resource has a GET method"
+
+        for method in resource.method_iter:
+            print "    Processing method %s %s" % (method.name, path)
+            swagger_method = swagger_resource[method.name] = OrderedDict()
+            # Rackspace specific...
+            if '{http://docs.rackspace.com/api}id' in method.tag.attrib:
+                swagger_method['operationId'] = method.tag.attrib[
+                    '{http://docs.rackspace.com/api}id']
+            swagger_method['summary'] = swagger_builder.build_summary(method)
+            # swagger_method['operationId'] = method.tag.attrib['id']
+            # swagger_method['consumes'] = []
+            swagger_method['produces'] = []
+            swagger_method['responses'] = OrderedDict()
+            if method.request.tag is not None:
+                request = method.request
+                for representation in request.representations:
+                    # Swagger schema needs to be updated to allow consumes here
+                    # swagger_method['consumes'].append(representation.media_type)
+                    for param in representation.params(resource):
+                        if "parameters" not in swagger_method:
+                            swagger_method['parameters'] = []
+                        swagger_method["parameters"].append(
+                            swagger_builder.build_param(param))
+
+            if method.response.tag is not None:
+                response = method.response
+                # Not properly iterable - plus we're focused on json
+                # for representation in response.representation:
+                representation = response.get_representation_definition(
+                    'application/json')
+                if representation is not None:
+                    swagger_method['produces'].append(
+                        representation.media_type)
+                for status in response.tag.attrib['status'].split():
+                    swagger_method['responses'][
+                        int(status)] = swagger_builder.build_response(response)
+
+                    code_sample = response.tag.find('.//' + WADL.qname('docbook', 'programlisting'))
+                    if code_sample is not None:
+                        swagger_method['responses'][int(status)]['examples'] = swagger_builder.build_code_sample(code_sample)
+
+    print "Saving swagger to %s" % swagger_file
+    save_swagger(swagger, swagger_file)
+
+if __name__ == '__main__':
+    main()
+

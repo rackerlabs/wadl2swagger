@@ -48,6 +48,11 @@ class DocHelper:
         return DocHelper.wadl_tag(wadl_object, 'doc')
 
     @staticmethod
+    def short_desc(wadl_object):
+        # HACK: OpenStack specific...
+        return DocHelper.doc_tag(wadl_object).find('./{' + WADL.NAMESPACES['docbook'] + "}para[@role='shortdesc']")
+
+    @staticmethod
     def convert_description(doc_tag, description=''):
         elem = DocHelper.element_for(doc_tag)
         elem.text = doc_tag.text

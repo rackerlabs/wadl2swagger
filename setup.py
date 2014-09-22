@@ -11,5 +11,5 @@ setup(name='wadl2swagger',
       url='http://github.com/rackerlabs/wadl2swagger',
       packages=['wadltools'],
       # can't use ~= operator?
-      install_requires = ['wadllib>=1.3', 'pyyaml>=3.0']
+      install_requires = ['wadllib>=1.3', 'pyyaml>=3.0', 'mechanize>=0.2']
      )

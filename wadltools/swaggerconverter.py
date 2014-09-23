@@ -10,12 +10,13 @@ class SwaggerConverter:
         self.autofix = options.autofix
 
     def convert(self, title, wadl_file, swagger_file):
-        logging.info("Converting: %s to %s", wadl_file, swagger_file)
+        self.logger = logging.getLogger(wadl_file)
+        self.logger.info("Converting: %s to %s", wadl_file, swagger_file)
         wadl = WADL.application_for(wadl_file)
         if self.autofix and wadl.resource_base is None:
-            logging.warn("Autofix: No base path, setting to http://localhost")
+            self.logger.warn("Autofix: No base path, setting to http://localhost")
             wadl.resource_base = 'http://localhost'
-        logging.debug("Reading WADL from %s", wadl_file)
+        self.logger.debug("Reading WADL from %s", wadl_file)
         swagger = OrderedDict()
         swagger['swagger'] = 2
         swagger['info'] = OrderedDict()
@@ -31,10 +32,10 @@ class SwaggerConverter:
             path = resource_element.attrib['path']
             resource = wadl.get_resource_by_path(path)
             if self.autofix and not path.startswith('/'):
-                logging.warn("Autofix: Adding leading / to path")
+                self.logger.warn("Autofix: Adding leading / to path")
                 path = '/' + path
             swagger_resource = swagger["paths"][path] = OrderedDict()
-            logging.debug("  Processing resource for %s", path)
+            self.logger.debug("  Processing resource for %s", path)
 
             # Resource level parameters
             try:
@@ -44,14 +45,14 @@ class SwaggerConverter:
                     swagger_resource["parameters"].append(
                         self.build_param(param))
             except AttributeError:
-                logging.warn("   WARN: wadllib can't get parameters, possibly a wadllib bug")
-                logging.warn("     (It seems like it only works if the resource has a GET method")
+                self.logger.debug("   WARN: wadllib can't get parameters, possibly a wadllib bug")
+                self.logger.debug("     (It seems like it only works if the resource has a GET method")
 
             for method in resource.method_iter:
-                logging.debug("    Processing method %s %s", method.name, path)
+                self.logger.debug("    Processing method %s %s", method.name, path)
                 verb = method.name
                 if self.autofix and verb == 'copy':
-                    logging.warn("Autofix: Using PUT instead of COPY verb (OpenStack services accept either, Swagger does not allow COPY)")
+                    self.logger.warn("Autofix: Using PUT instead of COPY verb (OpenStack services accept either, Swagger does not allow COPY)")
                     verb = 'put'
                 swagger_method = swagger_resource[verb] = OrderedDict()
                 # Rackspace specific...
@@ -113,7 +114,7 @@ class SwaggerConverter:
                 "xsd:time": "string"  # should be string w/ format or regex
             }[xsd_type]
         except KeyError:
-            logging.warn("Using unknown type: %s", xsd_type)
+            self.logger.warn("Using unknown type: %s", xsd_type)
             # return xsd_type
             return None
 
@@ -130,7 +131,7 @@ class SwaggerConverter:
         return DocHelper.doc_tag(documented_wadl_object).attrib['title']
 
     def build_param(self, wadl_param):
-        logging.debug("Found param: %s" % wadl_param.name)
+        self.logger.debug("Found param: %s" % wadl_param.name)
 
         type = self.xsd_to_json_type(wadl_param.tag.get('type', 'string'))
         param = OrderedDict()
@@ -139,7 +140,7 @@ class SwaggerConverter:
         param['in'] = self.style_to_in(wadl_param.style)
 
         if self.autofix and param['in'] == 'body':
-            logging.warn("Autofix: Ignoring type on body parameter")
+            self.logger.warn("Autofix: Ignoring type on body parameter")
             type = None # body cannot have type,
                         # ideally it should be documented via a model
         if type is not None:

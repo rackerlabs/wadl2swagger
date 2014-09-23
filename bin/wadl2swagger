@@ -30,9 +30,10 @@ def main():
     args = parser.parse_args()
 
     if args.verbose:
-        logging.basicConfig(level=logging.DEBUG)
+        logging.basicConfig(level=logging.DEBUG, filename='wadl2swagger.log', filemode='w')
     else:
-        logging.basicConfig(level=logging.INFO)
+        logging.basicConfig(level=logging.INFO, filename='wadl2swagger.log', filemode='w')
+    logging.getLogger('').addHandler(logging.StreamHandler())
 
     for wadl_file in args.wadl_file:
         filename, wadl_ext = os.path.splitext(os.path.split(wadl_file)[1]) # better way to get basename w/out ext?

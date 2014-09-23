@@ -11,6 +11,9 @@ class SwaggerConverter:
     def convert(self, title, wadl_file, swagger_file):
         print "Converting: %s to %s" % (wadl_file, swagger_file)
         wadl = WADL.application_for(wadl_file)
+        if self.autofix and wadl.resource_base is None:
+            print "WARN: No base path, setting to http://localhost"
+            wadl.resource_base = 'http://localhost'
         print "Reading WADL from %s" % wadl_file
         swagger = OrderedDict()
         swagger['swagger'] = 2

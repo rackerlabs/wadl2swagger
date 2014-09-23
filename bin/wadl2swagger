@@ -3,6 +3,7 @@
 
 import os, errno
 import argparse
+import logging
 
 import wadltools
 from wadltools import WADL, SwaggerConverter
@@ -24,15 +25,22 @@ def main():
     parser.add_argument('--swagger-dir', type=str, default='swagger/', help='output folder for converted Swagger files')
     parser.add_argument('--autofix', dest='autofix', action='store_true', help='fix common Swagger issues (rather than fixing them by standardizing WADL)')
     parser.add_argument('wadl_file', nargs='+', metavar='WADL_FILE', help="wadl files to convert")
+    parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
 
     args = parser.parse_args()
+
+    if args.verbose:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
+
     for wadl_file in args.wadl_file:
         filename, wadl_ext = os.path.splitext(os.path.split(wadl_file)[1]) # better way to get basename w/out ext?
         swagger_file = os.path.join(args.swagger_dir, filename + '.yaml')
         mkdir_p(os.path.dirname(swagger_file))
         converter = SwaggerConverter(args)
         swagger = converter.convert(filename, wadl_file, swagger_file)
-        print "Saving swagger to %s" % swagger_file
+        logging.info("Saving swagger to %s", swagger_file)
         save_swagger(swagger, swagger_file)
 
 def save_swagger(swagger, filename):

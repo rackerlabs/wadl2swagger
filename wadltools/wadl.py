@@ -1,6 +1,7 @@
 from wadllib.application import Application, Resource
 import urlparse
 import urllib
+import logging
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element
 
@@ -104,7 +105,7 @@ class DocHelper:
         elif tag_type.startswith(WADL.qname('xhtml')):
             tag = tag_type.replace(WADL.qname('xhtml'), '')
         else:
-            print "Unknown doc tag type: %s" % tag_type
+            logging.warn("Unknown doc tag type: %s", tag_type)
         e = Element(tag)
         for key, value in attrs.iteritems():
             if value is not None:

@@ -9,7 +9,13 @@ setup(name='wadl2swagger',
       author='Max Lincoln',
       author_email='mlincoln@thoughtworks.com',
       url='http://github.com/rackerlabs/wadl2swagger',
-      packages=['wadltools'],
+      packages=['wadltools', 'wadltools.cli'],
+      entry_points= {'console_scripts':
+        [
+          'wadl2swagger = wadltools.cli.wadl2swagger:main',
+          'wadlcrawler = wadltools.cli.wadlcrawler:main',
+        ]
+      },
       # can't use ~= operator?
       install_requires = ['wadllib>=1.3', 'pyyaml>=3.0', 'mechanize>=0.2']
-     )
+)

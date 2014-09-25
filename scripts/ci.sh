@@ -8,10 +8,10 @@ else
   python setup.py develop
 fi
 
-./bin/wadlcrawler http://api.rackspace.com/wadls/
+wadlcrawler http://api.rackspace.com/wadls/
 # The cloud_monitoring WADL has a few issues, its a WIP
 rm wadls/cloud_monitoring.wadl
-./bin/wadl2swagger --autofix wadls/*.wadl
+wadl2swagger --autofix wadls/*.wadl
 
 echo "Unknown types summary:"
 cat wadl2swagger.log | grep 'Using unknown' | cut -d' ' -f2- | sort | uniq

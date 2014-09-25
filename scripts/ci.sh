@@ -1,7 +1,13 @@
 #!/bin/bash
 set -e
 
-# python setup.py install
+if [ $CI = "true" ]; then
+  # We're on Snap-CI, Travis, etc.
+  python setup.py install
+else
+  python setup.py develop
+fi
+
 ./bin/wadlcrawler http://api.rackspace.com/wadls/
 # The cloud_monitoring WADL has a few issues, its a WIP
 rm wadls/cloud_monitoring.wadl

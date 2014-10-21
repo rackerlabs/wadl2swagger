@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if [ $CI = "true" ]; then
+if [ "$CI" = "true" ]; then
   # We're on Snap-CI, Travis, etc.
   python setup.py install
 else

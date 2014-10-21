@@ -22,6 +22,7 @@ def main():
 
     parser = argparse.ArgumentParser(add_help=True)
     parser.add_argument('--swagger-dir', type=str, default='swagger/', help='output folder for converted Swagger files')
+    parser.add_argument('--merge-dir', type=str, default='defaults/', help='folder contains partial Swagger YAML files to merge with the WADL data')
     parser.add_argument('--autofix', dest='autofix', action='store_true', help='fix common Swagger issues (rather than fixing them by standardizing WADL)')
     parser.add_argument('wadl_file', nargs='+', metavar='WADL_FILE', help="wadl files to convert")
     parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")

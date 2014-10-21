@@ -1,13 +1,31 @@
+import os
+import re
+import json
 import yaml
 import textwrap
 import logging
 from collections import OrderedDict
 from wadltools.wadl import WADL, DocHelper
 
+def merge_dicts(a, b, path=None):
+    if path is None: path = []
+    for key in b:
+        if key in a:
+            if isinstance(a[key], dict) and isinstance(b[key], dict):
+                merge_dicts(a[key], b[key], path + [str(key)])
+            elif a[key] == b[key]:
+                pass # same leaf value
+            else:
+                raise Exception('Conflict at %s' % '.'.join(path + [str(key)]))
+        else:
+            a[key] = b[key]
+    return a
+
 class SwaggerConverter:
     def __init__(self, options):
         self.options = options
         self.autofix = options.autofix
+        self.merge_dir = options.merge_dir
 
     def convert(self, title, wadl_file, swagger_file):
         self.logger = logging.getLogger(wadl_file)
@@ -91,9 +109,39 @@ class SwaggerConverter:
                         swagger_method['responses'][
                             int(status)] = self.build_response(response)
 
-                        code_sample = response.tag.find('.//' + WADL.qname('docbook', 'programlisting'))
-                        if code_sample is not None:
+                        code_sample = None
+                        code_samples = response.tag.findall('.//' + WADL.qname('docbook', 'programlisting') + '[@language="javascript"]')
+                        if code_samples:
+                            try:
+                                code_sample = code_samples[-1].text # if there is more than one, the first is usually HTTP headers
+                                try:
+                                    json.loads(code_sample)
+                                except ValueError:
+                                    # sometimes the headers are in the same sample
+                                    # strip them and check again
+                                    match = re.match(r'.*^([\{\[].*)\Z', code_sample, (re.MULTILINE | re.DOTALL))
+                                    if match:
+                                        code_sample = match.group(1)
+                                        json.loads(code_sample)
+                                    else:
+                                        code_sample = None
+                            except ValueError:
+                                logging.warn("Code sample found but cannot be parsed for %s" % swagger_method['summary'])
+                                code_sample = None
+                        if code_sample:
                             swagger_method['responses'][int(status)]['examples'] = self.build_code_sample(code_sample)
+        swagger = merge_dicts(swagger, self.default_swagger_dict(swagger_file))
+        return swagger
+
+    def default_swagger_dict(self, swagger_file):
+        filename, _ = os.path.splitext(os.path.split(swagger_file)[1])
+        merge_file = os.path.join(self.merge_dir, filename + '.yaml')
+        if os.path.isfile(merge_file):
+            self.logger.info("Using defaults from %s" % merge_file)
+            with open(merge_file, 'r') as stream:
+                swagger = OrderedDict(yaml.load(stream))
+        else:
+            swagger = OrderedDict()
         return swagger
 
     def xsd_to_json_type(self, xsd_type):
@@ -166,7 +214,7 @@ class SwaggerConverter:
 
     def build_code_sample(self, wadl_code_sample):
         examples = OrderedDict()
-        examples['application/json'] = literal(wadl_code_sample.text)
+        examples['application/json'] = literal(wadl_code_sample)
         return examples
 
 # pyyaml presenters

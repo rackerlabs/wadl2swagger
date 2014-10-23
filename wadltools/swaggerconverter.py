@@ -30,6 +30,10 @@ class SwaggerConverter:
     def convert(self, title, wadl_file, swagger_file):
         self.logger = logging.getLogger(wadl_file)
         self.logger.info("Converting: %s to %s", wadl_file, swagger_file)
+
+        defaults = self.default_swagger_dict(swagger_file)
+        self.logger.info("Defaults: %s", defaults)
+
         wadl = WADL.application_for(wadl_file)
         if self.autofix and wadl.resource_base is None:
             self.logger.warn("Autofix: No base path, setting to http://localhost")
@@ -38,13 +42,19 @@ class SwaggerConverter:
         swagger = OrderedDict()
         swagger['swagger'] = 2
         swagger['info'] = OrderedDict()
-        swagger['info']['title'] = title
-        swagger['info']['version'] = "Unknown"
+        try:
+            swagger['info'] = defaults['info']
+        except KeyError:
+            swagger['info']['title'] = title
+            swagger['info']['version'] = "Unknown"
+        try:
+            swagger['consumes'] = defaults['consumes']
+            swagger['produces'] = defaults['produces']
+        except KeyError:
+            swagger["consumes"] = ["application/json"]
+            swagger["produces"] = ["application/json"]
+
         swagger['paths'] = OrderedDict()
-        swagger["consumes"] = [
-          # default consumes, maybe it shouldn't be hardcoded?
-          "application/json"
-        ]
 
         for resource_element in wadl.resources:
             path = resource_element.attrib['path']
@@ -130,7 +140,7 @@ class SwaggerConverter:
                                 code_sample = None
                         if code_sample:
                             swagger_method['responses'][int(status)]['examples'] = self.build_code_sample(code_sample)
-        swagger = merge_dicts(swagger, self.default_swagger_dict(swagger_file))
+        swagger = merge_dicts(swagger, defaults)
         return swagger
 
     def default_swagger_dict(self, swagger_file):

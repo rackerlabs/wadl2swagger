@@ -1,0 +1,7 @@
+---
+info:
+  title: Cloud Files
+schemes:
+  - http
+  - https
+host: "{server}.clouddrive.com"

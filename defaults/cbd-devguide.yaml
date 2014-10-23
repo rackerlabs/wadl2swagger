@@ -1,0 +1,7 @@
+---
+info:
+  title: Cloud Big Data
+schemes:
+  - http
+  - https
+host: "{data_center}.bigdata.api.rackspacecloud.com"

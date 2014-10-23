@@ -1,0 +1,7 @@
+---
+info:
+  title: Auto Scale
+schemes:
+  - http
+  - https
+host: "{data_center}.autoscale.api.rackspacecloud.com"

@@ -1,0 +1,7 @@
+---
+info:
+  title: Cloud Queues
+schemes:
+  - http
+  - https
+host: "{data_center}.queues.api.rackspacecloud.com"

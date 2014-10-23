@@ -1,0 +1,7 @@
+---
+info:
+  title: Cloud Networks
+schemes:
+  - http
+  - https
+host: "{data_center}.servers.api.rackspacecloud.com"

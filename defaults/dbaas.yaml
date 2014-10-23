@@ -1,0 +1,7 @@
+---
+info:
+  title: Cloud Databases
+schemes:
+  - http
+  - https
+host: "{data_center}.databases.api.rackspacecloud.com"

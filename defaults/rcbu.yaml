@@ -1,0 +1,7 @@
+---
+info:
+  title: Cloud Backup
+schemes:
+  - http
+  - https
+host: "{data_center}.backup.api.rackspacecloud.com"

@@ -1,0 +1,7 @@
+---
+info:
+  title: Cloud Images
+schemes:
+  - http
+  - https
+host: "{data_center}.images.api.rackspacecloud.com"

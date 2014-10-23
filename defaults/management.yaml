@@ -1,0 +1,8 @@
+---
+# As far as I can tell this is all Databases
+info:
+  title: Cloud Databases
+schemes:
+  - http
+  - https
+host: "{data_center}.databases.api.rackspacecloud.com"

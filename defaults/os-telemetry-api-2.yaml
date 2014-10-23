@@ -1,0 +1,7 @@
+---
+info:
+  title: Cloud Monitoring
+schemes:
+  - http
+  - https
+host: monitoring.api.rackspacecloud.com

@@ -1,0 +1,7 @@
+---
+info:
+  title: Cloud DNS
+schemes:
+  - http
+  - https
+host: dns.api.rackspacecloud.com

@@ -1,0 +1,7 @@
+---
+info:
+  title: Cloud Load Balancers
+schemes:
+  - http
+  - https
+host: "{data_center}.loadbalancers.api.rackspacecloud.com"

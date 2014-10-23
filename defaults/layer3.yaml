@@ -1,0 +1,8 @@
+---
+info:
+  title: Cloud Networks
+schemes:
+  - http
+  - https
+# Are all Network API operations under servers?
+host: "{data_center}.servers.api.rackspacecloud.com"

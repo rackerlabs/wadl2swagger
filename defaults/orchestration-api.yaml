@@ -1,0 +1,7 @@
+---
+info:
+  title: Cloud Orchestration
+schemes:
+  - http
+  - https
+host: "{data_center}.orchestration.api.rackspacecloud.com"

@@ -1,0 +1,9 @@
+---
+info:
+  title: Cloud Files
+schemes:
+  - http
+  - https
+# Should I make this cdn{instance}.clouddrive.com?
+host: "{server}.clouddrive.com"
+

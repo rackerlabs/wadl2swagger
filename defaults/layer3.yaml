@@ -1,6 +1,7 @@
 ---
 info:
   title: Cloud Networks
+  version: unknown
 schemes:
   - http
   - https

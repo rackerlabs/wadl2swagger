@@ -1,6 +1,7 @@
 ---
 info:
   title: Cloud Backup
+  version: unknown
 schemes:
   - http
   - https

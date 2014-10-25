@@ -1,6 +1,7 @@
 ---
 info:
   title: Cloud DNS
+  version: unknown
 schemes:
   - http
   - https

@@ -1,6 +1,7 @@
 ---
 info:
   title: Cloud Orchestration
+  version: unknown
 schemes:
   - http
   - https

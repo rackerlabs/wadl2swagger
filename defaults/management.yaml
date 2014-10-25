@@ -2,6 +2,7 @@
 # As far as I can tell this is all Databases
 info:
   title: Cloud Databases
+  version: unknown
 schemes:
   - http
   - https

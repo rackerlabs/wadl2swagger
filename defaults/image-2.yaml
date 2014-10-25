@@ -1,6 +1,7 @@
 ---
 info:
   title: Cloud Images
+  version: unknown
 schemes:
   - http
   - https

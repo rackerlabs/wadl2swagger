@@ -1,6 +1,7 @@
 ---
 info:
   title: Cloud Databases
+  version: unknown
 schemes:
   - http
   - https

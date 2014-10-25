@@ -1,6 +1,7 @@
 ---
 info:
   title: Auto Scale
+  version: unknown
 schemes:
   - http
   - https

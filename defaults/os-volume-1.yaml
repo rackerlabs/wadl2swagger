@@ -1,6 +1,7 @@
 ---
 info:
   title: Cloud Servers
+  version: unknown
 schemes:
   - http
   - https

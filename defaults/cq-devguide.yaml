@@ -1,6 +1,7 @@
 ---
 info:
   title: Cloud Queues
+  version: unknown
 schemes:
   - http
   - https

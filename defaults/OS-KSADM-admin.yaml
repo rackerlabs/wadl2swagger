@@ -1,6 +1,7 @@
 ---
 info:
   title: Cloud Identity
+  version: unknown
 schemes:
   - http
   - https

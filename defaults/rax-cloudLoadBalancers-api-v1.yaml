@@ -1,6 +1,7 @@
 ---
 info:
   title: Cloud Load Balancers
+  version: unknown
 schemes:
   - http
   - https

@@ -1,6 +1,7 @@
 ---
 info:
   title: Cloud Big Data
+  version: unknown
 schemes:
   - http
   - https

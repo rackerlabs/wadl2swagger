@@ -7,6 +7,13 @@ import logging
 from collections import OrderedDict
 from wadltools.wadl import WADL, DocHelper
 
+class WADLParseError(Exception):
+    def __init__(self, message, wadl_file, location, cause):
+        super(WADLParseError, self).__init__(message + u' in ' + wadl_file + u' ("' + location + '"), caused by ' + repr(cause))
+        self.wadl_file = wadl_file
+        self.location = location
+        self.cause = cause
+
 def merge_dicts(a, b, path=None):
     if path is None: path = []
     for key in b:
@@ -25,6 +32,7 @@ class SwaggerConverter:
     def __init__(self, options):
         self.options = options
         self.autofix = options.autofix
+        self.strict = options.strict
         self.merge_dir = options.merge_dir
 
     def convert(self, title, wadl_file, swagger_file):
@@ -32,7 +40,6 @@ class SwaggerConverter:
         self.logger.info("Converting: %s to %s", wadl_file, swagger_file)
 
         defaults = self.default_swagger_dict(swagger_file)
-        self.logger.info("Defaults: %s", defaults)
 
         wadl = WADL.application_for(wadl_file)
         if self.autofix and wadl.resource_base is None:
@@ -127,17 +134,22 @@ class SwaggerConverter:
                                 try:
                                     json.loads(code_sample)
                                 except ValueError:
-                                    # sometimes the headers are in the same sample
-                                    # strip them and check again
-                                    match = re.match(r'.*^([\{\[].*)\Z', code_sample, (re.MULTILINE | re.DOTALL))
-                                    if match:
-                                        code_sample = match.group(1)
-                                        json.loads(code_sample)
+                                    if self.autofix:
+                                        # sometimes the headers are in the same sample
+                                        # strip them and check again
+                                        match = re.match(r'.*^([\{\[].*)\Z', code_sample, (re.MULTILINE | re.DOTALL))
+                                        if match:
+                                            code_sample = match.group(1)
+                                            json.loads(code_sample)
                                     else:
-                                        code_sample = None
-                            except ValueError:
-                                logging.warn("Code sample found but cannot be parsed for %s" % swagger_method['summary'])
-                                code_sample = None
+                                        raise
+                            except ValueError as e:
+                                error = WADLParseError("Unparsable code sample", wadl_file, swagger_method['summary'], e)
+                                if self.strict:
+                                    raise error
+                                else:
+                                    self.logger.error(str(error))
+
                         if code_sample:
                             swagger_method['responses'][int(status)]['examples'] = self.build_code_sample(code_sample)
         swagger = merge_dicts(swagger, defaults)

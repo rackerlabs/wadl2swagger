@@ -17,5 +17,10 @@ setup(name='wadl2swagger',
         ]
       },
       # can't use ~= operator?
-      install_requires = ['wadllib>=1.3', 'pyyaml>=3.0', 'mechanize>=0.2']
+      install_requires = [
+        'wadllib>=1.3',
+        'pyyaml>=3.0',
+        'mechanize>=0.2',
+        'lxml>=3.4'
+      ]
 )

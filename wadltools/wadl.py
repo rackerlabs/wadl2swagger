@@ -1,9 +1,16 @@
-from wadllib.application import Application, Resource
+from wadllib.application import Application, Resource, WADLError
+from lxml import etree
 import urlparse
 import urllib
 import logging
-from xml.etree import ElementTree
-from xml.etree.ElementTree import Element
+
+
+class BadWADLError(Exception):
+    def __init__(self, message, base_exception, wadl_file):
+
+        full_msg = "%s, caused by \"%s: %s\" while loading %s" % (message, type(base_exception).__name__, base_exception.message, wadl_file)
+        # Call the base class constructor with the parameters it needs
+        super(BadWADLError, self).__init__(full_msg)
 
 class WADL:
 
@@ -36,7 +43,12 @@ class WADL:
 
       url = path2url(filename)
       wadl_string = open(filename, 'r').read()
-      return Application(url, hack_namespace(wadl_string))
+      try:
+        return Application(url, hack_namespace(wadl_string))
+      # except (WADLError, ParseError) as e:
+      except Exception as e:
+        raise BadWADLError("Could not load WADL file", e, url)
+
 
 class DocHelper:
 
@@ -65,7 +77,7 @@ class DocHelper:
 
     @staticmethod
     def description_text(doc_tag):
-      return ElementTree.tostring(DocHelper.convert_description(doc_tag))
+      return etree.tostring(etree.ElementTree(DocHelper.convert_description(doc_tag)))
 
     @staticmethod
     def element_for(doc_tag):
@@ -102,11 +114,18 @@ class DocHelper:
             tag = "p"
         elif tag_type == WADL.qname('wadl', 'doc'):
             tag = "p"
+        elif tag_type == WADL.qname('docbook', 'replaceable'):
+            # FIXME: What should this be?
+            tag = "em"
+        elif tag_type == WADL.qname('docbook', 'itemizedlist'):
+            tag = "ul"
+        elif tag_type == WADL.qname('docbook', 'strong'):
+            tag = "strong"
         elif tag_type.startswith(WADL.qname('xhtml')):
             tag = tag_type.replace(WADL.qname('xhtml'), '')
         else:
-            logging.warn("Unknown doc tag type: %s", tag_type)
-        e = Element(tag)
+            raise ValueError("Unknown doc tag type: %s" % tag_type)
+        e = etree.Element(tag)
         for key, value in attrs.iteritems():
             if value is not None:
                 e.set(key, value)

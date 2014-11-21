@@ -52,3 +52,7 @@ docs/_build/
 
 # PyBuilder
 target/
+swagger/
+wadls/
+site/Gemfile.lock
+site/build

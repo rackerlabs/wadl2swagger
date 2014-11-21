@@ -121,6 +121,9 @@ class DocHelper:
             tag = "ul"
         elif tag_type == WADL.qname('docbook', 'strong'):
             tag = "strong"
+        elif tag_type == WADL.qname('docbook', 'xref'):
+            logging.warning("xref is not properly supported")
+            tag = "cite"
         elif tag_type.startswith(WADL.qname('xhtml')):
             tag = tag_type.replace(WADL.qname('xhtml'), '')
         else:

@@ -1,0 +1,23 @@
+require 'yaml'
+require 'json'
+
+class Default < Thor
+  include Thor::Actions
+
+  desc 'yaml2json [YAML_FILES]', 'Converts Swagger YAML to JSON'
+  def yaml2json(pattern = 'source/swagger/*.yaml', *yaml_files)
+    if yaml_files.empty?
+      yaml_files = Dir[pattern]
+    else
+      yaml_files.unshift(pattern)
+    end
+    yaml_files.each do |swagger_yaml|
+      name = File.basename(swagger_yaml, '.yaml')
+      json_file = swagger_yaml.gsub('.yaml', '.json')
+      add_file json_file do
+        data = YAML.load(File.read(swagger_yaml))
+        JSON.dump(data)
+      end
+    end
+  end
+end

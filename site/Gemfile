@@ -1,0 +1,6 @@
+source 'http://rubygems.org'
+
+gem 'bourbon'
+gem 'middleman'
+gem 'middleman-deploy', '~> 1.0'
+gem 'neat'

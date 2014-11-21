@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<% wadls = sitemap.resources.select{|resource| resource.ext == '.wadl' } %>
+<%- swagger_yamls = sitemap.resources.select{|resource| resource.ext == '.yaml'} -%>
+<%- swagger_jsons = sitemap.resources.select{|resource| resource.ext == '.json'} -%>
+<%- rows = wadls.map do |wadl_file|
+      basename = File.basename(wadl_file.source_file, File.extname(wadl_file.source_file))
+      swagger_yaml_file = swagger_yamls.find {|swagger| File.basename(swagger.source_file) == "#{basename}.yaml" }
+      swagger_json_file = swagger_jsons.find {|swagger| File.basename(swagger.source_file) == "#{basename}.json" }
+      { :basename => basename, :wadl => wadl_file, :swagger_yaml => swagger_yaml_file, :swagger_json => swagger_json_file }
+    end
+-%>
+
+<header>
+  <h1>Sample Swagger files</h1>
+  <p>Below is a list of WADL files and the equivalent Swagger files that were generated with <%= link_to 'wadl2swagger', 'https://github.com/rackerlabs/wadl2swagger' %>. See the wadl2swagger repo for known issues.</p>
+</header>
+<table>
+  <tr>
+    <th>WADL File</th>
+    <th>Swagger File (YAML)</th>
+    <th>Swagger File (JSON)</th>
+    <th>Swagger valid?</th>
+  </tr>
+  <%- rows.each do | row | -%>
+    <%= partial 'partials/row', :locals => row %>
+  </tr>
+  <%- end -%>
+</table>

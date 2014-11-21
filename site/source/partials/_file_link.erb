@@ -1,0 +1,5 @@
+<%- if file.nil? -%>
+Not available
+<%- else -%>
+<a href="<%= file.url %>"><%= file.destination_path %></a>
+<%- end -%>

@@ -28,15 +28,16 @@ def main():
     parser.add_argument('--strict', dest='strict', action='store_true', help='fail on data that cannot be converted or just print a warning and skip it')
     parser.add_argument('wadl_file', nargs='+', metavar='WADL_FILE', help="wadl files to convert")
     parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
+    parser.add_argument("-l", "--log-file", help="file for conversion log", default="wadl2swagger.log")
 
     args = parser.parse_args()
 
     failed = {}
 
     if args.verbose:
-        logging.basicConfig(level=logging.DEBUG, filename='wadl2swagger.log', filemode='w')
+        logging.basicConfig(level=logging.DEBUG, filename=args.log_file, filemode='w')
     else:
-        logging.basicConfig(level=logging.INFO, filename='wadl2swagger.log', filemode='w')
+        logging.basicConfig(level=logging.INFO, filename=args.log_file, filemode='w')
     logging.getLogger('').addHandler(logging.StreamHandler())
 
     for wadl_file in args.wadl_file:

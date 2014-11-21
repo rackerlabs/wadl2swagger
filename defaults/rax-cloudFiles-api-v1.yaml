@@ -5,4 +5,4 @@ info:
 schemes:
   - http
   - https
-host: "{server}.clouddrive.com"
+x-host: "{server}.clouddrive.com"

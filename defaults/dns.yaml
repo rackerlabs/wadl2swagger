@@ -5,4 +5,4 @@ info:
 schemes:
   - http
   - https
-host: dns.api.rackspacecloud.com
+x-host: dns.api.rackspacecloud.com

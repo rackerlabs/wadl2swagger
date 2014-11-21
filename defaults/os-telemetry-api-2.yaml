@@ -5,4 +5,4 @@ info:
 schemes:
   - http
   - https
-host: monitoring.api.rackspacecloud.com
+x-host: monitoring.api.rackspacecloud.com

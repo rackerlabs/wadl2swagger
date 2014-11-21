@@ -5,4 +5,4 @@ info:
 schemes:
   - http
   - https
-host: "{data_center}.databases.api.rackspacecloud.com"
+x-host: "{data_center}.databases.api.rackspacecloud.com"

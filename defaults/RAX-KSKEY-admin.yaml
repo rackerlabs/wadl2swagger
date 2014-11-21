@@ -5,4 +5,4 @@ info:
 schemes:
   - http
   - https
-host: identity.api.rackspacecloud.com
+x-host: identity.api.rackspacecloud.com

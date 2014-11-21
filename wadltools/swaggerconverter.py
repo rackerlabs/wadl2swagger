@@ -5,6 +5,7 @@ import yaml
 import textwrap
 import logging
 from collections import OrderedDict
+import wadllib
 from wadltools.wadl import WADL, DocHelper, BadWADLError
 from wadllib.application import WADLError
 
@@ -73,14 +74,16 @@ class SwaggerConverter:
                     path = '/' + path
                 swagger_resource = swagger["paths"][path] = OrderedDict()
                 self.logger.debug("  Processing resource for %s", path)
-
                 # Resource level parameters
                 try:
-                    for param in resource.params('application/json'):
+                    # wadllib can't get parameters w/out media types (e.g. path params?)
+                    params = resource.parameters('application/json')
+                    for param in resource.tag.findall('.//' + WADL.qname('wadl', 'param')):
+                        params.append(wadllib.application.Parameter(resource, param))
+                    for param in params:
                         if "parameters" not in swagger_resource:
                             swagger_resource["parameters"] = []
-                        swagger_resource["parameters"].append(
-                            self.build_param(param))
+                        swagger_resource["parameters"].append(self.build_param(param))
                 except AttributeError:
                     self.logger.debug("   WARN: wadllib can't get parameters, possibly a wadllib bug")
                     self.logger.debug("     (It seems like it only works if the resource has a GET method")
@@ -220,9 +223,12 @@ class SwaggerConverter:
         param['in'] = self.style_to_in(wadl_param.style)
 
         if self.autofix and param['in'] == 'body':
+            # FIXME: Ideally we need to be generating models
             self.logger.warn("Autofix: Ignoring type on body parameter")
             type = None # body cannot have type,
-                        # ideally it should be documented via a model
+            if "schema" not in param:
+                self.logger.warn("Autofix: body params need a schema")
+                param['schema'] = {}
         if type is not None:
             param["type"] = type
         if DocHelper.doc_tag(wadl_param) is not None and DocHelper.doc_tag(wadl_param).text is not None:

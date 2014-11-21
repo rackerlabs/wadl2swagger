@@ -1,5 +1,5 @@
 <%- if file.nil? -%>
 Not available
 <%- else -%>
-<a href="<%= file.url %>"><%= file.destination_path %></a>
+<%= link_to file.destination_path, file, :relative => true %>
 <%- end -%>

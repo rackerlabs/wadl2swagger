@@ -7,7 +7,7 @@ import logging
 from collections import OrderedDict
 import wadllib
 from wadltools.wadl import WADL, DocHelper, BadWADLError
-from wadllib.application import WADLError
+from wadllib.application import WADLError, UnsupportedMediaTypeError
 
 class WADLParseError(Exception):
     def __init__(self, message, wadl_file, location, cause):
@@ -77,7 +77,11 @@ class SwaggerConverter:
                 # Resource level parameters
                 try:
                     # wadllib can't get parameters w/out media types (e.g. path params?)
-                    params = resource.parameters('application/json')
+                    try:
+                        params = resource.parameters('application/json')
+                    except UnsupportedMediaTypeError:
+                        self.logger.warn("No support for application/json for resource at %s", path)
+                        params = []
                     for param in resource.tag.findall('.//' + WADL.qname('wadl', 'param')):
                         params.append(wadllib.application.Parameter(resource, param))
                     for param in params:

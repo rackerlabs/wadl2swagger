@@ -49,7 +49,7 @@ class SwaggerConverter:
                 wadl.resource_base = 'http://localhost'
             self.logger.debug("Reading WADL from %s", wadl_file)
             swagger = OrderedDict()
-            swagger['swagger'] = 2
+            swagger['swagger'] = '2.0'
             swagger['info'] = OrderedDict()
             try:
                 swagger['info'] = defaults['info']

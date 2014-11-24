@@ -1,7 +1,10 @@
 import mechanize
-import os, errno
+import os
+import errno
+
 
 class WADLCrawler:
+
     def __init__(self):
         self.browser = mechanize.Browser()
 

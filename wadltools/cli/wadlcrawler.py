@@ -1,27 +1,34 @@
 # -*- coding: utf-8 -*-
 
-import os, errno
+import os
+import errno
 import argparse
 import logging
 
 import wadltools
 from wadltools import WADLCrawler
 
+
 def mkdir_p(path):
-        try:
-            os.makedirs(path)
-        except OSError as exc: # Python >2.5
-            if exc.errno == errno.EEXIST and os.path.isdir(path):
-                pass
-            else: raise
+    try:
+        os.makedirs(path)
+    except OSError as exc:  # Python >2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
+
 
 def main():
     parser = argparse.ArgumentParser()
 
     parser = argparse.ArgumentParser(add_help=True)
-    parser.add_argument('--wadl-dir', type=str, default='wadls/', help='the directory to store the fetched WADLs')
-    parser.add_argument('url', nargs='+', metavar='URL', help="URLs to fetch (will fetch individual HTML or crawl HTML links)")
-    parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
+    parser.add_argument('--wadl-dir', type=str, default='wadls/',
+                        help='the directory to store the fetched WADLs')
+    parser.add_argument('url', nargs='+', metavar='URL',
+                        help="URLs to fetch (will fetch individual HTML or crawl HTML links)")
+    parser.add_argument(
+        "-v", "--verbose", help="increase output verbosity", action="store_true")
 
     args = parser.parse_args()
     if args.verbose:

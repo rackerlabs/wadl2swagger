@@ -9,28 +9,36 @@ import wadllib
 from wadltools.wadl import WADL, DocHelper, BadWADLError
 from wadllib.application import WADLError, UnsupportedMediaTypeError
 
+
 class WADLParseError(Exception):
-    def __init__(self, message, wadl_file, location, cause):
-        super(WADLParseError, self).__init__(message + u' in ' + wadl_file + u' ("' + location + '"), caused by ' + repr(cause))
+
+    def __init__(self, orig_message, wadl_file, location, cause):
+        message = "%s in %s ('%s'), caused by %s" % (
+            orig_message, wadl_file, location, repr(cause))
+        super(WADLParseError, self).__init__(message)
         self.wadl_file = wadl_file
         self.location = location
         self.cause = cause
 
+
 def merge_dicts(a, b, path=None):
-    if path is None: path = []
+    if path is None:
+        path = []
     for key in b:
         if key in a:
             if isinstance(a[key], dict) and isinstance(b[key], dict):
                 merge_dicts(a[key], b[key], path + [str(key)])
             elif a[key] == b[key]:
-                pass # same leaf value
+                pass  # same leaf value
             else:
                 raise Exception('Conflict at %s' % '.'.join(path + [str(key)]))
         else:
             a[key] = b[key]
     return a
 
+
 class SwaggerConverter:
+
     def __init__(self, options):
         self.options = options
         self.autofix = options.autofix
@@ -46,7 +54,8 @@ class SwaggerConverter:
 
             wadl = WADL.application_for(wadl_file)
             if self.autofix and wadl.resource_base is None:
-                self.logger.warn("Autofix: No base path, setting to http://localhost")
+                self.logger.warn(
+                    "Autofix: No base path, setting to http://localhost")
                 wadl.resource_base = 'http://localhost'
             self.logger.debug("Reading WADL from %s", wadl_file)
             swagger = OrderedDict()
@@ -76,27 +85,35 @@ class SwaggerConverter:
                 self.logger.debug("  Processing resource for %s", path)
                 # Resource level parameters
                 try:
-                    # wadllib can't get parameters w/out media types (e.g. path params?)
+                    # wadllib can't get parameters w/out media types (e.g. path
+                    # params?)
                     try:
                         params = resource.parameters('application/json')
                     except UnsupportedMediaTypeError:
-                        self.logger.warn("No support for application/json for resource at %s", path)
+                        self.logger.warn(
+                            "No support for application/json for resource at %s", path)
                         params = []
                     for param in resource.tag.findall('.//' + WADL.qname('wadl', 'param')):
-                        params.append(wadllib.application.Parameter(resource, param))
+                        params.append(
+                            wadllib.application.Parameter(resource, param))
                     for param in params:
                         if "parameters" not in swagger_resource:
                             swagger_resource["parameters"] = []
-                        swagger_resource["parameters"].append(self.build_param(param))
+                        swagger_resource["parameters"].append(
+                            self.build_param(param))
                 except AttributeError:
-                    self.logger.debug("   WARN: wadllib can't get parameters, possibly a wadllib bug")
-                    self.logger.debug("     (It seems like it only works if the resource has a GET method")
+                    self.logger.debug(
+                        "   WARN: wadllib can't get parameters, possibly a wadllib bug")
+                    self.logger.debug(
+                        "     (It seems like it only works if the resource has a GET method")
 
                 for method in resource.method_iter:
-                    self.logger.debug("    Processing method %s %s", method.name, path)
+                    self.logger.debug(
+                        "    Processing method %s %s", method.name, path)
                     verb = method.name
                     if self.autofix and verb == 'copy':
-                        self.logger.warn("Autofix: Using PUT instead of COPY verb (OpenStack services accept either, Swagger does not allow COPY)")
+                        self.logger.warn(
+                            "Autofix: Using PUT instead of COPY verb (OpenStack services accept either, Swagger does not allow COPY)")
                         verb = 'put'
                     swagger_method = swagger_resource[verb] = OrderedDict()
                     # Rackspace specific...
@@ -134,38 +151,45 @@ class SwaggerConverter:
                         try:
                             statuses = response.tag.attrib['status'].split()
                         except KeyError as e:
-                            raise BadWADLError("Response has no status", e, wadl_file)
+                            raise BadWADLError(
+                                "Response has no status", e, wadl_file)
 
                         for status in statuses:
                             swagger_method['responses'][
                                 int(status)] = self.build_response(response)
 
                             code_sample = None
-                            code_samples = response.tag.findall('.//' + WADL.qname('docbook', 'programlisting') + '[@language="javascript"]')
+                            code_samples = response.tag.findall(
+                                './/' + WADL.qname('docbook', 'programlisting') + '[@language="javascript"]')
                             if code_samples:
                                 try:
-                                    code_sample = code_samples[-1].text # if there is more than one, the first is usually HTTP headers
+                                    # if there is more than one, the first is
+                                    # usually HTTP headers
+                                    code_sample = code_samples[-1].text
                                     try:
                                         json.loads(code_sample)
                                     except ValueError:
                                         if self.autofix:
                                             # sometimes the headers are in the same sample
                                             # strip them and check again
-                                            match = re.match(r'.*^([\{\[].*)\Z', code_sample, (re.MULTILINE | re.DOTALL))
+                                            match = re.match(
+                                                r'.*^([\{\[].*)\Z', code_sample, (re.MULTILINE | re.DOTALL))
                                             if match:
                                                 code_sample = match.group(1)
                                                 json.loads(code_sample)
                                         else:
                                             raise
                                 except ValueError as e:
-                                    error = WADLParseError("Unparsable code sample", wadl_file, swagger_method['summary'], e)
+                                    error = WADLParseError(
+                                        "Unparsable code sample", wadl_file, swagger_method['summary'], e)
                                     if self.strict:
                                         raise error
                                     else:
                                         self.logger.error(str(error))
 
                             if code_sample:
-                                swagger_method['responses'][int(status)]['examples'] = self.build_code_sample(code_sample)
+                                swagger_method['responses'][
+                                    int(status)]['examples'] = self.build_code_sample(code_sample)
             swagger = merge_dicts(swagger, defaults)
             return swagger
         # except WADLError as e:
@@ -229,14 +253,15 @@ class SwaggerConverter:
         if self.autofix and param['in'] == 'body':
             # FIXME: Ideally we need to be generating models
             self.logger.warn("Autofix: Ignoring type on body parameter")
-            type = None # body cannot have type,
+            type = None  # body cannot have type,
             if "schema" not in param:
                 self.logger.warn("Autofix: body params need a schema")
                 param['schema'] = {}
         if type is not None:
             param["type"] = type
         if DocHelper.doc_tag(wadl_param) is not None and DocHelper.doc_tag(wadl_param).text is not None:
-            description = DocHelper.description_text(DocHelper.doc_tag(wadl_param))
+            description = DocHelper.description_text(
+                DocHelper.doc_tag(wadl_param))
             # Cleanup whitespace...
             description = textwrap.dedent(description)
             param["description"] = folded(description)
@@ -261,23 +286,33 @@ class SwaggerConverter:
 
 # pyyaml presenters
 
-class quoted(str): pass
+
+class quoted(str):
+    pass
+
 
 def quoted_presenter(dumper, data):
     return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='"')
 yaml.add_representer(quoted, quoted_presenter)
 
-class folded(unicode): pass
+
+class folded(unicode):
+    pass
+
 
 def folded_presenter(dumper, data):
     return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='>')
 yaml.add_representer(folded, folded_presenter)
 
-class literal(unicode): pass
+
+class literal(unicode):
+    pass
+
 
 def literal_presenter(dumper, data):
     return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
 yaml.add_representer(literal, literal_presenter)
+
 
 def ordered_dict_presenter(dumper, data):
     return dumper.represent_dict(data.items())

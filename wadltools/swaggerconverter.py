@@ -250,13 +250,19 @@ class SwaggerConverter:
         param['required'] = wadl_param.is_required
         param['in'] = self.style_to_in(wadl_param.style)
 
-        if self.autofix and param['in'] == 'body':
-            # FIXME: Ideally we need to be generating models
-            self.logger.warn("Autofix: Ignoring type on body parameter")
-            type = None  # body cannot have type,
-            if "schema" not in param:
-                self.logger.warn("Autofix: body params need a schema")
-                param['schema'] = {}
+        if self.autofix:
+            if param['in'] == 'body':
+                # FIXME: Ideally we need to be generating models
+                self.logger.warn("Autofix: Ignoring type on body parameter")
+                type = None  # body cannot have type,
+                if "schema" not in param:
+                    self.logger.warn("Autofix: body params need a schema")
+                    param['schema'] = {}
+            if param['in'] == 'path':
+                if param['required'] is not True:
+                    self.logger.warn("Autofix: path parameters must be required in Swagger (%s)", param['name'])
+                    param['required'] = True
+
         if type is not None:
             param["type"] = type
         if DocHelper.doc_tag(wadl_param) is not None and DocHelper.doc_tag(wadl_param).text is not None:

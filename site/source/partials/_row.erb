@@ -9,7 +9,8 @@
     <%- raw_git_url = "https://rawgit.com/rackerlabs/wadl2swagger/gh-pages/swagger/" -%>
     <%- validator_url = "http://online.swagger.io/validator?url=#{raw_git_url}#{basename}.json" -%>
     <%- validator_debug_url = "http://online.swagger.io/validator/debug?url=#{raw_git_url}#{basename}.json" -%>
-    <%- edit_url = "http://editor.swagger.io/#/edit?import=#{raw_git_url}#{basename}.yaml" -%>
+    <!-- Issues with Content-Type and Access-Control-Allow-Origin for YAML files prevent us from opening the YAML directly from GitHub. We can serve them as JSON. -->
+    <%- edit_url = "http://editor.swagger.io/#/edit?import=#{raw_git_url}#{basename}.json" -%>
     <a href="<%= edit_url %>"><img src="<%= validator_url %>"/></a>
   </td>
   <%- end -%>

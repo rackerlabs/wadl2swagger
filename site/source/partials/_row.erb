@@ -6,7 +6,7 @@
   <%- if swagger_json.nil? -%>
     N/A
   <%- else -%>
-    <%- raw_git_url = "https://cdn.rawgit.com/rackerlabs/wadl2swagger/gh-pages/swagger/" -%>
+    <%- raw_git_url = "https://rawgit.com/rackerlabs/wadl2swagger/gh-pages/swagger/" -%>
     <%- validator_url = "http://online.swagger.io/validator?url=#{raw_git_url}#{basename}.json" -%>
     <%- validator_debug_url = "http://online.swagger.io/validator/debug?url=#{raw_git_url}#{basename}.json" -%>
     <%- edit_url = "http://editor.swagger.io/#/edit?import=#{raw_git_url}#{basename}.yaml" -%>

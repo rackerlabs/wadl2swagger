@@ -265,12 +265,13 @@ class SwaggerConverter:
 
         if type is not None:
             param["type"] = type
-        if DocHelper.doc_tag(wadl_param) is not None and DocHelper.doc_tag(wadl_param).text is not None:
-            description = DocHelper.description_text(
-                DocHelper.doc_tag(wadl_param))
-            # Cleanup whitespace...
-            description = textwrap.dedent(description)
-            param["description"] = folded(description)
+        if self.options.nodoc is not True:
+            if DocHelper.doc_tag(wadl_param) is not None and DocHelper.doc_tag(wadl_param).text is not None:
+                description = DocHelper.description_text(
+                    DocHelper.doc_tag(wadl_param))
+                # Cleanup whitespace...
+                description = textwrap.dedent(description)
+                param["description"] = folded(description)
         return param
 
     def build_response(self, wadl_response):

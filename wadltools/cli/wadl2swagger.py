@@ -35,6 +35,8 @@ def main():
                         help='Fail on the first problematic WADL or attempt to continue and convert the rest')
     parser.add_argument('--strict', dest='strict', action='store_true',
                         help='fail on data that cannot be converted or just print a warning and skip it')
+    parser.add_argument('--no-doc', dest='nodoc', action='store_true',
+                        help='Do not convert documentation tags, only semantically useful information about the API')
     parser.add_argument(
         'wadl_file', nargs='+', metavar='WADL_FILE', help="wadl files to convert")
     parser.add_argument(

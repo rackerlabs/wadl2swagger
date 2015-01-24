@@ -19,7 +19,7 @@ function fail_unless_expected {
 
 pushd openstack
   # Simple conversion:
-  wadl2swagger --no-doc --autofix wadls/*.wadl -f json
+  wadl2swagger --autofix wadls/*.wadl -f json
 
   # But if we want separate log files:
   # for wadl in wadls/*.wadl; do

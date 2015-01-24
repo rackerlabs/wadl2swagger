@@ -225,13 +225,17 @@ class SwaggerConverter:
                 # null?
                 # object/complex types?
                 "xsd:string": "string",
+                "xsd:anyURI": "string",  # should be string w/ format or regex
+                "xsd:dateTime": "string",  # should be string w/ format or regex
                 "xsd:date": "string",  # should be string w/ format or regex
                 "xsd:time": "string"  # should be string w/ format or regex
             }[xsd_type]
         except KeyError:
             self.logger.warn("Using unknown type: %s", xsd_type)
             # return xsd_type
-            return None
+            # return "None"
+            # Let's just assume string...
+            return "string"
 
     def style_to_in(self, style):
         return {

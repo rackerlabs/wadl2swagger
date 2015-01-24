@@ -84,6 +84,7 @@ class DocHelper:
 
     @staticmethod
     def element_for(doc_tag):
+        # TODO: Get rid of all of this, just run through pandoc w/ -f docbook -t markdown_github
         tag_type = doc_tag.tag
         attrs = {}
         if tag_type == WADL.qname('docbook', 'citetitle'):

@@ -123,7 +123,7 @@ class SwaggerConverter:
                     swagger_method['summary'] = self.build_summary(method)
                     description = DocHelper.short_desc(method)
                     if description is not None:
-                        swagger_method['description'] = description.text
+                        swagger_method['description'] = folded(description.text.strip())
                     # swagger_method['operationId'] = method.tag.attrib['id']
                     # swagger_method['consumes'] = []
                     swagger_method['produces'] = []
@@ -166,19 +166,7 @@ class SwaggerConverter:
                                     # if there is more than one, the first is
                                     # usually HTTP headers
                                     code_sample = code_samples[-1].text
-                                    try:
-                                        json.loads(code_sample)
-                                    except ValueError:
-                                        if self.autofix:
-                                            # sometimes the headers are in the same sample
-                                            # strip them and check again
-                                            match = re.match(
-                                                r'.*^([\{\[].*)\Z', code_sample, (re.MULTILINE | re.DOTALL))
-                                            if match:
-                                                code_sample = match.group(1)
-                                                json.loads(code_sample)
-                                        else:
-                                            raise
+                                    code_sample = self.fix_json(code_sample)
                                 except ValueError as e:
                                     error = WADLParseError(
                                         "Unparsable code sample", wadl_file, swagger_method['summary'], e)
@@ -195,6 +183,22 @@ class SwaggerConverter:
         # except WADLError as e:
         except Exception as e:
             raise BadWADLError("Could not convert WADL", e, wadl_file)
+
+    def fix_json(self, json_sample):
+        try:
+            json.loads(json_sample)
+        except ValueError:
+            if self.autofix:
+                # sometimes the headers are in the same sample
+                # strip them and check again
+                match = re.match(
+                    r'.*^([\{\[].*)\Z', json_sample, (re.MULTILINE | re.DOTALL))
+                if match:
+                    json_sample = match.group(1)
+                    json.loads(json_sample)
+            else:
+                raise
+        return json_sample
 
     def default_swagger_dict(self, swagger_file):
         filename, _ = os.path.splitext(os.path.split(swagger_file)[1])
@@ -283,12 +287,17 @@ class SwaggerConverter:
             description = "%s response" % status
 
         return {
-            "description": literal(description)
+            "description": folded(description)
         }
 
     def build_code_sample(self, wadl_code_sample):
         examples = OrderedDict()
-        examples['application/json'] = literal(wadl_code_sample)
+        try:
+            data = json.loads(wadl_code_sample)
+            pretty = json.dumps(data, indent=4, separators=(',', ': '))
+            examples['application/json'] = folded(pretty)
+        except:
+            pass
         return examples
 
 # pyyaml presenters

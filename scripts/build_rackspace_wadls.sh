@@ -12,14 +12,16 @@ function fail_unless_expected {
 
 pushd rackspace
   # Simple conversion:
-  # wadl2swagger --no-doc --autofix wadls/*.wadl
+  wadl2swagger --no-doc --autofix wadls/*.wadl -f json
 
   # But if we want separate log files:
-  for wadl in wadls/*.wadl; do
-    basename=${wadl%.wadl}
-    wadl2swagger --no-doc --autofix $wadl -l "$basename.log"
-    if [ $? -ne 0 ]; then
-      fail_unless_expected $wadl
-    fi
-  done
+  # for wadl in wadls/*.wadl; do
+  #   basename=${wadl%.wadl}
+  #   wadl2swagger --autofix $wadl -l "$basename.log" -f json
+  #   # Requires swagger-tools... npm install -g swagger-tools
+  #   # swagger-tools validate $basename.yaml
+  #   if [ $? -ne 0 ]; then
+  #     fail_unless_expected $wadl
+  #   fi
+  # done
 popd

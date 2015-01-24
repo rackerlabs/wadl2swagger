@@ -9,6 +9,7 @@ import wadltools
 from wadltools import WADL, SwaggerConverter, BadWADLError
 from collections import OrderedDict
 import yaml
+import json
 
 
 def mkdir_p(path):
@@ -43,6 +44,8 @@ def main():
         "-v", "--verbose", help="increase output verbosity", action="store_true")
     parser.add_argument(
         "-l", "--log-file", help="file for conversion log", default="wadl2swagger.log")
+    parser.add_argument(
+        "-f", "--format", help="output format (json or yaml)", default="yaml")
 
     args = parser.parse_args()
 
@@ -59,13 +62,13 @@ def main():
     for wadl_file in args.wadl_file:
         # better way to get basename w/out ext?
         filename, wadl_ext = os.path.splitext(os.path.split(wadl_file)[1])
-        swagger_file = os.path.join(args.swagger_dir, filename + '.yaml')
+        swagger_file = os.path.join(args.swagger_dir, filename + '.' + args.format)
         mkdir_p(os.path.dirname(swagger_file))
         converter = SwaggerConverter(args)
         try:
             swagger = converter.convert(filename, wadl_file, swagger_file)
             logging.info("Saving swagger to %s", swagger_file)
-            save_swagger(swagger, swagger_file)
+            save_swagger(swagger, swagger_file, args.format)
         except BadWADLError as e:
             failed[wadl_file] = e
             if args.failfast:
@@ -88,9 +91,12 @@ def summarize_and_exit(failed):
         exit(1)
 
 
-def save_swagger(swagger, filename):
-    with open(filename, 'w') as yaml_file:
-        yaml_file.write(yaml.dump(swagger, default_flow_style=False))
+def save_swagger(swagger, filename, format):
+    with open(filename, 'w') as swagger_file:
+        if (format == "json"):
+            swagger_file.write(json.dumps(swagger, indent=4, separators=(',', ': ')))
+        else:
+            swagger_file.write(yaml.dump(swagger, default_flow_style=False))
 
 if __name__ == '__main__':
     main()

@@ -11,8 +11,8 @@ wadl2swagger is a command line tool for converting [WADL](http://www.w3.org/Subm
 Example Results
 ---------------
 
-- [Converted WADLs for Rackspace](http://rackerlabs.github.io/wadl2swagger/rackspace)
-- [Converted WADLs for OpenStack](http://rackerlabs.github.io/wadl2swagger/openstack)
+- [Converted WADLs for Rackspace](http://rackerlabs.github.io/wadl2swagger/rackspace.html)
+- [Converted WADLs for OpenStack](http://rackerlabs.github.io/wadl2swagger/openstack.html)
 
 
 Installation

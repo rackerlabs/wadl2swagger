@@ -56,3 +56,8 @@ swagger/
 wadls/
 site/Gemfile.lock
 site/build
+rackspace/
+openstack/
+site/source/rackspace
+site/source/openstack
+

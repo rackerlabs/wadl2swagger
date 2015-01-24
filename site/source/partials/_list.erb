@@ -1,10 +1,6 @@
----
-layout: default
----
-
-<% wadls = sitemap.resources.select{|resource| resource.ext == '.wadl' } %>
-<%- swagger_yamls = sitemap.resources.select{|resource| resource.ext == '.yaml'} -%>
-<%- swagger_jsons = sitemap.resources.select{|resource| resource.ext == '.json'} -%>
+<% wadls = sitemap.resources.select{|resource| resource.path.start_with?(dir) && resource.ext == '.wadl' } %>
+<%- swagger_yamls = sitemap.resources.select{|resource| resource.path.start_with?(dir) && resource.ext == '.yaml'} -%>
+<%- swagger_jsons = sitemap.resources.select{|resource| resource.path.start_with?(dir) && resource.ext == '.json'} -%>
 <%- rows = wadls.map do |wadl_file|
       basename = File.basename(wadl_file.source_file, File.extname(wadl_file.source_file))
       swagger_yaml_file = swagger_yamls.find {|swagger| File.basename(swagger.source_file) == "#{basename}.yaml" }

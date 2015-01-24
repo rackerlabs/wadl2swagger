@@ -5,7 +5,7 @@ class Default < Thor
   include Thor::Actions
 
   desc 'yaml2json [YAML_FILES]', 'Converts Swagger YAML to JSON'
-  def yaml2json(pattern = 'source/swagger/*.yaml', *yaml_files)
+  def yaml2json(pattern = 'source/**/swagger/*.yaml', *yaml_files)
     if yaml_files.empty?
       yaml_files = Dir[pattern]
     else

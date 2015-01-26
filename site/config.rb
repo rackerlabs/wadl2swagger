@@ -43,3 +43,17 @@ configure :build do
 
   set :build_dir, './build'
 end
+
+helpers do
+  def swagger_validation_image(log_file)
+    validation_result = File.read(log_file.source_file.lines[-1])
+    case validation_result
+    when /Invalid/
+      url_for "images/invalid.png"
+    when /Valid/
+      url_for "images/valid.png"
+    else
+      url_for "images/error.png"
+    end
+  end
+end

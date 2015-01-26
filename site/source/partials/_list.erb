@@ -1,12 +1,13 @@
-<% wadls = sitemap.resources.select{|resource| resource.path.start_with?(dir) && resource.ext == '.wadl' } %>
-<%- swagger_yamls = sitemap.resources.select{|resource| resource.path.start_with?(dir) && resource.ext == '.yaml'} -%>
-<%- swagger_jsons = sitemap.resources.select{|resource| resource.path.start_with?(dir) && resource.ext == '.json'} -%>
-<%- rows = wadls.map do |wadl_file|
-      basename = File.basename(wadl_file.source_file, File.extname(wadl_file.source_file))
-      swagger_yaml_file = swagger_yamls.find {|swagger| File.basename(swagger.source_file) == "#{basename}.yaml" }
-      swagger_json_file = swagger_jsons.find {|swagger| File.basename(swagger.source_file) == "#{basename}.json" }
-      { :basename => basename, :wadl => wadl_file, :swagger_yaml => swagger_yaml_file, :swagger_json => swagger_json_file }
-    end
+<%-
+  scoped_resources = sitemap.resources.select{|resource| resource.path.start_with?(dir) }
+  wadls = scoped_resources.select{|resource| resource.ext == '.wadl' }
+  rows = wadls.map do |wadl_file|
+    basename = File.basename(wadl_file.source_file, File.extname(wadl_file.source_file))
+    swagger_yaml_file = scoped_resources.find {|resource| File.basename(resource.source_file) == "#{basename}.yaml" }
+    swagger_json_file = scoped_resources.find {|resource| File.basename(resource.source_file) == "#{basename}.json" }
+    log_file = scoped_resources.find {|resource| File.basename(resource.source_file) == "#{basename}.log" }
+    { :basename => basename, :wadl => wadl_file, :swagger_yaml => swagger_yaml_file, :swagger_json => swagger_json_file, :log_file => log_file }
+  end
 -%>
 
 <header>
@@ -19,6 +20,7 @@
     <th>Swagger File (YAML)</th>
     <th>Swagger File (JSON)</th>
     <th>Swagger valid?</th>
+    <th>Edit</th>
   </tr>
   <%- rows.each do | row | -%>
     <%= partial 'partials/row', :locals => row %>

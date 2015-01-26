@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# wadl2swagger blows up trying to convert these files, but because the WADLs contain issues
 function fail_unless_expected {
   echo $1
   if [[ "$1" == *"os-object-api-1.0.wadl"* ]] || [[ "$1" == *"identity-admin-v3.wadl"* ]] || [[ "$1" == *"os-image-1.0.wadl"* ]] || [[ "$1" == *"security-groups.wadl"* ]]; then
@@ -10,23 +11,34 @@ function fail_unless_expected {
   fi
 }
 
-# Remove WADLs with known issues - should be corrected
-  rm wadls/os-object-api-1.0.wadl
-  rm wadls/identity-admin-v3.wadl
-  rm wadls/os-image-1.0.wadl
-  rm wadls/security-groups.wadl
-
-
 pushd openstack
   # Simple conversion:
-  wadl2swagger --autofix wadls/*.wadl -f json
+  # wadl2swagger --autofix wadls/*.wadl -f json
 
   # But if we want separate log files:
-  # for wadl in wadls/*.wadl; do
-  #   basename=${wadl%.wadl}
-  #   wadl2swagger --autofix $wadl -l "$basename.log"
-  #   if [ $? -ne 0 ]; then
-  #     fail_unless_expected $wadl
-  #   fi
-  # done
+  for wadl in wadls/*.wadl; do
+    basename=${wadl##*/}
+    basename=${basename%.wadl}
+    log_file="swagger/${basename}.log"
+    wadl2swagger --autofix $wadl -f json -l $log_file
+    if [ $? -ne 0 ]; then
+      fail_unless_expected $wadl
+    fi
+    echo >> $log_file
+    echo "Validating with swagger-tools..." >> $log_file
+    swagger-tools validate "swagger/$basename.json" 2>&1 | tee -a $log_file
+    echo >> $log_file
+
+    case "${PIPESTATUS[0]}" in
+      "0")
+        echo "Valid" >> $log_file
+        ;;
+      "1")
+        echo "Invalid" >> $log_file
+        ;;
+      *)
+        echo "Error (exit code ${PIPESTATUS[0]})" >> $log_file
+        ;;
+    esac
+  done
 popd

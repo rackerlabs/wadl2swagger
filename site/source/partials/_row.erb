@@ -1,18 +1,28 @@
+<%-
+  raw_git_url = "https://rawgit.com/rackerlabs/wadl2swagger/gh-pages/swagger/"
+  unless swagger_json.nil?
+    full_yaml_url = settings.site_url + url_for(swagger_yaml)
+    full_json_url = settings.site_url + url_for(swagger_json)
+    edit_url = "http://editor.swagger.io/#/edit?import=#{full_yaml_url}"
+  end
+  unless log_file.nil?
+    validation_log = url_for(log_file)
+    validation_img = swagger_validation_image(log_file)
+  end
+-%>
 <tr>
   <td><%= partial 'partials/file_link', :locals => {:file => wadl } %></td>
   <td><%= partial 'partials/file_link', :locals => {:file => swagger_yaml } %></td>
   <td><%= partial 'partials/file_link', :locals => {:file => swagger_json } %></td>
-  <td>
   <%- if swagger_json.nil? -%>
-    N/A
+    <td>N/A</td>
+    <td>N/A</td>
   <%- else -%>
-    <%- raw_git_url = "https://rawgit.com/rackerlabs/wadl2swagger/gh-pages/swagger/" -%>
-    <%- full_yaml_url = settings.site_url + url_for(swagger_yaml) %>
-    <%- full_json_url = settings.site_url + url_for(swagger_json) %>
-    <%- validator_url = "http://online.swagger.io/validator?url=#{full_json_url}" -%>
-    <%- validator_debug_url = "http://online.swagger.io/validator/debug?url=#{full_json_url}" -%>
-    <%- edit_url = "http://editor.swagger.io/#/edit?import=#{full_yaml_url}" -%>
-    <a href="<%= edit_url %>"><img src="<%= validator_url %>" target="_blank"/></a>
-  </td>
+    <td>
+      <a href="<%= validation_log %>"><img src="<%= validation_img %>" target="_blank"/></a>
+    </td>
+    <td>
+      <a href="<%= edit_url %>">Open on Swagger-Editor</a>
+    </td>
   <%- end -%>
 </tr>

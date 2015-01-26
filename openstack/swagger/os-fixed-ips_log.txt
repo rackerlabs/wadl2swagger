@@ -1,0 +1,10 @@
+INFO:wadls/os-fixed-ips.wadl:Converting: wadls/os-fixed-ips.wadl to swagger/os-fixed-ips.json
+WARNING:wadls/os-fixed-ips.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-fixed-ips.wadl:No support for application/json for resource at /v2/{tenant_id}/os-fixed-ips/{fixed_ip}/action
+WARNING:wadls/os-fixed-ips.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-fixed-ips.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

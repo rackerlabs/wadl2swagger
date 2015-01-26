@@ -1,0 +1,76 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-ext-img-size",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/images/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listDetailImage",
+                "summary": "List details for images",
+                "description": "Lists details for available images. Includes the image size.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"images\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"OS-EXT-IMG-SIZE:size\": \"74185822\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"name\": \"fakeimage7\",\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"metadata\": {\n                \"auto_disk_config\": \"True\",\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\",\n                \"architecture\": \"x86_64\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"OS-EXT-IMG-SIZE:size\": \"25165824\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"name\": \"fakeimage123456\",\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\",\n                \"architecture\": \"x86_64\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"OS-EXT-IMG-SIZE:size\": \"58145823\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"name\": \"fakeimage123456\",\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"a2459075-d96c-40d5-893e-577ff92e721c\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"OS-EXT-IMG-SIZE:size\": \"49163826\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"name\": \"fakeimage6\",\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"a440c04b-79fa-479c-bed1-0b816eaec379\",\n            \"metadata\": {\n                \"auto_disk_config\": \"False\",\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\",\n                \"architecture\": \"x86_64\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"OS-EXT-IMG-SIZE:size\": \"26360814\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"name\": \"fakeimage123456\",\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n            \"metadata\": {\n                \"kernel_id\": \"155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                \"ramdisk_id\": null\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"OS-EXT-IMG-SIZE:size\": \"84035174\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"name\": \"fakeimage123456\",\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"cedef40a-ed67-4d10-800e-17455edce175\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"OS-EXT-IMG-SIZE:size\": \"83594576\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"name\": \"fakeimage123456\",\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\"\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/images/{image_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "image_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Image ID stored through the image API. Typically a UUID.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getImage",
+                "summary": "Get image details",
+                "description": "Gets details for a specified image. Includes the image size.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"image\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": \"2011-01-01T01:02:03Z\",\n        \"OS-EXT-IMG-SIZE:size\": \"74185822\",\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"rel\": \"bookmark\"\n            },\n            {\n                \"href\": \"http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"type\": \"application/vnd.openstack.image\",\n                \"rel\": \"alternate\"\n            }\n        ],\n        \"created\": \"2011-01-01T01:02:03Z\",\n        \"minDisk\": 0,\n        \"name\": \"fakeimage7\",\n        \"progress\": 100,\n        \"minRam\": 0,\n        \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n        \"metadata\": {\n            \"auto_disk_config\": \"True\",\n            \"kernel_id\": \"nokernel\",\n            \"ramdisk_id\": \"nokernel\",\n            \"architecture\": \"x86_64\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

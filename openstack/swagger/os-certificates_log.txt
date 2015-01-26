@@ -1,0 +1,8 @@
+INFO:wadls/os-certificates.wadl:Converting: wadls/os-certificates.wadl to swagger/os-certificates.json
+WARNING:wadls/os-certificates.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-certificates.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

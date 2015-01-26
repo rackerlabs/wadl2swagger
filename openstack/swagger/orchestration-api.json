@@ -1,0 +1,1344 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "orchestration-api",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "getVersions-heat-v1",
+                "summary": "List versions",
+                "description": "Lists information about all Orchestration API versions.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"versions\": [\n        {\n            \"status\": \"CURRENT\",\n            \"id\": \"v1.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:8000/v1/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "post": {
+                "operationId": "stack_adopt",
+                "summary": "Adopt stack",
+                "description": "Creates a stack from existing resources.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"stack\": {\n        \"id\": \"5333af0c-cc26-47ee-ac3d-8784cefafbd7\",\n        \"links\": [\n            {\n                \"href\": \"http://192.168.123.200:8004/v1/eb1c63a4f77141548385f113a28f0f52/stacks/simple_stack/5333af0c-cc26-47ee-ac3d-8784cefafbd7\",\n                \"rel\": \"self\"\n            }\n        ]\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "stack_list",
+                "summary": "List stack data",
+                "description": "Lists active stacks.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"stacks\": [\n        {\n            \"description\": \"sample stack\",\n            \"links\": [\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/eb1c63a4f77141548385f113a28f0f52/stacks/simple_stack/3095aefc-09fb-4bc7-b1f0-f21a304e864c\",\n                    \"rel\": \"self\"\n                }\n            ],\n            \"stack_status_reason\": \"Stack CREATE completed successfully\",\n            \"stack_name\": \"simple_stack\",\n            \"creation_time\": \"2014-06-03T20:59:46Z\",\n            \"updated_time\": \"\",\n            \"stack_status\": \"CREATE_COMPLETE\",\n            \"id\": \"3095aefc-09fb-4bc7-b1f0-f21a304e864c\"\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters the stack list by the specified status. You can use this filter multiple times to filter by multiple statuses.\n"
+                    },
+                    {
+                        "name": "name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters the stack list by the specified name.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Limits the number of stacks that appear on a page to this value. The typical pattern of limit and marker is to make an initial limited request and then to use the ID of the last stack from the response as the marker parameter in a subsequent limited request.\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Specifies the ID of the last-seen stack. The typical pattern of limit and marker is to make an initial limited request and then to use the ID of the last stack from the response as the marker parameter in a subsequent limited request.\n"
+                    },
+                    {
+                        "name": "show_deleted",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Specifies whether to include deleted stacks in the stack list. Set to False by default, so that deleted stacks are not shown in the results of the GET request unless you set this value to True.\n"
+                    },
+                    {
+                        "name": "sort_keys",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Sorts the stack list by one of these attributes: `name`, `status`, `created_at`, or `updated_at`.\n"
+                    },
+                    {
+                        "name": "sort_dir",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The sort direction of the stack list. Either `asc` (ascending) or `desc` (descending).\n"
+                    }
+                ]
+            }
+        },
+        "/v1/{tenant_id}/stacks/preview": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "post": {
+                "operationId": "stack_preview",
+                "summary": "Preview stack",
+                "description": "Previews a stack.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"stack\": {\n        \"disable_rollback\": true,\n        \"template_description\": \"Sample template description.\",\n        \"parent\": null,\n        \"stack_status_reason\": \"\",\n        \"stack_name\": \"sample_stack\",\n        \"creation_time\": \"2014-02-19T16:04:56Z\",\n        \"links\": [\n            {\n                \"href\": \"http://10.0.2.15:8004/v1/2e327e5e7fa94b25a44be66fd9d1ec4d/stacks/sample_stack/None\",\n                \"rel\": \"self\"\n            }\n        ],\n        \"capabilities\": [],\n        \"notification_topics\": [],\n        \"parameters\": {\n            \"DBUsername\": \"******\",\n            \"InstanceType\": \"m1.small\",\n            \"AWS::StackName\": \"sample_stack\",\n            \"DBRootPassword\": \"******\",\n            \"AWS::StackId\": \"arn:openstack:heat::2e327e5e7fa94b25a44be66fd9d1ec4d:stacks/sample_stack/None\",\n            \"KeyName\": \"heat_key\",\n            \"DBPassword\": \"******\",\n            \"AWS::Region\": \"ap-southeast-1\",\n            \"DBName\": \"wordpress\",\n            \"LinuxDistribution\": \"F17\"\n        },\n        \"timeout_mins\": 60,\n        \"stack_status\": \"_\",\n        \"updated_time\": \"2014-02-19T16:04:56Z\",\n        \"id\": \"None\",\n        \"resources\": [\n            {\n                \"resource_name\": \"WikiDatabase-1\",\n                \"resource_identity\": {\n                    \"stack_id\": \"None\",\n                    \"path\": \"/resources/WikiDatabase-1\",\n                    \"tenant\": \"2e327e5e7fa94b25a44be66fd9d1ec4d\",\n                    \"stack_name\": \"sample_stack\"\n                },\n                \"description\": \"\",\n                \"stack_identity\": {\n                    \"stack_id\": \"None\",\n                    \"path\": \"\",\n                    \"tenant\": \"2e327e5e7fa94b25a44be66fd9d1ec4d\",\n                    \"stack_name\": \"sample_stack\"\n                },\n                \"stack_name\": \"sample_stack\",\n                \"resource_status\": \"COMPLETE\",\n                \"updated_time\": \"2014-02-19T16:04:56Z\",\n                \"required_by\": [],\n                \"resource_status_reason\": \"\",\n                \"resource_action\": \"INIT\",\n                \"physical_resource_id\": \"\",\n                \"resource_type\": \"AWS::EC2::Instance\",\n                \"metadata\": {\n                    \"AWS::CloudFormation::Init\": {\n                        \"config\": {\n                            \"services\": {\n                                \"systemd\": {\n                                    \"httpd\": {\n                                        \"ensureRunning\": \"true\",\n                                        \"enabled\": \"true\"\n                                    },\n                                    \"mysqld\": {\n                                        \"ensureRunning\": \"true\",\n                                        \"enabled\": \"true\"\n                                    }\n                                }\n                            },\n                            \"packages\": {\n                                \"yum\": {\n                                    \"httpd\": [],\n                                    \"wordpress\": [],\n                                    \"mysql-server\": [],\n                                    \"mysql\": []\n                                }\n                            }\n                        }\n                    }\n                }\n            },\n            {\n                \"other resources...\": \"other resources...\"\n            }\n        ],\n        \"description\": \"Sample template description.\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                }
+            ],
+            "get": {
+                "operationId": "stack_find",
+                "summary": "Find stack",
+                "description": "Finds the canonical URL for a specified stack.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "302": {
+                        "description": "302 response",
+                        "examples": {
+                            "application/json": "{\n    \"stack\": {\n        \"disable_rollback\": true,\n        \"description\": \"sample stack\",\n        \"links\": [\n            {\n                \"href\": \"http://192.168.123.200:8004/v1/eb1c63a4f77141548385f113a28f0f52/stacks/simple_stack/5333af0c-cc26-47ee-ac3d-8784cefafbd7\",\n                \"rel\": \"self\"\n            }\n        ],\n        \"stack_status_reason\": \"Stack CREATE completed successfully\",\n        \"stack_name\": \"simple_stack\",\n        \"outputs\": [],\n        \"creation_time\": \"2014-06-04T20:36:12Z\",\n        \"capabilities\": [],\n        \"notification_topics\": [],\n        \"updated_time\": null,\n        \"timeout_mins\": null,\n        \"stack_status\": \"CREATE_COMPLETE\",\n        \"parameters\": {\n            \"OS::stack_name\": \"simple_stack\",\n            \"OS::stack_id\": \"5333af0c-cc26-47ee-ac3d-8784cefafbd7\"\n        },\n        \"id\": \"5333af0c-cc26-47ee-ac3d-8784cefafbd7\",\n        \"template_description\": \"sample stack\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/resources": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                }
+            ],
+            "get": {
+                "operationId": "stack_resources_find",
+                "summary": "Find stack resources",
+                "description": "Finds the canonical URL for the resource list of a specified stack.\n",
+                "produces": [],
+                "responses": {
+                    "302": {
+                        "description": "302 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/events": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                }
+            ],
+            "get": {
+                "operationId": "stack_events_find",
+                "summary": "Find stack events",
+                "description": "Finds the canonical URL for the event list of a specified stack.\n",
+                "produces": [],
+                "responses": {
+                    "302": {
+                        "description": "302 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                }
+            ],
+            "get": {
+                "operationId": "stack_show",
+                "summary": "Show stack details",
+                "description": "Shows details for a specified stack.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"stack\": {\n        \"disable_rollback\": \"True\",\n        \"description\": \"sample stack\",\n        \"links\": [\n            {\n                \"href\": \"http://192.168.123.200:8004/v1/eb1c63a4f77141548385f113a28f0f52/stacks/simple_stack/3095aefc-09fb-4bc7-b1f0-f21a304e864c\",\n                \"rel\": \"self\"\n            }\n        ],\n        \"stack_status_reason\": \"Stack CREATE completed successfully\",\n        \"stack_name\": \"simple_stack\",\n        \"outputs\": [],\n        \"creation_time\": \"2014-06-03T20:59:46Z\",\n        \"capabilities\": [],\n        \"notification_topics\": [],\n        \"updated_time\": \"\",\n        \"timeout_mins\": \"\",\n        \"stack_status\": \"CREATE_COMPLETE\",\n        \"parameters\": {\n            \"OS::stack_name\": \"simple_stack\",\n            \"OS::stack_id\": \"3095aefc-09fb-4bc7-b1f0-f21a304e864c\"\n        },\n        \"id\": \"3095aefc-09fb-4bc7-b1f0-f21a304e864c\",\n        \"template_description\": \"sample stack\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "stack_update",
+                "summary": "Update stack",
+                "description": "Updates a specified stack.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "stack_delete",
+                "summary": "Delete stack",
+                "description": "Deletes a specified stack.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/abandon": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                }
+            ],
+            "delete": {
+                "operationId": "stack_abandon",
+                "summary": "Abandon stack",
+                "description": "Deletes a specified stack but leaves its resources intact, and returns data describing the stack and its resources.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"COMPLETE\",\n    \"name\": \"g\",\n    \"dry_run\": true,\n    \"template\": {\n        \"outputs\": {\n            \"instance_ip\": {\n                \"value\": {\n                    \"str_replace\": {\n                        \"params\": {\n                            \"username\": \"ec2-user\",\n                            \"hostname\": {\n                                \"get_attr\": [\n                                    \"server\",\n                                    \"first_address\"\n                                ]\n                            }\n                        },\n                        \"template\": \"ssh username@hostname\"\n                    }\n                }\n            }\n        },\n        \"heat_template_version\": \"2013-05-23\",\n        \"parameters\": {\n            \"key_name\": {\n                \"default\": \"heat_key\",\n                \"type\": \"string\"\n            },\n            \"image\": {\n                \"default\": \"fedora-amd64\",\n                \"type\": \"string\"\n            },\n            \"flavor\": {\n                \"default\": \"m1.small\",\n                \"type\": \"string\"\n            }\n        },\n        \"resources\": {\n            \"server\": {\n                \"type\": \"OS::Nova::Server\",\n                \"properties\": {\n                    \"key_name\": {\n                        \"get_param\": \"key_name\"\n                    },\n                    \"image\": {\n                        \"get_param\": \"image\"\n                    },\n                    \"flavor\": {\n                        \"get_param\": \"flavor\"\n                    }\n                }\n            }\n        }\n    },\n    \"action\": \"CREATE\",\n    \"id\": \"16934ca3-40e0-4fb2-a289-a700662ec05a\",\n    \"resources\": {\n        \"server\": {\n            \"status\": \"COMPLETE\",\n            \"name\": \"server\",\n            \"resource_data\": {},\n            \"resource_id\": \"39d5dad7-7d7a-4cc8-bd84-851e9e2ff4ea\",\n            \"action\": \"CREATE\",\n            \"type\": \"OS::Nova::Server\",\n            \"metadata\": {}\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/snapshots": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                }
+            ],
+            "post": {
+                "operationId": "stack_snapshot",
+                "summary": "Snapshot stack",
+                "description": "Takes a snapshot of all the resources in the stack.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"IN_PROGRESS\",\n    \"data\": null,\n    \"status_reason\": null,\n    \"id\": \"13c3a4b5-0585-440e-85a4-6f96b20e7a78\",\n    \"name\": \"vol_snapshot\"\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "stack_list_snapshot",
+                "summary": "List snapshots",
+                "description": "List the snapshots of a stack.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshots\": [\n        {\n            \"status\": \"IN_PROGRESS\",\n            \"data\": null,\n            \"status_reason\": null,\n            \"id\": \"7c4e1ef4-bf1b-41ab-a0c8-ce01f4ffdfa1\",\n            \"name\": \"vol_snapshot\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/snapshots/{snapshot_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                },
+                {
+                    "name": "snapshot_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of a snapshot.\n"
+                }
+            ],
+            "get": {
+                "operationId": "stack_show_snapshot",
+                "summary": "Show snapshot",
+                "description": "Show the details of a snapshot.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshot\": {\n        \"status\": \"COMPLETE\",\n        \"data\": {\n            \"status\": \"COMPLETE\",\n            \"name\": \"stack_vol1\",\n            \"stack_user_project_id\": \"fffa11067b1c48129ddfb78fba2bf09f\",\n            \"environment\": {\n                \"parameters\": {},\n                \"resource_registry\": {\n                    \"resources\": {}\n                }\n            },\n            \"template\": {\n                \"heat_template_version\": \"2013-05-23\",\n                \"resources\": {\n                    \"volume\": {\n                        \"type\": \"OS::Cinder::Volume\",\n                        \"properties\": {\n                            \"size\": 1\n                        }\n                    }\n                }\n            },\n            \"action\": \"SNAPSHOT\",\n            \"project_id\": \"ecdb08032cd042179692a1b148f6565e\",\n            \"id\": \"656452c2-e151-40da-8704-c844e69b485c\",\n            \"resources\": {\n                \"volume\": {\n                    \"status\": \"COMPLETE\",\n                    \"name\": \"volume\",\n                    \"resource_data\": {\n                        \"backup_id\": \"99108cf8-398f-461b-a043-bdceb7c9f572\"\n                    },\n                    \"resource_id\": \"3ab8cf79-807b-4c40-b743-0655f91e072f\",\n                    \"action\": \"SNAPSHOT\",\n                    \"type\": \"OS::Cinder::Volume\",\n                    \"metadata\": {}\n                }\n            }\n        },\n        \"status_reason\": \"Stack SNAPSHOT completed successfully\",\n        \"id\": \"7c4e1ef4-bf1b-41ab-a0c8-ce01f4ffdfa1\",\n        \"name\": \"vol_snapshot\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "stack_restore_snapshot",
+                "summary": "Restore snapshot",
+                "description": "Restore a stack snapshot.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "stack_delete_snapshot",
+                "summary": "Delete snapshot",
+                "description": "Delete a stack snapshot.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/actions": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                }
+            ],
+            "post": {
+                "operationId": "stack_action_resume",
+                "summary": "Resume stack",
+                "description": "Resumes a suspended stack.\n",
+                "produces": [],
+                "responses": {
+                    "201": {
+                        "description": "201 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/events": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                }
+            ],
+            "get": {
+                "operationId": "stack_event_list",
+                "summary": "List stack events",
+                "description": "Lists events for a specified stack.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"events\": [\n        {\n            \"resource_name\": \"port\",\n            \"event_time\": \"2014-07-23T08:14:47Z\",\n            \"links\": [\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/port/events/474bfdf0-a450-46ec-a78a-0c7faa404073\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/port\",\n                    \"rel\": \"resource\"\n                },\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5\",\n                    \"rel\": \"stack\"\n                }\n            ],\n            \"logical_resource_id\": \"port\",\n            \"resource_status\": \"CREATE_FAILED\",\n            \"resource_status_reason\": \"NotFound: Subnet f8a699d0-3537-429e-87a5-6b5a8d0c2bf0 could not be found\",\n            \"physical_resource_id\": null,\n            \"id\": \"474bfdf0-a450-46ec-a78a-0c7faa404073\"\n        },\n        {\n            \"resource_name\": \"port\",\n            \"event_time\": \"2014-07-23T08:14:47Z\",\n            \"links\": [\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/port/events/66fa95b6-e6f8-4f05-b1af-e828f5aba04c\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/port\",\n                    \"rel\": \"resource\"\n                },\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5\",\n                    \"rel\": \"stack\"\n                }\n            ],\n            \"logical_resource_id\": \"port\",\n            \"resource_status\": \"CREATE_IN_PROGRESS\",\n            \"resource_status_reason\": \"state changed\",\n            \"physical_resource_id\": null,\n            \"id\": \"66fa95b6-e6f8-4f05-b1af-e828f5aba04c\"\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "resource_action",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters the event list by the specified resource\\_action. You can use this filter multiple times to filter by multiple resource actions: `CREATE`, `DELETE`, `UPDATE`, `ROLLBACK`, `SUSPEND`, `RESUME` or `ADOPT`.\n"
+                    },
+                    {
+                        "name": "resource_status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters the event list by the specified resource\\_status. You can use this filter multiple times to filter by multiple resource statuses: `IN_PROGRESS`, `COMPLETE` or `FAILED`.\n"
+                    },
+                    {
+                        "name": "resource_name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters the event list by the specified resource\\_name. You can use this filter multiple times to filter by multiple resource names.\n"
+                    },
+                    {
+                        "name": "resource_type",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters the event list by the specified resource\\_type. You can use this filter multiple times to filter by multiple resource types: `OS::Nova::Server`, `OS::Cinder::Volume`, `OS::Neutron::Port`, and so on.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Limits the number of events that appear on a page to this value. The typical pattern of limit and marker is to make an initial limited request and then to use the ID of the last event from the response as the marker parameter in a subsequent limited request.\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Specifies the ID of the last-seen event. The typical pattern of limit and marker is to make an initial limited request and then to use the ID of the last event from the response as the marker parameter in a subsequent limited request.\n"
+                    },
+                    {
+                        "name": "sort_keys",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Sorts the event list by: `resource_type` or `created_at`.\n"
+                    },
+                    {
+                        "name": "sort_dir",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The sort direction of the event list. Which is `asc` (ascending) or `desc` (descending).\n"
+                    }
+                ]
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/resources": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                }
+            ],
+            "get": {
+                "operationId": "resource_list",
+                "summary": "List resources",
+                "description": "Lists resources in a stack.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "nested_depth",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Also includes resources from nested stacks up to `nested_depth` levels of recursion.\n"
+                    }
+                ]
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/resources/{resource_name}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                },
+                {
+                    "name": "resource_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a resource in the stack.\n"
+                }
+            ],
+            "get": {
+                "operationId": "resource_show",
+                "summary": "Show resource data",
+                "description": "Shows data for a specified resource.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/resources/{resource_name}/events": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                },
+                {
+                    "name": "resource_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a resource in the stack.\n"
+                }
+            ],
+            "get": {
+                "operationId": "resource_event_list",
+                "summary": "List resource events",
+                "description": "Lists events for a specified stack resource.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"events\": [\n        {\n            \"resource_name\": \"port\",\n            \"event_time\": \"2014-07-23T08:14:47Z\",\n            \"links\": [\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/port/events/474bfdf0-a450-46ec-a78a-0c7faa404073\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/port\",\n                    \"rel\": \"resource\"\n                },\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5\",\n                    \"rel\": \"stack\"\n                }\n            ],\n            \"logical_resource_id\": \"port\",\n            \"resource_status\": \"CREATE_FAILED\",\n            \"resource_status_reason\": \"NotFound: Subnet f8a699d0-3537-429e-87a5-6b5a8d0c2bf0 could not be found\",\n            \"physical_resource_id\": null,\n            \"id\": \"474bfdf0-a450-46ec-a78a-0c7faa404073\"\n        },\n        {\n            \"resource_name\": \"port\",\n            \"event_time\": \"2014-07-23T08:14:47Z\",\n            \"links\": [\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/port/events/66fa95b6-e6f8-4f05-b1af-e828f5aba04c\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/port\",\n                    \"rel\": \"resource\"\n                },\n                {\n                    \"href\": \"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/aws_port/db467ed1-50b5-4a3e-aeb1-396ff1d151c5\",\n                    \"rel\": \"stack\"\n                }\n            ],\n            \"logical_resource_id\": \"port\",\n            \"resource_status\": \"CREATE_IN_PROGRESS\",\n            \"resource_status_reason\": \"state changed\",\n            \"physical_resource_id\": null,\n            \"id\": \"66fa95b6-e6f8-4f05-b1af-e828f5aba04c\"\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "resource_action",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters the event list by the specified resource\\_action. You can use this filter multiple times to filter by multiple resource actions: `CREATE`, `DELETE`, `UPDATE`, `ROLLBACK`, `SUSPEND`, `RESUME` or `ADOPT`.\n"
+                    },
+                    {
+                        "name": "resource_status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters the event list by the specified resource\\_status. You can use this filter multiple times to filter by multiple resource statuses: `IN_PROGRESS`, `COMPLETE` or `FAILED`.\n"
+                    },
+                    {
+                        "name": "resource_name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters the event list by the specified resource\\_name. You can use this filter multiple times to filter by multiple resource names.\n"
+                    },
+                    {
+                        "name": "resource_type",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters the event list by the specified resource\\_type. You can use this filter multiple times to filter by multiple resource types: `OS::Nova::Server`, `OS::Cinder::Volume`, `OS::Neutron::Port`, and so on.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Limits the number of events that appear on a page to this value. The typical pattern of limit and marker is to make an initial limited request and then to use the ID of the last event from the response as the marker parameter in a subsequent limited request.\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Specifies the ID of the last-seen event. The typical pattern of limit and marker is to make an initial limited request and then to use the ID of the last event from the response as the marker parameter in a subsequent limited request.\n"
+                    },
+                    {
+                        "name": "sort_keys",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Sorts the event list by: `resource_type` or `created_at`.\n"
+                    },
+                    {
+                        "name": "sort_dir",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The sort direction of the event list. Which is `asc` (ascending) or `desc` (descending).\n"
+                    }
+                ]
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/resources/{resource_name}/metadata": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                },
+                {
+                    "name": "resource_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a resource in the stack.\n"
+                }
+            ],
+            "get": {
+                "operationId": "resource_metadata",
+                "summary": "Show resource metadata",
+                "description": "Shows metadata for a specified resource.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"some_other_key\": \"some_other_value\",\n        \"some_key\": \"some_value\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/resources/{resource_name}/signal": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                },
+                {
+                    "name": "resource_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a resource in the stack.\n"
+                }
+            ],
+            "post": {
+                "operationId": "resource_signal",
+                "summary": "Send a signal to a resource",
+                "description": "Sends a signal to a specified resource.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/resources/{resource_name}/events/{event_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                },
+                {
+                    "name": "resource_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a resource in the stack.\n"
+                },
+                {
+                    "name": "event_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of an event related to the resource in the stack.\n"
+                }
+            ],
+            "get": {
+                "operationId": "event_show",
+                "summary": "Show event details",
+                "description": "Shows details for a specified event.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/stacks/{stack_name}/{stack_id}/template": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "stack_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a stack.\n"
+                },
+                {
+                    "name": "stack_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier for a stack.\n"
+                }
+            ],
+            "get": {
+                "operationId": "stack_template",
+                "summary": "Get stack template",
+                "description": "Gets a template for a specified stack.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/validate": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "post": {
+                "operationId": "template_validate",
+                "summary": "Validate template",
+                "description": "Validates a specified template.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"ParameterGroups\": [\n        {\n            \"description\": \"{description}\",\n            \"parameters\": [\n                \"param_name-1\",\n                \"param_name-2\"\n            ],\n            \"label\": \"{label}\"\n        }\n    ],\n    \"Description\": \"{description}\",\n    \"Parameters\": {\n        \"{parameter_name}\": {\n            \"NoEcho\": \"{true|false}\",\n            \"Type\": \"{type}\",\n            \"Description\": \"{description}\",\n            \"Label\": \"{label}\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/resource_types": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "resource_type_list",
+                "summary": "List resource types",
+                "description": "Lists the supported template resource types.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/resource_types/{type_name}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "type_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a resource type.\n"
+                }
+            ],
+            "get": {
+                "operationId": "resource_type_get",
+                "summary": "Show resource schema",
+                "description": "Shows the interface schema for a specified resource type.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"attributes\": {\n        \"an_attribute\": {\n            \"description\": \"An attribute description .\"\n        }\n    },\n    \"properties\": {\n        \"a_property\": {\n            \"type\": \"string\",\n            \"required\": true,\n            \"update_allowed\": false,\n            \"description\": \"A resource description.\"\n        }\n    },\n    \"resource_type\": \"OS::Heat::AResourceName\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/resource_types/{type_name}/template": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "type_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of a resource type.\n"
+                }
+            ],
+            "get": {
+                "operationId": "resource_type_template",
+                "summary": "Show resource template",
+                "description": "Shows the template representation for a specified resource type.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/build_info": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "build_info_show",
+                "summary": "Show build information",
+                "description": "Shows build information for a heat deployment.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"engine\": {\n        \"revision\": \"{engine_build_revision}\"\n    },\n    \"api\": {\n        \"revision\": \"{api_build_revision}\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/software_configs": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "post": {
+                "operationId": "software_config_create",
+                "summary": "Create configuration",
+                "description": "Creates a software configuration.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"software_config\": {\n        \"inputs\": [\n            {\n                \"default\": null,\n                \"type\": \"String\",\n                \"name\": \"foo\",\n                \"description\": null\n            },\n            {\n                \"default\": null,\n                \"type\": \"String\",\n                \"name\": \"bar\",\n                \"description\": null\n            }\n        ],\n        \"group\": \"script\",\n        \"name\": \"a-config-we5zpvyu7b5o\",\n        \"outputs\": [\n            {\n                \"type\": \"String\",\n                \"name\": \"result\",\n                \"error_output\": false,\n                \"description\": null\n            }\n        ],\n        \"id\": \"ddee7aca-aa32-4335-8265-d436b20db4f1\",\n        \"config\": \"#!/bin/sh -x\\necho \\\"Writing to /tmp/$bar\\\"\\necho $foo > /tmp/$bar\\necho -n \\\"The file /tmp/$bar contains `cat /tmp/$bar` for server $deploy_server_id during $deploy_action\\\" > $heat_outputs_path.result\\necho \\\"Written to /tmp/$bar\\\"\\necho \\\"Output to stderr\\\" 1>&2\",\n        \"options\": null\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/software_configs/{config_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "config_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the configuration.\n"
+                }
+            ],
+            "get": {
+                "operationId": "software_config_show",
+                "summary": "Show configuration details",
+                "description": "Shows details for a software configuration.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"software_config\": {\n        \"inputs\": [\n            {\n                \"default\": null,\n                \"type\": \"String\",\n                \"name\": \"foo\",\n                \"description\": null\n            },\n            {\n                \"default\": null,\n                \"type\": \"String\",\n                \"name\": \"bar\",\n                \"description\": null\n            }\n        ],\n        \"group\": \"script\",\n        \"name\": \"a-config-we5zpvyu7b5o\",\n        \"outputs\": [\n            {\n                \"type\": \"String\",\n                \"name\": \"result\",\n                \"error_output\": false,\n                \"description\": null\n            }\n        ],\n        \"id\": \"ddee7aca-aa32-4335-8265-d436b20db4f1\",\n        \"config\": \"#!/bin/sh -x\\necho \\\"Writing to /tmp/$bar\\\"\\necho $foo > /tmp/$bar\\necho -n \\\"The file /tmp/$bar contains `cat /tmp/$bar` for server $deploy_server_id during $deploy_action\\\" > $heat_outputs_path.result\\necho \\\"Written to /tmp/$bar\\\"\\necho \\\"Output to stderr\\\" 1>&2\",\n        \"options\": null\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "software_config_delete",
+                "summary": "Delete config",
+                "description": "Deletes a software configuration.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/software_deployments": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "software_deployment_index",
+                "summary": "List deployments",
+                "description": "Lists all available software deployments.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"software_deployments\": [\n        {\n            \"status\": \"COMPLETE\",\n            \"server_id\": \"ec14c864-096e-4e27-bb8a-2c2b4dc6f3f5\",\n            \"config_id\": \"8da95794-2ad9-4979-8ae5-739ce314c5cd\",\n            \"output_values\": {\n                \"deploy_stdout\": \"Writing to /tmp/barmy\\nWritten to /tmp/barmy\\n\",\n                \"deploy_stderr\": \"+ echo Writing to /tmp/barmy\\n+ echo fu\\n+ cat /tmp/barmy\\n+ echo -n The file /tmp/barmy contains fu for server ec14c864-096e-4e27-bb8a-2c2b4dc6f3f5 during CREATE\\n+ echo Written to /tmp/barmy\\n+ echo Output to stderr\\nOutput to stderr\\n\",\n                \"deploy_status_code\": 0,\n                \"result\": \"The file /tmp/barmy contains fu for server ec14c864-096e-4e27-bb8a-2c2b4dc6f3f5 during CREATE\"\n            },\n            \"input_values\": null,\n            \"action\": \"CREATE\",\n            \"status_reason\": \"Outputs received\",\n            \"id\": \"ef422fa5-719a-419e-a10c-72e3a367b0b8\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "software_deployment_create",
+                "summary": "Create deployment",
+                "description": "Creates a software deployment.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"software_deployment\": {\n        \"status\": \"IN_PROGRESS\",\n        \"server_id\": \"ec14c864-096e-4e27-bb8a-2c2b4dc6f3f5\",\n        \"config_id\": \"8da95794-2ad9-4979-8ae5-739ce314c5cd\",\n        \"output_values\": null,\n        \"input_values\": null,\n        \"action\": \"CREATE\",\n        \"status_reason\": \"Deploy data available\",\n        \"id\": \"ef422fa5-719a-419e-a10c-72e3a367b0b8\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/software_deployments/{deployment_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "deployment_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the deployment.\n"
+                }
+            ],
+            "get": {
+                "operationId": "software_deployment_show",
+                "summary": "Show deployment details",
+                "description": "Shows details for a specified software deployment.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"software_deployment\": {\n        \"status\": \"IN_PROGRESS\",\n        \"server_id\": \"ec14c864-096e-4e27-bb8a-2c2b4dc6f3f5\",\n        \"config_id\": \"3d5ec2a8-7004-43b6-a7f6-542bdbe9d434\",\n        \"output_values\": null,\n        \"input_values\": null,\n        \"action\": \"CREATE\",\n        \"status_reason\": \"Deploy data available\",\n        \"id\": \"06e87bcc-33a2-4bce-aebd-533e698282d3\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "software_deployment_update",
+                "summary": "Update deployment",
+                "description": "Updates a specified software deployment.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"software_deployment\": {\n        \"status\": \"COMPLETE\",\n        \"server_id\": \"ec14c864-096e-4e27-bb8a-2c2b4dc6f3f5\",\n        \"config_id\": \"3d5ec2a8-7004-43b6-a7f6-542bdbe9d434\",\n        \"output_values\": {\n            \"deploy_stdout\": \"Writing to /tmp/baaaaa\\nWritten to /tmp/baaaaa\\n\",\n            \"deploy_stderr\": \"+ echo Writing to /tmp/baaaaa\\n+ echo fooooo\\n+ cat /tmp/baaaaa\\n+ echo -n The file /tmp/baaaaa contains fooooo for server ec14c864-096e-4e27-bb8a-2c2b4dc6f3f5 during CREATE\\n+ echo Written to /tmp/baaaaa\\n+ echo Output to stderr\\nOutput to stderr\\n\",\n            \"deploy_status_code\": 0,\n            \"result\": \"The file /tmp/baaaaa contains fooooo for server ec14c864-096e-4e27-bb8a-2c2b4dc6f3f5 during CREATE\"\n        },\n        \"input_values\": null,\n        \"action\": \"CREATE\",\n        \"status_reason\": \"Outputs received\",\n        \"id\": \"06e87bcc-33a2-4bce-aebd-533e698282d3\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "software_deployment_delete",
+                "summary": "Delete deployment",
+                "description": "Deletes a specified software deployment.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/software_deployments/metadata/{server_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the server for which to fetch configuration metadata.\n"
+                }
+            ],
+            "get": {
+                "operationId": "software_deployment_metadata",
+                "summary": "Show server configuration metadata",
+                "description": "Shows the deployment configuration metadata for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": [\n        {\n            \"inputs\": [\n                {\n                    \"default\": null,\n                    \"type\": \"String\",\n                    \"name\": \"foo\",\n                    \"value\": \"fooooo\",\n                    \"description\": null\n                },\n                {\n                    \"default\": null,\n                    \"type\": \"String\",\n                    \"name\": \"bar\",\n                    \"value\": \"baaaaa\",\n                    \"description\": null\n                },\n                {\n                    \"type\": \"String\",\n                    \"name\": \"deploy_server_id\",\n                    \"value\": \"ec14c864-096e-4e27-bb8a-2c2b4dc6f3f5\",\n                    \"description\": \"ID of the server being deployed to\"\n                },\n                {\n                    \"type\": \"String\",\n                    \"name\": \"deploy_action\",\n                    \"value\": \"CREATE\",\n                    \"description\": \"Name of the current action being deployed\"\n                },\n                {\n                    \"type\": \"String\",\n                    \"name\": \"deploy_stack_id\",\n                    \"value\": \"a/9bd57090-8954-48ab-bab9-adf9e1ac70fc\",\n                    \"description\": \"ID of the stack this deployment belongs to\"\n                },\n                {\n                    \"type\": \"String\",\n                    \"name\": \"deploy_resource_name\",\n                    \"value\": \"deployment\",\n                    \"description\": \"Name of this deployment resource in the stack\"\n                },\n                {\n                    \"type\": \"String\",\n                    \"name\": \"deploy_signal_id\",\n                    \"value\": \"http://192.168.20.103:8000/v1/signal/arn%3Aopenstack%3Aheat%3A%3Ae2a84fbdaeb047ae8da4b503f3b69f1f%3Astacks%2Fa%2F9bd57090-8954-48ab-bab9-adf9e1ac70fc%2Fresources%2Fdeployment?Timestamp=2014-03-19T20%3A30%3A59Z&SignatureMethod=HmacSHA256&AWSAccessKeyId=ca3571413e4a49998d580215517b3685&SignatureVersion=2&Signature=w6Iu%2BNbg86mqwSOUf1GLuKPO7KaD82PiGpL4ig9Q1l4%3D\",\n                    \"description\": \"ID of signal to use for signalling output values\"\n                }\n            ],\n            \"group\": \"script\",\n            \"name\": \"a-config-we5zpvyu7b5o\",\n            \"outputs\": [\n                {\n                    \"type\": \"String\",\n                    \"name\": \"result\",\n                    \"error_output\": false,\n                    \"description\": null\n                }\n            ],\n            \"id\": \"3d5ec2a8-7004-43b6-a7f6-542bdbe9d434\",\n            \"config\": \"#!/bin/sh -x\\necho \\\"Writing to /tmp/$bar\\\"\\necho $foo > /tmp/$bar\\necho -n \\\"The file /tmp/$bar contains `cat /tmp/$bar` for server $deploy_server_id during $deploy_action\\\" > $heat_outputs_path.result\\necho \\\"Written to /tmp/$bar\\\"\\necho \\\"Output to stderr\\\" 1>&2\",\n            \"options\": null\n        },\n        {\n            \"inputs\": [\n                {\n                    \"default\": null,\n                    \"type\": \"String\",\n                    \"name\": \"foo\",\n                    \"value\": \"fu\",\n                    \"description\": null\n                },\n                {\n                    \"default\": null,\n                    \"type\": \"String\",\n                    \"name\": \"bar\",\n                    \"value\": \"barmy\",\n                    \"description\": null\n                },\n                {\n                    \"type\": \"String\",\n                    \"name\": \"deploy_server_id\",\n                    \"value\": \"ec14c864-096e-4e27-bb8a-2c2b4dc6f3f5\",\n                    \"description\": \"ID of the server being deployed to\"\n                },\n                {\n                    \"type\": \"String\",\n                    \"name\": \"deploy_action\",\n                    \"value\": \"CREATE\",\n                    \"description\": \"Name of the current action being deployed\"\n                },\n                {\n                    \"type\": \"String\",\n                    \"name\": \"deploy_stack_id\",\n                    \"value\": \"a/9bd57090-8954-48ab-bab9-adf9e1ac70fc\",\n                    \"description\": \"ID of the stack this deployment belongs to\"\n                },\n                {\n                    \"type\": \"String\",\n                    \"name\": \"deploy_resource_name\",\n                    \"value\": \"other_deployment\",\n                    \"description\": \"Name of this deployment resource in the stack\"\n                },\n                {\n                    \"type\": \"String\",\n                    \"name\": \"deploy_signal_id\",\n                    \"value\": \"http://192.168.20.103:8000/v1/signal/arn%3Aopenstack%3Aheat%3A%3Ae2a84fbdaeb047ae8da4b503f3b69f1f%3Astacks%2Fa%2F9bd57090-8954-48ab-bab9-adf9e1ac70fc%2Fresources%2Fother_deployment?Timestamp=2014-03-19T20%3A30%3A59Z&SignatureMethod=HmacSHA256&AWSAccessKeyId=7b761482f8254946bcd3d5ccb36fe939&SignatureVersion=2&Signature=giMfv%2BhrAw6y%2FCMKQIQz2IhO5PkAj5%2BfP5YsL6rul3o%3D\",\n                    \"description\": \"ID of signal to use for signalling output values\"\n                }\n            ],\n            \"group\": \"script\",\n            \"name\": \"a-config-we5zpvyu7b5o\",\n            \"outputs\": [\n                {\n                    \"type\": \"String\",\n                    \"name\": \"result\",\n                    \"error_output\": false,\n                    \"description\": null\n                }\n            ],\n            \"id\": \"8da95794-2ad9-4979-8ae5-739ce314c5cd\",\n            \"config\": \"#!/bin/sh -x\\necho \\\"Writing to /tmp/$bar\\\"\\necho $foo > /tmp/$bar\\necho -n \\\"The file /tmp/$bar contains `cat /tmp/$bar` for server $deploy_server_id during $deploy_action\\\" > $heat_outputs_path.result\\necho \\\"Written to /tmp/$bar\\\"\\necho \\\"Output to stderr\\\" 1>&2\",\n            \"options\": null\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

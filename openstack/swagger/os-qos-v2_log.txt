@@ -1,0 +1,24 @@
+INFO:wadls/os-qos-v2.wadl:Converting: wadls/os-qos-v2.wadl to swagger/os-qos-v2.json
+WARNING:wadls/os-qos-v2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-qos-v2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-qos-v2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-qos-v2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-qos-v2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-qos-v2.wadl:Autofix: path parameters must be required in Swagger (qos_id)
+WARNING:wadls/os-qos-v2.wadl:No support for application/json for resource at /v2/{tenant_id}/qos-specs/{qos_id}/associate
+WARNING:wadls/os-qos-v2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-qos-v2.wadl:Autofix: path parameters must be required in Swagger (qos_id)
+WARNING:wadls/os-qos-v2.wadl:No support for application/json for resource at /v2/{tenant_id}/qos-specs/{qos_id}/disassociate
+WARNING:wadls/os-qos-v2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-qos-v2.wadl:Autofix: path parameters must be required in Swagger (qos_id)
+WARNING:wadls/os-qos-v2.wadl:No support for application/json for resource at /v2/{tenant_id}/qos-specs/{qos_id}/disassociate_all
+WARNING:wadls/os-qos-v2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-qos-v2.wadl:Autofix: path parameters must be required in Swagger (qos_id)
+WARNING:wadls/os-qos-v2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-qos-v2.wadl:Autofix: path parameters must be required in Swagger (qos_id)
+INFO:root:Saving swagger to swagger/os-qos-v2.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

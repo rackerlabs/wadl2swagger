@@ -1,0 +1,28 @@
+INFO:wadls/OS-OAUTH1-v3.wadl:Converting: wadls/OS-OAUTH1-v3.wadl to swagger/OS-OAUTH1-v3.json
+WARNING:wadls/OS-OAUTH1-v3.wadl:Unknown type: csapi:uuid for param consumer_id
+WARNING:wadls/OS-OAUTH1-v3.wadl:Using string for csapi:uuid
+WARNING:wadls/OS-OAUTH1-v3.wadl:No support for application/json for resource at /v3/OS-OAUTH1/access_token
+WARNING:wadls/OS-OAUTH1-v3.wadl:Unknown type: csapi:uuid for param user_id
+WARNING:wadls/OS-OAUTH1-v3.wadl:Using string for csapi:uuid
+WARNING:wadls/OS-OAUTH1-v3.wadl:Unknown type: csapi:uuid for param user_id
+WARNING:wadls/OS-OAUTH1-v3.wadl:Using string for csapi:uuid
+WARNING:wadls/OS-OAUTH1-v3.wadl:Unknown type: csapi:uuid for param access_token_id
+WARNING:wadls/OS-OAUTH1-v3.wadl:Using string for csapi:uuid
+WARNING:wadls/OS-OAUTH1-v3.wadl:No support for application/json for resource at /v3/OS-OAUTH1/users/{user_id}/access_tokens/{access_token_id}/roles
+WARNING:wadls/OS-OAUTH1-v3.wadl:Unknown type: csapi:uuid for param user_id
+WARNING:wadls/OS-OAUTH1-v3.wadl:Using string for csapi:uuid
+WARNING:wadls/OS-OAUTH1-v3.wadl:Unknown type: csapi:uuid for param access_token_id
+WARNING:wadls/OS-OAUTH1-v3.wadl:Using string for csapi:uuid
+WARNING:wadls/OS-OAUTH1-v3.wadl:Unknown type: csapi:uuid for param user_id
+WARNING:wadls/OS-OAUTH1-v3.wadl:Using string for csapi:uuid
+WARNING:wadls/OS-OAUTH1-v3.wadl:Unknown type: csapi:uuid for param access_token_id
+WARNING:wadls/OS-OAUTH1-v3.wadl:Using string for csapi:uuid
+WARNING:wadls/OS-OAUTH1-v3.wadl:Unknown type: csapi:uuid for param role_id
+WARNING:wadls/OS-OAUTH1-v3.wadl:Using string for csapi:uuid
+WARNING:wadls/OS-OAUTH1-v3.wadl:No support for application/json for resource at /v3/auth/tokens
+INFO:root:Saving swagger to swagger/OS-OAUTH1-v3.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

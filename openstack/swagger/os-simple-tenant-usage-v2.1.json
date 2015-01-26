@@ -1,0 +1,51 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-simple-tenant-usage-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/os-simple-tenant-usage": {
+            "get": {
+                "operationId": "retrievetenantusage",
+                "summary": "List tenant usage for all tenants",
+                "description": "Lists usage information for all tenants.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"tenant_usages\": [\n        {\n            \"total_memory_mb_usage\": 512.0,\n            \"total_vcpus_usage\": 1.0,\n            \"total_hours\": 1.0,\n            \"tenant_id\": \"openstack\",\n            \"stop\": \"2013-09-09T14:18:27.898411\",\n            \"start\": \"2013-09-09T13:18:27.898411\",\n            \"total_local_gb_usage\": 1.0\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-simple-tenant-usage/{tenant_id}": {
+            "get": {
+                "operationId": "retrievetenantall",
+                "summary": "Show usage details for tenant",
+                "description": "Shows usage details for a specified tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"tenant_usage\": {\n        \"total_memory_mb_usage\": 512.0,\n        \"total_vcpus_usage\": 1.0,\n        \"total_hours\": 1.0,\n        \"tenant_id\": \"openstack\",\n        \"stop\": \"2013-09-09T14:18:28.101337\",\n        \"server_usages\": [\n            {\n                \"instance_id\": \"bf2fbe78-ae1c-4f6b-a68b-390f12b1b983\",\n                \"uptime\": 3600,\n                \"started_at\": \"2013-09-09T13:18:28.101337\",\n                \"ended_at\": null,\n                \"memory_mb\": 512,\n                \"tenant_id\": \"openstack\",\n                \"vcpus\": 1,\n                \"hours\": 1.0,\n                \"state\": \"active\",\n                \"flavor\": \"m1.tiny\",\n                \"local_gb\": 1,\n                \"name\": \"new-server-test\"\n            }\n        ],\n        \"start\": \"2013-09-09T13:18:28.101337\",\n        \"total_local_gb_usage\": 1.0\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

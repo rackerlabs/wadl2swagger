@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-floating-ips-bulk-v2">
+        <resource id="os-floating-ips-bulk" path="/v2/{tenant_id}/os-floating-ips-bulk">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+                    </wadl:doc>
+                </param>
+         <method name="GET" rax:id="ListFloatingIPsBulk">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List floating IPs">
+               <para role="shortdesc">Lists all floating IPs.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "floating_ip_info": [
+        {
+            "address": "10.10.10.1",
+            "instance_uuid": null,
+            "interface": "eth0",
+            "pool": "nova",
+            "project_id": null
+        },
+        {
+            "address": "10.10.10.2",
+            "instance_uuid": null,
+            "interface": "eth0",
+            "pool": "nova",
+            "project_id": null
+        },
+        {
+            "address": "10.10.10.3",
+            "instance_uuid": null,
+            "interface": "eth0",
+            "pool": "nova",
+            "project_id": null
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;floating_ip_info&gt;
+  &lt;item&gt;
+    &lt;interface&gt;eth0&lt;/interface&gt;
+    &lt;instance_uuid&gt;None&lt;/instance_uuid&gt;
+    &lt;project_id&gt;None&lt;/project_id&gt;
+    &lt;pool&gt;nova&lt;/pool&gt;
+    &lt;address&gt;10.10.10.1&lt;/address&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;interface&gt;eth0&lt;/interface&gt;
+    &lt;instance_uuid&gt;None&lt;/instance_uuid&gt;
+    &lt;project_id&gt;None&lt;/project_id&gt;
+    &lt;pool&gt;nova&lt;/pool&gt;
+    &lt;address&gt;10.10.10.2&lt;/address&gt;
+  &lt;/item&gt;
+  &lt;item&gt;
+    &lt;interface&gt;eth0&lt;/interface&gt;
+    &lt;instance_uuid&gt;None&lt;/instance_uuid&gt;
+    &lt;project_id&gt;None&lt;/project_id&gt;
+    &lt;pool&gt;nova&lt;/pool&gt;
+    &lt;address&gt;10.10.10.3&lt;/address&gt;
+  &lt;/item&gt;
+&lt;/floating_ip_info&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="CreateFloatingIPsBulk">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create floating IPs">
+               <para role="shortdesc">Bulk-creates floating IPs.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "floating_ips_bulk_create": {
+        "ip_range": "192.168.1.0/24",
+        "pool": "nova",
+        "interface": "eth0"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;floating_ips_bulk_create&gt;
+&lt;ip_range&gt;192.168.1.0/24&lt;/ip_range&gt;
+&lt;pool&gt;nova&lt;/pool&gt;
+&lt;interface&gt;eth0&lt;/interface&gt;
+&lt;/floating_ips_bulk_create&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="ip_range" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The range of IP addresses to use for
+                            creating floating IPs.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "floating_ips_bulk_create": {
+        "interface": "eth0",
+        "ip_range": "192.168.1.0/24",
+        "pool": "nova"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;floating_ips_bulk_create&gt;
+  &lt;interface&gt;eth0&lt;/interface&gt;
+  &lt;ip_range&gt;192.168.1.0/24&lt;/ip_range&gt;
+  &lt;pool&gt;nova&lt;/pool&gt;
+&lt;/floating_ips_bulk_create&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource path="/v2/{tenant_id}/os-floating-ips-bulk/delete"
+                id="rax-v2-_tenant_id_-os-floating-ips-bulk-delete-0">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+                    </wadl:doc>
+                </param>
+         <method name="POST" rax:id="DeleteFloatingIPBulk">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Bulk-delete floating IPs">
+               <para role="shortdesc">Bulk-deletes floating IPs.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "ip_range": "192.168.1.0/24"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;ip_range&gt;192.168.1.0/24&lt;/ip_range&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="ip_range" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The range of IP addresses from which to
+                            bulk-delete floating IPs.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "floating_ips_bulk_delete": "192.168.1.0/24"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;floating_ips_bulk_delete&gt;192.168.1.0/24&lt;/floating_ips_bulk_delete&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                    <resource path="/v2/{tenant_id}/os-floating-ips-bulk/{host_name}"
+                id="rax-v2-_tenant_id_-os-floating-ips-bulk-_host_name_-1">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+                    </wadl:doc>
+                </param>
+         <param name="host_name" style="template" type="xsd:string">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The name of the
+                                   host of interest to
+                                you.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="ListFloatingIPsBulkbyHost">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List floating IPs by host">
+               <para role="shortdesc">Lists all floating IPs for a
+                specified host.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "floating_ip_info": [
+        {
+            "address": "10.10.10.3",
+            "instance_uuid": null,
+            "interface": "eth0",
+            "pool": "nova",
+            "project_id": null
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;floating_ip_info&gt;
+  &lt;item&gt;
+    &lt;interface&gt;eth0&lt;/interface&gt;
+    &lt;instance_uuid&gt;None&lt;/instance_uuid&gt;
+    &lt;project_id&gt;None&lt;/project_id&gt;
+    &lt;pool&gt;nova&lt;/pool&gt;
+    &lt;address&gt;10.10.10.3&lt;/address&gt;
+  &lt;/item&gt;
+&lt;/floating_ip_info&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="ListFloatingIPsBulk">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="ListFloatingIPsBulkbyHost">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="CreateFloatingIPsBulk">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="ip_range" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="DeleteFloatingIPBulk">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="ip_range" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

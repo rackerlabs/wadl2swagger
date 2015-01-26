@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:db="http://docbook.org/ns/docbook"
+              xmlns:common="http://docs.openstack.org/common/api/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-consoles-v2">
+        <resource path="/v2/{tenant_id}/servers/{server_id}/action"
+                id="action-os-consoles">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+               <para>The ID
+                            for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Server UUID">
+               <para>The UUID for the server of
+                                   interest to you.</para>
+            </wadl:doc>
+                        </param>
+         <method name="POST" rax:id="getConsole">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Get console">
+               <para role="shortdesc">Gets a console for a server
+                instance.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Get console: JSON request">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "os-getVNCConsole": {
+        "type": "novnc"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Get console: XML request">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;os-getVNCConsole type="novnc" /&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="getConsole"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Get console action">
+                        <para>Specify the <code>getConsole</code>
+                            action in the request
+                        body.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="type" style="plain" required="true" type="csapi:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Type">
+                        <para>Valid values
+                            are <code>novnc</code> and
+                                <code>xvpvnc</code>.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Get console: JSON response">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "console": {
+        "type": "novnc",
+        "url": "http://example.com:6080/vnc_auto.html?token=f9906a48-b71e-4f18-baca-c987da3ebdb3&amp;title=dafa(75ecef58-3b8e-4659-ab3b-5501454188e9)"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Get console: XML response">
+                    <xsdxt:code>
+                        <programlisting language="javascript">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;console&gt;
+  &lt;type&gt;novnc&lt;/type&gt;
+  &lt;url&gt;http://example.com:6080/vnc_auto.html?token=f9906a48-b71e-4f18-baca-c987da3ebdb3&lt;/url&gt;
+&lt;/console&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                        
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="getConsole">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="getConsole"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="type" style="plain" required="true" type="csapi:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

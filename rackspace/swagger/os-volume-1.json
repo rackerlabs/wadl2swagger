@@ -1,0 +1,342 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-volume-1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v1/{tenant_id}/volumes": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createVolume",
+                "summary": "Create volume",
+                "description": "Creates a volume.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume\": {\n        \"status\": \"available\",\n        \"display_name\": \"vol-001\",\n        \"attachments\": [],\n        \"availability_zone\": \"nova\",\n        \"bootable\": \"false\",\n        \"created_at\": \"2012-02-14T20:53:07Z\",\n        \"display_description\": \"Another volume.\",\n        \"image_id\": null,\n        \"volume_type\": \"SATA\",\n        \"snapshot_id\": null,\n        \"source_volid\": \"e3611474-589b-46b7-9bdf-5555e2e4999b\",\n        \"size\": 100,\n        \"id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n        \"metadata\": {}\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getVolumesSimple",
+                "summary": "List volumes",
+                "description": "Lists summary information for all Block Storage volumes that the tenant who submits the request can access.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volumes\": [\n        {\n            \"display_name\": \"vol-001\",\n            \"attachments\": [],\n            \"volume_type\": \"SATA\",\n            \"display_description\": \"Another volume.\",\n            \"snapshot_id\": null,\n            \"id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n            \"createdAt\": \"2012-02-14T20:53:07Z\",\n            \"size\": 100\n        },\n        {\n            \"display_name\": \"vol-002\",\n            \"attachments\": [],\n            \"volume_type\": \"SATA\",\n            \"display_description\": \"Yet another volume.\",\n            \"snapshot_id\": null,\n            \"id\": \"76b8950a-8594-4e5b-8dce-0dfa9c696358\",\n            \"createdAt\": \"2012-03-15T19:10:03Z\",\n            \"size\": 100\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/volumes/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getVolumesDetail",
+                "summary": "List volumes (detailed)",
+                "description": "Lists detailed information for all Block Storage volumes that the tenant who submits the request can access.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volumes\": [\n        {\n            \"status\": \"available\",\n            \"attachments\": [],\n            \"links\": [\n                {\n                    \"href\": \"http://localhost:8776/v2/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/45baf976-c20a-4894-a7c3-c94b7376bf55\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://localhost:8776/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/45baf976-c20a-4894-a7c3-c94b7376bf55\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"availability_zone\": \"nova\",\n            \"tenant_id\": \"0c2eba2c5af04d3f9e9d0d410b371fde\",\n            \"created_at\": \"2013-02-25T06:36:28.000000\",\n            \"metadata\": {\n                \"contents\": \"junk\"\n            },\n            \"source_volid\": null,\n            \"name\": \"vol-004\",\n            \"host\": \"ip-10-168-107-25\",\n            \"volume_type\": \"None\",\n            \"snapshot_id\": null,\n            \"size\": 1,\n            \"id\": \"45baf976-c20a-4894-a7c3-c94b7376bf55\",\n            \"description\": \"Another volume.\"\n        },\n        {\n            \"status\": \"available\",\n            \"attachments\": [],\n            \"links\": [\n                {\n                    \"href\": \"http://localhost:8776/v2/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/5aa119a8-d25b-45a7-8d1b-88e127885635\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://localhost:8776/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/5aa119a8-d25b-45a7-8d1b-88e127885635\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"availability_zone\": \"nova\",\n            \"tenant_id\": \"0c2eba2c5af04d3f9e9d0d410b371fde\",\n            \"created_at\": \"2013-02-25T02:40:21.000000\",\n            \"metadata\": {\n                \"contents\": \"not junk\"\n            },\n            \"source_volid\": null,\n            \"name\": \"vol-003\",\n            \"host\": \"ip-10-168-107-25\",\n            \"volume_type\": \"None\",\n            \"snapshot_id\": null,\n            \"size\": 1,\n            \"id\": \"5aa119a8-d25b-45a7-8d1b-88e127885635\",\n            \"description\": \"This is yet, another volume.\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/volumes/{volume_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "volume_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of an existing volume.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getVolume",
+                "summary": "Show volume",
+                "description": "Shows volume details.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume\": {\n        \"status\": \"available\",\n        \"display_name\": \"vol-001\",\n        \"attachments\": [],\n        \"availability_zone\": \"nova\",\n        \"bootable\": \"false\",\n        \"created_at\": \"2012-02-14T20:53:07Z\",\n        \"display_description\": \"Another volume.\",\n        \"image_id\": null,\n        \"volume_type\": \"SATA\",\n        \"snapshot_id\": null,\n        \"source_volid\": \"e3611474-589b-46b7-9bdf-5555e2e4999b\",\n        \"size\": 100,\n        \"id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n        \"metadata\": {}\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "renameVolume",
+                "summary": "Update volume",
+                "description": "Updates the name and description for a volume.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume\": {\n        \"status\": \"in-use\",\n        \"display_name\": \"new name\",\n        \"attachments\": [],\n        \"availability_zone\": \"nova\",\n        \"bootable\": \"false\",\n        \"created_at\": \"2012-10-23T17:12:40.000000\",\n        \"display_description\": \"new description\",\n        \"volume_type\": \"SATA\",\n        \"snapshot_id\": null,\n        \"source_volid\": null,\n        \"size\": 100,\n        \"id\": \"5e9c00de-60b3-48de-ae58-0a07ec842d51\",\n        \"metadata\": {}\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteVolume",
+                "summary": "Delete volume",
+                "description": "Deletes a volume.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/types": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getVolumeTypes",
+                "summary": "List volume types",
+                "description": "Lists volume types.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume_types\": [\n        {\n            \"extra_specs\": {},\n            \"id\": 1,\n            \"name\": \"SATA\"\n        },\n        {\n            \"extra_specs\": {},\n            \"id\": 2,\n            \"name\": \"SSD\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/types/{volume_type_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "volume_type_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of an existing volume type.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getVolumeType",
+                "summary": "Show volume type details",
+                "description": "Shows volume type details.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume_type\": {\n        \"extra_specs\": {},\n        \"id\": \"1\",\n        \"name\": \"SATA\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/snapshots": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createSnapshot",
+                "summary": "Create snapshot",
+                "description": "Creates a snapshot.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshot\": {\n        \"status\": \"creating\",\n        \"os-extended-snapshot-attributes:progress\": \"25.39%\",\n        \"created_at\": \"2014-01-28T16:56:56.000000\",\n        \"volume_id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n        \"display_description\": \"Daily backup\",\n        \"os-extended-snapshot-attributes:project_id\": \"123456\",\n        \"display_name\": \"snap-001\",\n        \"size\": 100,\n        \"id\": \"3fbbcccf-d058-4502-8844-6feeffdf4cb5\",\n        \"metadata\": {}\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getSnapshotsSimple",
+                "summary": "List snapshots",
+                "description": "Lists summary information for all Block Storage snapshots that the tenant who submits the request can access.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshots\": [\n        {\n            \"status\": \"available\",\n            \"display_name\": \"snap-001\",\n            \"display_description\": \"Daily backup\",\n            \"volume_id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n            \"id\": \"3fbbcccf-d058-4502-8844-6feeffdf4cb5\",\n            \"createdAt\": \"2012-02-29T03:50:07Z\",\n            \"size\": 100\n        },\n        {\n            \"status\": \"available\",\n            \"display_name\": \"snap-002\",\n            \"display_description\": \"Weekly backup\",\n            \"volume_id\": \"76b8950a-8594-4e5b-8dce-0dfa9c696358\",\n            \"id\": \"e479997c-650b-40a4-9dfe-77655818b0d2\",\n            \"createdAt\": \"2012-03-19T01:52:47Z\",\n            \"size\": 100\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/snapshots/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getSnapshotsDetail",
+                "summary": "List snapshots (detailed)",
+                "description": "Lists detailed information for all Block Storage snapshots that the tenant who submits the request can access.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshots\": [\n        {\n            \"status\": \"available\",\n            \"os-extended-snapshot-attributes:progress\": \"100%\",\n            \"description\": \"Daily backup\",\n            \"name\": \"snap-001\",\n            \"created_at\": \"2013-02-25T07:30:12.000000\",\n            \"id\": \"43f20e0e-2c2c-4770-9d4e-c3d769ae5470\",\n            \"volume_id\": \"5aa119a8-d25b-45a7-8d1b-88e127885635\",\n            \"size\": 30,\n            \"os-extended-snapshot-attributes:project_id\": \"0c2eba2c5af04d3f9e9d0d410b371fde\",\n            \"metadata\": {}\n        },\n        {\n            \"status\": \"available\",\n            \"os-extended-snapshot-attributes:progress\": \"100%\",\n            \"description\": \"Weekly backup\",\n            \"name\": \"snap-002\",\n            \"created_at\": \"2013-02-25T07:20:38.000000\",\n            \"id\": \"e820db06-58b5-439d-bac6-c01faa3f6499\",\n            \"volume_id\": \"806092e3-7551-4fff-a005-49016f4943b1\",\n            \"size\": 1,\n            \"os-extended-snapshot-attributes:project_id\": \"0c2eba2c5af04d3f9e9d0d410b371fde\",\n            \"metadata\": {}\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/snapshots/{snapshot_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "snapshot_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of an existing snapshot.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getSnapshot",
+                "summary": "Show snapshot details",
+                "description": "Shows snapshot details.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshot\": {\n        \"status\": \"creating\",\n        \"os-extended-snapshot-attributes:progress\": \"25.39%\",\n        \"created_at\": \"2014-01-28T16:56:56.000000\",\n        \"volume_id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n        \"display_description\": \"Daily backup\",\n        \"os-extended-snapshot-attributes:project_id\": \"123456\",\n        \"display_name\": \"snap-001\",\n        \"size\": 100,\n        \"id\": \"3fbbcccf-d058-4502-8844-6feeffdf4cb5\",\n        \"metadata\": {}\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateSnapshot",
+                "summary": "Update snapshot",
+                "description": "Updates a specified snapshot.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshot\": {\n        \"status\": \"available\",\n        \"display_name\": \"vol-001\",\n        \"created_at\": \"2013-02-20T08:11:34.000000\",\n        \"display_description\": \"This is yet, another snapshot\",\n        \"volume_id\": \"2402b902-0b7a-458c-9c07-7435a826f794\",\n        \"id\": \"4b502fcb-1f26-45f8-9fe5-3b9a0a52eaf2\",\n        \"size\": 1\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteSnapshot",
+                "summary": "Delete snapshot",
+                "description": "Deletes a snapshot.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        }
+    }
+}

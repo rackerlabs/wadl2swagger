@@ -1,0 +1,78 @@
+---
+swagger: '2.0'
+info:
+  title: os-flavorspecs-v2.1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.1/flavors/{flavor_id}/flavor-extra-specs":
+    post:
+      operationId: updateflavor
+      summary: Create or update flavor extra specs
+      description: |
+        Creates and updates flavor extra specs.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "extra_specs": {
+                      "key2": "value2",
+                      "key1": "value1"
+                  }
+              }
+    get:
+      operationId: listflavor
+      summary: Show flavor extra specs
+      description: |
+        Lists extra specs for specified flavor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "extra_specs": {
+                      "key2": "value2",
+                      "key1": "value1"
+                  }
+              }
+  "/v2.1/flavors/{flavor_id}/flavor-extra-specs/{flavor_extra_spec_key}":
+    get:
+      operationId: showflavor
+      summary: Show flavor extra specs
+      description: |
+        Shows an extra spec for specified flavor by the key.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "key1": "value1"
+              }
+    put:
+      operationId: updateflavorspec
+      summary: Update flavor extra spec
+      description: |
+        Updates specified extra spec value by the key.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "key1": "new_value1"
+              }

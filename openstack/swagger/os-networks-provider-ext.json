@@ -1,0 +1,99 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-networks-provider-ext",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/networks": {
+            "get": {
+                "operationId": "listNetworks",
+                "summary": "List networks",
+                "description": "Lists networks that are accessible to the tenant who submits the request.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"network\": {\n        \"status\": \"ACTIVE\",\n        \"subnets\": [\n            \"54d6f61d-db07-451c-9ab3-b9609b6b6f0b\"\n        ],\n        \"name\": \"private-network\",\n        \"provider:physical_network\": null,\n        \"admin_state_up\": true,\n        \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n        \"provider:network_type\": \"local\",\n        \"router:external\": true,\n        \"shared\": true,\n        \"id\": \"d32019d3-bc6e-4319-9c1d-6722fc136a22\",\n        \"provider:segmentation_id\": null\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createNetwork",
+                "summary": "Create network",
+                "description": "Creates a network.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"network\": {\n        \"status\": \"ACTIVE\",\n        \"subnets\": [],\n        \"name\": \"net1\",\n        \"admin_state_up\": true,\n        \"tenant_id\": \"9bacb3c5d39d41a79512987f338cf177\",\n        \"segments\": [\n            {\n                \"provider:network_type\": \"vlan\",\n                \"provider:physical_network\": \"8bab8453-1bc9-45af-8c70-f83aa9b50453\",\n                \"provider:segmentation_id\": 2\n            },\n            {\n                \"provider:network_type\": \"stt\",\n                \"provider:physical_network\": \"8bab8453-1bc9-45af-8c70-f83aa9b50453\",\n                \"provider:segmentation_id\": null\n            }\n        ],\n        \"port_security_enabled\": true,\n        \"shared\": false,\n        \"id\": \"4e8e5957-649f-477b-9e5b-f1f75b21c03c\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/networks/{network_id}": {
+            "parameters": [
+                {
+                    "name": "network_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the network of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showNetwork",
+                "summary": "Show network details",
+                "description": "Shows details for a specified network.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"network\": {\n        \"status\": \"ACTIVE\",\n        \"subnets\": [\n            \"54d6f61d-db07-451c-9ab3-b9609b6b6f0b\"\n        ],\n        \"name\": \"private-network\",\n        \"provider:physical_network\": null,\n        \"admin_state_up\": true,\n        \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n        \"provider:network_type\": \"local\",\n        \"router:external\": true,\n        \"shared\": true,\n        \"id\": \"d32019d3-bc6e-4319-9c1d-6722fc136a22\",\n        \"provider:segmentation_id\": null\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateNetwork",
+                "summary": "Update network",
+                "description": "Updates a specified network.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"network\": {\n        \"status\": \"ACTIVE\",\n        \"subnets\": [],\n        \"name\": \"sample_network_5_updated\",\n        \"provider:physical_network\": null,\n        \"admin_state_up\": true,\n        \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n        \"provider:network_type\": \"local\",\n        \"router:external\": false,\n        \"shared\": false,\n        \"id\": \"1f370095-98f6-4079-be64-6d3d4a6adcc6\",\n        \"provider:segmentation_id\": null\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteNetwork",
+                "summary": "Delete network",
+                "description": "Deletes a specified network.\n",
+                "produces": [],
+                "responses": {}
+            }
+        }
+    }
+}

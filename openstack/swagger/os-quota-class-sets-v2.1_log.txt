@@ -1,0 +1,14 @@
+INFO:wadls/os-quota-class-sets-v2.1.wadl:Converting: wadls/os-quota-class-sets-v2.1.wadl to swagger/os-quota-class-sets-v2.1.json
+INFO:root:Saving swagger to swagger/os-quota-class-sets-v2.1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v2.1~1os-quota-class-sets~1{class_id}/get: API requires path parameter but it is not defined: class_id
+  #/paths/~1v2.1~1os-quota-class-sets~1{class_id}/put: API requires path parameter but it is not defined: class_id
+
+2 errors and 0 warnings
+Invalid

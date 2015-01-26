@@ -1,0 +1,60 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-instance-usage-audit-log-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/os-instance-usage-audit-log": {
+            "get": {
+                "operationId": "listusageaudits",
+                "summary": "List usage audits",
+                "description": "Lists usage audits for a specified instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"instance_usage_audit_log\": {\n        \"total_errors\": 0,\n        \"num_hosts_running\": 0,\n        \"log\": {},\n        \"total_instances\": 0,\n        \"num_hosts_done\": 0,\n        \"num_hosts\": 1,\n        \"hosts_not_run\": [\n            \"defac351f91940668301096238d26b47\"\n        ],\n        \"overall_status\": \"0 of 1 hosts done. 0 errors.\",\n        \"period_ending\": \"2013-09-01 00:00:00\",\n        \"period_beginning\": \"2013-08-01 00:00:00\",\n        \"num_hosts_not_run\": 1\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-instance-usage-audit-log/{datetime}": {
+            "parameters": [
+                {
+                    "name": "datetime",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The date and time stamp.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listinstanceusage",
+                "summary": "List instance usage",
+                "description": "Lists instance usage audits that occurred before a specified time.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"instance_usage_audit_log\": {\n        \"total_errors\": 0,\n        \"num_hosts_running\": 0,\n        \"log\": {},\n        \"total_instances\": 0,\n        \"num_hosts_done\": 0,\n        \"num_hosts\": 1,\n        \"hosts_not_run\": [\n            \"ccf86bf6d0104fe69ee658eaa31a7469\"\n        ],\n        \"overall_status\": \"0 of 1 hosts done. 0 errors.\",\n        \"period_ending\": \"2012-07-01 00:00:00\",\n        \"period_beginning\": \"2012-06-01 00:00:00\",\n        \"num_hosts_not_run\": 1\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

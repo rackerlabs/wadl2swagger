@@ -1,0 +1,8 @@
+INFO:wadls/os-limits.wadl:Converting: wadls/os-limits.wadl to swagger/os-limits.json
+WARNING:wadls/os-limits.wadl:Autofix: Adding leading / to path
+INFO:root:Saving swagger to swagger/os-limits.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

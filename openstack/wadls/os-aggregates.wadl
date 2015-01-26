@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:db="http://docbook.org/ns/docbook"
+              xmlns:common="http://docs.openstack.org/common/api/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-aggregates-v2">
+        <resource id="os-aggregates" path="/v2/{tenant_id}/os-aggregates">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="list_aggregates">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List aggregates">
+               <para role="shortdesc">Lists all aggregates.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;aggregates&gt;
+  &lt;aggregate&gt;
+    &lt;name&gt;name&lt;/name&gt;
+    &lt;availability_zone&gt;nova&lt;/availability_zone&gt;
+    &lt;deleted&gt;False&lt;/deleted&gt;
+    &lt;created_at&gt;2012-11-16 06:22:25.935099&lt;/created_at&gt;
+    &lt;updated_at&gt;None&lt;/updated_at&gt;
+    &lt;hosts/&gt;
+    &lt;deleted_at&gt;None&lt;/deleted_at&gt;
+    &lt;id&gt;1&lt;/id&gt;
+    &lt;metadata&gt;
+      &lt;availability_zone&gt;nova&lt;/availability_zone&gt;
+    &lt;/metadata&gt;
+  &lt;/aggregate&gt;
+&lt;/aggregates&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "aggregates": [
+        {
+            "availability_zone": "nova",
+            "created_at": "2012-11-16T06:22:23.361359",
+            "deleted": false,
+            "deleted_at": null,
+            "hosts": [],
+            "id": 1,
+            "metadata": {
+                "availability_zone": "nova"
+            },
+            "name": "name",
+            "updated_at": null
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="create_aggregate">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create aggregate">
+               <para role="shortdesc">Creates an aggregate.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;aggregate name="name" availability_zone="nova" /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "aggregate": {
+        "name": "name",
+        "availability_zone": "nova"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="name" style="plain" required="true" type="csapi:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Name of
+                        aggregate</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="availability_zone"
+                         style="plain"
+                         required="true"
+                         type="csapi:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Availability zone of
+                            aggregate</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;aggregate&gt;
+  &lt;name&gt;name&lt;/name&gt;
+  &lt;availability_zone&gt;nova&lt;/availability_zone&gt;
+  &lt;deleted&gt;False&lt;/deleted&gt;
+  &lt;created_at&gt;2012-10-01 18:50:35.506667&lt;/created_at&gt;
+  &lt;updated_at&gt;None&lt;/updated_at&gt;
+  &lt;deleted_at&gt;None&lt;/deleted_at&gt;
+  &lt;id&gt;1&lt;/id&gt;
+&lt;/aggregate&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "aggregate": {
+        "availability_zone": "nova",
+        "created_at": "2012-10-01T18:50:27.781065",
+        "deleted": false,
+        "deleted_at": null,
+        "id": 1,
+        "name": "name",
+        "updated_at": null
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource path="/v2/{tenant_id}/os-aggregates/{aggregate_id}" id="aggregate_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="aggregate_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID associated
+                                   with an aggregate.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="DELETE" rax:id="delete_aggregate">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete aggregate">
+               <para role="shortdesc">Deletes an aggregate.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json"/>
+            </request>
+            <response status="200"/>
+         </method>
+         <method name="GET" rax:id="get_details">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get aggregate details">
+               <para role="shortdesc">Gets details about a specified
+                aggregate.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;aggregate&gt;
+  &lt;name&gt;name&lt;/name&gt;
+  &lt;availability_zone&gt;nova&lt;/availability_zone&gt;
+  &lt;deleted&gt;False&lt;/deleted&gt;
+  &lt;created_at&gt;2012-11-16 06:22:25.587739&lt;/created_at&gt;
+  &lt;updated_at&gt;None&lt;/updated_at&gt;
+  &lt;hosts/&gt;
+  &lt;deleted_at&gt;None&lt;/deleted_at&gt;
+  &lt;id&gt;1&lt;/id&gt;
+  &lt;metadata&gt;
+    &lt;availability_zone&gt;nova&lt;/availability_zone&gt;
+  &lt;/metadata&gt;
+&lt;/aggregate&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "aggregate": {
+        "availability_zone": "nova",
+        "created_at": "2012-11-16T06:22:23.032493",
+        "deleted": false,
+        "deleted_at": null,
+        "hosts": [],
+        "id": 1,
+        "metadata": {
+            "availability_zone": "nova"
+        },
+        "name": "name",
+        "updated_at": null
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="PUT" rax:id="update_aggregate">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update aggregate">
+               <para role="shortdesc">Updates the name, and optionally
+                the availability zone, for a specified
+                aggregate.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;aggregate name="newname" availability_zone="nova2" /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "aggregate": {
+        "name": "newname",
+        "availability_zone": "nova2"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="name" style="plain" required="true" type="csapi:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Name of
+                        aggregate.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="availability_zone"
+                         style="plain"
+                         required="true"
+                         type="csapi:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Availability zone of
+                            aggregate.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;aggregate&gt;
+  &lt;name&gt;newname&lt;/name&gt;
+  &lt;availability_zone&gt;nova2&lt;/availability_zone&gt;
+  &lt;deleted&gt;False&lt;/deleted&gt;
+  &lt;created_at&gt;2012-12-04 12:04:30.245284&lt;/created_at&gt;
+  &lt;updated_at&gt;2012-12-04 12:04:30.357795&lt;/updated_at&gt;
+  &lt;hosts/&gt;
+  &lt;deleted_at&gt;None&lt;/deleted_at&gt;
+  &lt;id&gt;1&lt;/id&gt;
+  &lt;metadata&gt;
+    &lt;availability_zone&gt;nova2&lt;/availability_zone&gt;
+  &lt;/metadata&gt;
+&lt;/aggregate&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "aggregate": {
+        "availability_zone": "nova2",
+        "created_at": "2012-12-04T12:04:27.075065",
+        "deleted": false,
+        "deleted_at": null,
+        "hosts": [],
+        "id": 1,
+        "metadata": {
+            "availability_zone": "nova2"
+        },
+        "name": "newname",
+        "updated_at": "2012-12-04T12:04:27.242597"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                        
+                        
+                        <resource path="/v2/{tenant_id}/os-aggregates/{aggregate_id}/action" id="action">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="aggregate_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID associated
+                                   with an aggregate.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="POST" rax:id="set_metadata">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Set aggregate metadata">
+               <para role="shortdesc">Sets metadata for an
+                aggregate.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;set_metadata&gt;
+    &lt;metadata&gt;
+        &lt;key&gt;value&lt;/key&gt;
+    &lt;/metadata&gt;
+&lt;/set_metadata&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="metadata"
+                         style="plain"
+                         required="true"
+                         type="csapi:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Metadata value to be
+                            set.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "set_metadata": {
+        "metadata": {
+            "key": "value"
+        }
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;aggregate&gt;
+  &lt;name&gt;name&lt;/name&gt;
+  &lt;availability_zone&gt;nova&lt;/availability_zone&gt;
+  &lt;deleted&gt;False&lt;/deleted&gt;
+  &lt;created_at&gt;2012-11-16 06:22:24.864471&lt;/created_at&gt;
+  &lt;updated_at&gt;None&lt;/updated_at&gt;
+  &lt;hosts/&gt;
+  &lt;deleted_at&gt;None&lt;/deleted_at&gt;
+  &lt;id&gt;1&lt;/id&gt;
+  &lt;metadata&gt;
+    &lt;key&gt;value&lt;/key&gt;
+    &lt;availability_zone&gt;nova&lt;/availability_zone&gt;
+  &lt;/metadata&gt;
+&lt;/aggregate&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "aggregate": {
+        "availability_zone": "nova",
+        "created_at": "2012-11-16T06:22:22.342791",
+        "deleted": false,
+        "deleted_at": null,
+        "hosts": [],
+        "id": 1,
+        "metadata": {
+            "availability_zone": "nova",
+            "key": "value"
+        },
+        "name": "name",
+        "updated_at": null
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="add_host">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Add host to aggregate">
+               <para role="shortdesc">Adds a host to an aggregate.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;add_host host="7c9e00dbca5e4fb88538b021c0f933a5" /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="host" style="plain" required="true" type="csapi:UUID">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Host ID to add to an
+                            aggregate, which is a collection of
+                            multiple groups of hosts that share common
+                            resources like storage and
+                        network.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "add_host": {
+        "host": "581d29b9e3504d8a895caddb13839b15"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;aggregate&gt;
+  &lt;name&gt;name&lt;/name&gt;
+  &lt;availability_zone&gt;nova&lt;/availability_zone&gt;
+  &lt;deleted&gt;False&lt;/deleted&gt;
+  &lt;created_at&gt;2012-12-04 12:04:27.574038&lt;/created_at&gt;
+  &lt;updated_at&gt;None&lt;/updated_at&gt;
+  &lt;hosts&gt;
+    &lt;host&gt;392adba19dd449179804eaff16ff4a97&lt;/host&gt;
+  &lt;/hosts&gt;
+  &lt;deleted_at&gt;None&lt;/deleted_at&gt;
+  &lt;id&gt;1&lt;/id&gt;
+  &lt;metadata&gt;
+    &lt;availability_zone&gt;nova&lt;/availability_zone&gt;
+  &lt;/metadata&gt;
+&lt;/aggregate&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "aggregate": {
+        "availability_zone": "nova",
+        "created_at": "2012-12-04T12:04:24.399784",
+        "deleted": false,
+        "deleted_at": null,
+        "hosts": [
+            "0438c6a4e8d841ad823b801d681f4680"
+        ],
+        "id": 1,
+        "metadata": {
+            "availability_zone": "nova"
+        },
+        "name": "name",
+        "updated_at": null
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="remove_host">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Remove host from aggregate">
+               <para role="shortdesc">Removes a host from an
+                aggregate.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;remove_host host="7c9e00dbca5e4fb88538b021c0f933a5" /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="host" style="plain" required="true" type="csapi:UUID">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Host ID to add to an
+                            aggregate.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "remove_host": {
+        "host": "581d29b9e3504d8a895caddb13839b15"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;aggregate&gt;
+  &lt;name&gt;name&lt;/name&gt;
+  &lt;availability_zone&gt;nova&lt;/availability_zone&gt;
+  &lt;deleted&gt;False&lt;/deleted&gt;
+  &lt;created_at&gt;2012-12-04 12:04:29.722109&lt;/created_at&gt;
+  &lt;updated_at&gt;None&lt;/updated_at&gt;
+  &lt;hosts/&gt;
+  &lt;deleted_at&gt;None&lt;/deleted_at&gt;
+  &lt;id&gt;1&lt;/id&gt;
+  &lt;metadata&gt;
+    &lt;availability_zone&gt;nova&lt;/availability_zone&gt;
+  &lt;/metadata&gt;
+&lt;/aggregate&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "aggregate": {
+        "availability_zone": "nova",
+        "created_at": "2012-12-04T12:04:26.557909",
+        "deleted": false,
+        "deleted_at": null,
+        "hosts": [],
+        "id": 1,
+        "metadata": {
+            "availability_zone": "nova"
+        },
+        "name": "name",
+        "updated_at": null
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                            
+                            
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="list_aggregates">
+        
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="create_aggregate">
+        
+        <request>
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+                <param name="name" style="plain" required="true" type="csapi:string">
+                    
+                </param>
+                <param name="availability_zone"
+                   style="plain"
+                   required="true"
+                   type="csapi:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="get_details">
+        
+        <request>
+            <representation mediaType="application/json"/>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="update_aggregate">
+        
+        <request>
+
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+                <param name="name" style="plain" required="true" type="csapi:string">
+                    
+                </param>
+                <param name="availability_zone"
+                   style="plain"
+                   required="true"
+                   type="csapi:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="delete_aggregate">
+        
+        <request>
+            <representation mediaType="application/json"/>
+        </request>
+        <response status="200"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="set_metadata">
+        
+        <request>
+
+            <representation mediaType="application/xml">
+                
+                <param name="metadata"
+                   style="plain"
+                   required="true"
+                   type="csapi:string">
+                    
+                </param>
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="add_host">
+        
+        <request>
+
+            <representation mediaType="application/xml">
+                
+                <param name="host" style="plain" required="true" type="csapi:UUID">
+                    
+                </param>
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="remove_host">
+        
+        <request>
+            <representation mediaType="application/xml">
+                
+                <param name="host" style="plain" required="true" type="csapi:UUID">
+                    
+                </param>
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

@@ -1,0 +1,16 @@
+INFO:wadls/os-floating-ips.wadl:Converting: wadls/os-floating-ips.wadl to swagger/os-floating-ips.json
+WARNING:wadls/os-floating-ips.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-floating-ips.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-floating-ips.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-floating-ips.wadl:No support for application/json for resource at /v2/{tenant_id}/servers/{server_id}/action
+WARNING:wadls/os-floating-ips.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-floating-ips.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-floating-ips.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-floating-ips.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-floating-ips.wadl:Ignoring body parameter, converting these is not yet supported...
+INFO:root:Saving swagger to swagger/os-floating-ips.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

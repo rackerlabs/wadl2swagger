@@ -1,0 +1,44 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "RAX-AUTH",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/users/{userId}/OS-KSADM/credentials/RAX-KSKEY:apiKeyCredentials/RAX-AUTH/reset": {
+            "parameters": [
+                {
+                    "name": "X-Auth-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token\n"
+                },
+                {
+                    "name": "userId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "A user ID assigned by system when user is added.\n"
+                }
+            ],
+            "post": {
+                "operationId": "resetUserAPIKeyCredentials",
+                "summary": "Reset user API key",
+                "description": "Resets the API key for a specified user.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        }
+    }
+}

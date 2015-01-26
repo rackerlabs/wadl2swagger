@@ -1,0 +1,835 @@
+---
+swagger: '2.0'
+info:
+  title: identity
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/":
+    get:
+      operationId: getVersions-v2
+      summary: List versions
+      description: |
+        Lists information about all Identity API versions.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "versions": {
+                      "values": [
+                          {
+                              "status": "stable",
+                              "updated": "2013-03-06T00:00:00Z",
+                              "media-types": [
+                                  {
+                                      "base": "application/json",
+                                      "type": "application/vnd.openstack.identity-v3+json"
+                                  },
+                                  {
+                                      "base": "application/xml",
+                                      "type": "application/vnd.openstack.identity-v3+xml"
+                                  }
+                              ],
+                              "id": "v3.0",
+                              "links": [
+                                  {
+                                      "href": "http://192.168.122.176:5000/v3/",
+                                      "rel": "self"
+                                  }
+                              ]
+                          },
+                          {
+                              "status": "stable",
+                              "updated": "2014-04-17T00:00:00Z",
+                              "media-types": [
+                                  {
+                                      "base": "application/json",
+                                      "type": "application/vnd.openstack.identity-v2.0+json"
+                                  },
+                                  {
+                                      "base": "application/xml",
+                                      "type": "application/vnd.openstack.identity-v2.0+xml"
+                                  }
+                              ],
+                              "id": "v2.0",
+                              "links": [
+                                  {
+                                      "href": "http://192.168.122.176:5000/v2.0/",
+                                      "rel": "self"
+                                  },
+                                  {
+                                      "href": "http://docs.openstack.org/",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ]
+                          }
+                      ]
+                  }
+              }
+  "/v2.0":
+    get:
+      operationId: getVersionInfo-v2.0
+      summary: Show version details
+      description: |
+        Shows details for the Identity API v2.0.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "version": {
+                      "status": "stable",
+                      "updated": "2013-03-06T00:00:00Z",
+                      "media-types": [
+                          {
+                              "base": "application/json",
+                              "type": "application/vnd.openstack.identity-v3+json"
+                          },
+                          {
+                              "base": "application/xml",
+                              "type": "application/vnd.openstack.identity-v3+xml"
+                          }
+                      ],
+                      "id": "v3.0",
+                      "links": [
+                          {
+                              "href": "http://23.253.228.211:35357/v3/",
+                              "rel": "self"
+                          }
+                      ]
+                  }
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "version": {
+                      "status": "stable",
+                      "updated": "2013-03-06T00:00:00Z",
+                      "media-types": [
+                          {
+                              "base": "application/json",
+                              "type": "application/vnd.openstack.identity-v3+json"
+                          },
+                          {
+                              "base": "application/xml",
+                              "type": "application/vnd.openstack.identity-v3+xml"
+                          }
+                      ],
+                      "id": "v3.0",
+                      "links": [
+                          {
+                              "href": "http://23.253.228.211:35357/v3/",
+                              "rel": "self"
+                          }
+                      ]
+                  }
+              }
+  "/v2.0/extensions":
+    get:
+      operationId: listExtensions-v2.0
+      summary: List extensions
+      description: |
+        Lists available extensions.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "extensions": {
+                      "values": [
+                          {
+                              "updated": "2013-07-07T12:00:0-00:00",
+                              "name": "OpenStack S3 API",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/s3tokens/v1.0",
+                              "alias": "s3tokens",
+                              "description": "OpenStack S3 API."
+                          },
+                          {
+                              "updated": "2013-07-23T12:00:0-00:00",
+                              "name": "OpenStack Keystone Endpoint Filter API",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3-os-ep-filter-ext.md",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/OS-EP-FILTER/v1.0",
+                              "alias": "OS-EP-FILTER",
+                              "description": "OpenStack Keystone Endpoint Filter API."
+                          },
+                          {
+                              "updated": "2013-12-17T12:00:0-00:00",
+                              "name": "OpenStack Federation APIs",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/OS-FEDERATION/v1.0",
+                              "alias": "OS-FEDERATION",
+                              "description": "OpenStack Identity Providers Mechanism."
+                          },
+                          {
+                              "updated": "2013-07-11T17:14:00-00:00",
+                              "name": "OpenStack Keystone Admin",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/OS-KSADM/v1.0",
+                              "alias": "OS-KSADM",
+                              "description": "OpenStack extensions to Keystone v2.0 API enabling Administrative Operations."
+                          },
+                          {
+                              "updated": "2014-01-20T12:00:0-00:00",
+                              "name": "OpenStack Simple Certificate API",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/OS-SIMPLE-CERT/v1.0",
+                              "alias": "OS-SIMPLE-CERT",
+                              "description": "OpenStack simple certificate retrieval extension"
+                          },
+                          {
+                              "updated": "2013-07-07T12:00:0-00:00",
+                              "name": "OpenStack EC2 API",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/OS-EC2/v1.0",
+                              "alias": "OS-EC2",
+                              "description": "OpenStack EC2 Credentials backend."
+                          }
+                      ]
+                  }
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "extensions": {
+                      "values": [
+                          {
+                              "updated": "2013-07-07T12:00:0-00:00",
+                              "name": "OpenStack S3 API",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/s3tokens/v1.0",
+                              "alias": "s3tokens",
+                              "description": "OpenStack S3 API."
+                          },
+                          {
+                              "updated": "2013-07-23T12:00:0-00:00",
+                              "name": "OpenStack Keystone Endpoint Filter API",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3-os-ep-filter-ext.md",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/OS-EP-FILTER/v1.0",
+                              "alias": "OS-EP-FILTER",
+                              "description": "OpenStack Keystone Endpoint Filter API."
+                          },
+                          {
+                              "updated": "2013-12-17T12:00:0-00:00",
+                              "name": "OpenStack Federation APIs",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/OS-FEDERATION/v1.0",
+                              "alias": "OS-FEDERATION",
+                              "description": "OpenStack Identity Providers Mechanism."
+                          },
+                          {
+                              "updated": "2013-07-11T17:14:00-00:00",
+                              "name": "OpenStack Keystone Admin",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/OS-KSADM/v1.0",
+                              "alias": "OS-KSADM",
+                              "description": "OpenStack extensions to Keystone v2.0 API enabling Administrative Operations."
+                          },
+                          {
+                              "updated": "2014-01-20T12:00:0-00:00",
+                              "name": "OpenStack Simple Certificate API",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/OS-SIMPLE-CERT/v1.0",
+                              "alias": "OS-SIMPLE-CERT",
+                              "description": "OpenStack simple certificate retrieval extension"
+                          },
+                          {
+                              "updated": "2013-07-07T12:00:0-00:00",
+                              "name": "OpenStack EC2 API",
+                              "links": [
+                                  {
+                                      "href": "https://github.com/openstack/identity-api",
+                                      "type": "text/html",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "namespace": "http://docs.openstack.org/identity/api/ext/OS-EC2/v1.0",
+                              "alias": "OS-EC2",
+                              "description": "OpenStack EC2 Credentials backend."
+                          }
+                      ]
+                  }
+              }
+  "/v2.0/extensions/{alias}":
+    parameters:
+    - name: alias
+      required: true
+      in: path
+      type: string
+      description: |
+        The extension name.
+    get:
+      operationId: getExtension-v2.0
+      summary: Get extension details
+      description: |
+        Gets detailed information for a specified extension.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "extension": {
+                      "updated": "2013-07-07T12:00:0-00:00",
+                      "name": "OpenStack S3 API",
+                      "links": [
+                          {
+                              "href": "https://github.com/openstack/identity-api",
+                              "type": "text/html",
+                              "rel": "describedby"
+                          }
+                      ],
+                      "namespace": "http://docs.openstack.org/identity/api/ext/s3tokens/v1.0",
+                      "alias": "s3tokens",
+                      "description": "OpenStack S3 API."
+                  }
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "extension": {
+                      "updated": "2013-07-07T12:00:0-00:00",
+                      "name": "OpenStack S3 API",
+                      "links": [
+                          {
+                              "href": "https://github.com/openstack/identity-api",
+                              "type": "text/html",
+                              "rel": "describedby"
+                          }
+                      ],
+                      "namespace": "http://docs.openstack.org/identity/api/ext/s3tokens/v1.0",
+                      "alias": "s3tokens",
+                      "description": "OpenStack S3 API."
+                  }
+              }
+  "/v2.0/tokens":
+    post:
+      operationId: authenticate-v2.0
+      summary: Authenticate
+      description: |
+        Authenticates and generates a token.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "access": {
+                      "token": {
+                          "issued_at": "2014-01-30T15:30:58.819584",
+                          "expires": "2014-01-31T15:30:58Z",
+                          "id": "aaaaa-bbbbb-ccccc-dddd",
+                          "tenant": {
+                              "enabled": true,
+                              "description": null,
+                              "name": "demo",
+                              "id": "fc394f2ab2df4114bde39905f800dc57"
+                          }
+                      },
+                      "serviceCatalog": [
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8774/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8774/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "internalURL": "http://23.253.72.207:8774/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "id": "2dad48f09e2a447a9bf852bcd93548ef"
+                                  }
+                              ],
+                              "type": "compute",
+                              "name": "nova"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:9696/",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:9696/",
+                                      "internalURL": "http://23.253.72.207:9696/",
+                                      "id": "97c526db8d7a4c88bbb8d68db1bdcdb8"
+                                  }
+                              ],
+                              "type": "network",
+                              "name": "neutron"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8776/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8776/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "internalURL": "http://23.253.72.207:8776/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "id": "93f86dfcbba143a39a33d0c2cd424870"
+                                  }
+                              ],
+                              "type": "volumev2",
+                              "name": "cinder"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8774/v3",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8774/v3",
+                                      "internalURL": "http://23.253.72.207:8774/v3",
+                                      "id": "3eb274b12b1d47b2abc536038d87339e"
+                                  }
+                              ],
+                              "type": "computev3",
+                              "name": "nova"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:3333",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:3333",
+                                      "internalURL": "http://23.253.72.207:3333",
+                                      "id": "957f1e54afc64d33a62099faa5e980a2"
+                                  }
+                              ],
+                              "type": "s3",
+                              "name": "s3"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:9292",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:9292",
+                                      "internalURL": "http://23.253.72.207:9292",
+                                      "id": "27d5749f36864c7d96bebf84a5ec9767"
+                                  }
+                              ],
+                              "type": "image",
+                              "name": "glance"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8776/v1/fc394f2ab2df4114bde39905f800dc57",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8776/v1/fc394f2ab2df4114bde39905f800dc57",
+                                      "internalURL": "http://23.253.72.207:8776/v1/fc394f2ab2df4114bde39905f800dc57",
+                                      "id": "37c83a2157f944f1972e74658aa0b139"
+                                  }
+                              ],
+                              "type": "volume",
+                              "name": "cinder"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8773/services/Admin",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8773/services/Cloud",
+                                      "internalURL": "http://23.253.72.207:8773/services/Cloud",
+                                      "id": "289b59289d6048e2912b327e5d3240ca"
+                                  }
+                              ],
+                              "type": "ec2",
+                              "name": "ec2"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8080",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8080/v1/AUTH_fc394f2ab2df4114bde39905f800dc57",
+                                      "internalURL": "http://23.253.72.207:8080/v1/AUTH_fc394f2ab2df4114bde39905f800dc57",
+                                      "id": "16b76b5e5b7d48039a6e4cc3129545f3"
+                                  }
+                              ],
+                              "type": "object-store",
+                              "name": "swift"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:35357/v2.0",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:5000/v2.0",
+                                      "internalURL": "http://23.253.72.207:5000/v2.0",
+                                      "id": "26af053673df4ef3a2340c4239e21ea2"
+                                  }
+                              ],
+                              "type": "identity",
+                              "name": "keystone"
+                          }
+                      ],
+                      "user": {
+                          "username": "demo",
+                          "roles_links": [],
+                          "id": "9a6590b2ab024747bc2167c4e064d00d",
+                          "roles": [
+                              {
+                                  "name": "Member"
+                              },
+                              {
+                                  "name": "anotherrole"
+                              }
+                          ],
+                          "name": "demo"
+                      },
+                      "metadata": {
+                          "is_admin": 0,
+                          "roles": [
+                              "7598ac3c634d4c3da4b9126a5f67ca2b",
+                              "f95c0ab82d6045d9805033ee1fbc80d4"
+                          ]
+                      }
+                  }
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "access": {
+                      "token": {
+                          "issued_at": "2014-01-30T15:30:58.819584",
+                          "expires": "2014-01-31T15:30:58Z",
+                          "id": "aaaaa-bbbbb-ccccc-dddd",
+                          "tenant": {
+                              "enabled": true,
+                              "description": null,
+                              "name": "demo",
+                              "id": "fc394f2ab2df4114bde39905f800dc57"
+                          }
+                      },
+                      "serviceCatalog": [
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8774/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8774/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "internalURL": "http://23.253.72.207:8774/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "id": "2dad48f09e2a447a9bf852bcd93548ef"
+                                  }
+                              ],
+                              "type": "compute",
+                              "name": "nova"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:9696/",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:9696/",
+                                      "internalURL": "http://23.253.72.207:9696/",
+                                      "id": "97c526db8d7a4c88bbb8d68db1bdcdb8"
+                                  }
+                              ],
+                              "type": "network",
+                              "name": "neutron"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8776/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8776/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "internalURL": "http://23.253.72.207:8776/v2/fc394f2ab2df4114bde39905f800dc57",
+                                      "id": "93f86dfcbba143a39a33d0c2cd424870"
+                                  }
+                              ],
+                              "type": "volumev2",
+                              "name": "cinder"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8774/v3",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8774/v3",
+                                      "internalURL": "http://23.253.72.207:8774/v3",
+                                      "id": "3eb274b12b1d47b2abc536038d87339e"
+                                  }
+                              ],
+                              "type": "computev3",
+                              "name": "nova"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:3333",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:3333",
+                                      "internalURL": "http://23.253.72.207:3333",
+                                      "id": "957f1e54afc64d33a62099faa5e980a2"
+                                  }
+                              ],
+                              "type": "s3",
+                              "name": "s3"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:9292",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:9292",
+                                      "internalURL": "http://23.253.72.207:9292",
+                                      "id": "27d5749f36864c7d96bebf84a5ec9767"
+                                  }
+                              ],
+                              "type": "image",
+                              "name": "glance"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8776/v1/fc394f2ab2df4114bde39905f800dc57",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8776/v1/fc394f2ab2df4114bde39905f800dc57",
+                                      "internalURL": "http://23.253.72.207:8776/v1/fc394f2ab2df4114bde39905f800dc57",
+                                      "id": "37c83a2157f944f1972e74658aa0b139"
+                                  }
+                              ],
+                              "type": "volume",
+                              "name": "cinder"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8773/services/Admin",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8773/services/Cloud",
+                                      "internalURL": "http://23.253.72.207:8773/services/Cloud",
+                                      "id": "289b59289d6048e2912b327e5d3240ca"
+                                  }
+                              ],
+                              "type": "ec2",
+                              "name": "ec2"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:8080",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:8080/v1/AUTH_fc394f2ab2df4114bde39905f800dc57",
+                                      "internalURL": "http://23.253.72.207:8080/v1/AUTH_fc394f2ab2df4114bde39905f800dc57",
+                                      "id": "16b76b5e5b7d48039a6e4cc3129545f3"
+                                  }
+                              ],
+                              "type": "object-store",
+                              "name": "swift"
+                          },
+                          {
+                              "endpoints_links": [],
+                              "endpoints": [
+                                  {
+                                      "adminURL": "http://23.253.72.207:35357/v2.0",
+                                      "region": "RegionOne",
+                                      "publicURL": "http://23.253.72.207:5000/v2.0",
+                                      "internalURL": "http://23.253.72.207:5000/v2.0",
+                                      "id": "26af053673df4ef3a2340c4239e21ea2"
+                                  }
+                              ],
+                              "type": "identity",
+                              "name": "keystone"
+                          }
+                      ],
+                      "user": {
+                          "username": "demo",
+                          "roles_links": [],
+                          "id": "9a6590b2ab024747bc2167c4e064d00d",
+                          "roles": [
+                              {
+                                  "name": "Member"
+                              },
+                              {
+                                  "name": "anotherrole"
+                              }
+                          ],
+                          "name": "demo"
+                      },
+                      "metadata": {
+                          "is_admin": 0,
+                          "roles": [
+                              "7598ac3c634d4c3da4b9126a5f67ca2b",
+                              "f95c0ab82d6045d9805033ee1fbc80d4"
+                          ]
+                      }
+                  }
+              }
+  "/v2.0/tenants":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token.
+    - name: marker
+      required: false
+      in: query
+      type: string
+      description: |
+        The ID of the last item in the previous list.
+    - name: limit
+      required: false
+      in: query
+      type: integer
+      description: |
+        The page size.
+    get:
+      operationId: listTenants
+      summary: List tenants
+      description: |
+        Lists tenants to which the specified token has access.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "tenants_links": [],
+                  "tenants": [
+                      {
+                          "description": "A description ...",
+                          "enabled": true,
+                          "id": "1234",
+                          "name": "ACME Corp"
+                      },
+                      {
+                          "description": "A description ...",
+                          "enabled": true,
+                          "id": "3456",
+                          "name": "Iron Works"
+                      }
+                  ]
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "tenants_links": [],
+                  "tenants": [
+                      {
+                          "description": "A description ...",
+                          "enabled": true,
+                          "id": "1234",
+                          "name": "ACME Corp"
+                      },
+                      {
+                          "description": "A description ...",
+                          "enabled": true,
+                          "id": "3456",
+                          "name": "Iron Works"
+                      }
+                  ]
+              }

@@ -1,0 +1,1625 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "rax-cloudLoadBalancers-api-v1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v1.0/{account}/loadbalancers": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listLoadBalancers",
+                "summary": "List load balancers",
+                "description": "Lists load balancers that are configured for the account.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"loadBalancers\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": {\n                \"time\": \"2010-11-30T03:23:44Z\"\n            },\n            \"protocol\": \"HTTP\",\n            \"name\": \"lb-site1\",\n            \"algorithm\": \"RANDOM\",\n            \"created\": {\n                \"time\": \"2010-11-30T03:23:42Z\"\n            },\n            \"virtualIps\": [\n                {\n                    \"ipVersion\": \"IPV4\",\n                    \"type\": \"PUBLIC\",\n                    \"id\": 403,\n                    \"address\": \"206.55.130.1\"\n                }\n            ],\n            \"id\": 71,\n            \"nodeCount\": 3,\n            \"port\": 80\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": {\n                \"time\": \"2010-11-30T03:23:44Z\"\n            },\n            \"protocol\": \"HTTP\",\n            \"name\": \"lb-site2\",\n            \"algorithm\": \"RANDOM\",\n            \"created\": {\n                \"time\": \"2010-11-30T03:23:42Z\"\n            },\n            \"virtualIps\": [\n                {\n                    \"ipVersion\": \"IPV4\",\n                    \"type\": \"PUBLIC\",\n                    \"id\": 401,\n                    \"address\": \"206.55.130.2\"\n                }\n            ],\n            \"id\": 166,\n            \"nodeCount\": 4,\n            \"port\": 80\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createLoadBalancer",
+                "summary": "Create load balancer",
+                "description": "Creates a load balancer with the configuration defined by the request.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"loadBalancer\": {\n        \"status\": \"BUILD\",\n        \"updated\": {\n            \"time\": \"2011-04-13T14:18:07Z\"\n        },\n        \"protocol\": \"HTTP\",\n        \"name\": \"a-new-loadbalancer\",\n        \"algorithm\": \"RANDOM\",\n        \"created\": {\n            \"time\": \"2011-04-13T14:18:07Z\"\n        },\n        \"connectionLogging\": {\n            \"enabled\": false\n        },\n        \"virtualIps\": [\n            {\n                \"ipVersion\": \"IPV4\",\n                \"type\": \"PUBLIC\",\n                \"id\": 39,\n                \"address\": \"206.10.10.210\"\n            },\n            {\n                \"ipVersion\": \"IPV6\",\n                \"type\": \"PUBLIC\",\n                \"id\": 900001,\n                \"address\": \"2001:4801:79f1:0002:711b:be4c:0000:0021\"\n            }\n        ],\n        \"id\": 144,\n        \"cluster\": {\n            \"name\": \"ztm-n01.staging1.lbaas.rackspace.net\"\n        },\n        \"timeout\": 30,\n        \"halfClosed\": \"false\",\n        \"nodes\": [\n            {\n                \"status\": \"ONLINE\",\n                \"weight\": 1,\n                \"id\": 653,\n                \"address\": \"10.1.1.1\",\n                \"port\": 80,\n                \"condition\": \"ENABLED\"\n            }\n        ],\n        \"port\": 83\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "bulkDeleteLoadBalancer",
+                "summary": "Bulk-delete load balancers",
+                "description": "Bulk-deletes load balancers.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "One to ten load balancer IDs. For example: `?id={loadBalancerId}`. The default limit is ten IDs per request.\n"
+                    }
+                ]
+            }
+        },
+        "/v1.0/{account}/loadbalancers/alloweddomains": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listAllowedDomains",
+                "summary": "List allowed domains",
+                "description": "Lists allowed domains.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"allowedDomains\": [\n        {\n            \"allowedDomain\": {\n                \"name\": \"rackspace.com\"\n            }\n        },\n        {\n            \"allowedDomain\": {\n                \"name\": \"randomsite.org\"\n            }\n        },\n        {\n            \"allowedDomain\": {\n                \"name\": \"org\"\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/protocols": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listProtocols",
+                "summary": "List load balancing protocols",
+                "description": "Lists supported load balancing protocols.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"protocols\": [\n        {\n            \"name\": \"DNS_TCP\",\n            \"port\": 53\n        },\n        {\n            \"name\": \"DNS_UDP\",\n            \"port\": 53\n        },\n        {\n            \"name\": \"FTP\",\n            \"port\": 21\n        },\n        {\n            \"name\": \"HTTP\",\n            \"port\": 80\n        },\n        {\n            \"name\": \"HTTPS\",\n            \"port\": 443\n        },\n        {\n            \"name\": \"IMAPS\",\n            \"port\": 993\n        },\n        {\n            \"name\": \"IMAPv4\",\n            \"port\": 143\n        },\n        {\n            \"name\": \"LDAP\",\n            \"port\": 389\n        },\n        {\n            \"name\": \"LDAPS\",\n            \"port\": 636\n        },\n        {\n            \"name\": \"MYSQL\",\n            \"port\": 3306\n        },\n        {\n            \"name\": \"POP3\",\n            \"port\": 110\n        },\n        {\n            \"name\": \"POP3S\",\n            \"port\": 995\n        },\n        {\n            \"name\": \"SMTP\",\n            \"port\": 25\n        },\n        {\n            \"name\": \"TCP\",\n            \"port\": 0\n        },\n        {\n            \"name\": \"TCP_CLIENT_FIRST\",\n            \"port\": 0\n        },\n        {\n            \"name\": \"UDP\",\n            \"port\": 0\n        },\n        {\n            \"name\": \"UDP_STREAM\",\n            \"port\": 0\n        },\n        {\n            \"name\": \"SFTP\",\n            \"port\": 22\n        },\n        {\n            \"name\": \"TCP_STREAM\",\n            \"port\": 0\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/algorithms": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listAlgorithms",
+                "summary": "List load balancing algorithms",
+                "description": "Lists all supported load balancing algorithms.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"algorithms\": [\n        {\n            \"name\": \"LEAST_CONNECTIONS\"\n        },\n        {\n            \"name\": \"RANDOM\"\n        },\n        {\n            \"name\": \"ROUND_ROBIN\"\n        },\n        {\n            \"name\": \"WEIGHTED_LEAST_CONNECTIONS\"\n        },\n        {\n            \"name\": \"WEIGHTED_ROUND_ROBIN\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/billable": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listBillableLoadBalancers",
+                "summary": "List billable load balancers",
+                "description": "Lists billable load balancers for a specified date range.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"loadBalancers\": [\n        {\n            \"status\": \"DELETED\",\n            \"updated\": {\n                \"time\": \"2012-01-27T15:15:58-06:00\"\n            },\n            \"protocol\": \"HTTP\",\n            \"name\": \"lb01\",\n            \"algorithm\": \"RANDOM\",\n            \"created\": {\n                \"time\": \"2012-01-23T17:09:08-06:00\"\n            },\n            \"id\": 761,\n            \"port\": 80\n        },\n        {\n            \"status\": \"DELETED\",\n            \"updated\": {\n                \"time\": \"2012-01-27T15:26:47-06:00\"\n            },\n            \"protocol\": \"HTTP\",\n            \"name\": \"lb02\",\n            \"algorithm\": \"RANDOM\",\n            \"created\": {\n                \"time\": \"2012-01-23T17:10:30-06:00\"\n            },\n            \"id\": 762,\n            \"port\": 80\n        }\n    ],\n    \"links\": [\n        {\n            \"otherAttributes\": {},\n            \"href\": \"http://localhost:8080/lb-mgmt-rest-service/528830/loadbalancers/billable?startTime=2012-01-27&endTime=2012-02-26&offset=4&limit=2\",\n            \"rel\": \"next\"\n        },\n        {\n            \"otherAttributes\": {},\n            \"href\": \"http://localhost:8080/lb-mgmt-rest-service/528830/loadbalancers/billable?startTime=2012-01-27&endTime=2012-02-26&offset=0&limit=2\",\n            \"rel\": \"previous\"\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "startTime",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "If the startTime parameter is supplied but the endTime parameter is not, all usage beginning with the startTime is returned.\n"
+                    },
+                    {
+                        "name": "endTime",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "If the endTime parameter is supplied but the startTime parameter is not, all usage up to the endTime is returned.\n"
+                    },
+                    {
+                        "name": "offset",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The pagination offset.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The pagination limit. The response is paginated with a default limit of 500 and a maximum limit of 1000.\n"
+                    }
+                ]
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showLoadBalancer",
+                "summary": "Show load balancer details",
+                "description": "Shows details for a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"loadBalancer\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": {\n            \"time\": \"2010-11-30T03:23:44Z\"\n        },\n        \"protocol\": \"HTTP\",\n        \"name\": \"sample-loadbalancer\",\n        \"algorithm\": \"RANDOM\",\n        \"created\": {\n            \"time\": \"2010-11-30T03:23:42Z\"\n        },\n        \"virtualIps\": [\n            {\n                \"ipVersion\": \"IPV4\",\n                \"type\": \"PUBLIC\",\n                \"id\": 1000,\n                \"address\": \"206.10.10.210\"\n            }\n        ],\n        \"id\": 2000,\n        \"cluster\": {\n            \"name\": \"c1.dfw1\"\n        },\n        \"nodes\": [\n            {\n                \"port\": 80,\n                \"status\": \"ONLINE\",\n                \"id\": 1041,\n                \"condition\": \"ENABLED\",\n                \"address\": \"10.1.1.1\"\n            },\n            {\n                \"port\": 80,\n                \"status\": \"ONLINE\",\n                \"id\": 1411,\n                \"condition\": \"ENABLED\",\n                \"address\": \"10.1.1.2\"\n            }\n        ],\n        \"timeout\": 30,\n        \"connectionThrottle\": {\n            \"maxConnectionRate\": 50,\n            \"minConnections\": 10,\n            \"rateInterval\": 60,\n            \"maxConnections\": 100\n        },\n        \"connectionLogging\": {\n            \"enabled\": true\n        },\n        \"sessionPersistence\": {\n            \"persistenceType\": \"HTTP_COOKIE\"\n        },\n        \"port\": 80,\n        \"sourceAddresses\": {\n            \"ipv4Public\": \"10.12.99.28\",\n            \"ipv4Servicenet\": \"10.0.0.0\",\n            \"ipv6Public\": \"2001:4801:79f1:1::1/64\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateLoadBalancer",
+                "summary": "Update load balancer properties",
+                "description": "Updates the properties for a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteLoadBalancer",
+                "summary": "Delete load balancer",
+                "description": "Deletes a load balancer from the account.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/stats": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showStats",
+                "summary": "Show load balancer statistics",
+                "description": "Shows statistics for a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"connectTimeOut\": 10,\n    \"dataTimedOut\": 40,\n    \"connectFailure\": 30,\n    \"currentConnSsl\": 40,\n    \"dataTimedOutSsl\": 40,\n    \"connectErrorSsl\": 20,\n    \"currentConn\": 40,\n    \"keepAliveTimedOutSsl\": 50,\n    \"connectTimeOutSsl\": 10,\n    \"keepAliveTimedOut\": 50,\n    \"connectFailureSsl\": 30,\n    \"maxConnSsl\": 60,\n    \"maxConn\": 60,\n    \"connectError\": 20\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/errorpage": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showErrorPage",
+                "summary": "Show custom error page",
+                "description": "Shows the custom error page that is configured for a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"errorpage\": {\n        \"content\": \"<html> DEFAULT ERROR PAGE</html>\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "setErrorPage",
+                "summary": "Set custom error page",
+                "description": "Sets a custom error page for a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"errorpage\": {\n        \"content\": \"<html> DEFAULT ERROR PAGE</html>\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteErrorPage",
+                "summary": "Delete custom error page",
+                "description": "Deletes the custom error page for a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/nodes": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listNodes",
+                "summary": "List nodes",
+                "description": "Lists nodes that are configured for a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"nodes\": [\n        {\n            \"status\": \"ONLINE\",\n            \"weight\": 3,\n            \"id\": 410,\n            \"address\": \"10.1.1.1\",\n            \"type\": \"PRIMARY\",\n            \"port\": 80,\n            \"condition\": \"ENABLED\"\n        },\n        {\n            \"status\": \"ONLINE\",\n            \"weight\": 8,\n            \"id\": 411,\n            \"address\": \"10.1.1.2\",\n            \"type\": \"SECONDARY\",\n            \"port\": 80,\n            \"condition\": \"ENABLED\"\n        },\n        {\n            \"status\": \"ONLINE\",\n            \"weight\": 12,\n            \"id\": 412,\n            \"address\": \"10.1.1.3\",\n            \"type\": \"SECONDARY\",\n            \"port\": 80,\n            \"condition\": \"DISABLED\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "addNode",
+                "summary": "Add node",
+                "description": "Adds a node to a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"nodes\": [\n        {\n            \"status\": \"ONLINE\",\n            \"weight\": 1,\n            \"id\": 185,\n            \"address\": \"10.2.2.3\",\n            \"type\": \"PRIMARY\",\n            \"port\": 80,\n            \"condition\": \"ENABLED\"\n        },\n        {\n            \"status\": \"ONLINE\",\n            \"weight\": 1,\n            \"id\": 186,\n            \"address\": \"10.2.2.4\",\n            \"type\": \"SECONDARY\",\n            \"port\": 81,\n            \"condition\": \"ENABLED\"\n        },\n        {\n            \"status\": \"ONLINE\",\n            \"weight\": 10,\n            \"id\": 186,\n            \"address\": \"www.myrackspace.com\",\n            \"type\": \"SECONDARY\",\n            \"port\": 88,\n            \"condition\": \"ENABLED\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "bulkDeleteNodes",
+                "summary": "Bulk-delete nodes",
+                "description": "Bulk-deletes the specified nodes from a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "nodeId",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The ID for the specified node.\n"
+                    }
+                ]
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/nodes/{nodeId}": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                },
+                {
+                    "name": "nodeId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the node.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showNode",
+                "summary": "Show node details",
+                "description": "Show details for a specified node.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"node\": {\n        \"status\": \"ONLINE\",\n        \"weight\": 12,\n        \"id\": 410,\n        \"address\": \"10.1.1.1\",\n        \"type\": \"PRIMARY\",\n        \"port\": 80,\n        \"condition\": \"ENABLED\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateNode",
+                "summary": "Update node",
+                "description": "Updates the configuration for a specified node on a specified load balancer.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteNode",
+                "summary": "Delete node",
+                "description": "Deletes a node from a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/nodes/{nodeId}/metadata": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                },
+                {
+                    "name": "nodeId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the node.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showNodeMetadata",
+                "summary": "Show load balancer node metadata",
+                "description": "Shows all metadata associated with a specified node and load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": [\n        {\n            \"value\": \"red\",\n            \"id\": \"1\",\n            \"key\": \"color\"\n        },\n        {\n            \"value\": \"web-load-balancer\",\n            \"id\": \"2\",\n            \"key\": \"label\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "addNodeMetadataItem",
+                "summary": "Add load balancer node metadata item",
+                "description": "Adds a metadata item to a specified node and load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "bulkDeleteNodeMetadataItems",
+                "summary": "Bulk-delete load balancer node metadata items",
+                "description": "Bulk-deletes the metadata items given specified id list.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "metaId",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The ID for the metadata item.\n"
+                    }
+                ]
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/nodes/{nodeId}/metadata/{metaId}": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                },
+                {
+                    "name": "nodeId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the node.\n"
+                },
+                {
+                    "name": "metaId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the metadata item.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showNodeMetadataItem",
+                "summary": "Show load balancer node metadata item",
+                "description": "Shows details for a specified metadata item for a specified node and load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"meta\": {\n        \"value\": \"red\",\n        \"id\": 4,\n        \"key\": \"color\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateNodeMetadataItem",
+                "summary": "Update load balancer node metadata item",
+                "description": "Updates the configuration of a metadata item on the node.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteNodeMetadataItem",
+                "summary": "Delete load balancer node metadata item",
+                "description": "Deletes a metadata item from the node.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/nodes/events": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listNodeEvents",
+                "summary": "List node service events",
+                "description": "Lists node service events.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"nodeServiceEvents\": [\n        {\n            \"category\": \"UPDATE\",\n            \"description\": \"Node '373' status changed to 'ONLINE' for load balancer '323'\",\n            \"title\": \"Node Status Updated\",\n            \"detailedMessage\": \"Node is ok\",\n            \"author\": \"Rackspace Cloud\",\n            \"nodeId\": 373,\n            \"relativeUri\": \"/406271/loadbalancers/323/nodes/373/events\",\n            \"created\": \"10-30-2012 10:18:23\",\n            \"loadbalancerId\": 323,\n            \"accountId\": 406271,\n            \"type\": \"UPDATE_NODE\",\n            \"id\": 7,\n            \"severity\": \"INFO\"\n        },\n        {\n            \"category\": \"UPDATE\",\n            \"description\": \"Node '373' status changed to 'OFFLINE' for load balancer '323'\",\n            \"title\": \"Node Status Updated\",\n            \"detailedMessage\": \"Invalid HTTP response received; premature end of headers\",\n            \"author\": \"Rackspace Cloud\",\n            \"nodeId\": 373,\n            \"relativeUri\": \"/406271/loadbalancers/323/nodes/373/events\",\n            \"created\": \"10-30-2012 11:22:25\",\n            \"loadbalancerId\": 323,\n            \"accountId\": 406271,\n            \"type\": \"UPDATE_NODE\",\n            \"id\": 8,\n            \"severity\": \"INFO\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/virtualips": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listVirtualIps",
+                "summary": "List virtual IPs",
+                "description": "Lists virtual IPs that are associated with a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"virtualIps\": [\n        {\n            \"type\": \"PUBLIC\",\n            \"id\": 1000,\n            \"address\": \"206.10.10.210\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "addVirtualIpv6",
+                "summary": "Add virtual IP version 6",
+                "description": "Adds virtual IP version 6.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"ipVersion\": \"IPV6\",\n    \"type\": \"PUBLIC\",\n    \"id\": 9000137,\n    \"address\": \"fd24:f480:ce44:91bc:1af2:15ff:0000:0002\"\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "bulkDeleteVirtualIps",
+                "summary": "Bulk-delete virtual IPs",
+                "description": "Bulk-deletes specified virtual IPs.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "virtualIpId",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The ID for the virtual IP.\n"
+                    }
+                ]
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/virtualips/{virtualIpId}": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                },
+                {
+                    "name": "virtualIpId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the virtual IP.\n"
+                }
+            ],
+            "delete": {
+                "operationId": "deleteVirtualIp",
+                "summary": "Delete virtual IP",
+                "description": "Deletes a specified virtual IP.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/usage": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showHistoricalUsage",
+                "summary": "Show historical usage",
+                "description": "Shows historical usage.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"loadBalancerUsageRecords\": [\n        {\n            \"incomingTransferSsl\": 0,\n            \"startTime\": \"2010-12-21T12:32:07-06:00\",\n            \"averageNumConnectionsSsl\": 0.0,\n            \"eventType\": \"CREATE_LOADBALANCER\",\n            \"numVips\": 1,\n            \"incomingTransfer\": 0,\n            \"numPolls\": 32,\n            \"outgoingTransfer\": 0,\n            \"sslMode\": \"OFF\",\n            \"endTime\": \"2010-12-21T16:23:54-06:00\",\n            \"outgoingTransferSsl\": 0,\n            \"id\": 394,\n            \"vipType\": \"PUBLIC\",\n            \"averageNumConnections\": 0.0\n        },\n        {\n            \"incomingTransferSsl\": 0,\n            \"startTime\": \"2010-12-21T12:32:07-06:00\",\n            \"averageNumConnectionsSsl\": 0.0,\n            \"eventType\": \"SSL_MIXED_ON\",\n            \"numVips\": 2,\n            \"incomingTransfer\": 0,\n            \"numPolls\": 5,\n            \"outgoingTransfer\": 0,\n            \"sslMode\": \"MIXED\",\n            \"endTime\": \"2010-12-21T12:36:30-06:00\",\n            \"outgoingTransferSsl\": 0,\n            \"id\": 473,\n            \"vipType\": \"PUBLIC\",\n            \"averageNumConnections\": 0.0\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "startTime",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "If the startTime parameter is supplied but the endTime parameter is not, all usage beginning with the startTime is returned.\n"
+                    },
+                    {
+                        "name": "endTime",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "If the endTime parameter is supplied but the startTime parameter is not, all usage up to the endTime is returned.\n"
+                    }
+                ]
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/usage/current": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showCurrentUsage",
+                "summary": "Show current usage",
+                "description": "Shows current usage.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"loadBalancerUsageRecords\": [\n        {\n            \"incomingTransferSsl\": 0,\n            \"numPolls\": 0,\n            \"averageNumConnectionsSsl\": 0,\n            \"numVips\": 1,\n            \"incomingTransfer\": 0,\n            \"startTime\": \"2014-06-25T15:00:00-05:00\",\n            \"outgoingTransfer\": 0,\n            \"sslMode\": \"OFF\",\n            \"endTime\": \"2014-06-25T16:00:00-05:00\",\n            \"outgoingTransferSsl\": 0,\n            \"id\": 42030,\n            \"vipType\": \"PUBLIC\",\n            \"averageNumConnections\": 0\n        }\n    ],\n    \"links\": []\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "startTime",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "If the startTime parameter is supplied but the endTime parameter is not, all usage beginning with the startTime is returned.\n"
+                    },
+                    {
+                        "name": "endTime",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "If the endTime parameter is supplied but the startTime parameter is not, all usage up to the endTime is returned.\n"
+                    }
+                ]
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/accesslist": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showAccessList",
+                "summary": "Show access list",
+                "description": "Shows the access list.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"accessList\": [\n        {\n            \"type\": \"DENY\",\n            \"id\": 23,\n            \"address\": \"206.160.163.21\"\n        },\n        {\n            \"type\": \"DENY\",\n            \"id\": 24,\n            \"address\": \"206.160.165.11\"\n        },\n        {\n            \"type\": \"DENY\",\n            \"id\": 25,\n            \"address\": \"206.160.163.21\"\n        },\n        {\n            \"type\": \"DENY\",\n            \"id\": 26,\n            \"address\": \"206.160.165.11\"\n        },\n        {\n            \"type\": \"DENY\",\n            \"id\": 27,\n            \"address\": \"206.160.123.11\"\n        },\n        {\n            \"type\": \"DENY\",\n            \"id\": 28,\n            \"address\": \"206.160.122.21\"\n        },\n        {\n            \"type\": \"DENY\",\n            \"id\": 29,\n            \"address\": \"206.140.123.11\"\n        },\n        {\n            \"type\": \"DENY\",\n            \"id\": 30,\n            \"address\": \"206.140.122.21\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createAccessList",
+                "summary": "Create or update access list",
+                "description": "Creates or appends to an access list.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "bulkDeleteNetworks",
+                "summary": "Bulk-delete networks from access list",
+                "description": "Bulk-deletes the specified networks from an access list.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "networkItemId",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The ID for the network item.\n"
+                    }
+                ]
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/accesslist/{networkItemId}": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                },
+                {
+                    "name": "networkItemId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the network item.\n"
+                }
+            ],
+            "delete": {
+                "operationId": "deleteNetwork",
+                "summary": "Delete network from access list",
+                "description": "Deletes a network item from a specified access list.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/healthmonitor": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showHealthMonitor",
+                "summary": "Show health monitor configuration",
+                "description": "Shows the health monitor configuration, if one exists.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"healthMonitor\": {\n        \"attemptsBeforeDeactivation\": 3,\n        \"bodyRegex\": \"^[234][0-9][0-9]$\",\n        \"statusRegex\": \"^[234][0-9][0-9]$\",\n        \"delay\": 10,\n        \"hostHeader\": \"myrack.com\",\n        \"timeout\": 10,\n        \"path\": \"/\",\n        \"type\": \"HTTPS\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateHealthMonitor",
+                "summary": "Update health monitor",
+                "description": "Updates the settings for a health monitor.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteHealthMonitor",
+                "summary": "Delete health monitor",
+                "description": "Deletes a health monitor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/sessionpersistence": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showSessionPersistence",
+                "summary": "Show session persistence configuration",
+                "description": "Shows the session persistence configuration.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"sessionPersistence\": {\n        \"persistenceType\": \"HTTP_COOKIE\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "enableSessionPersistence",
+                "summary": "Enable session persistence",
+                "description": "Enables session persistence.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "disableSessionPersistence",
+                "summary": "Disable session persistence",
+                "description": "Disables session persistence.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/connectionlogging": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showConnectionLogging",
+                "summary": "Show connection logging configuration",
+                "description": "Shows the connection logging configuration.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"connectionLogging\": {\n        \"enabled\": true\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "enableConnectionLogging",
+                "summary": "Enable or disable connection logging",
+                "description": "Enables or disables connection logging.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/connectionthrottle": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showConnectionThrottle",
+                "summary": "Show connection throttling configuration",
+                "description": "Show the connection throttling configuration.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"connectionThrottle\": {\n        \"maxConnectionRate\": 50,\n        \"minConnections\": 10,\n        \"rateInterval\": 60,\n        \"maxConnections\": 100\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "createOrUpdateConnectionThrottle",
+                "summary": "Create or update connection throttling configuration",
+                "description": "Creates or updates the throttling configuration.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteConnectionThrottle",
+                "summary": "Delete connection throttling configuration",
+                "description": "Deletes the connection throttling configuration.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/contentcaching": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showContentCaching",
+                "summary": "Show content caching configuration",
+                "description": "Shows the current configuration of content caching.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"contentCaching\": {\n        \"enabled\": true\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "enableContentCaching",
+                "summary": "Enable content caching",
+                "description": "Enables or disables content caching.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/ssltermination": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showSSLTermination",
+                "summary": "Show SSL termination configuration",
+                "description": "Shows the load balancer's SSL termination configuration.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"sslTermination\": {\n        \"securePort\": 443,\n        \"enabled\": true,\n        \"secureTrafficOnly\": false,\n        \"certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIEXTCCA0WgAwIBAgIGATTEAjK3MA0GCSqGSIb3DQEBBQUAMIGDMRkwFwYDVQQD\\nExBUZXN0IENBIFNUdWIgS2V5MRcwFQYDVQQLEw5QbGF0Zm9ybSBMYmFhczEaMBgG\\nA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFDASBgNVBAcTC1NhbiBBbnRvbmlvMQ4w\\nDAYDVQQIEwVUZXhhczELMAkGA1UEBhMCVVMwHhcNMTIwMTA5MTk0NjQ1WhcNMTQw\\nMTA4MTk0NjQ1WjCBgjELMAkGA1UEBhMCVVMxDjAMBgNVBAgTBVRleGFzMRQwEgYD\\nVQQHEwtTYW4gQW50b25pbzEaMBgGA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFzAV\\nBgNVBAsTDlBsYXRmb3JtIExiYWFzMRgwFgYDVQQDEw9UZXN0IENsaWVudCBLZXkw\\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAi51IylFnHtNLT8C0NVfc\\nOBfAsP2D5es1qhrOWHCGlgAuDMksBsCc7FPo5PSBOmQ+6z8HtCFbrLoC5/Zx0F5b\\nfVegjA+xKjI2HGASsYHHM0BFEH2UjUcJrWiMWtxQuW6Phbqulo7JwjmygMEmIkeK\\nf+FtkE9mrq+E8K40/thrjxl3/ZcJD1+3dcp+ZuzVJ2t1E4iGKCx79IZFsysKiuf+\\n+E0i6iGvvI6UcbcZxVxQj2TplJkFuoX5kDgClIX9Dr9y6aJ4SCh+GRhvHl+DTaz0\\nnCvghachHZtIeztRDqxWApjOOzs93dSelrviMXDr8fqyEAGg7YIhgui0aZBsWCen\\nAgMBAAGjgdUwgdIwgbAGA1UdIwSBqDCBpYAUNpx1Pc6cGA7KqEwHMmHBTZMA7lSh\\ngYmkgYYwgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVU4IBATAd\\nBgNVHQ4EFgQULueOfsjZZOHwJHZwBy6u0swnpccwDQYJKoZIhvcNAQEFBQADggEB\\nAFNuqSVUaotUJoWDv4z7Kbi6JFpTjDht5ORw4BdVYlRD4h9DACAFzPrPV2ym/Osp\\nhNMdZq6msZku7MdOSQVhdeGWrSNk3M8O9Hg7cVzPNXOF3iNoo3irQ5tURut44xs4\\nWw5YWQqS9WyUY5snD8tm7Y1rQTPfhg+678xIq/zWCv/u+FSnfVv1nlhLVQkEeG/Y\\ngh1uMaTIpUKTGEjIAGtpGP7wwIcXptR/HyfzhTUSTaWc1Ef7zoKT9LL5z3IV1hC2\\njVWz+RwYs98LjMuksJFoHqRfWyYhCIym0jb6GTwaEmpxAjc+d7OLNQdnoEGoUYGP\\nYjtfkRYg265ESMA+Kww4Xy8=\\n-----END CERTIFICATE-----\\n\",\n        \"intermediateCertificate\": \"-----BEGIN CERTIFICATE-----\\nMIIDtTCCAp2gAwIBAgIBATANBgkqhkiG9w0BAQUFADCBgzEZMBcGA1UEAxMQVGVz\\ndCBDQSBTVHViIEtleTEXMBUGA1UECxMOUGxhdGZvcm0gTGJhYXMxGjAYBgNVBAoT\\nEVJhY2tzcGFjZSBIb3N0aW5nMRQwEgYDVQQHEwtTYW4gQW50b25pbzEOMAwGA1UE\\nCBMFVGV4YXMxCzAJBgNVBAYTAlVTMB4XDTEyMDEwOTE5NDU0OVoXDTE0MDEwODE5\\nNDU0OVowgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVUzCCASIw\\nDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANNh55lwTVwQvNoEZjq1zGdYz9jA\\nXXdjizn8AJhjHLOAallfPtvCfTEgKanhdoyz5FnhQE8HbDAop/KNS1lN2UMvdl5f\\nZNLTSjJrNtedqxQwxN/i3bpyBxNVejUH2NjV1mmyj+5CJYwCzWalvI/gLPq/A3as\\nO2EQqtf3U8unRgn0zXLRdYxV9MrUzNAmdipPNvNrsVdrCgA42rgF/8KsyRVQfJCX\\nfN7PGCfrsC3YaUvhymraWxNnXIzMYTNa9wEeBZLUw8SlEtpa1Zsvui+TPXu3USNZ\\nVnWH8Lb6ENlnoX0VBwo62fjOG3JzhNKoJawi3bRqyDdINOvafr7iPrrs/T8CAwEA\\nAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUNpx1Pc6cGA7KqEwHMmHB\\nTZMA7lQwDQYJKoZIhvcNAQEFBQADggEBAMoRgH3iTG3t317viLKoY+lNMHUgHuR7\\nb3mn9MidJKyYVewe6hCDIN6WY4fUojmMW9wFJWJIo0hRMNHL3n3tq8HP2j20Mxy8\\nacPdfGZJa+jiBw72CrIGdobKaFduIlIEDBA1pNdZIJ+EulrtqrMesnIt92WaypIS\\n8JycbIgDMCiyC0ENHEk8UWlC6429c7OZAsplMTbHME/1R4btxjkdfrYZJjdJ2yL2\\n8cjZDUDMCPTdW/ycP07Gkq30RB5tACB5aZdaCn2YaKC8FsEdhff4X7xEOfOEHWEq\\nSRxADDj8Lx1MT6QpR07hCiDyHfTCtbqzI0iGjX63Oh7xXSa0f+JVTa8=\\n-----END CERTIFICATE-----\\n\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateSSLTermination",
+                "summary": "Update SSL termination configuration",
+                "description": "Updates the SSL termination configuration.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteSSLTermination",
+                "summary": "Delete SSL termination",
+                "description": "Deletes SSL termination.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/ssltermination/certificatemappings": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listCertificateMappings",
+                "summary": "List certificate mappings",
+                "description": "Lists certificate mappings that are configured for a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"certificateMappings\": [\n        {\n            \"certificateMapping\": {\n                \"hostName\": \"rackspace.com\",\n                \"id\": 123\n            }\n        },\n        {\n            \"certificateMapping\": {\n                \"hostName\": \"*.rackspace.com\",\n                \"id\": 124\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "addCertificateMapping",
+                "summary": "Add certificate mapping",
+                "description": "Adds a certificate mapping to a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"certificateMapping\": {\n        \"hostName\": \"rackspace.com\",\n        \"id\": 123,\n        \"certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIEXTCCA0WgAwIBAgIGATTEAjK3MA0GCSqGSIb3DQEBBQUAMIGDMRkwFwYDVQQD\\nExBUZXN0IENBIFNUdWIgS2V5MRcwFQYDVQQLEw5QbGF0Zm9ybSBMYmFhczEaMBgG\\nA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFDASBgNVBAcTC1NhbiBBbnRvbmlvMQ4w\\nDAYDVQQIEwVUZXhhczELMAkGA1UEBhMCVVMwHhcNMTIwMTA5MTk0NjQ1WhcNMTQw\\nMTA4MTk0NjQ1WjCBgjELMAkGA1UEBhMCVVMxDjAMBgNVBAgTBVRleGFzMRQwEgYD\\nVQQHEwtTYW4gQW50b25pbzEaMBgGA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFzAV\\nBgNVBAsTDlBsYXRmb3JtIExiYWFzMRgwFgYDVQQDEw9UZXN0IENsaWVudCBLZXkw\\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAi51IylFnHtNLT8C0NVfc\\nOBfAsP2D5es1qhrOWHCGlgAuDMksBsCc7FPo5PSBOmQ+6z8HtCFbrLoC5/Zx0F5b\\nfVegjA+xKjI2HGASsYHHM0BFEH2UjUcJrWiMWtxQuW6Phbqulo7JwjmygMEmIkeK\\nf+FtkE9mrq+E8K40/thrjxl3/ZcJD1+3dcp+ZuzVJ2t1E4iGKCx79IZFsysKiuf+\\n+E0i6iGvvI6UcbcZxVxQj2TplJkFuoX5kDgClIX9Dr9y6aJ4SCh+GRhvHl+DTaz0\\nnCvghachHZtIeztRDqxWApjOOzs93dSelrviMXDr8fqyEAGg7YIhgui0aZBsWCen\\nAgMBAAGjgdUwgdIwgbAGA1UdIwSBqDCBpYAUNpx1Pc6cGA7KqEwHMmHBTZMA7lSh\\ngYmkgYYwgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVU4IBATAd\\nBgNVHQ4EFgQULueOfsjZZOHwJHZwBy6u0swnpccwDQYJKoZIhvcNAQEFBQADggEB\\nAFNuqSVUaotUJoWDv4z7Kbi6JFpTjDht5ORw4BdVYlRD4h9DACAFzPrPV2ym/Osp\\nhNMdZq6msZku7MdOSQVhdeGWrSNk3M8O9Hg7cVzPNXOF3iNoo3irQ5tURut44xs4\\nWw5YWQqS9WyUY5snD8tm7Y1rQTPfhg+678xIq/zWCv/u+FSnfVv1nlhLVQkEeG/Y\\ngh1uMaTIpUKTGEjIAGtpGP7wwIcXptR/HyfzhTUSTaWc1Ef7zoKT9LL5z3IV1hC2\\njVWz+RwYs98LjMuksJFoHqRfWyYhCIym0jb6GTwaEmpxAjc+d7OLNQdnoEGoUYGP\\nYjtfkRYg265ESMA+Kww4Xy8=\\n-----END CERTIFICATE-----\\n\",\n        \"intermediateCertificate\": \"-----BEGIN CERTIFICATE-----\\nMIIDtTCCAp2gAwIBAgIBATANBgkqhkiG9w0BAQUFADCBgzEZMBcGA1UEAxMQVGVz\\ndCBDQSBTVHViIEtleTEXMBUGA1UECxMOUGxhdGZvcm0gTGJhYXMxGjAYBgNVBAoT\\nEVJhY2tzcGFjZSBIb3N0aW5nMRQwEgYDVQQHEwtTYW4gQW50b25pbzEOMAwGA1UE\\nCBMFVGV4YXMxCzAJBgNVBAYTAlVTMB4XDTEyMDEwOTE5NDU0OVoXDTE0MDEwODE5\\nNDU0OVowgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVUzCCASIw\\nDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANNh55lwTVwQvNoEZjq1zGdYz9jA\\nXXdjizn8AJhjHLOAallfPtvCfTEgKanhdoyz5FnhQE8HbDAop/KNS1lN2UMvdl5f\\nZNLTSjJrNtedqxQwxN/i3bpyBxNVejUH2NjV1mmyj+5CJYwCzWalvI/gLPq/A3as\\nO2EQqtf3U8unRgn0zXLRdYxV9MrUzNAmdipPNvNrsVdrCgA42rgF/8KsyRVQfJCX\\nfN7PGCfrsC3YaUvhymraWxNnXIzMYTNa9wEeBZLUw8SlEtpa1Zsvui+TPXu3USNZ\\nVnWH8Lb6ENlnoX0VBwo62fjOG3JzhNKoJawi3bRqyDdINOvafr7iPrrs/T8CAwEA\\nAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUNpx1Pc6cGA7KqEwHMmHB\\nTZMA7lQwDQYJKoZIhvcNAQEFBQADggEBAMoRgH3iTG3t317viLKoY+lNMHUgHuR7\\nb3mn9MidJKyYVewe6hCDIN6WY4fUojmMW9wFJWJIo0hRMNHL3n3tq8HP2j20Mxy8\\nacPdfGZJa+jiBw72CrIGdobKaFduIlIEDBA1pNdZIJ+EulrtqrMesnIt92WaypIS\\n8JycbIgDMCiyC0ENHEk8UWlC6429c7OZAsplMTbHME/1R4btxjkdfrYZJjdJ2yL2\\n8cjZDUDMCPTdW/ycP07Gkq30RB5tACB5aZdaCn2YaKC8FsEdhff4X7xEOfOEHWEq\\nSRxADDj8Lx1MT6QpR07hCiDyHfTCtbqzI0iGjX63Oh7xXSa0f+JVTa8=\\n-----END CERTIFICATE-----\\n\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/ssltermination/certificatemappings/{certificateMappingId}": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                },
+                {
+                    "name": "certificateMappingId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the certificate mapping.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showCertificateMapping",
+                "summary": "Show certificate mappings details",
+                "description": "Shows details for a specified certificate mapping.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"certificateMapping\": {\n        \"hostName\": \"rackspace.com\",\n        \"id\": 123,\n        \"certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIEXTCCA0WgAwIBAgIGATTEAjK3MA0GCSqGSIb3DQEBBQUAMIGDMRkwFwYDVQQD\\nExBUZXN0IENBIFNUdWIgS2V5MRcwFQYDVQQLEw5QbGF0Zm9ybSBMYmFhczEaMBgG\\nA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFDASBgNVBAcTC1NhbiBBbnRvbmlvMQ4w\\nDAYDVQQIEwVUZXhhczELMAkGA1UEBhMCVVMwHhcNMTIwMTA5MTk0NjQ1WhcNMTQw\\nMTA4MTk0NjQ1WjCBgjELMAkGA1UEBhMCVVMxDjAMBgNVBAgTBVRleGFzMRQwEgYD\\nVQQHEwtTYW4gQW50b25pbzEaMBgGA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFzAV\\nBgNVBAsTDlBsYXRmb3JtIExiYWFzMRgwFgYDVQQDEw9UZXN0IENsaWVudCBLZXkw\\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAi51IylFnHtNLT8C0NVfc\\nOBfAsP2D5es1qhrOWHCGlgAuDMksBsCc7FPo5PSBOmQ+6z8HtCFbrLoC5/Zx0F5b\\nfVegjA+xKjI2HGASsYHHM0BFEH2UjUcJrWiMWtxQuW6Phbqulo7JwjmygMEmIkeK\\nf+FtkE9mrq+E8K40/thrjxl3/ZcJD1+3dcp+ZuzVJ2t1E4iGKCx79IZFsysKiuf+\\n+E0i6iGvvI6UcbcZxVxQj2TplJkFuoX5kDgClIX9Dr9y6aJ4SCh+GRhvHl+DTaz0\\nnCvghachHZtIeztRDqxWApjOOzs93dSelrviMXDr8fqyEAGg7YIhgui0aZBsWCen\\nAgMBAAGjgdUwgdIwgbAGA1UdIwSBqDCBpYAUNpx1Pc6cGA7KqEwHMmHBTZMA7lSh\\ngYmkgYYwgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVU4IBATAd\\nBgNVHQ4EFgQULueOfsjZZOHwJHZwBy6u0swnpccwDQYJKoZIhvcNAQEFBQADggEB\\nAFNuqSVUaotUJoWDv4z7Kbi6JFpTjDht5ORw4BdVYlRD4h9DACAFzPrPV2ym/Osp\\nhNMdZq6msZku7MdOSQVhdeGWrSNk3M8O9Hg7cVzPNXOF3iNoo3irQ5tURut44xs4\\nWw5YWQqS9WyUY5snD8tm7Y1rQTPfhg+678xIq/zWCv/u+FSnfVv1nlhLVQkEeG/Y\\ngh1uMaTIpUKTGEjIAGtpGP7wwIcXptR/HyfzhTUSTaWc1Ef7zoKT9LL5z3IV1hC2\\njVWz+RwYs98LjMuksJFoHqRfWyYhCIym0jb6GTwaEmpxAjc+d7OLNQdnoEGoUYGP\\nYjtfkRYg265ESMA+Kww4Xy8=\\n-----END CERTIFICATE-----\\n\",\n        \"intermediateCertificate\": \"-----BEGIN CERTIFICATE-----\\nMIIDtTCCAp2gAwIBAgIBATANBgkqhkiG9w0BAQUFADCBgzEZMBcGA1UEAxMQVGVz\\ndCBDQSBTVHViIEtleTEXMBUGA1UECxMOUGxhdGZvcm0gTGJhYXMxGjAYBgNVBAoT\\nEVJhY2tzcGFjZSBIb3N0aW5nMRQwEgYDVQQHEwtTYW4gQW50b25pbzEOMAwGA1UE\\nCBMFVGV4YXMxCzAJBgNVBAYTAlVTMB4XDTEyMDEwOTE5NDU0OVoXDTE0MDEwODE5\\nNDU0OVowgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVUzCCASIw\\nDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANNh55lwTVwQvNoEZjq1zGdYz9jA\\nXXdjizn8AJhjHLOAallfPtvCfTEgKanhdoyz5FnhQE8HbDAop/KNS1lN2UMvdl5f\\nZNLTSjJrNtedqxQwxN/i3bpyBxNVejUH2NjV1mmyj+5CJYwCzWalvI/gLPq/A3as\\nO2EQqtf3U8unRgn0zXLRdYxV9MrUzNAmdipPNvNrsVdrCgA42rgF/8KsyRVQfJCX\\nfN7PGCfrsC3YaUvhymraWxNnXIzMYTNa9wEeBZLUw8SlEtpa1Zsvui+TPXu3USNZ\\nVnWH8Lb6ENlnoX0VBwo62fjOG3JzhNKoJawi3bRqyDdINOvafr7iPrrs/T8CAwEA\\nAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUNpx1Pc6cGA7KqEwHMmHB\\nTZMA7lQwDQYJKoZIhvcNAQEFBQADggEBAMoRgH3iTG3t317viLKoY+lNMHUgHuR7\\nb3mn9MidJKyYVewe6hCDIN6WY4fUojmMW9wFJWJIo0hRMNHL3n3tq8HP2j20Mxy8\\nacPdfGZJa+jiBw72CrIGdobKaFduIlIEDBA1pNdZIJ+EulrtqrMesnIt92WaypIS\\n8JycbIgDMCiyC0ENHEk8UWlC6429c7OZAsplMTbHME/1R4btxjkdfrYZJjdJ2yL2\\n8cjZDUDMCPTdW/ycP07Gkq30RB5tACB5aZdaCn2YaKC8FsEdhff4X7xEOfOEHWEq\\nSRxADDj8Lx1MT6QpR07hCiDyHfTCtbqzI0iGjX63Oh7xXSa0f+JVTa8=\\n-----END CERTIFICATE-----\\n\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateCertificateMapping",
+                "summary": "Update certificate mapping",
+                "description": "Updates the configuration for a specified certificate mapping on a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"certificateMapping\": {\n        \"hostName\": \"rackspace.com\",\n        \"id\": 123,\n        \"certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIEXTCCA0WgAwIBAgIGATTEAjK3MA0GCSqGSIb3DQEBBQUAMIGDMRkwFwYDVQQD\\nExBUZXN0IENBIFNUdWIgS2V5MRcwFQYDVQQLEw5QbGF0Zm9ybSBMYmFhczEaMBgG\\nA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFDASBgNVBAcTC1NhbiBBbnRvbmlvMQ4w\\nDAYDVQQIEwVUZXhhczELMAkGA1UEBhMCVVMwHhcNMTIwMTA5MTk0NjQ1WhcNMTQw\\nMTA4MTk0NjQ1WjCBgjELMAkGA1UEBhMCVVMxDjAMBgNVBAgTBVRleGFzMRQwEgYD\\nVQQHEwtTYW4gQW50b25pbzEaMBgGA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFzAV\\nBgNVBAsTDlBsYXRmb3JtIExiYWFzMRgwFgYDVQQDEw9UZXN0IENsaWVudCBLZXkw\\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAi51IylFnHtNLT8C0NVfc\\nOBfAsP2D5es1qhrOWHCGlgAuDMksBsCc7FPo5PSBOmQ+6z8HtCFbrLoC5/Zx0F5b\\nfVegjA+xKjI2HGASsYHHM0BFEH2UjUcJrWiMWtxQuW6Phbqulo7JwjmygMEmIkeK\\nf+FtkE9mrq+E8K40/thrjxl3/ZcJD1+3dcp+ZuzVJ2t1E4iGKCx79IZFsysKiuf+\\n+E0i6iGvvI6UcbcZxVxQj2TplJkFuoX5kDgClIX9Dr9y6aJ4SCh+GRhvHl+DTaz0\\nnCvghachHZtIeztRDqxWApjOOzs93dSelrviMXDr8fqyEAGg7YIhgui0aZBsWCen\\nAgMBAAGjgdUwgdIwgbAGA1UdIwSBqDCBpYAUNpx1Pc6cGA7KqEwHMmHBTZMA7lSh\\ngYmkgYYwgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVU4IBATAd\\nBgNVHQ4EFgQULueOfsjZZOHwJHZwBy6u0swnpccwDQYJKoZIhvcNAQEFBQADggEB\\nAFNuqSVUaotUJoWDv4z7Kbi6JFpTjDht5ORw4BdVYlRD4h9DACAFzPrPV2ym/Osp\\nhNMdZq6msZku7MdOSQVhdeGWrSNk3M8O9Hg7cVzPNXOF3iNoo3irQ5tURut44xs4\\nWw5YWQqS9WyUY5snD8tm7Y1rQTPfhg+678xIq/zWCv/u+FSnfVv1nlhLVQkEeG/Y\\ngh1uMaTIpUKTGEjIAGtpGP7wwIcXptR/HyfzhTUSTaWc1Ef7zoKT9LL5z3IV1hC2\\njVWz+RwYs98LjMuksJFoHqRfWyYhCIym0jb6GTwaEmpxAjc+d7OLNQdnoEGoUYGP\\nYjtfkRYg265ESMA+Kww4Xy8=\\n-----END CERTIFICATE-----\\n\",\n        \"intermediateCertificate\": \"-----BEGIN CERTIFICATE-----\\nMIIDtTCCAp2gAwIBAgIBATANBgkqhkiG9w0BAQUFADCBgzEZMBcGA1UEAxMQVGVz\\ndCBDQSBTVHViIEtleTEXMBUGA1UECxMOUGxhdGZvcm0gTGJhYXMxGjAYBgNVBAoT\\nEVJhY2tzcGFjZSBIb3N0aW5nMRQwEgYDVQQHEwtTYW4gQW50b25pbzEOMAwGA1UE\\nCBMFVGV4YXMxCzAJBgNVBAYTAlVTMB4XDTEyMDEwOTE5NDU0OVoXDTE0MDEwODE5\\nNDU0OVowgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVUzCCASIw\\nDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANNh55lwTVwQvNoEZjq1zGdYz9jA\\nXXdjizn8AJhjHLOAallfPtvCfTEgKanhdoyz5FnhQE8HbDAop/KNS1lN2UMvdl5f\\nZNLTSjJrNtedqxQwxN/i3bpyBxNVejUH2NjV1mmyj+5CJYwCzWalvI/gLPq/A3as\\nO2EQqtf3U8unRgn0zXLRdYxV9MrUzNAmdipPNvNrsVdrCgA42rgF/8KsyRVQfJCX\\nfN7PGCfrsC3YaUvhymraWxNnXIzMYTNa9wEeBZLUw8SlEtpa1Zsvui+TPXu3USNZ\\nVnWH8Lb6ENlnoX0VBwo62fjOG3JzhNKoJawi3bRqyDdINOvafr7iPrrs/T8CAwEA\\nAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUNpx1Pc6cGA7KqEwHMmHB\\nTZMA7lQwDQYJKoZIhvcNAQEFBQADggEBAMoRgH3iTG3t317viLKoY+lNMHUgHuR7\\nb3mn9MidJKyYVewe6hCDIN6WY4fUojmMW9wFJWJIo0hRMNHL3n3tq8HP2j20Mxy8\\nacPdfGZJa+jiBw72CrIGdobKaFduIlIEDBA1pNdZIJ+EulrtqrMesnIt92WaypIS\\n8JycbIgDMCiyC0ENHEk8UWlC6429c7OZAsplMTbHME/1R4btxjkdfrYZJjdJ2yL2\\n8cjZDUDMCPTdW/ycP07Gkq30RB5tACB5aZdaCn2YaKC8FsEdhff4X7xEOfOEHWEq\\nSRxADDj8Lx1MT6QpR07hCiDyHfTCtbqzI0iGjX63Oh7xXSa0f+JVTa8=\\n-----END CERTIFICATE-----\\n\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteCertificateMapping",
+                "summary": "Delete certificate mapping",
+                "description": "Deletes a certificate mapping from a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/metadata": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "post": {
+                "operationId": "addLoadBalancerMetadata",
+                "summary": "Add load balancer metadata",
+                "description": "Adds a metadata item to the load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            },
+            "get": {
+                "operationId": "showLoadBalancerMetadata",
+                "summary": "Show load balancer metadata",
+                "description": "Shows all metadata associated with the specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": [\n        {\n            \"value\": \"red\",\n            \"id\": \"1\",\n            \"key\": \"color\"\n        },\n        {\n            \"value\": \"web-load-balancer\",\n            \"id\": \"2\",\n            \"key\": \"label\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "bulkDeleteLoadBalancerMetadataItems",
+                "summary": "Bulk-delete load balancer metadata items",
+                "description": "Bulk-deletes the metadata items given specified id list.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "metaId",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The ID for the metadata item.\n"
+                    }
+                ]
+            }
+        },
+        "/v1.0/{account}/loadbalancers/{loadBalancerId}/metadata/{metaId}": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "loadBalancerId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the load balancer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showLoadBalancerMetadataItem",
+                "summary": "Show load balancer metadata item",
+                "description": "Shows details for a specified metadata item for a specified load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"meta\": {\n        \"value\": \"red\",\n        \"id\": 4,\n        \"key\": \"color\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateLoadBalancerMetadataItem",
+                "summary": "Update load balancer metadata item",
+                "description": "Updates the configuration of a metadata item on the load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteLoadBalancerMetadataItem",
+                "summary": "Delete load balancer metadata item",
+                "description": "Deletes a metadata item from the load balancer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/{account}/loadbalancers/usage": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showAccountLevelUsage",
+                "summary": "Show account-level usage",
+                "description": "Shows account-level usage.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"loadBalancerUsages\": [\n        {\n            \"loadBalancerName\": \"dev-testing\",\n            \"loadBalancerUsageRecords\": [\n                {\n                    \"incomingTransferSsl\": 0,\n                    \"numPolls\": 1,\n                    \"averageNumConnectionsSsl\": 0,\n                    \"numVips\": 1,\n                    \"incomingTransfer\": 0,\n                    \"startTime\": \"2014-04-08T10:00:00-05:00\",\n                    \"outgoingTransfer\": 0,\n                    \"sslMode\": \"OFF\",\n                    \"endTime\": \"2014-04-08T10:37:39-05:00\",\n                    \"outgoingTransferSsl\": 0,\n                    \"id\": 22591,\n                    \"vipType\": \"PUBLIC\",\n                    \"averageNumConnections\": 0\n                }\n            ],\n            \"links\": [],\n            \"loadBalancerId\": 2000\n        }\n    ],\n    \"accountUsage\": {\n        \"accountUsageRecords\": [\n            {\n                \"numPublicVips\": 4,\n                \"numServicenetVips\": 0,\n                \"numLoadBalancers\": 4,\n                \"startTime\": \"2014-03-13T12:03:51-05:00\"\n            }\n        ],\n        \"links\": []\n    },\n    \"accountId\": 548939\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "startTime",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "If the startTime parameter is supplied but the endTime parameter is not, all usage beginning with the startTime is returned.\n"
+                    },
+                    {
+                        "name": "endTime",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "If the endTime parameter is supplied but the startTime parameter is not, all usage up to the endTime is returned.\n"
+                    }
+                ]
+            }
+        }
+    }
+}

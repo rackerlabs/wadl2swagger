@@ -1,0 +1,39 @@
+INFO:wadls/management.wadl:Converting: wadls/management.wadl to swagger/management.json
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (hostId)
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:No support for application/json for resource at /mgmt/hosts/{hostId}/instances/action
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (hostId)
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (tenantId)
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:No support for application/json for resource at /mgmt/instances/{instanceId}/action
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:No support for application/json for resource at /mgmt/instances/{instanceId}/monitoring/action
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: Adding leading / to path
+WARNING:wadls/management.wadl:Autofix: path parameters must be required in Swagger (accountId)
+INFO:root:Saving swagger to swagger/management.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

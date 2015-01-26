@@ -1,0 +1,132 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-hypervisors-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/os-hypervisors": {
+            "get": {
+                "operationId": "listhypervisors",
+                "summary": "List hypervisors",
+                "description": "Lists hypervisors.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hypervisors\": [\n        {\n            \"id\": 1,\n            \"hypervisor_hostname\": \"fake-mini\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-hypervisors/statistics": {
+            "get": {
+                "operationId": "showhypervisorstatistics",
+                "summary": "Show hypervisor statistics",
+                "description": "Shows statistics for all hypervisors.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hypervisor_statistics\": {\n        \"count\": 1,\n        \"vcpus_used\": 0,\n        \"local_gb_used\": 0,\n        \"memory_mb\": 8192,\n        \"current_workload\": 0,\n        \"vcpus\": 1,\n        \"running_vms\": 0,\n        \"free_disk_gb\": 1028,\n        \"disk_available_least\": 0,\n        \"local_gb\": 1028,\n        \"free_ram_mb\": 7680,\n        \"memory_mb_used\": 512\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-hypervisors/search": {
+            "parameters": [
+                {
+                    "name": "query",
+                    "required": false,
+                    "in": "query",
+                    "type": "string",
+                    "description": "Filters the search results by the specified `?query={filter}` query parameter.\n"
+                }
+            ],
+            "get": {
+                "operationId": "searchhypervisors",
+                "summary": "Search hypervisors",
+                "description": "Searches hypervisors by specified host name.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hypervisors\": [\n        {\n            \"id\": 1,\n            \"hypervisor_hostname\": \"fake-mini\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-hypervisors/{hypervisor_id}": {
+            "get": {
+                "operationId": "showhypervisordetails",
+                "summary": "Show hypervisor details",
+                "description": "Shows details for a specified hypervisor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hypervisor\": {\n        \"service\": {\n            \"host\": \"043b3cacf6f34c90a7245151fc8ebcda\",\n            \"id\": 2\n        },\n        \"current_workload\": 0,\n        \"hypervisor_type\": \"fake\",\n        \"vcpus_used\": 0,\n        \"local_gb_used\": 0,\n        \"hypervisor_hostname\": \"fake-mini\",\n        \"memory_mb_used\": 512,\n        \"memory_mb\": 8192,\n        \"cpu_info\": \"?\",\n        \"vcpus\": 1,\n        \"running_vms\": 0,\n        \"free_disk_gb\": 1028,\n        \"hypervisor_version\": 1,\n        \"disk_available_least\": 0,\n        \"local_gb\": 1028,\n        \"free_ram_mb\": 7680,\n        \"id\": 1\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-hypervisors/{hypervisor_id}/uptime": {
+            "get": {
+                "operationId": "showhypervisoruptime",
+                "summary": "Show hypervisor uptime",
+                "description": "Shows the uptime for a specified hypervisor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hypervisor\": {\n        \"uptime\": \" 08:32:11 up 93 days, 18:25, 12 users,  load average: 0.20, 0.12, 0.14\",\n        \"id\": 1,\n        \"hypervisor_hostname\": \"fake-mini\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-hypervisors/{hypervisor_id}/servers": {
+            "get": {
+                "operationId": "listservers",
+                "summary": "List servers for a hypervisor",
+                "description": "Lists servers that run on a specified hypervisor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hypervisors\": [\n        {\n            \"id\": 1,\n            \"hypervisor_hostname\": \"fake-mini\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

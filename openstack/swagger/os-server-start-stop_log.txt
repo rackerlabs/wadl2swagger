@@ -1,0 +1,12 @@
+INFO:wadls/os-server-start-stop.wadl:Converting: wadls/os-server-start-stop.wadl to swagger/os-server-start-stop.json
+WARNING:wadls/os-server-start-stop.wadl:No support for application/json for resource at /v2/{tenant_id}/servers/{server_id}/action
+WARNING:wadls/os-server-start-stop.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-server-start-stop.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-server-start-stop.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-server-start-stop.wadl:Ignoring body parameter, converting these is not yet supported...
+INFO:root:Saving swagger to swagger/os-server-start-stop.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

@@ -1,0 +1,677 @@
+---
+swagger: '2.0'
+info:
+  title: volume-api-v1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/":
+    get:
+      operationId: listVersionsv1
+      summary: List API versions
+      description: |
+        Lists information about all Block Storage API versions.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 300 response
+          examples:
+            application/json: |-
+              {
+                  "versions": [
+                      {
+                          "status": "CURRENT",
+                          "updated": "2012-01-04T11:33:21Z",
+                          "id": "v1.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:8776/v1/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "CURRENT",
+                          "updated": "2012-11-21T11:33:21Z",
+                          "id": "v2.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:8776/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+        '300':
+          description: 200 300 response
+          examples:
+            application/json: |-
+              {
+                  "versions": [
+                      {
+                          "status": "CURRENT",
+                          "updated": "2012-01-04T11:33:21Z",
+                          "id": "v1.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:8776/v1/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "CURRENT",
+                          "updated": "2012-11-21T11:33:21Z",
+                          "id": "v2.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:8776/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+  "/v1":
+    get:
+      operationId: showVersionDetailsv1
+      summary: Show API v1 details
+      description: |
+        Shows details for Block Storage API v1.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "version": {
+                      "status": "CURRENT",
+                      "updated": "2012-01-04T11:33:21Z",
+                      "media-types": [
+                          {
+                              "base": "application/xml",
+                              "type": "application/vnd.openstack.volume+xml;version=1"
+                          },
+                          {
+                              "base": "application/json",
+                              "type": "application/vnd.openstack.volume+json;version=1"
+                          }
+                      ],
+                      "id": "v1.0",
+                      "links": [
+                          {
+                              "href": "http://23.253.228.211:8776/v1/",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://jorgew.github.com/block-storage-api/content/os-block-storage-1.0.pdf",
+                              "type": "application/pdf",
+                              "rel": "describedby"
+                          },
+                          {
+                              "href": "http://docs.rackspacecloud.com/servers/api/v1.1/application.wadl",
+                              "type": "application/vnd.sun.wadl+xml",
+                              "rel": "describedby"
+                          }
+                      ]
+                  }
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "version": {
+                      "status": "CURRENT",
+                      "updated": "2012-01-04T11:33:21Z",
+                      "media-types": [
+                          {
+                              "base": "application/xml",
+                              "type": "application/vnd.openstack.volume+xml;version=1"
+                          },
+                          {
+                              "base": "application/json",
+                              "type": "application/vnd.openstack.volume+json;version=1"
+                          }
+                      ],
+                      "id": "v1.0",
+                      "links": [
+                          {
+                              "href": "http://23.253.228.211:8776/v1/",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://jorgew.github.com/block-storage-api/content/os-block-storage-1.0.pdf",
+                              "type": "application/pdf",
+                              "rel": "describedby"
+                          },
+                          {
+                              "href": "http://docs.rackspacecloud.com/servers/api/v1.1/application.wadl",
+                              "type": "application/vnd.sun.wadl+xml",
+                              "rel": "describedby"
+                          }
+                      ]
+                  }
+              }
+  "/v1/{tenant_id}/volumes":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    post:
+      operationId: createVolume
+      summary: Create volume
+      description: |
+        Creates a volume.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "volume": {
+                      "display_name": "vol-001",
+                      "attachments": [],
+                      "availability_zone": "us-east1",
+                      "bootable": "false",
+                      "created_at": "2012-02-14T20:53:07Z",
+                      "volume_type": "289da7f8-6440-407c-9fb4-7db01ec49164",
+                      "display_description": "Another volume.",
+                      "snapshot_id": null,
+                      "size": 30,
+                      "id": "521752a6-acf6-4b2d-bc7a-119f9148cd8c",
+                      "metadata": {
+                          "contents": "junk"
+                      }
+                  }
+              }
+    get:
+      operationId: getVolumesSimple
+      summary: List volumes
+      description: |
+        Lists simple volume entities.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "volumes": [
+                      {
+                          "display_name": "vol-001",
+                          "attachments": [],
+                          "availability_zone": "us-east1",
+                          "created_at": "2012-02-14T20:53:07Z",
+                          "volume_type": "289da7f8-6440-407c-9fb4-7db01ec49164",
+                          "display_description": "Another volume.",
+                          "snapshot_id": null,
+                          "size": 30,
+                          "id": "521752a6-acf6-4b2d-bc7a-119f9148cd8c",
+                          "metadata": {
+                              "contents": "junk"
+                          }
+                      },
+                      {
+                          "display_name": "vol-002",
+                          "attachments": [],
+                          "availability_zone": "us-east2",
+                          "created_at": "2012-03-15T19:10:03Z",
+                          "volume_type": "96c3bda7-c82a-4f50-be73-ca7621794835",
+                          "display_description": "Yet another volume.",
+                          "snapshot_id": null,
+                          "size": 25,
+                          "id": "76b8950a-8594-4e5b-8dce-0dfa9c696358",
+                          "metadata": {}
+                      }
+                  ]
+              }
+  "/v1/{tenant_id}/volumes/detail":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    get:
+      operationId: getVolumesDetail
+      summary: List volumes (detailed)
+      description: |
+        Lists details for volume entities.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "volumes": [
+                      {
+                          "display_name": "vol-001",
+                          "attachments": [],
+                          "availability_zone": "us-east1",
+                          "created_at": "2012-02-14T20:53:07Z",
+                          "volume_type": "289da7f8-6440-407c-9fb4-7db01ec49164",
+                          "display_description": "Another volume.",
+                          "snapshot_id": null,
+                          "size": 30,
+                          "id": "521752a6-acf6-4b2d-bc7a-119f9148cd8c",
+                          "metadata": {
+                              "contents": "junk"
+                          }
+                      },
+                      {
+                          "display_name": "vol-002",
+                          "attachments": [],
+                          "availability_zone": "us-east2",
+                          "created_at": "2012-03-15T19:10:03Z",
+                          "volume_type": "96c3bda7-c82a-4f50-be73-ca7621794835",
+                          "display_description": "Yet another volume.",
+                          "snapshot_id": null,
+                          "size": 25,
+                          "id": "76b8950a-8594-4e5b-8dce-0dfa9c696358",
+                          "metadata": {}
+                      }
+                  ]
+              }
+  "/v1/{tenant_id}/volumes/{volume_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: volume_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of an existing volume.
+    get:
+      operationId: getVolume
+      summary: Show volume information
+      description: |
+        Shows information about a specified volume.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "volume": {
+                      "display_name": "vol-001",
+                      "attachments": [],
+                      "availability_zone": "us-east1",
+                      "bootable": "false",
+                      "created_at": "2012-02-14T20:53:07Z",
+                      "volume_type": "289da7f8-6440-407c-9fb4-7db01ec49164",
+                      "display_description": "Another volume.",
+                      "snapshot_id": null,
+                      "size": 30,
+                      "id": "521752a6-acf6-4b2d-bc7a-119f9148cd8c",
+                      "metadata": {
+                          "contents": "junk"
+                      }
+                  }
+              }
+    delete:
+      operationId: deleteVolume
+      summary: Delete volume
+      description: |
+        Deletes a specified volume.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+  "/v1/{tenant_id}/types":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    get:
+      operationId: getVolumeTypes
+      summary: List volume types
+      description: |
+        Request a list of volume types.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "volume_types": [
+                      {
+                          "extra_specs": {
+                              "capabilities": "gpu"
+                          },
+                          "id": "289da7f8-6440-407c-9fb4-7db01ec49164",
+                          "name": "vol-type-001"
+                      },
+                      {
+                          "extra_specs": {},
+                          "id": "96c3bda7-c82a-4f50-be73-ca7621794835",
+                          "name": "vol-type-002"
+                      }
+                  ]
+              }
+    post:
+      operationId: createVolumeType
+      summary: Create volume type
+      description: |
+        Creates a volume type.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "volume_type": {
+                      "extra_specs": {
+                          "capabilities": "gpu"
+                      },
+                      "id": "289da7f8-6440-407c-9fb4-7db01ec49164",
+                      "name": "vol-type-001"
+                  }
+              }
+  "/v1/{tenant_id}/types/{volume_type_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: volume_type_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of an existing volume type.
+    put:
+      operationId: updateVolumeTypeExtraSpecs
+      summary: Update extra specs for a volume type
+      description: |
+        Updates the extra specifications assigned to a volume type.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "volume_type": {
+                      "extra_specs": {
+                          "capabilities": "gpu"
+                      },
+                      "id": "289da7f8-6440-407c-9fb4-7db01ec49164",
+                      "name": "vol-type-001"
+                  }
+              }
+    get:
+      operationId: getVolumeType
+      summary: Show volume type information
+      description: |
+        Shows information about a specified volume type.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "volume_type": {
+                      "extra_specs": {
+                          "capabilities": "gpu"
+                      },
+                      "id": "289da7f8-6440-407c-9fb4-7db01ec49164",
+                      "name": "vol-type-001"
+                  }
+              }
+    delete:
+      operationId: deleteVolumeType
+      summary: Delete volume type
+      description: |
+        Deletes a specified volume type.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+  "/v1/{tenant_id}/snapshots":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    post:
+      operationId: createSnapshot
+      summary: Create snapshot
+      description: |
+        Creates a snapshot.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "snapshot": {
+                      "status": "available",
+                      "display_name": "snap-001",
+                      "created_at": "2012-02-29T03:50:07Z",
+                      "display_description": "Daily backup",
+                      "volume_id": "521752a6-acf6-4b2d-bc7a-119f9148cd8c",
+                      "id": "3fbbcccf-d058-4502-8844-6feeffdf4cb5",
+                      "size": 30
+                  }
+              }
+    get:
+      operationId: getSnapshotsSimple
+      summary: List snapshots
+      description: |
+        Lists simple snapshot entities.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "snapshots": [
+                      {
+                          "status": "available",
+                          "display_name": "snap-001",
+                          "created_at": "2012-02-29T03:50:07Z",
+                          "display_description": "Daily backup",
+                          "volume_id": "521752a6-acf6-4b2d-bc7a-119f9148cd8c",
+                          "id": "3fbbcccf-d058-4502-8844-6feeffdf4cb5",
+                          "size": 30
+                      },
+                      {
+                          "status": "available",
+                          "display_name": "snap-002",
+                          "created_at": "2012-03-19T01:52:47Z",
+                          "display_description": "Weekly backup",
+                          "volume_id": "76b8950a-8594-4e5b-8dce-0dfa9c696358",
+                          "id": "e479997c-650b-40a4-9dfe-77655818b0d2",
+                          "size": 25
+                      }
+                  ]
+              }
+  "/v1/{tenant_id}/snapshots/detail":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    get:
+      operationId: getSnapshotsDetail
+      summary: List snapshots (detailed)
+      description: |
+        Lists details for snapshot entities.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "snapshots": [
+                      {
+                          "status": "available",
+                          "display_name": "snap-001",
+                          "created_at": "2012-02-29T03:50:07Z",
+                          "display_description": "Daily backup",
+                          "volume_id": "521752a6-acf6-4b2d-bc7a-119f9148cd8c",
+                          "id": "3fbbcccf-d058-4502-8844-6feeffdf4cb5",
+                          "size": 30
+                      },
+                      {
+                          "status": "available",
+                          "display_name": "snap-002",
+                          "created_at": "2012-03-19T01:52:47Z",
+                          "display_description": "Weekly backup",
+                          "volume_id": "76b8950a-8594-4e5b-8dce-0dfa9c696358",
+                          "id": "e479997c-650b-40a4-9dfe-77655818b0d2",
+                          "size": 25
+                      }
+                  ]
+              }
+  "/v1/{tenant_id}/snapshots/{snapshot_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: snapshot_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of an existing snapshot.
+    get:
+      operationId: getSnapshot
+      summary: Show snapshot information
+      description: |
+        Shows information about a specified snapshot.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "snapshot": {
+                      "status": "available",
+                      "display_name": "snap-001",
+                      "created_at": "2012-02-29T03:50:07Z",
+                      "display_description": "Daily backup",
+                      "volume_id": "521752a6-acf6-4b2d-bc7a-119f9148cd8c",
+                      "id": "3fbbcccf-d058-4502-8844-6feeffdf4cb5",
+                      "size": 30
+                  }
+              }
+    delete:
+      operationId: deleteSnapshot
+      summary: Delete snapshot
+      description: |
+        Deletes a specified snapshot.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+  "/v1/{tenant_id}/snapshots/{snapshot_id}/metadata":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: snapshot_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of an existing snapshot.
+    get:
+      operationId: showSnapshotMetadata
+      summary: Show snapshot metadata
+      description: |
+        Shows the metadata for a specified snapshot.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "snapshot": {
+                      "status": "available",
+                      "os-extended-snapshot-attributes:progress": "0%",
+                      "description": null,
+                      "name": "my-snapshot",
+                      "created_at": "2014-05-06T17:59:52.000000",
+                      "id": "dfcd17fe-3b64-44ba-b95f-1c9c7109ef95",
+                      "volume_id": "ebd80b99-bc3d-4154-9d28-5583baa80580",
+                      "size": 10,
+                      "os-extended-snapshot-attributes:project_id": "7e0105e19cd2466193729ef78b604f79",
+                      "metadata": {
+                          "key": "v1"
+                      }
+                  }
+              }
+    put:
+      operationId: updateSnapshotMetadata
+      summary: Update snapshot metadata
+      description: |
+        Updates the metadata for a specified snapshot.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "metadata": {
+                      "key": "v1"
+                  }
+              }

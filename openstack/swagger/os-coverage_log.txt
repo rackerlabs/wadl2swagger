@@ -1,0 +1,30 @@
+INFO:wadls/os-coverage.wadl:Converting: wadls/os-coverage.wadl to swagger/os-coverage.json
+WARNING:wadls/os-coverage.wadl:No support for application/json for resource at /v2/{tenant_id}/os-coverage/action
+WARNING:wadls/os-coverage.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-coverage.wadl:Unknown type: csapi:string for param file
+WARNING:wadls/os-coverage.wadl:Using string for csapi:string
+WARNING:wadls/os-coverage.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-coverage.wadl:Unknown type: csapi:bool for param xml
+WARNING:wadls/os-coverage.wadl:Using string for csapi:bool
+WARNING:wadls/os-coverage.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-coverage.wadl:Unknown type: csapi:bool for param html
+WARNING:wadls/os-coverage.wadl:Using string for csapi:bool
+WARNING:wadls/os-coverage.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-coverage.wadl:Unknown type: csapi:string for param start
+WARNING:wadls/os-coverage.wadl:Using string for csapi:string
+WARNING:wadls/os-coverage.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-coverage.wadl:Unknown type: csapi:string for param start
+WARNING:wadls/os-coverage.wadl:Using string for csapi:string
+WARNING:wadls/os-coverage.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-coverage.wadl:Unknown type: csapi:bool for param combine
+WARNING:wadls/os-coverage.wadl:Using string for csapi:bool
+WARNING:wadls/os-coverage.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-coverage.wadl:Unknown type: csapi:string for param stop
+WARNING:wadls/os-coverage.wadl:Using string for csapi:string
+WARNING:wadls/os-coverage.wadl:Ignoring body parameter, converting these is not yet supported...
+INFO:root:Saving swagger to swagger/os-coverage.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

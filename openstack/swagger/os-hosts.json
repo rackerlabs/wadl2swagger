@@ -1,0 +1,210 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-hosts",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-hosts": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listHosts",
+                "summary": "List hosts",
+                "description": "Lists hosts.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hosts\": [\n        {\n            \"zone\": \"nova\",\n            \"host_name\": \"787f4f6dda1b409bb8b2f9082349690e\",\n            \"service\": \"compute\"\n        },\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"a98b433151084aee8b1a986e28823b36\",\n            \"service\": \"cert\"\n        },\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"c56158d13a884a87abf9171efb7de9d8\",\n            \"service\": \"network\"\n        },\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"81d5cdcda0014918b3ebd3503a2e5c9a\",\n            \"service\": \"scheduler\"\n        },\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"6e48bfe1a3304b7b86154326328750ae\",\n            \"service\": \"conductor\"\n        },\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"39f55087a1024d1380755951c945ca69\",\n            \"service\": \"cells\"\n        },\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"7a9a6cb4701f4dee9048fe0bc25d0ee5\",\n            \"service\": \"consoleauth\"\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "service",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The service name. To filter the returned list by service name, specify `?service={service}` in the URI.\n"
+                    },
+                    {
+                        "name": "zone",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "The zone. To filter the returned list by zone, specify `?zone={zone}` in the URI.\n"
+                    }
+                ]
+            }
+        },
+        "/v2/{tenant_id}/os-hosts/{host_name}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "host_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of the host of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showHost",
+                "summary": "Show host information",
+                "description": "Shows information for a specified host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"host\": [\n        {\n            \"resource\": {\n                \"memory_mb\": 8192,\n                \"project\": \"(total)\",\n                \"host\": \"5ca60c6792a1442f9471ff575443f94d\",\n                \"cpu\": 1,\n                \"disk_gb\": 1028\n            }\n        },\n        {\n            \"resource\": {\n                \"memory_mb\": 512,\n                \"project\": \"(used_now)\",\n                \"host\": \"5ca60c6792a1442f9471ff575443f94d\",\n                \"cpu\": 0,\n                \"disk_gb\": 0\n            }\n        },\n        {\n            \"resource\": {\n                \"memory_mb\": 0,\n                \"project\": \"(used_max)\",\n                \"host\": \"5ca60c6792a1442f9471ff575443f94d\",\n                \"cpu\": 0,\n                \"disk_gb\": 0\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateHost",
+                "summary": "Update host",
+                "description": "Enables a host or puts it in maintenance mode.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"enabled\",\n    \"maintenance_mode\": \"off_maintenance\",\n    \"host\": \"0738dca90a8c43fdadd0be28715520e2\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-hosts/{host_name}/startup": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "host_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of the host of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "startupHost",
+                "summary": "Start host",
+                "description": "Starts a host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"host\": \"57f5de2fa5b44f14974a4f50b9ffcbf8\",\n    \"power_action\": \"startup\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-hosts/{host_name}/shutdown": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "host_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of the host of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "shutdownHost",
+                "summary": "Shut down host",
+                "description": "Shuts down a host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"host\": \"d2576862a2144ee6ad37d9e1938460a2\",\n    \"power_action\": \"shutdown\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-hosts/{host_name}/reboot": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "host_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of the host of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "rebootHost",
+                "summary": "Reboot host",
+                "description": "Reboots a host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"host\": \"066bf157ab50481d8c607cfe584b2230\",\n    \"power_action\": \"reboot\"\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,8 @@
+INFO:wadls/os-networks-multi-provider-ext.wadl:Converting: wadls/os-networks-multi-provider-ext.wadl to swagger/os-networks-multi-provider-ext.json
+WARNING:wadls/os-networks-multi-provider-ext.wadl:Autofix: path parameters must be required in Swagger (network_id)
+INFO:root:Saving swagger to swagger/os-networks-multi-provider-ext.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

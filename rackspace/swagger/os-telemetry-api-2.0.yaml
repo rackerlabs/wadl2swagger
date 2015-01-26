@@ -1,0 +1,381 @@
+---
+swagger: '2.0'
+info:
+  title: os-telemetry-api-2.0
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/alarms":
+    get:
+      operationId: listAlarms
+      summary: List alarms
+      description: |
+        Lists alarms, based on the specified query.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              [
+                  {
+                      "alarm_actions": [
+                          "http://site:8000/alarm"
+                      ],
+                      "ok_actions": [
+                          "http://site:8000/ok"
+                      ],
+                      "description": "An alarm",
+                      "timestamp": "2013-11-21T12:33:08.486221",
+                      "enabled": true,
+                      "combination_rule": null,
+                      "state_timestamp": "2013-11-21T12:33:08.486228",
+                      "threshold_rule": null,
+                      "alarm_id": null,
+                      "state": "ok",
+                      "insufficient_data_actions": [
+                          "http://site:8000/nodata"
+                      ],
+                      "repeat_actions": false,
+                      "user_id": "c96c887c216949acbdfbd8b494863567",
+                      "project_id": "c96c887c216949acbdfbd8b494863567",
+                      "type": "threshold",
+                      "name": "SwiftObjectAlarm"
+                  }
+              ]
+    post:
+      operationId: createAlarm
+      summary: Create alarm
+      description: |
+        Creates an alarm.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "alarm_actions": [
+                      "http://site:8000/alarm"
+                  ],
+                  "ok_actions": [
+                      "http://site:8000/ok"
+                  ],
+                  "description": "An alarm",
+                  "timestamp": "2013-11-21T12:33:08.486221",
+                  "enabled": true,
+                  "combination_rule": null,
+                  "state_timestamp": "2013-11-21T12:33:08.486228",
+                  "threshold_rule": null,
+                  "alarm_id": null,
+                  "state": "ok",
+                  "insufficient_data_actions": [
+                      "http://site:8000/nodata"
+                  ],
+                  "repeat_actions": false,
+                  "user_id": "c96c887c216949acbdfbd8b494863567",
+                  "project_id": "c96c887c216949acbdfbd8b494863567",
+                  "type": "threshold",
+                  "name": "SwiftObjectAlarm"
+              }
+  "/v2/alarms/{alarm_id}":
+    get:
+      operationId: showAlarm
+      summary: Show alarm
+      description: |
+        Shows information for a specified alarm.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "alarm_actions": [
+                      "http://site:8000/alarm"
+                  ],
+                  "ok_actions": [
+                      "http://site:8000/ok"
+                  ],
+                  "description": "An alarm",
+                  "timestamp": "2013-11-21T12:33:08.486221",
+                  "enabled": true,
+                  "combination_rule": null,
+                  "state_timestamp": "2013-11-21T12:33:08.486228",
+                  "threshold_rule": null,
+                  "alarm_id": null,
+                  "state": "ok",
+                  "insufficient_data_actions": [
+                      "http://site:8000/nodata"
+                  ],
+                  "repeat_actions": false,
+                  "user_id": "c96c887c216949acbdfbd8b494863567",
+                  "project_id": "c96c887c216949acbdfbd8b494863567",
+                  "type": "threshold",
+                  "name": "SwiftObjectAlarm"
+              }
+    put:
+      operationId: updateAlarm
+      summary: Update alarm
+      description: |
+        Updates a specified alarm.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "alarm_actions": [
+                      "http://site:8000/alarm"
+                  ],
+                  "ok_actions": [
+                      "http://site:8000/ok"
+                  ],
+                  "description": "An alarm",
+                  "timestamp": "2013-11-21T12:33:08.486221",
+                  "enabled": true,
+                  "combination_rule": null,
+                  "state_timestamp": "2013-11-21T12:33:08.486228",
+                  "threshold_rule": null,
+                  "alarm_id": null,
+                  "state": "ok",
+                  "insufficient_data_actions": [
+                      "http://site:8000/nodata"
+                  ],
+                  "repeat_actions": false,
+                  "user_id": "c96c887c216949acbdfbd8b494863567",
+                  "project_id": "c96c887c216949acbdfbd8b494863567",
+                  "type": "threshold",
+                  "name": "SwiftObjectAlarm"
+              }
+    delete:
+      operationId: deleteAlarm
+      summary: Delete alarm
+      description: |
+        Deletes a specified alarm.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v2/alarms/{alarm_id}/state":
+    put:
+      operationId: updateAlarmState
+      summary: Update alarm state
+      description: |
+        Sets the state of a specified alarm.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+    get:
+      operationId: showAlarmState
+      summary: Show alarm state
+      description: |
+        Gets the state of a specified alarm.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+  "/v2/alarms/{alarm_id}/history":
+    get:
+      operationId: showAlarmHistory
+      summary: Show alarm history
+      description: |
+        Assembles the history for a specified alarm.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+  "/v2/meters":
+    get:
+      operationId: listMeters
+      summary: List meters
+      description: |
+        Lists meters, based on the data recorded so far.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              [
+                  {
+                      "user_id": "efd87807-12d2-4b38-9c70-5f5c2ac427ff",
+                      "name": "instance",
+                      "resource_id": "bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+                      "source": "openstack",
+                      "meter_id": "YmQ5NDMxYzEtOGQ2OS00YWQzLTgwM2EtOGQ0YTZiODlmZDM2K2luc3RhbmNl\n",
+                      "project_id": "35b17138-b364-4e6a-a131-8f3099c5be68",
+                      "type": "gauge",
+                      "unit": "instance"
+                  }
+              ]
+  "/v2/meters/{meter_name}":
+    get:
+      operationId: showMeter
+      summary: Show meter
+      description: |
+        Gets samples for a specified meter.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              [
+                  {
+                      "counter_name": "instance",
+                      "user_id": "efd87807-12d2-4b38-9c70-5f5c2ac427ff",
+                      "resource_id": "bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+                      "timestamp": "2013-11-21T12:33:08.323533",
+                      "resource_metadata": {
+                          "name2": "value2",
+                          "name1": "value1"
+                      },
+                      "source": "openstack",
+                      "counter_unit": "instance",
+                      "counter_volume": 1.0,
+                      "project_id": "35b17138-b364-4e6a-a131-8f3099c5be68",
+                      "message_id": "5460acce-4fd6-480d-ab18-9735ec7b1996",
+                      "counter_type": "gauge"
+                  }
+              ]
+    post:
+      operationId: createMeter
+      summary: Create meter
+      description: |
+        Posts list of samples to Telemetry.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              [
+                  {
+                      "counter_name": "instance",
+                      "user_id": "efd87807-12d2-4b38-9c70-5f5c2ac427ff",
+                      "resource_id": "bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+                      "timestamp": "2013-11-21T12:33:08.323533",
+                      "resource_metadata": {
+                          "name2": "value2",
+                          "name1": "value1"
+                      },
+                      "source": "openstack",
+                      "counter_unit": "instance",
+                      "counter_volume": 1.0,
+                      "project_id": "35b17138-b364-4e6a-a131-8f3099c5be68",
+                      "message_id": "5460acce-4fd6-480d-ab18-9735ec7b1996",
+                      "counter_type": "gauge"
+                  }
+              ]
+  "/v2/meters/{meter_name}/statistics":
+    get:
+      operationId: showMeterStatistics
+      summary: Show meter statistics
+      description: |
+        Computes the statistics of the samples in a specified time range.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              [
+                  {
+                      "count": 10,
+                      "duration_start": "2013-01-04T16:42:00",
+                      "min": 1.0,
+                      "max": 9.0,
+                      "duration_end": "2013-01-04T16:47:00",
+                      "period": 7200,
+                      "period_end": "2013-01-04T18:00:00",
+                      "duration": 300.0,
+                      "period_start": "2013-01-04T16:00:00",
+                      "avg": 4.5,
+                      "sum": 45.0,
+                      "unit": "GiB"
+                  }
+              ]
+  "/v2/resources":
+    get:
+      operationId: listResources
+      summary: List resources
+      description: |
+        Lists definitions for all resources.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              [
+                  {
+                      "user_id": "efd87807-12d2-4b38-9c70-5f5c2ac427ff",
+                      "links": [
+                          {
+                              "href": "http://localhost:8777/v2/resources/bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://localhost:8777/v2/meters/volume?q.field=resource_id&q.value=bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+                              "rel": "volume"
+                          }
+                      ],
+                      "resource_id": "bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+                      "timestamp": "2013-11-21T12:33:08.189843",
+                      "source": "openstack",
+                      "project_id": "35b17138-b364-4e6a-a131-8f3099c5be68",
+                      "metadata": {
+                          "name2": "value2",
+                          "name1": "value1"
+                      }
+                  }
+              ]
+  "/v2/resources/{resource_id}":
+    get:
+      operationId: showResource
+      summary: Show resource information
+      description: |
+        Gets details for a specified resource.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "user_id": "efd87807-12d2-4b38-9c70-5f5c2ac427ff",
+                  "links": [
+                      {
+                          "href": "http://localhost:8777/v2/resources/bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+                          "rel": "self"
+                      },
+                      {
+                          "href": "http://localhost:8777/v2/meters/volume?q.field=resource_id&q.value=bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+                          "rel": "volume"
+                      }
+                  ],
+                  "resource_id": "bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+                  "timestamp": "2013-11-21T12:33:08.189843",
+                  "source": "openstack",
+                  "project_id": "35b17138-b364-4e6a-a131-8f3099c5be68",
+                  "metadata": {
+                      "name2": "value2",
+                      "name1": "value1"
+                  }
+              }

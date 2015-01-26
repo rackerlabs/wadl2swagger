@@ -1,0 +1,7 @@
+INFO:wadls/os-migrations-v2.1.wadl:Converting: wadls/os-migrations-v2.1.wadl to swagger/os-migrations-v2.1.json
+INFO:root:Saving swagger to swagger/os-migrations-v2.1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

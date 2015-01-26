@@ -1,0 +1,1005 @@
+---
+swagger: '2.0'
+info:
+  title: cbd-devguide
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v1.0/{tenant_id}/profile":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    post:
+      operationId: postProfile
+      summary: Create or update profile
+      description: |
+        Creates a profile or updates the information in an existing profile.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "profile": {
+                      "username": "john.doe",
+                      "links": [
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/123456/profile",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/123456/profile",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "userId": "12346",
+                      "tenantId": "123456",
+                      "cloudCredentials": {
+                          "username": "jdoe"
+                      },
+                      "sshkeys": [
+                          {
+                              "publicKey": "ssh-rsa .....",
+                              "name": "t@test"
+                          }
+                      ]
+                  }
+              }
+    get:
+      operationId: getProfile
+      summary: View profile information
+      description: |
+        Returns profile details for the current user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "profile": {
+                      "username": "john.doe",
+                      "user_id": "12346",
+                      "links": [
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/123456/profile",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/123456/profile",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "tenant_id": "123456",
+                      "cloudCredentials": {},
+                      "sshkeys": [
+                          {
+                              "name": "t@test"
+                          }
+                      ]
+                  }
+              }
+  "/v1.0/{tenant_id}/clusters":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    post:
+      operationId: createCluster
+      summary: Create cluster
+      description: |
+        Creates a cluster.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "cluster": {
+                      "status": "BUILDING",
+                      "updated": "",
+                      "name": "slice",
+                      "links": [
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "created": "2012-12-27T10:10:10Z",
+                      "clusterType": "HADOOP_HDP2_1",
+                      "postInitScriptStatus": "PENDING",
+                      "nodeCount": 5,
+                      "progress": 0.0,
+                      "flavorId": "hadoop1-7",
+                      "id": "db478fc1-2d86-4597-8010-cbe787bbbc41"
+                  }
+              }
+    get:
+      operationId: getClusters
+      summary: List all clusters
+      description: |
+        Lists all clusters for your account.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "clusters": [
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2012-12-27T10:15:10Z",
+                          "name": "slice",
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "created": "2012-12-27T10:10:10Z",
+                          "clusterType": "HADOOP_HDP2_1",
+                          "postInitScriptStatus": "SUCCEEDED",
+                          "nodeCount": 5,
+                          "progress": 1.0,
+                          "flavorId": "hadoop1-7",
+                          "id": "db478fc1-2d86-4597-8010-cbe787bbbc41"
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2012-12-27T10:15:10Z",
+                          "name": "real",
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/ac111111-2d86-4597-8010-cbe787bbbc41",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/ac111111-2d86-4597-8010-cbe787bbbc41",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "created": "2012-12-27T10:10:10Z",
+                          "clusterType": "HBASE_HDP2_1",
+                          "postInitScriptStatus": null,
+                          "nodeCount": 20,
+                          "progress": 1.0,
+                          "flavorId": "hadoop1-60",
+                          "id": "ac111111-2d86-4597-8010-cbe787bbbc41"
+                      }
+                  ]
+              }
+  "/v1.0/{tenant_id}/clusters/{clusterId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    - name: clusterId
+      required: true
+      in: path
+      type: string
+      description: |
+        Specifies the cluster ID.
+    get:
+      operationId: getClusterDetails
+      summary: Show cluster details
+      description: |
+        Shows details for a specified cluster.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "cluster": {
+                      "status": "ACTIVE",
+                      "updated": "2012-12-27T10:20:10Z",
+                      "name": "slice",
+                      "links": [
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "created": "2012-12-27T10:10:10Z",
+                      "clusterType": "HADOOP_HDP2_1",
+                      "postInitScriptStatus": "SUCCEEDED",
+                      "nodeCount": 5,
+                      "progress": 1.0,
+                      "flavorId": "hadoop1-7",
+                      "id": "db478fc1-2d86-4597-8010-cbe787bbbc41"
+                  }
+              }
+    delete:
+      operationId: deleteCluster
+      summary: Delete cluster
+      description: |
+        Deletes a specified cluster.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: 204 response
+          examples:
+            application/json: |-
+              {
+                  "cluster": {
+                      "status": "DELETING",
+                      "updated": "2012-12-27T20:14:10Z",
+                      "name": "slice",
+                      "links": [
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "created": "2012-12-27T10:10:10Z",
+                      "clusterType": "HADOOP_HDP2_1",
+                      "postInitScriptStatus": null,
+                      "nodeCount": 5,
+                      "flavorId": "hadoop1-7",
+                      "id": "db478fc1-2d86-4597-8010-cbe787bbbc41"
+                  }
+              }
+  "/v1.0/{tenant_id}/clusters/{clusterId}/action":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    - name: clusterId
+      required: true
+      in: path
+      type: string
+      description: |
+        Specifies the cluster ID.
+    post:
+      operationId: postClusterAction
+      summary: Resize cluster
+      description: |
+        Resizes a specified cluster.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "cluster": {
+                      "status": "UPDATING",
+                      "updated": "2012-12-27T16:20:10Z",
+                      "name": "slice",
+                      "links": [
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "created": "2012-12-27T10:10:10Z",
+                      "clusterType": "HADOOP_HDP2_1",
+                      "postInitScriptStatus": "PENDING",
+                      "nodeCount": 10,
+                      "progress": 0.5,
+                      "flavorId": "hadoop1-7",
+                      "id": "db478fc1-2d86-4597-8010-cbe787bbbc41"
+                  }
+              }
+  "/v1.0/{tenant_id}/clusters/{clusterId}/nodes":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    - name: clusterId
+      required: true
+      in: path
+      type: string
+      description: |
+        Specifies the cluster ID.
+    get:
+      operationId: getClusterNodes
+      summary: List cluster nodes
+      description: |
+        Lists all nodes for a specified cluster.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "nodes": [
+                      {
+                          "status": "ACTIVE",
+                          "name": "NAMENODE-1",
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/000",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/000",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "created": "2012-12-27T10:10:10Z",
+                          "postInitScriptStatus": null,
+                          "role": "NAMENODE",
+                          "services": [
+                              {
+                                  "name": "namenode"
+                              },
+                              {
+                                  "name": "jobtracker"
+                              },
+                              {
+                                  "name": "ssh",
+                                  "uri": "ssh://user@168.x.x.3"
+                              }
+                          ],
+                          "id": "000",
+                          "addresses": {
+                              "public": [
+                                  {
+                                      "version": 4,
+                                      "addr": "168.x.x.3"
+                                  }
+                              ],
+                              "private": [
+                                  {
+                                      "version": 4,
+                                      "addr": "10.x.x.3"
+                                  }
+                              ]
+                          }
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "addresses": {
+                              "public": [
+                                  {
+                                      "version": 4,
+                                      "addr": "168.x.x.4"
+                                  }
+                              ],
+                              "private": [
+                                  {
+                                      "version": 4,
+                                      "addr": "10.x.x.4"
+                                  }
+                              ]
+                          },
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/aaa",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/aaa",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "postInitScriptStatus": null,
+                          "role": "GATEWAY",
+                          "services": [
+                              {
+                                  "name": "pig"
+                              },
+                              {
+                                  "name": "hive"
+                              },
+                              {
+                                  "name": "ssh",
+                                  "uri": "ssh://user@168.x.x.4"
+                              },
+                              {
+                                  "name": "status",
+                                  "uri": "http://10.x.x.4"
+                              },
+                              {
+                                  "name": "hdfs-scp",
+                                  "uri": "scp://user@168.x.x.4:9022"
+                              }
+                          ],
+                          "id": "aaa",
+                          "name": "GATEWAY-1"
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "addresses": {
+                              "public": [
+                                  {
+                                      "version": 4,
+                                      "addr": "168.x.x.5"
+                                  }
+                              ],
+                              "private": [
+                                  {
+                                      "version": 4,
+                                      "addr": "10.x.x.5"
+                                  }
+                              ]
+                          },
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/bbb",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/bbb",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "postInitScriptStatus": null,
+                          "role": "DATANODE",
+                          "services": [
+                              {
+                                  "name": "datanode"
+                              },
+                              {
+                                  "name": "tasktracker"
+                              },
+                              {
+                                  "name": "ssh",
+                                  "uri": "ssh://user@168.x.x.5"
+                              }
+                          ],
+                          "id": "bbb",
+                          "name": "DATANODE-1"
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "addresses": {
+                              "public": [
+                                  {
+                                      "version": 4,
+                                      "addr": "168.x.x.6"
+                                  }
+                              ],
+                              "private": [
+                                  {
+                                      "version": 4,
+                                      "addr": "10.x.x.6"
+                                  }
+                              ]
+                          },
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/ccc",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/ccc",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "postInitScriptStatus": null,
+                          "role": "DATANODE",
+                          "services": [
+                              {
+                                  "name": "datanode"
+                              },
+                              {
+                                  "name": "tasktracker"
+                              },
+                              {
+                                  "name": "ssh",
+                                  "uri": "ssh://user@168.x.x.6"
+                              }
+                          ],
+                          "id": "ccc",
+                          "name": "DATANODE-2"
+                      }
+                  ]
+              }
+  "/v1.0/{tenant_id}/clusters/{clusterId}/nodes/{nodeId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    - name: clusterId
+      required: true
+      in: path
+      type: string
+      description: |
+        Specifies the cluster ID.
+    - name: nodeId
+      required: true
+      in: path
+      type: string
+      description: |
+        Specifies the node ID.
+    get:
+      operationId: getNodeDetails
+      summary: Show node details
+      description: |
+        Shows details for a specified node in a specified cluster.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "node": {
+                      "status": "ACTIVE",
+                      "name": "NAMENODE-1",
+                      "links": [
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/000",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/000",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "created": "2012-12-27T10:10:10Z",
+                      "postInitScriptStatus": null,
+                      "role": "NAMENODE",
+                      "services": [
+                          {
+                              "name": "datanode"
+                          },
+                          {
+                              "name": "tasktracker"
+                          },
+                          {
+                              "name": "ssh",
+                              "uri": "ssh://user@168.x.x.3"
+                          }
+                      ],
+                      "id": "000",
+                      "addresses": {
+                          "public": [
+                              {
+                                  "version": 4,
+                                  "addr": "168.x.x.3"
+                              }
+                          ],
+                          "private": [
+                              {
+                                  "version": 4,
+                                  "addr": "10.x.x.3"
+                              }
+                          ]
+                      }
+                  }
+              }
+  "/v1.0/{tenant_id}/flavors":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    get:
+      operationId: getFlavors
+      summary: List available flavors
+      description: |
+        Lists all available flavors, including the drive size and amount of RAM.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples: {}
+  "/v1.0/{tenant_id}/flavors/{flavorId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    - name: flavorId
+      required: true
+      in: path
+      type: string
+      description: |
+        Specifies the flavor ID.
+    get:
+      operationId: getFlavorDetails
+      summary: Show flavor details
+      description: |
+        Shows details for a specified flavor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor": {
+                      "name": "Small Hadoop Instance",
+                      "links": [
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-7",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-7",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "ram": 7680,
+                      "vcpus": 2,
+                      "disk": 1250,
+                      "id": "hadoop1-7"
+                  }
+              }
+  "/v1.0/{tenant_id}/flavors/{flavorId}/types":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    - name: flavorId
+      required: true
+      in: path
+      type: string
+      description: |
+        Specifies the flavor ID.
+    get:
+      operationId: getSupportedClusterTypesByFlavor
+      summary: List supported cluster types for a flavor
+      description: |
+        Lists the supported cluster types for a specified flavor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "types": [
+                      {
+                          "version": "1.3",
+                          "id": "HADOOP_HDP1_3",
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/HADOOP_HDP1_3",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/types/HADOOP_HDP1_3",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "name": "Hadoop (HDP 1.3)"
+                      },
+                      {
+                          "version": "2.1",
+                          "id": "HADOOP_HDP2_1",
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/HADOOP_HDP2_1",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/types/HADOOP_HDP2_1",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "name": "Hadoop (HDP 2.1)"
+                      }
+                  ]
+              }
+  "/v1.0/{tenant_id}/types":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    get:
+      operationId: getClusterTypes
+      summary: List cluster types
+      description: |
+        Lists cluster types.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "types": [
+                      {
+                          "version": "1.3",
+                          "id": "HADOOP_HDP1_3",
+                          "links": [
+                              {
+                                  "href": "http://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/HADOOP_HDP1_3",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://dfw.bigdata.api.rackspacecloud.com/1234/types/HADOOP_HDP1_3",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "name": "Hadoop (HDP 1.3)"
+                      },
+                      {
+                          "version": "2.1",
+                          "id": "HADOOP_HDP2_1",
+                          "links": [
+                              {
+                                  "href": "http://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/HADOOP_HDP2_1",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://dfw.bigdata.api.rackspacecloud.com/1234/types/HADOOP_HDP2_1",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "name": "Hadoop (HDP 2.1)"
+                      },
+                      {
+                          "version": "2.1",
+                          "id": "SPARK_HDP2_1",
+                          "links": [
+                              {
+                                  "href": "http://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/SPARK_HDP2_1",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://dfw.bigdata.api.rackspacecloud.com/1234/types/SPARK_HDP2_1",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "name": "Spark Technical Preview (HDP 2.1)"
+                      }
+                  ]
+              }
+  "/v1.0/{tenant_id}/types/{typeId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    - name: typeId
+      required: true
+      in: path
+      type: string
+      description: |
+        Specifies the type ID.
+    get:
+      operationId: getClusterTypeDetails
+      summary: Show cluster type details
+      description: |
+        Shows details for a specified cluster type.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "type": {
+                      "services": [],
+                      "id": "HADOOP_HDP2_1",
+                      "links": [
+                          {
+                              "href": "http://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/HADOOP_HDP2_1",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://dfw.bigdata.api.rackspacecloud.com/1234/types/HADOOP_HDP2_1",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "name": "Hadoop (HDP 2.1)"
+                  }
+              }
+  "/v1.0/{tenant_id}/types/{typeId}/flavors":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    - name: typeId
+      required: true
+      in: path
+      type: string
+      description: |
+        Specifies the type ID.
+    get:
+      operationId: getSupportedFlavorsForType
+      summary: List supported flavors for a type
+      description: |
+        Lists the supported flavors for a specified cluster type.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavors": [
+                      {
+                          "name": "Medium Hadoop Instance",
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-15",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-15",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 15360,
+                          "vcpus": 4,
+                          "disk": 2500,
+                          "id": "hadoop1-15"
+                      },
+                      {
+                          "name": "Large Hadoop Instance",
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-30",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-30",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 30720,
+                          "vcpus": 8,
+                          "disk": 5000,
+                          "id": "hadoop1-30"
+                      },
+                      {
+                          "name": "XLarge Hadoop Instance",
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-60",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-60",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 61440,
+                          "vcpus": 16,
+                          "disk": 10000,
+                          "id": "hadoop1-60"
+                      },
+                      {
+                          "name": "Small Hadoop Instance",
+                          "links": [
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-7",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-7",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 7680,
+                          "vcpus": 2,
+                          "disk": 1250,
+                          "id": "hadoop1-7"
+                      }
+                  ]
+              }
+  "/v1.0/{tenant_id}/limits":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID in a multi-tenancy cloud.
+    get:
+      operationId: viewResourceLimits
+      summary: Show resource limits
+      description: |
+        Shows the absolute resource limits, such as remaining node count, available RAM, and remaining disk space, for the user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "limits": {
+                      "links": [
+                          {
+                              "href": "http://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/limits",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://dfw.bigdata.api.rackspacecloud.com/1234/limits",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "absolute": {
+                          "nodeCount": {
+                              "limit": 5,
+                              "remaining": 5
+                          },
+                          "vcpus": {
+                              "limit": 10,
+                              "remaining": 10
+                          },
+                          "disk": {
+                              "limit": 5120,
+                              "remaining": 5120
+                          },
+                          "ram": {
+                              "limit": 40960,
+                              "remaining": 40960
+                          }
+                      }
+                  }
+              }

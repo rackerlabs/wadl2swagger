@@ -1,0 +1,56 @@
+---
+swagger: '2.0'
+info:
+  title: os-flavor-manage-v2.1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.1/flavors":
+    post:
+      operationId: create-flavors
+      summary: Create flavor
+      description: |
+        Creates a flavor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor": {
+                      "flavor-access:is_public": true,
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v3/flavors/10",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/flavors/10",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "ram": 1024,
+                      "ephemeral": 0,
+                      "disabled": false,
+                      "vcpus": 2,
+                      "swap": 0,
+                      "disk": 10,
+                      "id": "10",
+                      "name": "test_flavor"
+                  }
+              }
+  "/v2.1/flavors/{flavor_id}":
+    delete:
+      operationId: delete-flavors
+      summary: Delete flavor
+      description: |
+        Deletes a flavor.
+      produces: []
+      responses:
+        '204':
+          description: 204 response

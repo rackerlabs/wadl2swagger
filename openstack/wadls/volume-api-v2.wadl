@@ -1,0 +1,2916 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://volume.example.com/"
+              xml:id="volume-v2">
+        <resource id="versions" path="/">
+         <method name="GET" rax:id="listVersions">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List API versions">
+               <para role="shortdesc">Lists information about all Block
+                Storage API versions.</para>
+            </wadl:doc>
+            <response status="200 300">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "versions": [
+        {
+            "status": "CURRENT",
+            "updated": "2012-01-04T11:33:21Z",
+            "id": "v1.0",
+            "links": [
+                {
+                    "href": "http://23.253.228.211:8776/v1/",
+                    "rel": "self"
+                }
+            ]
+        },
+        {
+            "status": "CURRENT",
+            "updated": "2012-11-21T11:33:21Z",
+            "id": "v2.0",
+            "links": [
+                {
+                    "href": "http://23.253.228.211:8776/v2/",
+                    "rel": "self"
+                }
+            ]
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <!-- The following call fails - opened bug #1311243 -->
+               <!-- <representation mediaType="application/xml">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
+                    <xsdxt:code
+                        href="api_samples/cinder-versions-response.xml"
+                    />
+                </wadl:doc>
+            </representation>-->
+            </response>
+         </method>
+      </resource>
+            
+        
+        <resource id="version" path="/v2">
+         <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                   xml:lang="EN"
+                   title="Version details">
+            <para>Details for a version.</para>
+        </wadl:doc>
+         <method name="GET" rax:id="versionDetails">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show API version details">
+               <para role="shortdesc">Shows details for Block Storage API
+                v2.</para>
+            </wadl:doc>
+            <response status="200 203">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "version": {
+        "status": "CURRENT",
+        "updated": "2012-01-04T11:33:21Z",
+        "media-types": [
+            {
+                "base": "application/xml",
+                "type": "application/vnd.openstack.volume+xml;version=1"
+            },
+            {
+                "base": "application/json",
+                "type": "application/vnd.openstack.volume+json;version=1"
+            }
+        ],
+        "id": "v1.0",
+        "links": [
+            {
+                "href": "http://23.253.228.211:8776/v2/",
+                "rel": "self"
+            },
+            {
+                "href": "http://jorgew.github.com/block-storage-api/content/os-block-storage-1.0.pdf",
+                "type": "application/pdf",
+                "rel": "describedby"
+            },
+            {
+                "href": "http://docs.rackspacecloud.com/servers/api/v1.1/application.wadl",
+                "type": "application/vnd.sun.wadl+xml",
+                "rel": "describedby"
+            }
+        ]
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <!-- this call fails - opened bug 1311243 -->
+               <!--<representation mediaType="application/xml"
+                element="common:version">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
+                    <xsdxt:code
+                        href="../api_samples/version-get-resp.xml"/>
+                </wadl:doc>
+                <param name="location" style="plain" type="xsd:anyURI"
+                    required="true"
+                    path="/common:version/atom:link[@rel='self']/@href">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                        xml:lang="EN" title="Location"><para>Full URL
+                            to a service or server.</para></wadl:doc>
+                    <link resource_type="#VersionDetails" rel="self"/>
+                </param>
+            </representation>-->
+            </response>
+         </method>
+      </resource>
+      <resource id="extensions" path="/v2/{tenant_id}/extensions">
+         <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                   xml:lang="EN"
+                   title="Detail image list">
+            <para>A list of supported extensions.</para>
+        </wadl:doc>
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="listExtensions-cinder-v2">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List API extensions">
+               <para role="shortdesc">Lists Block Storage API
+                extensions.</para>
+            </wadl:doc>
+            <response status="200 300">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "extensions": [
+        {
+            "updated": "2013-04-18T00:00:00+00:00",
+            "name": "SchedulerHints",
+            "links": [],
+            "namespace": "http://docs.openstack.org/block-service/ext/scheduler-hints/api/v2",
+            "alias": "OS-SCH-HNT",
+            "description": "Pass arbitrary key/value pairs to the scheduler."
+        },
+        {
+            "updated": "2011-06-29T00:00:00+00:00",
+            "name": "Hosts",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/hosts/api/v1.1",
+            "alias": "os-hosts",
+            "description": "Admin-only host administration."
+        },
+        {
+            "updated": "2011-11-03T00:00:00+00:00",
+            "name": "VolumeTenantAttribute",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/volume_tenant_attribute/api/v1",
+            "alias": "os-vol-tenant-attr",
+            "description": "Expose the internal project_id as an attribute of a volume."
+        },
+        {
+            "updated": "2011-08-08T00:00:00+00:00",
+            "name": "Quotas",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/quotas-sets/api/v1.1",
+            "alias": "os-quota-sets",
+            "description": "Quota management support."
+        },
+        {
+            "updated": "2011-08-24T00:00:00+00:00",
+            "name": "TypesManage",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/types-manage/api/v1",
+            "alias": "os-types-manage",
+            "description": "Types manage support."
+        },
+        {
+            "updated": "2013-07-10T00:00:00+00:00",
+            "name": "VolumeEncryptionMetadata",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/os-volume-encryption-metadata/api/v1",
+            "alias": "os-volume-encryption-metadata",
+            "description": "Volume encryption metadata retrieval support."
+        },
+        {
+            "updated": "2012-12-12T00:00:00+00:00",
+            "name": "Backups",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/backups/api/v1",
+            "alias": "backups",
+            "description": "Backups support."
+        },
+        {
+            "updated": "2013-07-16T00:00:00+00:00",
+            "name": "SnapshotActions",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/snapshot-actions/api/v1.1",
+            "alias": "os-snapshot-actions",
+            "description": "Enable snapshot manager actions."
+        },
+        {
+            "updated": "2012-05-31T00:00:00+00:00",
+            "name": "VolumeActions",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/volume-actions/api/v1.1",
+            "alias": "os-volume-actions",
+            "description": "Enable volume actions\n    "
+        },
+        {
+            "updated": "2013-10-03T00:00:00+00:00",
+            "name": "UsedLimits",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/used-limits/api/v1.1",
+            "alias": "os-used-limits",
+            "description": "Provide data on limited resources that are being used."
+        },
+        {
+            "updated": "2012-05-31T00:00:00+00:00",
+            "name": "VolumeUnmanage",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/volume-unmanage/api/v1.1",
+            "alias": "os-volume-unmanage",
+            "description": "Enable volume unmanage operation."
+        },
+        {
+            "updated": "2011-11-03T00:00:00+00:00",
+            "name": "VolumeHostAttribute",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/volume_host_attribute/api/v1",
+            "alias": "os-vol-host-attr",
+            "description": "Expose host as an attribute of a volume."
+        },
+        {
+            "updated": "2013-07-01T00:00:00+00:00",
+            "name": "VolumeTypeEncryption",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/volume-type-encryption/api/v1",
+            "alias": "encryption",
+            "description": "Encryption support for volume types."
+        },
+        {
+            "updated": "2013-06-27T00:00:00+00:00",
+            "name": "AvailabilityZones",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/os-availability-zone/api/v1",
+            "alias": "os-availability-zone",
+            "description": "Describe Availability Zones."
+        },
+        {
+            "updated": "2013-08-02T00:00:00+00:00",
+            "name": "Qos_specs_manage",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/qos-specs/api/v1",
+            "alias": "qos-specs",
+            "description": "QoS specs support."
+        },
+        {
+            "updated": "2011-08-24T00:00:00+00:00",
+            "name": "TypesExtraSpecs",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/types-extra-specs/api/v1",
+            "alias": "os-types-extra-specs",
+            "description": "Type extra specs support."
+        },
+        {
+            "updated": "2013-08-08T00:00:00+00:00",
+            "name": "VolumeMigStatusAttribute",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/volume_mig_status_attribute/api/v1",
+            "alias": "os-vol-mig-status-attr",
+            "description": "Expose migration_status as an attribute of a volume."
+        },
+        {
+            "updated": "2012-08-13T00:00:00+00:00",
+            "name": "CreateVolumeExtension",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/image-create/api/v1",
+            "alias": "os-image-create",
+            "description": "Allow creating a volume from an image in the Create Volume v1 API."
+        },
+        {
+            "updated": "2014-01-10T00:00:00-00:00",
+            "name": "ExtendedServices",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/extended_services/api/v2",
+            "alias": "os-extended-services",
+            "description": "Extended services support."
+        },
+        {
+            "updated": "2012-06-19T00:00:00+00:00",
+            "name": "ExtendedSnapshotAttributes",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/extended_snapshot_attributes/api/v1",
+            "alias": "os-extended-snapshot-attributes",
+            "description": "Extended SnapshotAttributes support."
+        },
+        {
+            "updated": "2012-12-07T00:00:00+00:00",
+            "name": "VolumeImageMetadata",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/volume_image_metadata/api/v1",
+            "alias": "os-vol-image-meta",
+            "description": "Show image metadata associated with the volume."
+        },
+        {
+            "updated": "2012-03-12T00:00:00+00:00",
+            "name": "QuotaClasses",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/quota-classes-sets/api/v1.1",
+            "alias": "os-quota-class-sets",
+            "description": "Quota classes management support."
+        },
+        {
+            "updated": "2013-05-29T00:00:00+00:00",
+            "name": "VolumeTransfer",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/volume-transfer/api/v1.1",
+            "alias": "os-volume-transfer",
+            "description": "Volume transfer management support."
+        },
+        {
+            "updated": "2014-02-10T00:00:00+00:00",
+            "name": "VolumeManage",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/os-volume-manage/api/v1",
+            "alias": "os-volume-manage",
+            "description": "Allows existing backend storage to be 'managed' by Cinder."
+        },
+        {
+            "updated": "2012-08-25T00:00:00+00:00",
+            "name": "AdminActions",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/admin-actions/api/v1.1",
+            "alias": "os-admin-actions",
+            "description": "Enable admin actions."
+        },
+        {
+            "updated": "2012-10-28T00:00:00-00:00",
+            "name": "Services",
+            "links": [],
+            "namespace": "http://docs.openstack.org/volume/ext/services/api/v2",
+            "alias": "os-services",
+            "description": "Services support."
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;extensions xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns="http://docs.openstack.org/common/api/v1.0"&gt;
+    &lt;extension alias="OS-SCH-HNT" updated="2013-04-18T00:00:00+00:00"
+        namespace="http://docs.openstack.org/block-service/ext/scheduler-hints/api/v2"
+        name="SchedulerHints"&gt;
+        &lt;description&gt;Pass arbitrary key/value pairs to the
+            scheduler.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-hosts" updated="2011-06-29T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/hosts/api/v1.1"
+        name="Hosts"&gt;
+        &lt;description&gt;Admin-only host administration.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-vol-tenant-attr"
+        updated="2011-11-03T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/volume_tenant_attribute/api/v1"
+        name="VolumeTenantAttribute"&gt;
+        &lt;description&gt;Expose the internal project_id as an attribute of
+            a volume.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-quota-sets"
+        updated="2011-08-08T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/quotas-sets/api/v1.1"
+        name="Quotas"&gt;
+        &lt;description&gt;Quota management support.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-types-manage"
+        updated="2011-08-24T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/types-manage/api/v1"
+        name="TypesManage"&gt;
+        &lt;description&gt;Types manage support.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-volume-encryption-metadata"
+        updated="2013-07-10T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/os-volume-encryption-metadata/api/v1"
+        name="VolumeEncryptionMetadata"&gt;
+        &lt;description&gt;Volume encryption metadata retrieval
+            support.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="backups" updated="2012-12-12T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/backups/api/v1"
+        name="Backups"&gt;
+        &lt;description&gt;Backups support.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-snapshot-actions"
+        updated="2013-07-16T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/snapshot-actions/api/v1.1"
+        name="SnapshotActions"&gt;
+        &lt;description&gt;Enable snapshot manager actions.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-volume-actions"
+        updated="2012-05-31T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/volume-actions/api/v1.1"
+        name="VolumeActions"&gt;
+        &lt;description&gt;Enable volume actions &lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-used-limits"
+        updated="2013-10-03T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/used-limits/api/v1.1"
+        name="UsedLimits"&gt;
+        &lt;description&gt;Provide data on limited resources that are being
+            used.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-volume-unmanage"
+        updated="2012-05-31T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/volume-unmanage/api/v1.1"
+        name="VolumeUnmanage"&gt;
+        &lt;description&gt;Enable volume unmanage operation.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-vol-host-attr"
+        updated="2011-11-03T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/volume_host_attribute/api/v1"
+        name="VolumeHostAttribute"&gt;
+        &lt;description&gt;Expose host as an attribute of a
+            volume.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="encryption" updated="2013-07-01T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/volume-type-encryption/api/v1"
+        name="VolumeTypeEncryption"&gt;
+        &lt;description&gt;Encryption support for volume
+            types.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-availability-zone"
+        updated="2013-06-27T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/os-availability-zone/api/v1"
+        name="AvailabilityZones"&gt;
+        &lt;description&gt;Describe Availability Zones.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="qos-specs" updated="2013-08-02T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/qos-specs/api/v1"
+        name="Qos_specs_manage"&gt;
+        &lt;description&gt;QoS specs support.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-types-extra-specs"
+        updated="2011-08-24T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/types-extra-specs/api/v1"
+        name="TypesExtraSpecs"&gt;
+        &lt;description&gt;Type extra specs support.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-vol-mig-status-attr"
+        updated="2013-08-08T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/volume_mig_status_attribute/api/v1"
+        name="VolumeMigStatusAttribute"&gt;
+        &lt;description&gt;Expose migration_status as an attribute of a
+            volume.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-image-create"
+        updated="2012-08-13T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/image-create/api/v1"
+        name="CreateVolumeExtension"&gt;
+        &lt;description&gt;Allow creating a volume from an image in the
+            Create Volume v1 API.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-extended-services"
+        updated="2014-01-10T00:00:00-00:00"
+        namespace="http://docs.openstack.org/volume/ext/extended_services/api/v2"
+        name="ExtendedServices"&gt;
+        &lt;description&gt;Extended services support.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-extended-snapshot-attributes"
+        updated="2012-06-19T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/extended_snapshot_attributes/api/v1"
+        name="ExtendedSnapshotAttributes"&gt;
+        &lt;description&gt;Extended SnapshotAttributes
+            support.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-vol-image-meta"
+        updated="2012-12-07T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/volume_image_metadata/api/v1"
+        name="VolumeImageMetadata"&gt;
+        &lt;description&gt;Show image metadata associated with the
+            volume.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-quota-class-sets"
+        updated="2012-03-12T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/quota-classes-sets/api/v1.1"
+        name="QuotaClasses"&gt;
+        &lt;description&gt;Quota classes management support.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-volume-transfer"
+        updated="2013-05-29T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/volume-transfer/api/v1.1"
+        name="VolumeTransfer"&gt;
+        &lt;description&gt;Volume transfer management support.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-volume-manage"
+        updated="2014-02-10T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/os-volume-manage/api/v1"
+        name="VolumeManage"&gt;
+        &lt;description&gt;Allows existing backend storage to be 'managed'
+            by Cinder.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-admin-actions"
+        updated="2012-08-25T00:00:00+00:00"
+        namespace="http://docs.openstack.org/volume/ext/admin-actions/api/v1.1"
+        name="AdminActions"&gt;
+        &lt;description&gt;Enable admin actions.&lt;/description&gt;
+    &lt;/extension&gt;
+    &lt;extension alias="os-services" updated="2012-10-28T00:00:00-00:00"
+        namespace="http://docs.openstack.org/volume/ext/services/api/v2"
+        name="Services"&gt;
+        &lt;description&gt;Services support.&lt;/description&gt;
+    &lt;/extension&gt;
+&lt;/extensions&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+      <resource id="volumes" path="/v2/{tenant_id}/volumes">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <method name="POST" rax:id="createVolume">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create volume">
+               <para role="shortdesc">Creates a volume.</para>
+               <para>To create a bootable volume, include the image ID
+                and set the <code>bootable</code> flag to
+                    <code>true</code> in the request body.</para>
+               <para>Preconditions</para>
+               <itemizedlist>
+                  <listitem>
+                     <para>The user must have enough volume storage quota
+                          remaining to create a volume of size requested.</para>
+                  </listitem>
+               </itemizedlist>
+               <para>Asynchronous Postconditions</para>
+               <itemizedlist>
+                  <listitem>
+                     <para>With correct permissions, you can see the volume status
+                as <code>available</code> through API calls.</para>
+                  </listitem>
+                  <listitem>
+                     <para>With correct access, you can see the created volume
+                in the storage system that OpenStack Block Storage manages.</para>
+                  </listitem>
+               </itemizedlist>
+               <para>Troubleshooting</para>
+               <itemizedlist>
+                  <listitem>
+                     <para>If volume status remains <code>creating</code> or
+                shows another error status, the request failed. Ensure you meet the preconditions
+                then investigate the storage backend.</para>
+                  </listitem>
+                  <listitem>
+                     <para>Volume is not created in the storage system which OpenStack
+                          Block Storage manages.</para>
+                  </listitem>
+                  <listitem>
+                     <para>The storage node needs enough free storage space to match
+                          the specified size of the volume creation request.</para>
+                  </listitem>
+               </itemizedlist>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume": {
+        "availability_zone": null,
+        "source_volid": null,
+        "description": null,
+        "snapshot_id": null,
+        "size": 10,
+        "name": "my_volume",
+        "imageRef": null,
+        "volume_type": null,
+        "metadata": {}
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;volume
+    xmlns="http://docs.openstack.org/openstack-block-storage/2.0/content"
+    name="vol-001" description="Another volume."
+    size="2"/&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="availability_zone"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The availability zone.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="source_volid"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To create a volume from an existing
+                            volume, specify the ID of the existing
+                            volume. If specified, the volume is created
+                            with same size of the source volume.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="description"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The volume
+                        description.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="snapshot_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To create a volume from an existing
+                            snapshot, specify the ID of the existing
+                            volume snapshot. If specified,
+                            the volume is created in same availability
+                            zone and with same size of the snapshot.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="size" style="plain" type="xsd:int" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The size of the volume, in
+                        GBs.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" type="xsd:string" required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The volume name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="imageRef"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID of the image from which you want
+                            to create the volume. Required to create a
+                            bootable volume.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="volume_type"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The associated volume
+                        type.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="bootable"
+                         style="plain"
+                         type="xsd:boolean"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Enables or disables the bootable
+                            attribute. You can boot an instance from a
+                            bootable volume.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="metadata"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>One or more metadata key and value pairs
+                            to associate with the
+                        volume.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume": {
+        "status": "creating",
+        "name": "my_volume",
+        "attachments": [],
+        "availability_zone": "nova",
+        "bootable": "false",
+        "created_at": "2014-02-21T19:52:04.949734",
+        "description": null,
+        "volume_type": "None",
+        "snapshot_id": null,
+        "source_volid": null,
+        "metadata": {},
+        "id": "93c2e2aa-7744-4fd6-a31a-80c4726b08d7",
+        "size": 10
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;volume xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns="http://docs.openstack.org/volume/api/v1" status="creating"
+    name="vol-001" availability_zone="nova" bootable="false"
+    created_at="2014-02-21 20:18:33.122452"
+    description="Another volume." volume_type="None"
+    snapshot_id="None" source_volid="None"
+    id="83960a54-8dad-4fd8-bc41-33c71e098e04" size="2"&gt;
+    &lt;attachments/&gt;
+    &lt;metadata/&gt;
+&lt;/volume&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="status" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The volume status.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The volume name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="attachments"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>One or more instance
+                        attachments.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="availability_zone"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The availability zone.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="bootable"
+                         style="plain"
+                         type="xsd:boolean"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Enables or disables the bootable
+                            attribute. You can boot an instance from a
+                            bootable volume.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="created_at"
+                         style="plain"
+                         type="xsd:datetime"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Date and time when the volume was
+                            created.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="description"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The volume
+                        description.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="volume_type"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The associated volume
+                        type.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="snapshot_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To create a volume from an existing
+                            volume snapshot, specify the ID of the
+                            existing volume
+                        snapshot.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="source_volid"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To create a volume from an existing
+                            volume, specify the ID of the existing
+                            volume.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="metadata" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>One or more metadata key and value pairs
+                            to associate with the
+                        volume.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" type="csapi:uuid" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The volume ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="size" style="plain" type="xsd:int" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The size of the volume, in
+                        GBs.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+         <method name="GET" rax:id="getVolumesSimple">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List volumes">
+               <para role="shortdesc">Lists summary information for all
+                Block Storage volumes that the tenant who submits the
+                request can access.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;volumes xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns="http://docs.openstack.org/api/openstack-block-storage/2.0/content"&gt;
+    &lt;volume name="vol-004" id="45baf976-c20a-4894-a7c3-c94b7376bf55"&gt;
+        &lt;attachments/&gt;
+        &lt;metadata/&gt;
+    &lt;/volume&gt;
+    &lt;volume name="vol-003" id="5aa119a8-d25b-45a7-8d1b-88e127885635"&gt;
+        &lt;attachments/&gt;
+        &lt;metadata/&gt;
+    &lt;/volume&gt;
+&lt;/volumes&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volumes": [
+        {
+            "id": "45baf976-c20a-4894-a7c3-c94b7376bf55",
+            "links": [
+                {
+                    "href": "http://localhost:8776/v2/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/45baf976-c20a-4894-a7c3-c94b7376bf55",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://localhost:8776/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/45baf976-c20a-4894-a7c3-c94b7376bf55",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "vol-004"
+        },
+        {
+            "id": "5aa119a8-d25b-45a7-8d1b-88e127885635",
+            "links": [
+                {
+                    "href": "http://localhost:8776/v2/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/5aa119a8-d25b-45a7-8d1b-88e127885635",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://localhost:8776/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/5aa119a8-d25b-45a7-8d1b-88e127885635",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "vol-003"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource path="/v2/{tenant_id}/volumes/detail" id="detail">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="getVolumesDetail">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List volumes (detailed)">
+               <para role="shortdesc">Lists detailed information for all
+                Block Storage volumes that the tenant who submits the
+                request can access.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;volumes
+    xmlns:os-vol-image-meta="http://docs.openstack.org/openstack-block-storage/2.0/content/Volume_Image_Metadata.html"
+    xmlns:os-vol-tenant-attr="http://docs.openstack.org/openstack-block-storage/2.0/content/Volume_Tenant_Attribute.html"
+    xmlns:os-vol-host-attr="http://docs.openstack.org/openstack-block-storage/2.0/content/Volume_Host_Attribute.html"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns="http://docs.openstack.org/api/openstack-block-storage/2.0/content"&gt;
+    &lt;volume status="available" name="vol-004" availability_zone="nova"
+        created_at="2013-02-25 06:36:28" description="Another volume."
+        volume_type="None" source_volid="None" snapshot_id="None"
+        id="45baf976-c20a-4894-a7c3-c94b7376bf55" size="1"
+        os-vol-tenant-attr:tenant_id="0c2eba2c5af04d3f9e9d0d410b371fde"
+        os-vol-host-attr:host="ip-10-168-107-25"&gt;
+        &lt;attachments/&gt;
+        &lt;metadata&gt;
+            &lt;meta key="contents"&gt;junk&lt;/meta&gt;
+        &lt;/metadata&gt;
+    &lt;/volume&gt;
+    &lt;volume status="available" name="vol-003" availability_zone="nova"
+        created_at="2013-02-25 02:40:21"
+        description="This is yet, another volume." volume_type="None"
+        source_volid="None" snapshot_id="None"
+        id="5aa119a8-d25b-45a7-8d1b-88e127885635" size="1"
+        os-vol-tenant-attr:tenant_id="0c2eba2c5af04d3f9e9d0d410b371fde"
+        os-vol-host-attr:host="ip-10-168-107-25"&gt;
+        &lt;attachments/&gt;
+        &lt;metadata&gt;
+            &lt;meta key="contents"&gt;not junk&lt;/meta&gt;
+        &lt;/metadata&gt;
+    &lt;/volume&gt;
+&lt;/volumes&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volumes": [
+        {
+            "status": "available",
+            "attachments": [],
+            "links": [
+                {
+                    "href": "http://localhost:8776/v2/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/45baf976-c20a-4894-a7c3-c94b7376bf55",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://localhost:8776/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/45baf976-c20a-4894-a7c3-c94b7376bf55",
+                    "rel": "bookmark"
+                }
+            ],
+            "availability_zone": "nova",
+            "os-vol-host-attr:host": "ip-10-168-107-25",
+            "source_volid": null,
+            "snapshot_id": null,
+            "id": "45baf976-c20a-4894-a7c3-c94b7376bf55",
+            "description": "Another volume.",
+            "name": "vol-004",
+            "created_at": "2013-02-25T06:36:28.000000",
+            "volume_type": "None",
+            "os-vol-tenant-attr:tenant_id": "0c2eba2c5af04d3f9e9d0d410b371fde",
+            "size": 1,
+            "metadata": {
+                "contents": "junk"
+            }
+        },
+        {
+            "status": "available",
+            "attachments": [],
+            "links": [
+                {
+                    "href": "http://localhost:8776/v2/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/5aa119a8-d25b-45a7-8d1b-88e127885635",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://localhost:8776/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/5aa119a8-d25b-45a7-8d1b-88e127885635",
+                    "rel": "bookmark"
+                }
+            ],
+            "availability_zone": "nova",
+            "os-vol-host-attr:host": "ip-10-168-107-25",
+            "source_volid": null,
+            "snapshot_id": null,
+            "id": "5aa119a8-d25b-45a7-8d1b-88e127885635",
+            "description": "This is yet, another volume.",
+            "name": "vol-003",
+            "created_at": "2013-02-25T02:40:21.000000",
+            "volume_type": "None",
+            "os-vol-tenant-attr:tenant_id": "0c2eba2c5af04d3f9e9d0d410b371fde",
+            "size": 1,
+            "metadata": {
+                "contents": "not junk"
+            }
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                    <resource path="/v2/{tenant_id}/volumes/{volume_id}" id="volume_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <param name="volume_id"
+                style="template"
+                required="true"
+                type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The unique
+                                   identifier of an existing
+                                   volume.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getVolume">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show volume information">
+               <para role="shortdesc">Shows information about a specified
+                volume.</para>
+               <para>Preconditions</para>
+               <itemizedlist>
+                  <listitem>
+                     <para>The specified volume must exist.</para>
+                  </listitem>
+               </itemizedlist>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;volume
+    xmlns:os-vol-image-meta="http://docs.openstack.org/openstack-block-storage/2.0/content/Volume_Image_Metadata.html"
+    xmlns:os-vol-tenant-attr="http://docs.openstack.org/openstack-block-storage/2.0/content/Volume_Tenant_Attribute.html"
+    xmlns:os-vol-host-attr="http://docs.openstack.org/openstack-block-storage/2.0/content/Volume_Host_Attribute.html"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns="http://docs.openstack.org/api/openstack-block-storage/2.0/content"
+    status="available" name="vol-003" availability_zone="nova"
+    bootable="false" created_at="2013-02-25 02:40:21"
+    description="This is yet, another volume." volume_type="None"
+    source_volid="None" snapshot_id="None"
+    id="5aa119a8-d25b-45a7-8d1b-88e127885635" size="1"
+    os-vol-tenant-attr:tenant_id="0c2eba2c5af04d3f9e9d0d410b371fde"
+    os-vol-host-attr:host="ip-10-168-107-25"&gt;
+    &lt;attachments/&gt;
+    &lt;metadata&gt;
+        &lt;meta key="contents"&gt;not junk&lt;/meta&gt;
+    &lt;/metadata&gt;
+&lt;/volume&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume": {
+        "status": "available",
+        "attachments": [],
+        "links": [
+            {
+                "href": "http://localhost:8776/v2/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/5aa119a8-d25b-45a7-8d1b-88e127885635",
+                "rel": "self"
+            },
+            {
+                "href": "http://localhost:8776/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/5aa119a8-d25b-45a7-8d1b-88e127885635",
+                "rel": "bookmark"
+            }
+        ],
+        "availability_zone": "nova",
+        "bootable": "false",
+        "os-vol-host-attr:host": "ip-10-168-107-25",
+        "source_volid": null,
+        "snapshot_id": null,
+        "id": "5aa119a8-d25b-45a7-8d1b-88e127885635",
+        "description": "Super volume.",
+        "name": "vol-002",
+        "created_at": "2013-02-25T02:40:21.000000",
+        "volume_type": "None",
+        "os-vol-tenant-attr:tenant_id": "0c2eba2c5af04d3f9e9d0d410b371fde",
+        "size": 1,
+        "metadata": {
+            "contents": "not junk"
+        }
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="PUT" rax:id="updateVolume">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update volume">
+               <para role="shortdesc">Updates a volume.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;snapshot
+    xmlns="http://docs.openstack.org/openstack-block-storage/2.0/content"
+    name="vol-003" description="This is yet, another volume."/&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume": {
+        "name": "vol-003",
+        "description": "This is yet, another volume."
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="description" style="query" type="string" required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A description of the
+                            volume.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="query" type="string" required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The name of the
+                            volume.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;volume xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns="http://docs.openstack.org/api/openstack-block-storage/2.0/content"
+    status="available" name="vol-003" availability_zone="nova"
+    created_at="2013-02-25 02:40:21"
+    description="This is yet, another volume." volume_type="None"
+    source_volid="None" snapshot_id="None"
+    id="5aa119a8-d25b-45a7-8d1b-88e127885635" size="1"&gt;
+    &lt;attachments/&gt;
+    &lt;metadata&gt;
+        &lt;meta key="contents"&gt;not junk&lt;/meta&gt;
+    &lt;/metadata&gt;
+&lt;/volume&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume": {
+        "status": "available",
+        "attachments": [],
+        "links": [
+            {
+                "href": "http://localhost:8776/v2/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/5aa119a8-d25b-45a7-8d1b-88e127885635",
+                "rel": "self"
+            },
+            {
+                "href": "http://localhost:8776/0c2eba2c5af04d3f9e9d0d410b371fde/volumes/5aa119a8-d25b-45a7-8d1b-88e127885635",
+                "rel": "bookmark"
+            }
+        ],
+        "availability_zone": "nova",
+        "source_volid": null,
+        "snapshot_id": null,
+        "id": "5aa119a8-d25b-45a7-8d1b-88e127885635",
+        "description": "This is yet, another volume.",
+        "name": "vol-003",
+        "created_at": "2013-02-25T02:40:21.000000",
+        "volume_type": "None",
+        "size": 1,
+        "metadata": {
+            "contents": "not junk"
+        }
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="DELETE" rax:id="deleteVolume">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete volume">
+               <para role="shortdesc">Deletes a specified volume.</para>
+               <para>Preconditions</para>
+               <itemizedlist>
+                  <listitem>
+                     <para>Volume status must be <code>available</code>,
+                <code>in-use</code>, <code>error</code>, or <code>error_restoring</code>.</para>
+                  </listitem>
+                  <listitem>
+                     <para>You cannot already have a snapshot related to
+                          the specified volume.</para>
+                  </listitem>
+                  <listitem>
+                     <para>You cannot delete a volume that is in a
+                          migration.</para>
+                  </listitem>
+               </itemizedlist>
+               <para>Asynchronous Postconditions</para>
+               <itemizedlist>
+                  <listitem>
+                     <para>The volume is deleted in volume index.</para>
+                  </listitem>
+                  <listitem>
+                     <para>The volume managed by OpenStack Block Storage
+                          is deleted in storage node.</para>
+                  </listitem>
+               </itemizedlist>
+               <para>Troubleshooting</para>
+               <itemizedlist>
+                  <listitem>
+                     <para>If volume status remains in <code>deleting</code> or
+                becomes <code>error_deleting</code> the request failed. Ensure you meet
+                the preconditions then investigate the storage backend.</para>
+                  </listitem>
+                  <listitem>
+                     <para>The volume managed by OpenStack Block Storage
+                          is not deleted from the storage system.</para>
+                  </listitem>
+               </itemizedlist>
+            </wadl:doc>
+            <response status="202"/>
+         </method>
+      </resource>
+                        
+                        
+                        
+                        
+                    
+                <resource id="types" path="/v2/{tenant_id}/types">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="getVolumeTypes">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List volume types">
+               <para role="shortdesc">Lists volume types.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;volume_types
+    xmlns="http://docs.openstack.org/openstack-block-storage/2.0/content"&gt;
+    &lt;volume_type id="6685584b-1eac-4da6-b5c3-555430cf68ff" name="SSD"&gt;
+        &lt;extra_specs&gt;
+            &lt;extra_spec key="capabilities"&gt;gpu&lt;/extra_spec&gt;
+        &lt;/extra_specs&gt;
+    &lt;/volume_type&gt;
+    &lt;volume_type id="8eb69a46-df97-4e41-9586-9a40a7533803" name="SATA"
+    /&gt;
+&lt;/volume_types&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume_types": [
+        {
+            "extra_specs": {
+                "capabilities": "gpu"
+            },
+            "id": "6685584b-1eac-4da6-b5c3-555430cf68ff",
+            "name": "SSD"
+        },
+        {
+            "extra_specs": {},
+            "id": "8eb69a46-df97-4e41-9586-9a40a7533803",
+            "name": "SATA"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="createVolumeType">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create volume type">
+               <para role="shortdesc">Creates a volume type.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;volume_type xmlns="http://docs.openstack.org/volume/api/v1"
+        name="vol-type-001"&gt;
+        &lt;extra_specs&gt;
+            &lt;extra_spec key="capabilities"&gt;gpu&lt;/extra_spec&gt;
+        &lt;/extra_specs&gt;
+&lt;/volume_type&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume_type": {
+        "name": "vol-type-001",
+        "extra_specs": {
+            "capabilities": "gpu"
+        }
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="volume_type"
+                         style="plain"
+                         required="true"
+                         type="csapi:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A partial representation of a volume type
+                            used in the creation process.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;volume_type
+    xmlns="http://docs.openstack.org/openstack-block-storage/2.0/content"
+    id="6685584b-1eac-4da6-b5c3-555430cf68ff" name="vol-type-001"&gt;
+    &lt;extra_specs&gt;
+        &lt;extra_spec key="capabilities"&gt;gpu&lt;/extra_spec&gt;
+    &lt;/extra_specs&gt;
+&lt;/volume_type&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume_type": {
+        "id": "6685584b-1eac-4da6-b5c3-555430cf68ff",
+        "name": "vol-type-001",
+        "extra_specs": {
+            "capabilities": "gpu"
+        }
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource path="/v2/{tenant_id}/types/{volume_type_id}" id="volume_type_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <param name="volume_type_id"
+                style="template"
+                required="true"
+                type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The unique
+                                   identifier for an existing volume
+                                   type.</para>
+            </wadl:doc>
+                        </param>
+         <method name="PUT" rax:id="updateVolumeType">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update volume type">
+               <para role="shortdesc">Updates a volume type.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;volume_type xmlns="http://docs.openstack.org/volume/api/v1"
+        name="vol-type-001"&gt;
+        &lt;extra_specs&gt;
+            &lt;extra_spec key="capabilities"&gt;gpu&lt;/extra_spec&gt;
+        &lt;/extra_specs&gt;
+&lt;/volume_type&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume_type": {
+        "name": "vol-type-001",
+        "extra_specs": {
+            "capabilities": "gpu"
+        }
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="volume_type"
+                         style="plain"
+                         required="true"
+                         type="csapi:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A volume type offers a way to categorize
+                            or group volumes.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;volume_type xmlns="http://docs.openstack.org/volume/api/v1"
+             id="289da7f8-6440-407c-9fb4-7db01ec49164"
+             name="vol-type-001"&gt;
+    &lt;extra_specs&gt;
+        &lt;extra_spec key="capabilities"&gt;gpu&lt;/extra_spec&gt;
+    &lt;/extra_specs&gt;
+&lt;/volume_type&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume_type": {
+        "id": "289da7f8-6440-407c-9fb4-7db01ec49164",
+        "name": "vol-type-001",
+        "extra_specs": {
+            "capabilities": "gpu"
+        }
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="PUT" rax:id="updateVolumeTypeExtraSpecs">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update extra specs for a volume type">
+               <para role="shortdesc">Updates the extra specifications
+                assigned to a volume type.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;volume_type xmlns="http://docs.openstack.org/volume/api/v1"
+        name="vol-type-001"&gt;
+        &lt;extra_specs&gt;
+            &lt;extra_spec key="capabilities"&gt;gpu&lt;/extra_spec&gt;
+        &lt;/extra_specs&gt;
+&lt;/volume_type&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume_type": {
+        "name": "vol-type-001",
+        "extra_specs": {
+            "capabilities": "gpu"
+        }
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="volume_type"
+                         style="plain"
+                         required="true"
+                         type="csapi:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A volume type offers a way to categorize
+                            or group volumes.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="extra_specs"
+                         style="plain"
+                         required="true"
+                         type="csapi:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A key:value pair that offers a way to
+                            show additional specifications associated
+                            with the volume type. Examples include
+                            capabilities, capacity, compression, and
+                            so on, depending on the storage driver in
+                            use.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;volume_type xmlns="http://docs.openstack.org/volume/api/v1"
+             id="289da7f8-6440-407c-9fb4-7db01ec49164"
+             name="vol-type-001"&gt;
+    &lt;extra_specs&gt;
+        &lt;extra_spec key="capabilities"&gt;gpu&lt;/extra_spec&gt;
+    &lt;/extra_specs&gt;
+&lt;/volume_type&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume_type": {
+        "id": "289da7f8-6440-407c-9fb4-7db01ec49164",
+        "name": "vol-type-001",
+        "extra_specs": {
+            "capabilities": "gpu"
+        }
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="GET" rax:id="getVolumeType">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show volume type information">
+               <para role="shortdesc">Shows information about a specified
+                volume type.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume_type": {
+        "id": "6685584b-1eac-4da6-b5c3-555430cf68ff",
+        "name": "vol-type-001",
+        "extra_specs": {
+            "capabilities": "gpu"
+        }
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;volume_type
+    xmlns="http://docs.openstack.org/openstack-block-storage/2.0/content"
+    id="6685584b-1eac-4da6-b5c3-555430cf68ff" name="vol-type-001"&gt;
+    &lt;extra_specs&gt;
+        &lt;extra_spec key="capabilities"&gt;gpu&lt;/extra_spec&gt;
+    &lt;/extra_specs&gt;
+&lt;/volume_type&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="DELETE" rax:id="deleteVolumeType">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete volume type">
+               <para role="shortdesc">Deletes a specified
+                volume type.</para>
+            </wadl:doc>
+            <response status="202"/>
+         </method>
+      </resource>
+                        
+                        
+                        
+                        
+                        
+                    
+                <resource id="snapshots" path="/v2/{tenant_id}/snapshots">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <method name="POST" rax:id="createSnapshot">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create snapshot">
+               <para role="shortdesc">Creates a snapshot, which is a
+                point-in-time complete copy of a volume. You can create a
+                volume from the snapshot.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;snapshot
+    xmlns="http://docs.openstack.org/openstack-block-storage/2.0/content"
+    name="snap-001" description="Daily backup"
+    volume_id="5aa119a8-d25b-45a7-8d1b-88e127885635" force="true"/&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="snapshot" style="query" type="string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A partial representation
+                            of a snapshot used in the creation
+                            process.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="volume_id" style="query" type="string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To create a snapshot from
+                            an existing volume, specify the ID of the
+                            existing volume.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="force" style="query" type="xsd:boolean" required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>[True/False] Indicate
+                            whether to snapshot, even if the volume is
+                            attached. Default==False.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="name" style="query" type="string" required="false">
+
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Name of the snapshot.
+                            Default==None.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="description" style="query" type="string" required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Description of snapshot.
+                            Default==None.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "snapshot": {
+        "name": "snap-001",
+        "description": "Daily backup",
+        "volume_id": "5aa119a8-d25b-45a7-8d1b-88e127885635",
+        "force": true
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="202">
+               <param name="size" style="plain" type="xsd:int" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The size of the volume, in
+                        GBs.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;snapshot status="creating" description="Daily backup"
+    created_at="2013-02-25T03:56:53.081642"
+    volume_id="5aa119a8-d25b-45a7-8d1b-88e127885635" size="1"
+    id="ffa9bc5e-1172-4021-acaf-cdcd78a9584d" name="snap-001"&gt;
+    &lt;metadata/&gt;
+&lt;/snapshot&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "snapshot": {
+        "status": "creating",
+        "description": "Daily backup",
+        "created_at": "2013-02-25T03:56:53.081642",
+        "metadata": {},
+        "volume_id": "5aa119a8-d25b-45a7-8d1b-88e127885635",
+        "size": 1,
+        "id": "ffa9bc5e-1172-4021-acaf-cdcd78a9584d",
+        "name": "snap-001"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="GET" rax:id="getSnapshotsSimple">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List snapshots">
+               <para role="shortdesc">Lists summary information for all
+                Block Storage snapshots that the tenant who submits
+                the request can access.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;snapshots&gt;
+    &lt;snapshot status="available" description="Very important"
+        created_at="2013-02-25 04:13:17"
+        volume_id="5aa119a8-d25b-45a7-8d1b-88e127885635" size="1"
+        id="2bb856e1-b3d8-4432-a858-09e4ce939389" name="snap-001"&gt;
+        &lt;metadata/&gt;
+    &lt;/snapshot&gt;
+    &lt;snapshot status="available" description="Weekly backup"
+        created_at="2013-02-25 07:20:38"
+        volume_id="806092e3-7551-4fff-a005-49016f4943b1" size="1"
+        id="e820db06-58b5-439d-bac6-c01faa3f6499" name="snap-002"&gt;
+        &lt;metadata/&gt;
+    &lt;/snapshot&gt;
+&lt;/snapshots&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "snapshots": [
+        {
+            "status": "available",
+            "description": "Very important",
+            "created_at": "2013-02-25T04:13:17.000000",
+            "metadata": {},
+            "volume_id": "5aa119a8-d25b-45a7-8d1b-88e127885635",
+            "size": 1,
+            "id": "2bb856e1-b3d8-4432-a858-09e4ce939389",
+            "name": "snap-001"
+        },
+        {
+            "status": "available",
+            "description": "Weekly backup",
+            "created_at": "2013-02-25T07:20:38.000000",
+            "metadata": {},
+            "volume_id": "806092e3-7551-4fff-a005-49016f4943b1",
+            "size": 1,
+            "id": "e820db06-58b5-439d-bac6-c01faa3f6499",
+            "name": "snap-002"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource path="/v2/{tenant_id}/snapshots/detail" id="detail-snapshot">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="getSnapshotsDetail">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List snapshots (detailed)">
+               <para role="shortdesc">Lists detailed information for all
+                Block Storage snapshots that the tenant who submits
+                the request can access.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;snapshots
+    xmlns:os-extended-snapshot-attributes="http://docs.openstack.org/openstack-block-storage/2.0/content/Extended_Snapshot_Attributes.html"&gt;
+    &lt;snapshot status="available" description="Daily backup"
+        created_at="2013-02-25 07:30:12"
+        volume_id="5aa119a8-d25b-45a7-8d1b-88e127885635" size="30"
+        id="43f20e0e-2c2c-4770-9d4e-c3d769ae5470" name="snap-001"
+        os-extended-snapshot-attributes:project_id="0c2eba2c5af04d3f9e9d0d410b371fde"
+        os-extended-snapshot-attributes:progress="100%"&gt;
+        &lt;metadata/&gt;
+    &lt;/snapshot&gt;
+    &lt;snapshot status="available" description="Weekly backup"
+        created_at="2013-02-25 07:20:38"
+        volume_id="806092e3-7551-4fff-a005-49016f4943b1" size="1"
+        id="e820db06-58b5-439d-bac6-c01faa3f6499" name="snap-002"
+        os-extended-snapshot-attributes:project_id="0c2eba2c5af04d3f9e9d0d410b371fde"
+        os-extended-snapshot-attributes:progress="100%"&gt;
+        &lt;metadata/&gt;
+    &lt;/snapshot&gt;
+&lt;/snapshots&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "snapshots": [
+        {
+            "status": "available",
+            "os-extended-snapshot-attributes:progress": "100%",
+            "description": "Daily backup",
+            "created_at": "2013-02-25T07:30:12.000000",
+            "metadata": {},
+            "volume_id": "5aa119a8-d25b-45a7-8d1b-88e127885635",
+            "os-extended-snapshot-attributes:project_id": "0c2eba2c5af04d3f9e9d0d410b371fde",
+            "size": 30,
+            "id": "43f20e0e-2c2c-4770-9d4e-c3d769ae5470",
+            "name": "snap-001"
+        },
+        {
+            "status": "available",
+            "os-extended-snapshot-attributes:progress": "100%",
+            "description": "Weekly backup",
+            "created_at": "2013-02-25T07:20:38.000000",
+            "metadata": {},
+            "volume_id": "806092e3-7551-4fff-a005-49016f4943b1",
+            "os-extended-snapshot-attributes:project_id": "0c2eba2c5af04d3f9e9d0d410b371fde",
+            "size": 1,
+            "id": "e820db06-58b5-439d-bac6-c01faa3f6499",
+            "name": "snap-002"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                    <resource path="/v2/{tenant_id}/snapshots/{snapshot_id}" id="snapshot_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <param name="snapshot_id"
+                style="template"
+                required="true"
+                type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The unique
+                                   identifier of an existing
+                                   snapshot.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getSnapshot">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show snapshot information">
+               <para role="shortdesc">Shows information for a specified
+                snapshot.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;snapshot
+  xmlns:os-extended-snapshot-attributes="http://docs.openstack.org/openstack-block-storage/2.0/content/Extended_Snapshot_Attributes.html"
+  status="available" description="Very important"
+  created_at="2013-02-25 04:13:17"
+  volume_id="5aa119a8-d25b-45a7-8d1b-88e127885635" size="1"
+  id="2bb856e1-b3d8-4432-a858-09e4ce939389" name="snap-001"
+  os-extended-snapshot-attributes:project_id="0c2eba2c5af04d3f9e9d0d410b371fde"
+  os-extended-snapshot-attributes:progress="100%"&gt;
+  &lt;metadata/&gt;
+&lt;/snapshot&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "snapshot": {
+        "status": "available",
+        "os-extended-snapshot-attributes:progress": "100%",
+        "description": "Daily backup",
+        "created_at": "2013-02-25T04:13:17.000000",
+        "metadata": {},
+        "volume_id": "5aa119a8-d25b-45a7-8d1b-88e127885635",
+        "os-extended-snapshot-attributes:project_id": "0c2eba2c5af04d3f9e9d0d410b371fde",
+        "size": 1,
+        "id": "2bb856e1-b3d8-4432-a858-09e4ce939389",
+        "name": "snap-001"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="PUT" rax:id="updateSnapshot">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update snapshot">
+               <para role="shortdesc">Updates a specified
+                snapshot.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;snapshot
+    xmlns="http://docs.openstack.org/openstack-block-storage/2.0/content"
+    name="snap-002" description="This is yet, another snapshot."/&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "snapshot": {
+        "name": "snap-002",
+        "description": "This is yet, another snapshot."
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="description" style="query" type="string" required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Describes the
+                            snapshot.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="query" type="string" required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The name of the
+                            snapshot.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;snapshot
+  xmlns:os-extended-snapshot-attributes="http://docs.openstack.org/openstack-block-storage/2.0/content/Extended_Snapshot_Attributes.html"
+    status="available"
+    description="This is yet, another snapshot"
+    created_at="2013-02-20T08:11:34.000000"
+    volume_id="2402b902-0b7a-458c-9c07-7435a826f794"
+    size="1"
+    id="4b502fcb-1f26-45f8-9fe5-3b9a0a52eaf2"
+    name="vol-002"
+    os-extended-snapshot-attributes:project_id="0c2eba2c5af04d3f9e9d0d410b371fde"
+    os-extended-snapshot-attributes:progress="100%"&gt;
+    &lt;metadata/&gt;
+&lt;/snapshot&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "snapshot": {
+        "created_at": "2013-02-20T08:11:34.000000",
+        "description": "This is yet, another snapshot",
+        "name": "vol-002",
+        "id": "4b502fcb-1f26-45f8-9fe5-3b9a0a52eaf2",
+        "size": 1,
+        "status": "available",
+        "volume_id": "2402b902-0b7a-458c-9c07-7435a826f794"
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="DELETE" rax:id="deleteSnapshot">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete snapshot">
+               <para role="shortdesc">Deletes a specified
+                snapshot.</para>
+            </wadl:doc>
+            <response status="202"/>
+         </method>
+      </resource>
+                        
+                        
+                        
+                        
+                        <resource path="/v2/{tenant_id}/snapshots/{snapshot_id}/metadata"
+                id="snapshot-metadata">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <param name="snapshot_id"
+                style="template"
+                required="true"
+                type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The unique
+                                   identifier of an existing
+                                   snapshot.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="showSnapshotMetadata">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show snapshot metadata">
+               <para role="shortdesc">Shows the metadata for a specified
+                snapshot.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;snapshot
+    xmlns:os-extended-snapshot-attributes="http://docs.openstack.org/volume/ext/extended_snapshot_attributes/api/v1"
+    status="available" description="None"
+    created_at="2014-05-06 17:59:52"
+    volume_id="ebd80b99-bc3d-4154-9d28-5583baa80580" size="10"
+    id="dfcd17fe-3b64-44ba-b95f-1c9c7109ef95" name="my-snapshot"
+    os-extended-snapshot-attributes:project_id="7e0105e19cd2466193729ef78b604f79"
+    os-extended-snapshot-attributes:progress="0%"&gt;
+    &lt;metadata&gt;
+        &lt;meta key="key"&gt;v2&lt;/meta&gt;
+    &lt;/metadata&gt;
+&lt;/snapshot&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "snapshot": {
+        "status": "available",
+        "os-extended-snapshot-attributes:progress": "0%",
+        "description": null,
+        "created_at": "2014-05-06T17:59:52.000000",
+        "metadata": {
+            "key": "v2"
+        },
+        "volume_id": "ebd80b99-bc3d-4154-9d28-5583baa80580",
+        "os-extended-snapshot-attributes:project_id": "7e0105e19cd2466193729ef78b604f79",
+        "size": 10,
+        "id": "dfcd17fe-3b64-44ba-b95f-1c9c7109ef95",
+        "name": "my-snapshot"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="PUT" rax:id="updateSnapshotMetadata">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update snapshot metadata">
+               <para role="shortdesc">Updates the metadata for a
+                specified snapshot.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;metadata&gt;
+    &lt;meta key="key"&gt;v2&lt;/meta&gt;
+&lt;/metadata&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "metadata": {
+        "key": "v2"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="metadata"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>One or more metadata key and value pairs
+                            to set or unset for the snapshot.</para>
+                        <para>To unset a metadata key value, specify
+                            only the key name.</para>
+                        <para>To set a metadata key value, specify the
+                            key and value pair.</para>
+                        <para>The Block Storage server does not
+                            respect case-sensitive key names. For
+                            example, if you specify both <code>"key":
+                                "v1"</code> and <code>"KEY":
+                                "V1"</code>, the server sets and
+                            returns only the <code>KEY</code> key and
+                            value pair.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;metadata xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+    &lt;meta key="key"&gt;v2&lt;/meta&gt;
+&lt;/metadata&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "metadata": {
+        "key": "v2"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                            
+                        
+                    
+                
+    </resources>
+    
+    
+    <!-- versions -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listVersions">
+        
+        <response status="200 300">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <!-- The following call fails - opened bug #1311243 -->
+            <!-- <representation mediaType="application/xml">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
+                    <xsdxt:code
+                        href="api_samples/cinder-versions-response.xml"
+                    />
+                </wadl:doc>
+            </representation>-->
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="versionDetails">
+        
+        <response status="200 203">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <!-- this call fails - opened bug 1311243 -->
+            <!--<representation mediaType="application/xml"
+                element="common:version">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
+                    <xsdxt:code
+                        href="../api_samples/version-get-resp.xml"/>
+                </wadl:doc>
+                <param name="location" style="plain" type="xsd:anyURI"
+                    required="true"
+                    path="/common:version/atom:link[@rel='self']/@href">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                        xml:lang="EN" title="Location"><para>Full URL
+                            to a service or server.</para></wadl:doc>
+                    <link resource_type="#VersionDetails" rel="self"/>
+                </param>
+            </representation>-->
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listExtensions-cinder-v2">
+        
+        <response status="200 300">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createVolume">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="availability_zone"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                    
+                </param>
+                <param name="source_volid"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="false">
+                    
+                </param>
+                <param name="description"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                    
+                </param>
+                <param name="snapshot_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="false">
+                    
+                </param>
+                <param name="size" style="plain" type="xsd:int" required="true">
+                    
+                </param>
+                <param name="name" style="plain" type="xsd:string" required="false">
+                    
+                </param>
+                <param name="imageRef"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="false">
+                    
+                </param>
+                <param name="volume_type"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                    
+                </param>
+                <param name="bootable"
+                   style="plain"
+                   type="xsd:boolean"
+                   required="false">
+                    
+                </param>
+                <param name="metadata"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="status" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="name" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="attachments"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="availability_zone"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="bootable"
+                   style="plain"
+                   type="xsd:boolean"
+                   required="true">
+                    
+                </param>
+                <param name="created_at"
+                   style="plain"
+                   type="xsd:datetime"
+                   required="true">
+                    
+                </param>
+                <param name="description"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="volume_type"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="snapshot_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true">
+                    
+                </param>
+                <param name="source_volid"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true">
+                    
+                </param>
+                <param name="metadata" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="id" style="plain" type="csapi:uuid" required="true">
+                    
+                </param>
+                <param name="size" style="plain" type="xsd:int" required="true">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getVolumesSimple">
+        
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getVolumesDetail">
+        
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getVolume">
+        
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateVolume">
+        
+        <request>
+
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+                <param name="description" style="query" type="string" required="false">
+                    
+                </param>
+                <param name="name" style="query" type="string" required="false">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteVolume">
+        
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getVolumeTypes">
+        
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createVolumeType">
+        
+        <request>
+
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+                <param name="volume_type"
+                   style="plain"
+                   required="true"
+                   type="csapi:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateVolumeType">
+        
+        <request>
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+                <param name="volume_type"
+                   style="plain"
+                   required="true"
+                   type="csapi:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateVolumeTypeExtraSpecs">
+        
+        <request>
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+                <param name="volume_type"
+                   style="plain"
+                   required="true"
+                   type="csapi:string">
+                    
+                </param>
+                <param name="extra_specs"
+                   style="plain"
+                   required="true"
+                   type="csapi:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getVolumeType">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteVolumeType">
+        
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createSnapshot">
+        
+        <request>
+
+            <representation mediaType="application/xml">
+                
+                <param name="snapshot" style="query" type="string" required="true">
+                    
+                </param>
+                <param name="volume_id" style="query" type="string" required="true">
+                    
+                </param>
+                <param name="force" style="query" type="xsd:boolean" required="false">
+                    
+                </param>
+                <param name="name" style="query" type="string" required="false">
+
+                    
+                </param>
+                <param name="description" style="query" type="string" required="false">
+                    
+                </param>
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="202">
+            <param name="size" style="plain" type="xsd:int" required="true">
+                
+            </param>
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getSnapshotsSimple">
+        
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getSnapshotsDetail">
+        
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getSnapshot">
+        
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateSnapshot">
+        
+        <request>
+
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+                <param name="description" style="query" type="string" required="false">
+                    
+                </param>
+                <param name="name" style="query" type="string" required="false">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteSnapshot">
+        
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showSnapshotMetadata">
+        
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateSnapshotMetadata">
+        
+        <request>
+
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+                <param name="metadata"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

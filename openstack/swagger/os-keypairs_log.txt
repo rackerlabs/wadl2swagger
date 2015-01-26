@@ -1,0 +1,12 @@
+INFO:wadls/os-keypairs.wadl:Converting: wadls/os-keypairs.wadl to swagger/os-keypairs.json
+WARNING:wadls/os-keypairs.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-keypairs.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-keypairs.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-keypairs.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-keypairs.wadl:Autofix: path parameters must be required in Swagger (keypair_name)
+INFO:root:Saving swagger to swagger/os-keypairs.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

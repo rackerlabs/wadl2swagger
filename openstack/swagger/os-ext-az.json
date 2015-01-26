@@ -1,0 +1,76 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-ext-az",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/servers/{server_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showServer",
+                "summary": "Show server",
+                "description": "Shows information for a specified server, including its availability zone.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": \"2013-01-30T13:38:49Z\",\n        \"hostId\": \"d38ea49a033b0efaf80c165de63f4805c886dfb94dc0fe731227eccb\",\n        \"user_id\": \"fake\",\n        \"addresses\": {\n            \"private\": [\n                {\n                    \"version\": 4,\n                    \"addr\": \"192.168.0.3\"\n                }\n            ]\n        },\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/servers/fb7babfd-e1a1-4add-90e6-3558180983c7\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/servers/fb7babfd-e1a1-4add-90e6-3558180983c7\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"created\": \"2013-01-30T13:38:47Z\",\n        \"tenant_id\": \"openstack\",\n        \"image\": {\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"name\": \"new-server-test\",\n        \"accessIPv4\": \"\",\n        \"accessIPv6\": \"\",\n        \"progress\": 0,\n        \"flavor\": {\n            \"id\": \"1\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"OS-EXT-AZ:availability_zone\": \"nova\",\n        \"id\": \"fb7babfd-e1a1-4add-90e6-3558180983c7\",\n        \"metadata\": {\n            \"My Server Name\": \"Apache1\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "detailServers",
+                "summary": "List details for servers",
+                "description": "Lists details for servers, including their current availability zone.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"servers\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2013-01-30T13:26:52Z\",\n            \"hostId\": \"60c988a84401fa15888a32833e5848e9caa99a45778310ba7b363165\",\n            \"user_id\": \"fake\",\n            \"addresses\": {\n                \"private\": [\n                    {\n                        \"version\": 4,\n                        \"addr\": \"192.168.0.3\"\n                    }\n                ]\n            },\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/servers/3dbf5b00-dabc-41ff-b6ab-4409568fae9d\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/servers/3dbf5b00-dabc-41ff-b6ab-4409568fae9d\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"created\": \"2013-01-30T13:26:51Z\",\n            \"tenant_id\": \"openstack\",\n            \"image\": {\n                \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"name\": \"new-server-test\",\n            \"accessIPv4\": \"\",\n            \"accessIPv6\": \"\",\n            \"progress\": 0,\n            \"flavor\": {\n                \"id\": \"1\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"OS-EXT-AZ:availability_zone\": \"nova\",\n            \"id\": \"3dbf5b00-dabc-41ff-b6ab-4409568fae9d\",\n            \"metadata\": {\n                \"My Server Name\": \"Apache1\"\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

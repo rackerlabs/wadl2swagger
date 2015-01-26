@@ -1,0 +1,110 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-flavor-extra-specs",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/flavors/{flavor_id}/os-extra_specs": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "flavor_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the flavor of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listExtra-specs",
+                "summary": "List flavor extra specs",
+                "description": "Lists the extra-specs or keys for the specified flavor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"extra_specs\": {\n        \"key2\": \"value2\",\n        \"key1\": \"value1\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createExtra-specs",
+                "summary": "Create flavor extra specs",
+                "description": "Creates extra-specs or keys for the specified flavor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"extra_specs\": {\n        \"key2\": \"value2\",\n        \"key1\": \"value1\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/flavors/{flavor_id}/os-extra_specs/{key_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "flavor_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the flavor of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "detailExtra-spec",
+                "summary": "Get flavor extra spec details",
+                "description": "Gets the value of the specified key.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"key1\": \"value1\"\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteDetailExtra-spec",
+                "summary": "Delete flavor extra specs",
+                "description": "Deletes a specified extra-spec by key.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        }
+    }
+}

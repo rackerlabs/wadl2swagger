@@ -1,0 +1,35 @@
+INFO:wadls/os-object-api-1.0.wadl:Converting: wadls/os-object-api-1.0.wadl to swagger/os-object-api-1.0.json
+WARNING:wadls/os-object-api-1.0.wadl:Autofix: path parameters must be required in Swagger (account)
+WARNING:wadls/os-object-api-1.0.wadl:Unknown type: xsd:char for param delimiter
+WARNING:wadls/os-object-api-1.0.wadl:Using string for xsd:char
+WARNING:wadls/os-object-api-1.0.wadl:Autofix: path parameters must be required in Swagger (account)
+WARNING:wadls/os-object-api-1.0.wadl:Autofix: path parameters must be required in Swagger (container)
+WARNING:wadls/os-object-api-1.0.wadl:Unknown type: xsd:char for param delimiter
+WARNING:wadls/os-object-api-1.0.wadl:Using string for xsd:char
+WARNING:wadls/os-object-api-1.0.wadl:No support for application/json for resource at /v1/{account}/{container}/{object}
+WARNING:wadls/os-object-api-1.0.wadl:Autofix: path parameters must be required in Swagger (account)
+WARNING:wadls/os-object-api-1.0.wadl:Autofix: path parameters must be required in Swagger (container)
+WARNING:wadls/os-object-api-1.0.wadl:Autofix: path parameters must be required in Swagger (object)
+WARNING:wadls/os-object-api-1.0.wadl:Autofix: Using PUT instead of COPY verb (OpenStack services accept either, Swagger does not allow COPY)
+ERROR:root:Response has no status, caused by "KeyError: status" while loading wadls/os-object-api-1.0.wadl
+INFO:root:
+INFO:root:Failed to convert:
+INFO:root:  wadls/os-object-api-1.0.wadl : Response has no status, caused by "KeyError: status" while loading wadls/os-object-api-1.0.wadl
+
+Validating with swagger-tools...
+
+/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/bin/swagger-tools:196
+        throw err;
+              ^
+Error: ENOENT, no such file or directory '/Users/Thoughtworker/repos/rackspace/wadl2swagger/openstack/swagger/os-object-api-1.0.json'
+    at Object.fs.openSync (fs.js:427:18)
+    at Object.fs.readFileSync (fs.js:284:15)
+    at getDocument (/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/bin/swagger-tools:81:23)
+    at /opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:249:17
+    at /opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:125:13
+    at Array.forEach (native)
+    at _each (/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:46:24)
+    at async.each (/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:124:9)
+    at _asyncMap (/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:248:13)
+    at Object.map (/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:219:23)
+Error (exit code 8)

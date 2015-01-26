@@ -1,0 +1,25 @@
+INFO:wadls/rax-cloudFilesCDN-api-v1.wadl:Converting: wadls/rax-cloudFilesCDN-api-v1.wadl to swagger/rax-cloudFilesCDN-api-v1.json
+WARNING:wadls/rax-cloudFilesCDN-api-v1.wadl:Autofix: Adding leading / to path
+WARNING:wadls/rax-cloudFilesCDN-api-v1.wadl:No support for application/json for resource at /v1/{account}
+WARNING:wadls/rax-cloudFilesCDN-api-v1.wadl:Autofix: path parameters must be required in Swagger (account)
+WARNING:wadls/rax-cloudFilesCDN-api-v1.wadl:Autofix: Adding leading / to path
+WARNING:wadls/rax-cloudFilesCDN-api-v1.wadl:No support for application/json for resource at /v1/{account}/{container}
+WARNING:wadls/rax-cloudFilesCDN-api-v1.wadl:Autofix: path parameters must be required in Swagger (account)
+WARNING:wadls/rax-cloudFilesCDN-api-v1.wadl:Autofix: path parameters must be required in Swagger (container)
+ERROR:wadls/rax-cloudFilesCDN-api-v1.wadl:Unparsable code sample in wadls/rax-cloudFilesCDN-api-v1.wadl ('List metadata for CDN-enabled container'), caused by ValueError('Invalid control character at: line 6 column 74 (char 164)',)
+WARNING:wadls/rax-cloudFilesCDN-api-v1.wadl:Autofix: Adding leading / to path
+WARNING:wadls/rax-cloudFilesCDN-api-v1.wadl:No support for application/json for resource at /v1/{account}/{object}
+WARNING:wadls/rax-cloudFilesCDN-api-v1.wadl:Autofix: path parameters must be required in Swagger (account)
+WARNING:wadls/rax-cloudFilesCDN-api-v1.wadl:Autofix: path parameters must be required in Swagger (object)
+INFO:root:Saving swagger to swagger/rax-cloudFilesCDN-api-v1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v1~1{account}~1{object}: API path (or equivalent) already defined: /v1/{account}/{object}
+
+1 error and 0 warnings
+Invalid

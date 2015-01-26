@@ -1,0 +1,250 @@
+---
+swagger: '2.0'
+info:
+  title: flavor-access-v2.1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.1/flavors":
+    post:
+      operationId: extendflavor
+      summary: Add access attribute to flavor create
+      description: |
+        Adds access attribute to the flavor create response.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor": {
+                      "flavor-access:is_public": false,
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v3/flavors/10",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/flavors/10",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "ram": 1024,
+                      "ephemeral": 0,
+                      "disabled": false,
+                      "vcpus": 2,
+                      "swap": 0,
+                      "disk": 10,
+                      "id": "10",
+                      "name": "test_flavor"
+                  }
+              }
+  "/v2.1/flavors/detail":
+    get:
+      operationId: addaccessresponse
+      summary: Add access attribute to flavor detail
+      description: |
+        Extends flavor detail to add access attribute to the response of flavor detail.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavors": [
+                      {
+                          "flavor-access:is_public": true,
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v3/flavors/1",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/flavors/1",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 512,
+                          "ephemeral": 0,
+                          "disabled": false,
+                          "vcpus": 1,
+                          "swap": 0,
+                          "disk": 1,
+                          "id": "1",
+                          "name": "m1.tiny"
+                      },
+                      {
+                          "flavor-access:is_public": true,
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v3/flavors/2",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/flavors/2",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 2048,
+                          "ephemeral": 0,
+                          "disabled": false,
+                          "vcpus": 1,
+                          "swap": 0,
+                          "disk": 20,
+                          "id": "2",
+                          "name": "m1.small"
+                      },
+                      {
+                          "flavor-access:is_public": true,
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v3/flavors/3",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/flavors/3",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 4096,
+                          "ephemeral": 0,
+                          "disabled": false,
+                          "vcpus": 2,
+                          "swap": 0,
+                          "disk": 40,
+                          "id": "3",
+                          "name": "m1.medium"
+                      },
+                      {
+                          "flavor-access:is_public": true,
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v3/flavors/4",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/flavors/4",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 8192,
+                          "ephemeral": 0,
+                          "disabled": false,
+                          "vcpus": 4,
+                          "swap": 0,
+                          "disk": 80,
+                          "id": "4",
+                          "name": "m1.large"
+                      },
+                      {
+                          "flavor-access:is_public": true,
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v3/flavors/5",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/flavors/5",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 16384,
+                          "ephemeral": 0,
+                          "disabled": false,
+                          "vcpus": 8,
+                          "swap": 0,
+                          "disk": 160,
+                          "id": "5",
+                          "name": "m1.xlarge"
+                      }
+                  ]
+              }
+  "/v2.1/flavors/1":
+    get:
+      operationId: extendflavorshow
+      summary: Add access attribute to flavor show
+      description: |
+        Extends flavor show to add access attribute to the flavor show response.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor": {
+                      "flavor-access:is_public": true,
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v3/flavors/1",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/flavors/1",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "ram": 512,
+                      "ephemeral": 0,
+                      "disabled": false,
+                      "vcpus": 1,
+                      "swap": 0,
+                      "disk": 1,
+                      "id": "1",
+                      "name": "m1.tiny"
+                  }
+              }
+  "/v2.1/flavors/10/action":
+    post:
+      operationId: removeflavoraccess
+      summary: Remove flavor access
+      description: |
+        Removes flavor access for tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor_access": [
+                      {
+                          "tenant_id": "openstack",
+                          "flavor_id": "10"
+                      }
+                  ]
+              }
+  "/v2.1/flavors/10/flavor-access":
+    get:
+      operationId: returnaccesslist
+      summary: Return access list
+      description: |
+        Returns access list by flavor id.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor_access": [
+                      {
+                          "tenant_id": "openstack",
+                          "flavor_id": "10"
+                      },
+                      {
+                          "tenant_id": "fake_tenant",
+                          "flavor_id": "10"
+                      }
+                  ]
+              }

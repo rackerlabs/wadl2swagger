@@ -1,0 +1,150 @@
+---
+swagger: '2.0'
+info:
+  title: os-quota-sets-v2.1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.1/os-quota-sets/{tenant_id}":
+    delete:
+      operationId: deletequota
+      summary: Delete quota for tenant
+      description: |
+        Deletes a quota for tenant.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+    get:
+      operationId: showquotas
+      summary: Show quotas
+      description: |
+        Shows quotas for tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_set": {
+                      "metadata_items": 128,
+                      "server_groups": 10,
+                      "server_group_members": 10,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "instances": 10,
+                      "security_group_rules": 20,
+                      "cores": 20,
+                      "fixed_ips": -1,
+                      "id": "fake_tenant",
+                      "security_groups": 10
+                  }
+              }
+    put:
+      operationId: updatesquotatenant
+      summary: Update quota
+      description: |
+        Updates quota for tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_set": {
+                      "metadata_items": 128,
+                      "server_groups": 10,
+                      "server_group_members": 10,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "instances": 10,
+                      "security_group_rules": 20,
+                      "cores": 20,
+                      "fixed_ips": -1,
+                      "id": "fake_tenant",
+                      "security_groups": 45
+                  }
+              }
+  "/v2.1/os-quota-sets/{tenant_id}/defaults":
+    get:
+      operationId: showdefaultquotas
+      summary: Show default quotas
+      description: |
+        Shows default quotas for tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_set": {
+                      "metadata_items": 128,
+                      "server_groups": 10,
+                      "server_group_members": 10,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "instances": 10,
+                      "security_group_rules": 20,
+                      "cores": 20,
+                      "fixed_ips": -1,
+                      "id": "fake_tenant",
+                      "security_groups": 10
+                  }
+              }
+  "/v2.1/os-quota-sets/{tenant_id}/":
+    parameters:
+    - name: user_id
+      required: false
+      in: query
+      type: string
+      description: |
+        Specify the user in the `?user_id={user_id}` query parameter.
+    put:
+      operationId: updatesquotauser
+      summary: Update quota for user
+      description: |
+        Updates quota for user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_set": {
+                      "metadata_items": 128,
+                      "server_groups": 10,
+                      "server_group_members": 10,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "instances": 9,
+                      "security_group_rules": 20,
+                      "cores": 20,
+                      "fixed_ips": -1,
+                      "id": "fake_tenant",
+                      "security_groups": 10
+                  }
+              }
+    delete:
+      operationId: deletequotauser
+      summary: Delete quota for user
+      description: |
+        Deletes quota for a specified user.
+      produces: []
+      responses:
+        '204':
+          description: 204 response

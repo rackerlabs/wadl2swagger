@@ -1,0 +1,1252 @@
+---
+swagger: '2.0'
+info:
+  title: rcbu
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v1.0/{tenant_id}/agent/{machineAgentId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: machineAgentId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier of the Cloud Backup agent.
+    get:
+      operationId: getAgentDetails
+      summary: List agent details
+      description: |
+        Lists details about the machine and its agent.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "Status": "Online",
+                  "Datacenter": "DFW",
+                  "CleanupAllowed": true,
+                  "BackupVaultSize": "35.3 MB",
+                  "UseServiceNet": true,
+                  "MachineName": "Web Server",
+                  "IsDisabled": false,
+                  "HostServerId": "87c3b6e1-fb1a-41f9-91e5-313ae35a5a06",
+                  "TimeOfLastSuccessfulBackup": "/Date(1357817400000)/",
+                  "PublicKey": {
+                      "ModulusHex": "a5261939156948bb7a58dffe5ff89e65f0498f9175f5a 98288810b8975871e99af3b5dd94057b0fc07535f5f97444504fa35169d4 61d0d30cf0192e307727c065168c788771c561a9400fb61975e9e6aa4e23 fe11af69e9412dd23b0cb6684c4c2429bce139e848ab26d0829073351f4a cd36074eafd036a5eb83359d2a698d0",
+                      "ExponentHex": "09528"
+                  },
+                  "IsEncrypted": true,
+                  "AgentVersion": "1.05.005848",
+                  "MachineAgentId": 213564,
+                  "OperatingSystemVersion": "",
+                  "Flavor": "RaxCloudServer",
+                  "IPAddress": "192.168.1.1",
+                  "OperatingSystem": "Windows Server 2012",
+                  "Architecture": "64-bit"
+              }
+    post:
+      operationId: updateAgentBackupBehavior
+      summary: Update agent backup behavior
+      description: |
+        Updates the backup data center, or enables or disables ServiceNet for the Cloud Backup agent, or both.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "Status": "Online",
+                  "Datacenter": "DFW",
+                  "CleanupAllowed": true,
+                  "UseServiceNet": true,
+                  "BackupVaultSize": "35.3 MB",
+                  "BackupDataCenter": "DFW",
+                  "MachineName": "Web Server",
+                  "IsDisabled": false,
+                  "TimeOfLastSuccessfulBackup": "/Date(1358752980000)/",
+                  "PublicKey": {
+                      "ModulusHex": "a5261939156948bb7a58dffe5ff89e65f0498f9175f5a 98288810b8975871e99af3b5dd94057b0fc07535f5f97444504fa35169d4 61d0d30cf0192e307727c065168c788771c561a9400fb61975e9e6aa4e23 fe11af69e9412dd23b0cb6684c4c2429bce139e848ab26d0829073351f4a cd36074eafd036a5eb83359d2a698d0",
+                      "ExponentHex": "09528"
+                  },
+                  "IsEncrypted": true,
+                  "AgentVersion": "1.05.005848",
+                  "MachineAgentId": 213564,
+                  "OperatingSystemVersion": "",
+                  "UseFailoverUri": true,
+                  "Flavor": "RaxCloudServer",
+                  "IPAddress": "192.168.1.1",
+                  "OperatingSystem": "Windows Server 2012",
+                  "Architecture": "64-bit"
+              }
+  "/v1.0/{tenant_id}/agent/enable":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    post:
+      operationId: enableAgent
+      summary: Enable or disable an agent
+      description: |
+        Enables or disables an agent. Disabling an agent does not delete it or its data. You can re-enable disabled agents later.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: The request succeeded.
+  "/v1.0/{tenant_id}/agent/encrypt":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    post:
+      operationId: encryptVolume
+      summary: Enable volume encryption
+      description: |
+        Enables volume encryption.
+      produces: []
+      responses:
+        '200':
+          description: The request succeeded.
+  "/v1.0/{tenant_id}/agent/changeencryption":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    post:
+      operationId: changeEncryptPassword
+      summary: Change encryption password
+      description: |
+        Changes the encryption password.
+      produces: []
+      responses:
+        '200':
+          description: The request succeeded.
+  "/v1.0/{tenant_id}/agent/delete":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    post:
+      operationId: deleteAgent
+      summary: Delete agent
+      description: |
+        Immediately permanently deletes an agent and its backup data.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "MachineAgentId": 92384579
+              }
+  "/v1.0/{tenant_id}/agent/migratevault":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    put:
+      operationId: migrateVault
+      summary: Migrate vault
+      description: |
+        Migrates a backup vault from one machine agent to another.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+  "/v1.0/{tenant_id}/agent/server/{hostServerId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: hostServerId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier of the host server where the Cloud Backup agent is running.
+    get:
+      operationId: getAgentServer
+      summary: List agent details by host server ID
+      description: |
+        Lists details about the machine and its agent using the host server ID.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "Status": "Online",
+                  "Datacenter": "DFW",
+                  "CleanupAllowed": true,
+                  "BackupVaultSize": "35.3 MB",
+                  "UseServiceNet": "true",
+                  "MachineName": "Web Server",
+                  "IsDisabled": false,
+                  "HostServerId": "87c3b6e1-fb1a-41f9-91e5-313ae35a5a06",
+                  "TimeOfLastSuccessfulBackup": "/Date(1357817400000)/",
+                  "BackupContainer": "https://storage101.DC.clouddrive.com/v1/yourAccount/CloudBackup_v2_0_yourUUID",
+                  "PublicKey": {
+                      "ModulusHex": "a5261939156948bb7a58dffe5ff89e65f0498f9175f5a 98288810b8975871e99af3b5dd94057b0fc07535f5f97444504fa35169d4 61d0d30cf0192e307727c065168c788771c561a9400fb61975e9e6aa4e23 fe11af69e9412dd23b0cb6684c4c2429bce139e848ab26d0829073351f4a cd36074eafd036a5eb83359d2a698d0",
+                      "ExponentHex": "09528"
+                  },
+                  "IsEncrypted": true,
+                  "AgentVersion": "1.05.005848",
+                  "MachineAgentId": 213564,
+                  "OperatingSystemVersion": "",
+                  "Flavor": "RaxCloudServer",
+                  "IPAddress": "192.168.1.1",
+                  "OperatingSystem": "Windows Server 2012",
+                  "Architecture": "64-bit"
+              }
+  "/v1.0/{tenant_id}/user/agents":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    get:
+      operationId: getUserAgents
+      summary: List all agents for this user
+      description: |
+        Retrieves information for all agents for the current user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples: {}
+  "/v1.0/{tenant_id}/user/wakeupagents":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    post:
+      operationId: postWakeUpAgents
+      summary: Wake up agents
+      description: |
+        Wakes up the agent before you perform tasks.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+  "/v1.0/{tenant_id}/backup-configuration":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    post:
+      operationId: createBackupConfiguration
+      summary: Create backup configuration
+      description: |
+        Creates a backup configuration for the authenticated user. Returns details of a backup configuration.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "MissedBackupActionId": 1,
+                  "BackupPostscript": "",
+                  "BackupConfigurationName": "Weekly Website Backup",
+                  "NotifyRecipients": "test@my-email-address.com",
+                  "NotifySuccess": true,
+                  "EncryptionKey": {
+                      "ModulusHex": "C6054E90E32D2B25E16F3A560E1B4DC580B1E4AB74E0C662680DD8A1BD83956051F6A526B16C55225D1BE6E0B1265F4085FB2F61B61337F5D32198E5CAFFEACD50E90517A329146E43B20194C082A9C890060AD07A542FBC035B2A96F9F212C6D94887BECB5E15F3E55397B975B1896CFC66EBB5DD7D83587467A0E7F669ADB925A7BE4C1ECED1BC9E92DB768CE76FDC86CCDD04BDF469679FE3261AA66C22AC6263E540B79780AAF09CFC798CDC4D1218867388632EA4BD1BF511E4881E07C5387DDDBE741E615ACA0C32A738F5B952F1C17051EC3BAF9F64C629515EA2AF93E6BB450A8B1B3E02963471679D5670AF93CFEA649172EDA7AC5E071E2D3AF0BD",
+                      "ExponentHex": 10001
+                  },
+                  "MachineName": "web2",
+                  "StartTimeAmPm": "PM",
+                  "Inclusions": [
+                      {
+                          "FileItemType": "File",
+                          "FilePathEncoded": null,
+                          "FilePath": "C:\\backup_up_file.txt",
+                          "Filter": "Include",
+                          "ParentId": 174084,
+                          "FileId": 657291
+                      },
+                      {
+                          "FileItemType": "Folder",
+                          "FilePathEncoded": null,
+                          "FilePath": "C:\\backed_up_folder",
+                          "Filter": "Include",
+                          "ParentId": 174084,
+                          "FileId": 657292
+                      }
+                  ],
+                  "LastRunTime": null,
+                  "DayOfWeekId": 5,
+                  "VersionRetention": 30,
+                  "IsDeleted": false,
+                  "TimeZoneId": "Eastern Standard Time",
+                  "Datacenter": "DFW",
+                  "NextScheduledRunTime": "/Date(1406935800000)/",
+                  "BackupConfigurationScheduleId": 173131,
+                  "HourInterval": null,
+                  "StartTimeHour": 11,
+                  "IsEncrypted": false,
+                  "LastRunBackupReportId": null,
+                  "Exclusions": [
+                      {
+                          "FileItemType": "File",
+                          "FilePathEncoded": null,
+                          "FilePath": "C:\\backed_up_folder\\excluded_file.txt",
+                          "Filter": "Exclude",
+                          "ParentId": 174084,
+                          "FileId": 657293
+                      }
+                  ],
+                  "StartTimeMinute": 30,
+                  "BackupConfigurationId": 174084,
+                  "NotifyFailure": true,
+                  "Frequency": "Weekly",
+                  "MachineAgentId": 202743,
+                  "Flavor": "RaxCloudServer",
+                  "IsActive": true,
+                  "BackupPrescript": ""
+              }
+    get:
+      operationId: getAllBackupConfigforUser
+      summary: List all backup configurations for a user
+      description: |
+        Lists all backup configurations for the current user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              [
+                  {
+                      "MissedBackupActionId": 2,
+                      "BackupConfigurationName": "Manual Website Backup",
+                      "NotifyRecipients": "user@rackspace.com",
+                      "NotifySuccess": false,
+                      "MachineName": "Web Server",
+                      "StartTimeAmPm": "",
+                      "Inclusions": [
+                          {
+                              "FileItemType": "Folder",
+                              "ParentId": 100850,
+                              "FileId": 2947,
+                              "FilePath": "/web/"
+                          }
+                      ],
+                      "LastRunTime": "/Date(1343226053000)/",
+                      "DayOfWeekId": null,
+                      "VersionRetention": 60,
+                      "IsDeleted": false,
+                      "TimeZoneId": "Eastern Standard Time",
+                      "NextScheduledRunTime": null,
+                      "BackupConfigurationScheduleId": 98017,
+                      "HourInterval": null,
+                      "StartTimeHour": null,
+                      "IsEncrypted": false,
+                      "LastRunBackupReportId": 80071,
+                      "Exclusions": [
+                          {
+                              "FileItemType": "Folder",
+                              "ParentId": 100850,
+                              "FileId": 2948,
+                              "FilePath": "/web/cache/"
+                          }
+                      ],
+                      "StartTimeMinute": null,
+                      "BackupConfigurationId": 100850,
+                      "NotifyFailure": true,
+                      "Frequency": "Manually",
+                      "MachineAgentId": 96674,
+                      "Flavor": "RaxCloudServer",
+                      "IsActive": true
+                  },
+                  {
+                      "MissedBackupActionId": 2,
+                      "BackupConfigurationName": "Manual DB Backup",
+                      "NotifyRecipients": "user@rackspace.com",
+                      "NotifySuccess": false,
+                      "MachineName": "Database Server",
+                      "StartTimeAmPm": "",
+                      "Inclusions": [
+                          {
+                              "FileItemType": "Folder",
+                              "ParentId": 100928,
+                              "FileId": 3568,
+                              "FilePath": "/db/dumps/"
+                          }
+                      ],
+                      "LastRunTime": "/Date(1343226074000)/",
+                      "DayOfWeekId": null,
+                      "VersionRetention": 60,
+                      "IsDeleted": false,
+                      "TimeZoneId": "Eastern Standard Time",
+                      "NextScheduledRunTime": null,
+                      "BackupConfigurationScheduleId": 98019,
+                      "HourInterval": null,
+                      "StartTimeHour": null,
+                      "IsEncrypted": false,
+                      "LastRunBackupReportId": 80116,
+                      "Exclusions": [
+                          {
+                              "FileItemType": "Folder",
+                              "ParentId": 100928,
+                              "FileId": 3570,
+                              "FilePath": "/db/dumps/tmp/"
+                          }
+                      ],
+                      "StartTimeMinute": null,
+                      "BackupConfigurationId": 100928,
+                      "NotifyFailure": true,
+                      "Frequency": "Manually",
+                      "MachineAgentId": 96685,
+                      "Flavor": "RaxCloudServer",
+                      "IsActive": true
+                  }
+              ]
+  "/v1.0/{tenant_id}/backup-configuration/{backupConfigurationId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: backupConfigurationId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier of the backup configuration.
+    put:
+      operationId: updateBackupConfig
+      summary: Update backup configuration
+      description: |
+        Updates an existing backup configuration.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+    get:
+      operationId: getBackupConfig
+      summary: List backup configuration details
+      description: |
+        Lists detailed information for the specified backup configuration.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "MissedBackupActionId": 1,
+                  "BackupConfigurationName": "Weekly Website Backup",
+                  "NotifyRecipients": "raxtestaddress@rackspace.com",
+                  "NotifySuccess": false,
+                  "MachineName": "Web Server",
+                  "StartTimeAmPm": "AM",
+                  "Inclusions": [
+                      {
+                          "FileItemType": "Folder",
+                          "ParentId": 148325,
+                          "FileId": 35000,
+                          "FilePath": "C:\\backed_up_folder"
+                      },
+                      {
+                          "FileItemType": "File",
+                          "ParentId": 148325,
+                          "FileId": 34999,
+                          "FilePath": "C:\\backup_up_file.txt"
+                      }
+                  ],
+                  "LastRunTime": null,
+                  "DayOfWeekId": 4,
+                  "VersionRetention": 60,
+                  "IsDeleted": false,
+                  "TimeZoneId": "Eastern Standard Time",
+                  "NextScheduledRunTime": "/Date(1357817400000)/",
+                  "BackupConfigurationScheduleId": 145406,
+                  "HourInterval": null,
+                  "StartTimeHour": 11,
+                  "IsEncrypted": false,
+                  "LastRunBackupReportId": null,
+                  "Exclusions": [
+                      {
+                          "FileItemType": "Folder",
+                          "ParentId": 148325,
+                          "FileId": 35002,
+                          "FilePath": "C:\\backed_up_folder\\excluded_folder"
+                      },
+                      {
+                          "FileItemType": "File",
+                          "ParentId": 148325,
+                          "FileId": 35001,
+                          "FilePath": "C:\\backed_up_folder\\excluded_file.txt"
+                      }
+                  ],
+                  "StartTimeMinute": 30,
+                  "BackupConfigurationId": 148325,
+                  "NotifyFailure": false,
+                  "Frequency": "Weekly",
+                  "MachineAgentId": 156953,
+                  "Flavor": "RaxCloudServer",
+                  "IsActive": true
+              }
+    delete:
+      operationId: deleteBackupConfig
+      summary: Delete a backup configuration
+      description: |
+        Deletes the specified backup configuration.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+  "/v1.0/{tenant_id}/backup-configuration/system/{machineAgentId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: machingAgentId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier of the Cloud Backup agent.
+    get:
+      operationId: getAllBackupConfigforAgent
+      summary: List all backup configurations for an agent
+      description: |
+        Lists the backup configurations for the specified agent.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              [
+                  {
+                      "MissedBackupActionId": 1,
+                      "BackupConfigurationName": "Manual Log Backup",
+                      "NotifyRecipients": "user@rackspace.com",
+                      "NotifySuccess": true,
+                      "MachineName": "Web Server",
+                      "StartTimeAmPm": "",
+                      "Inclusions": [
+                          {
+                              "FileItemType": "Folder",
+                              "ParentId": 158485,
+                              "FileId": 47085,
+                              "FilePath": "C:\\Websites\\Logs"
+                          }
+                      ],
+                      "LastRunTime": null,
+                      "DayOfWeekId": null,
+                      "VersionRetention": 60,
+                      "IsDeleted": false,
+                      "TimeZoneId": "Eastern Standard Time",
+                      "NextScheduledRunTime": "/Date(-62135578800000)/",
+                      "BackupConfigurationScheduleId": 155566,
+                      "HourInterval": null,
+                      "StartTimeHour": null,
+                      "IsEncrypted": false,
+                      "LastRunBackupReportId": null,
+                      "Exclusions": [],
+                      "StartTimeMinute": null,
+                      "BackupConfigurationId": 158485,
+                      "NotifyFailure": true,
+                      "Frequency": "Manually",
+                      "MachineAgentId": 224193,
+                      "Flavor": "RaxCloudServer",
+                      "IsActive": true
+                  },
+                  {
+                      "MissedBackupActionId": 1,
+                      "BackupConfigurationName": "Weekly Website Backup",
+                      "NotifyRecipients": "user@rackspace.com",
+                      "NotifySuccess": true,
+                      "MachineName": "Web Server",
+                      "StartTimeAmPm": "AM",
+                      "Inclusions": [
+                          {
+                              "FileItemType": "Folder",
+                              "ParentId": 158486,
+                              "FileId": 47086,
+                              "FilePath": "C:\\Websites"
+                          },
+                          {
+                              "FileItemType": "Folder",
+                              "ParentId": 158486,
+                              "FileId": 47087,
+                              "FilePath": "C:\\Websites\\Logs"
+                          }
+                      ],
+                      "LastRunTime": null,
+                      "DayOfWeekId": 1,
+                      "VersionRetention": 60,
+                      "IsDeleted": false,
+                      "TimeZoneId": "Eastern Standard Time",
+                      "NextScheduledRunTime": "/Date(1358752980000)/",
+                      "BackupConfigurationScheduleId": 155567,
+                      "HourInterval": null,
+                      "StartTimeHour": 7,
+                      "IsEncrypted": false,
+                      "LastRunBackupReportId": null,
+                      "Exclusions": [],
+                      "StartTimeMinute": 23,
+                      "BackupConfigurationId": 158486,
+                      "NotifyFailure": true,
+                      "Frequency": "Weekly",
+                      "MachineAgentId": 224193,
+                      "Flavor": "RaxCloudServer",
+                      "IsActive": true
+                  }
+              ]
+  "/v1.0/{tenant_id}/backup-configuration/enable/{backupConfigurationId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: backupConfigurationId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier of the backup configuration.
+    post:
+      operationId: enableBackupConfig
+      summary: Enable or disable a backup configuration
+      description: |
+        Enables or disables a backup configuration.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "MissedBackupActionId": 1,
+                  "BackupConfigurationName": "Weekly Website Backup",
+                  "NotifyRecipients": "raxtestaddress@rackspace.com",
+                  "NotifySuccess": false,
+                  "MachineName": "Web Server",
+                  "StartTimeAmPm": "AM",
+                  "Inclusions": [
+                      {
+                          "FileItemType": "Folder",
+                          "ParentId": 148325,
+                          "FileId": 35000,
+                          "FilePath": "C:\\backed_up_folder"
+                      },
+                      {
+                          "FileItemType": "File",
+                          "ParentId": 148325,
+                          "FileId": 34999,
+                          "FilePath": "C:\\backup_up_file.txt"
+                      }
+                  ],
+                  "LastRunTime": null,
+                  "DayOfWeekId": 4,
+                  "VersionRetention": 60,
+                  "IsDeleted": false,
+                  "TimeZoneId": "Eastern Standard Time",
+                  "NextScheduledRunTime": "/Date(1357817400000)/",
+                  "BackupConfigurationScheduleId": 145406,
+                  "HourInterval": null,
+                  "StartTimeHour": 11,
+                  "IsEncrypted": false,
+                  "LastRunBackupReportId": null,
+                  "Exclusions": [
+                      {
+                          "FileItemType": "Folder",
+                          "ParentId": 148325,
+                          "FileId": 35002,
+                          "FilePath": "C:\\backed_up_folder\\excluded_folder"
+                      },
+                      {
+                          "FileItemType": "File",
+                          "ParentId": 148325,
+                          "FileId": 35001,
+                          "FilePath": "C:\\backed_up_folder\\excluded_file.txt"
+                      }
+                  ],
+                  "StartTimeMinute": 30,
+                  "BackupConfigurationId": 148325,
+                  "NotifyFailure": false,
+                  "Frequency": "Weekly",
+                  "MachineAgentId": 156953,
+                  "Flavor": "RaxCloudServer",
+                  "IsActive": true
+              }
+  "/v1.0/{tenant_id}/backup/action-requested":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    post:
+      operationId: startStopBackupManually
+      summary: Start or stop a backup manually
+      description: |
+        Manually starts or stops a backup. Returns the identifier of the instance of the backup.
+      produces: []
+      responses:
+        '200':
+          description: When manually starting a backup, the request succeeded.
+  "/v1.0/{tenant_id}/backup/{backupId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: backupId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier of a backup.
+    get:
+      operationId: getBackupDetails
+      summary: List backup details
+      description: |
+        Lists details about the specified backup.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "BackupConfigurationId": 158519,
+                  "MachineName": "Web Server",
+                  "StateChangeTime": "/Date(1358530097000)/",
+                  "BackupConfigurationName": "Weekly Website Backup",
+                  "IsEncrypted": false,
+                  "MachineAgentId": 224321,
+                  "BackupId": 134332,
+                  "EncryptionKey": {
+                      "ModulusHex": "a3261939975948bb7a58dffe5ff54e65f0498f9 175f5a09288810b8975871e99af3b5dd94057b0fc07535f5f97444 504fa35169d461d0d30cf0192e307727c065168c788771c561a940 0fb49175e9e6aa4e23fe11af69e9412dd23b0cb6684c4c2429bce1 39e848ab26d0829073351f4acd36074eafd036a5eb83359d2a698d5",
+                      "ExponentHex": 20010
+                  },
+                  "CurrentState": "Queued"
+              }
+  "/v1.0/{tenant_id}/backup/completed/{backupConfigurationId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: backupConfigurationId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier of the backup configuration.
+    get:
+      operationId: getCompletedBackups
+      summary: List completed backups
+      description: |
+        Lists the details for backups that can still be restored.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              [
+                  {
+                      "BackupConfigurationId": 158638,
+                      "MachineName": "Web Server",
+                      "BytesSearched": 10245674584,
+                      "CompletedTime": "/Date(1358535352000)/",
+                      "BackupConfigurationName": "Weekly Website Backup",
+                      "MachineAgentId": 224505,
+                      "BackupId": 134386,
+                      "NumErrors": 0
+                  }
+              ]
+  "/v1.0/{tenant_id}/backup/report/{backupId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: backupId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier of a backup.
+    get:
+      operationId: getBackupReport
+      summary: Get a backup report
+      description: |
+        Gets details about a completed backup.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "CanRestore": true,
+                  "ComputerName": "Database Server",
+                  "BytesSearched": "3.7 GB",
+                  "Diagnostics": "Completed With Errors",
+                  "BackupConfigurationId": 101145,
+                  "BytesBackedUp": "178.1 MB",
+                  "FilesBackedUp": "6",
+                  "FilesSearched": "11936",
+                  "State": "CompletedWithErrors",
+                  "CompletedTime": "/Date(1351119033000)/",
+                  "BackupConfigurationIsDeleted": false,
+                  "BackupConfigurationName": "Database Server Backup",
+                  "Reason": "Success",
+                  "StartTime": "/Date(1351118760000)/",
+                  "MachineAgentId": 95874,
+                  "Duration": "00:04:33",
+                  "BackupId": 92500,
+                  "ErrorList": [
+                      {
+                          "ListIndex": 3210,
+                          "ExceptionDesc": "Cannot open file \"C:\\Program Files\\MicrosoftSQL Server\\MSSQL10_50.MSSQLSERVER\\MSSQL\\DATA\\tempdb.mdf\". The process cannot access the file because it is beingused by another process. .",
+                          "ErrorType": 101,
+                          "ExceptionDetails": "1: [WindowsFs.cpp: 157-rax::WindowsFs::Open]Error Code(313): Cannot open file \"C:\\Program Files\\Microsoft SQL Server\\MSSQL10_50.MSSQLSERVER\\MSSQL\\DATA\\tempdb.mdf\". The process cannot access the file because it is being used by another process. .",
+                          "ErrorDesc": "The agent experienced a problem. (Rax)",
+                          "BackupReportID": 48785,
+                          "Path": "C:\\Program Files\\Microsoft SQL Server\\MSSQL10_50.MSSQLSERVER\\MSSQL\\DATA\\tempdb.mdf",
+                          "ExceptionCode": 313
+                      },
+                      {
+                          "ListIndex": 3211,
+                          "ExceptionDesc": "Cannot open file \"C:\\Program Files\\MicrosoftSQL Server\\MSSQL10_50.MSSQLSERVER\\MSSQL\\DATA\\templog.ldf\". The process cannot access the file because it is being used by another process. .",
+                          "ErrorType": 101,
+                          "ExceptionDetails": "1: [WindowsFs.cpp: 157-rax::WindowsFs::Open]Error Code(313): Cannot open file \"C:\\Program Files\\Microsoft SQL Server\\MSSQL10_50.MSSQLSERVER\\MSSQL\\DATA\\templog.ldf\". The process cannot access the file because it is being used by another process. .",
+                          "ErrorDesc": "The agent experienced a problem. (Rax)",
+                          "BackupReportID": 48785,
+                          "Path": "C:\\Program Files\\Microsoft SQL Server\\MSSQL10_50.MSSQLSERVER\\MSSQL\\DATA\\templog.ldf",
+                          "ExceptionCode": 313
+                      }
+                  ],
+                  "NumErrors": 2
+              }
+  "/v1.0/{tenant_id}/restore":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    put:
+      operationId: createRestoreConfig
+      summary: Create a restore configuration
+      description: |
+        Creates a new restore configuration and returns detailed information about the restore.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "BackupRestorePoint": "/Date(1357151359000)/",
+                  "BackupDataCenter": "DFW",
+                  "EncryptedPassword": null,
+                  "DestinationPath": "C:\\FolderPathForRestore\\",
+                  "BackupConfigurationId": 6265,
+                  "PublicKey": {
+                      "ModulusHex": "CA759606B13DC5350A3FAE3F851C76F260DC CD1EFF2DB7510AE74E00B4B2B6025422757493B2EC09B2C71DF ACFF4901E4ADAA3C9F2E6BDE9392E80FEED6F1F81BFD1D3AD9F 9080646F46632C30A94275C85859C1EFCD21BF911F311841914 BC719B1397FD3B95BE7657495903936E3345E6F083922F37761 0CBB6EB67C62B719770B25C9AB17521C2AB51B75871ED5F04F9 65C5402443ABCD05EE5E4A5201641309B8BA1100A04C62210B2 900CDEAA40F6EBF267B73634E471DB1420FF67CE41940D8ED8F 4B6C199CF5D023B410C386C58037546D34102D245AF068E891B B80F1799DDC4C9C85C6FF73DA1E45AEC98792BCC1C2DE3AAD3F 92F50F1661A4FFDC1",
+                      "ExponentHex": 10001
+                  },
+                  "IsEncrypted": false,
+                  "BackupMachineName": "BALAJIMBP",
+                  "BackupMachineId": 5,
+                  "BackupConfigurationName": "Restore_Backup",
+                  "DestinationMachineName": "BILLS-TEST-WIN",
+                  "DestinationMachineId": 156751,
+                  "RestoreStateId": 0,
+                  "BackupId": 133599,
+                  "BackupFlavor": "RaxCloudServer",
+                  "RestoreId": 1394,
+                  "OverwriteFiles": false
+              }
+    post:
+      operationId: updateRestoreConfig
+      summary: Update a restore configuration
+      description: |
+        Updates an existing restore configuration.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: The request succeeded.
+  "/v1.0/{tenant_id}/restore/files":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    put:
+      operationId: createRestoreFile
+      summary: Include or exclude a file in a restore configuration
+      description: |
+        Creates a restore file associated with a restore.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+  "/v1.0/{tenant_id}/restore/files/{restoreId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: restoreId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier for a restore.
+    get:
+      operationId: getRestoreFiles
+      summary: List included or excluded files in a restore configuration
+      description: |
+        Lists files that are included or excluded in a restore.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+    delete:
+      operationId: deletetRestoreConfig
+      summary: Delete a restore configuration
+      description: |
+        Deletes a restore configuration file.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: The request succeeded.
+  "/v1.0/{tenant_id}/backup/availableforrestore":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    get:
+      operationId: getAvailableBackups
+      summary: List backups available for a restore
+      description: |
+        Lists the backups that are eligible for restore (a backup that has completed at least once and has not been deleted and is not expired).
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              [
+                  {
+                      "LastSuccessfulBackupTime": "/Date(1360701971000)/",
+                      "BackupConfigurationId": 172418,
+                      "PublicKeyMod": "a5261939975948bb7a58dffe5ff54e65f0498f9175f5a0928 8810b8975871e99af3b5dd94057b0fc07535f5f97444504fa35169d461d0d30cf0 192e307727c065168c788771c561a9400fb49175e9e6aa4e23fe11af69e9412dd2 3b0cb6684c4c2429bce139e848ab26d0829073351f4acd36074eafd036a5eb8335 9d2a698d3",
+                      "MachineName": "MBP0",
+                      "BackupConfigurationName": "BackupConfig1",
+                      "IsEncrypted": false,
+                      "MachineAgentId": 252036,
+                      "Flavor": "RaxCloudServer",
+                      "PublicKeyHex": 10001
+                  },
+                  {
+                      "LastSuccessfulBackupTime": "/Date(1360701957000)/",
+                      "BackupConfigurationId": 172417,
+                      "PublicKeyMod": "a5261939975948bb7a58dffe5ff54e65f0498f9175f5a09288 810b8975871e99af3b5dd94057b0fc07535f5f97444504fa35169d461d0d30cf019 2e307727c065168c788771c561a9400fb49175e9e6aa4e23fe11af69e9412dd23b0 cb6684c4c2429bce139e848ab26d0829073351f4acd36074eafd036a5eb83359d2a 698d3",
+                      "MachineName": "MBP2",
+                      "BackupConfigurationName": "BackupCOnfig2",
+                      "IsEncrypted": false,
+                      "MachineAgentId": 252034,
+                      "Flavor": "RaxCloudServer",
+                      "PublicKeyHex": 10001
+                  }
+              ]
+  "/v1.0/{tenant_id}/restore/action-requested":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    post:
+      operationId: postRestoreAction
+      summary: Start or stop a restore manually
+      description: |
+        Manually starts or stops a restore.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: The request succeeded.
+  "/v1.0/{tenant_id}/restore/{restoreId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: restoreId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier for a restore.
+    get:
+      operationId: getRestoreDetails
+      summary: List details about a restore
+      description: |
+        Lists details about the specified restore.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "BackupRestorePoint": "/Date(1357151359000)/",
+                  "BackupDataCenter": "DFW",
+                  "EncryptedPassword": null,
+                  "DestinationPath": "C:\\Test\\",
+                  "BackupConfigurationId": 6270,
+                  "PublicKey": {
+                      "ModulusHex": "CA759606B13DC5350A3FAE3F851C7 6F260DCCD1EFF2DB7510AE74E00B4B2B6025422757493B2EC09B2C7 1DFACFF4901E4ADAA3C9F2E6BDE9392E80FEED6F1F81BFD1D3AD9F9 080646F46632C30A94275C85859C1EFCD21BF911F311841914BC719 B1397FD3B95BE7657495903936E3345E6083922F377610CBB6EB67C 62B719770B25C9AB17521C2AB51B75871ED5F04F965C5402443ABCD 05EE5E4A5201641309B8BA1100A04C62210B2900CDEAA40F6EBF267 B73634E471DB1420FF67CE41940D8ED8F4B6C199CF5D023B410C386 C58037546D34102D245AF068E891BB80F1799DDC4C9C85C6FF73DA1 E45AEC98792BCC1C2DE3AAD3F92F50F1661A4FFDC1",
+                      "ExponentHex": 10001
+                  },
+                  "IsEncrypted": false,
+                  "BackupMachineName": "sujala-test-centos",
+                  "BackupMachineId": 866,
+                  "BackupConfigurationName": "Restore_Backup",
+                  "DestinationMachineName": "BILLS-TEST-WIN",
+                  "DestinationMachineId": 864,
+                  "RestoreStateId": 3,
+                  "BackupId": 133886,
+                  "BackupFlavor": "RaxCloudServer",
+                  "RestoreId": 1394,
+                  "OverwriteFiles": true
+              }
+  "/v1.0/{tenant_id}/restore/report/{restoreId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: restoreId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier for a restore.
+    get:
+      operationId: getRestoreReport
+      summary: Get restore report
+      description: |
+        Gets a report for the specified, completed restore.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "RestoreDestination": "BILLS-TEST-WIN",
+                  "BackupConfigurationId": 6270,
+                  "Reason": "UnableToProcessSomeFiles",
+                  "CompletedTime": "/Date(1357226535000)/",
+                  "NumBytesRestored": "18 MB",
+                  "RestorePoint": "/Date(1357151359000)/",
+                  "BackupConfigurationName": "Restore_Backup",
+                  "NumFilesRestored": "35",
+                  "BackupReportId": 133886,
+                  "StartTime": "/Date(1357226521000)/",
+                  "Diagnostics": "Some files may not have been restored",
+                  "Duration": "00:00:14",
+                  "RestoreDestinationMachineId": 864,
+                  "OriginatingComputerName": "sujala-test-centos",
+                  "ErrorList": [],
+                  "NumErrors": "1",
+                  "State": "CompletedWithErrors"
+              }
+  "/v1.0/{tenant_id}/system/activity/{agentId}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: agentId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The unique identifier for an agent.
+    get:
+      operationId: getAgentActivity
+      summary: List activity for an agent
+      description: |
+        Lists all in-progress and completed activity for an agent. Activity types are Backup, Cleanup, and Restore.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              [
+                  {
+                      "DestinationMachineAgentId": 0,
+                      "DisplayName": "Weekly Website Backup",
+                      "SourceMachineName": "Web Server",
+                      "IsBackupConfigurationDeleted": false,
+                      "DestinationMachineName": "",
+                      "TimeOfActivity": "/Date(1359033934000)/",
+                      "SourceMachineAgentId": 232180,
+                      "ParentId": 162423,
+                      "BackupId": 134332,
+                      "Type": "Backup",
+                      "ID": 137987,
+                      "CurrentState": "Completed"
+                  }
+              ]
+  "/v1.0/{tenant_id}/activity":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    get:
+      operationId: getUserActivity
+      summary: List activity for a user
+      description: |
+        Lists all activity completed or in-progress for the user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded.
+          examples:
+            application/json: |-
+              [
+                  {
+                      "DestinationMachineAgentId": 0,
+                      "DisplayName": "Backup1",
+                      "SourceMachineName": "BALAJIMBP",
+                      "IsBackupConfigurationDeleted": false,
+                      "DestinationMachineName": "",
+                      "TimeOfActivity": "/Date(1357230189000)/",
+                      "SourceMachineAgentId": 5,
+                      "ParentId": 6265,
+                      "BackupId": 134332,
+                      "Type": "Backup",
+                      "ID": 134692,
+                      "CurrentState": "Completed"
+                  },
+                  {
+                      "DestinationMachineAgentId": 0,
+                      "DisplayName": "Backup1",
+                      "SourceMachineName": "BALAJIMBP",
+                      "IsBackupConfigurationDeleted": false,
+                      "DestinationMachineName": "",
+                      "TimeOfActivity": "/Date(1357230189000)/",
+                      "SourceMachineAgentId": 5,
+                      "ParentId": 6265,
+                      "BackupId": 134386,
+                      "Type": "Backup",
+                      "ID": 134693,
+                      "CurrentState": "Completed"
+                  }
+              ]

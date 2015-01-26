@@ -1,0 +1,43 @@
+INFO:wadls/cloud_monitoring.wadl:Converting: wadls/cloud_monitoring.wadl to swagger/cloud_monitoring.json
+WARNING:wadls/cloud_monitoring.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cloud_monitoring.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/cloud_monitoring.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/cloud_monitoring.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cloud_monitoring.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cloud_monitoring.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cloud_monitoring.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/cloud_monitoring.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/cloud_monitoring.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/cloud_monitoring.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cloud_monitoring.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/cloud_monitoring.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/cloud_monitoring.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/cloud_monitoring.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/cloud_monitoring.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/cloud_monitoring.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cloud_monitoring.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cloud_monitoring.wadl:No support for application/json for resource at /entities/{entityId}/test-check
+WARNING:wadls/cloud_monitoring.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cloud_monitoring.wadl:No support for application/json for resource at /entities/{entityId}/checks/test-check
+ERROR:root:Could not convert WADL, caused by "WADLError: More than one resource defined with path entities/{entityId}/checks/{checkId}" while loading wadls/cloud_monitoring.wadl
+INFO:root:
+INFO:root:Failed to convert:
+INFO:root:  wadls/cloud_monitoring.wadl : Could not convert WADL, caused by "WADLError: More than one resource defined with path entities/{entityId}/checks/{checkId}" while loading wadls/cloud_monitoring.wadl
+
+Validating with swagger-tools...
+
+/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/bin/swagger-tools:196
+        throw err;
+              ^
+Error: ENOENT, no such file or directory '/Users/Thoughtworker/repos/rackspace/wadl2swagger/rackspace/swagger/cloud_monitoring.json'
+    at Object.fs.openSync (fs.js:427:18)
+    at Object.fs.readFileSync (fs.js:284:15)
+    at getDocument (/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/bin/swagger-tools:81:23)
+    at /opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:249:17
+    at /opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:125:13
+    at Array.forEach (native)
+    at _each (/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:46:24)
+    at async.each (/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:124:9)
+    at _asyncMap (/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:248:13)
+    at Object.map (/opt/boxen/nodenv/versions/v0.10.21/lib/node_modules/swagger-tools/node_modules/async/lib/async.js:219:23)
+Error (exit code 8)

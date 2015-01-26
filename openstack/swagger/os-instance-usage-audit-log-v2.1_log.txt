@@ -1,0 +1,8 @@
+INFO:wadls/os-instance-usage-audit-log-v2.1.wadl:Converting: wadls/os-instance-usage-audit-log-v2.1.wadl to swagger/os-instance-usage-audit-log-v2.1.json
+WARNING:wadls/os-instance-usage-audit-log-v2.1.wadl:Autofix: path parameters must be required in Swagger (datetime)
+INFO:root:Saving swagger to swagger/os-instance-usage-audit-log-v2.1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

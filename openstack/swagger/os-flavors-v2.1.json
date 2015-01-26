@@ -1,0 +1,54 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-flavors-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/flavors": {
+            "get": {
+                "operationId": "getflavorbrief",
+                "summary": "List flavors",
+                "description": "Lists flavors.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v2.1/flavors/{flavor_id}": {
+            "get": {
+                "operationId": "getflavorid",
+                "summary": "Show flavor details",
+                "description": "Shows information for a specified flavor.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v2.1/flavors/detail": {
+            "get": {
+                "operationId": "returnflavorall",
+                "summary": "List detailed flavors",
+                "description": "Lists flavors with details.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        }
+    }
+}

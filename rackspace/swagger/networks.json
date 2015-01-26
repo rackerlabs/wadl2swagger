@@ -1,0 +1,103 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "networks",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/networks": {
+            "post": {
+                "operationId": "bulkCreateNetwork",
+                "summary": "Bulk create networks",
+                "description": "Creates multiple networks in a single request.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"networks\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"subnets\": [],\n            \"name\": \"sample_network3\",\n            \"provider:physical_network\": null,\n            \"admin_state_up\": true,\n            \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n            \"provider:network_type\": \"local\",\n            \"shared\": false,\n            \"id\": \"bc1a76cb-8767-4c3a-bb95-018b822f2130\",\n            \"provider:segmentation_id\": null\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"subnets\": [],\n            \"name\": \"sample_network4\",\n            \"provider:physical_network\": null,\n            \"admin_state_up\": true,\n            \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n            \"provider:network_type\": \"local\",\n            \"shared\": false,\n            \"id\": \"af374017-c9ae-4a1d-b799-ab73111476e2\",\n            \"provider:segmentation_id\": null\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "listNetworks",
+                "summary": "Retrieve list of networks",
+                "description": "Retrieves list of networks to which the specified tenant has access.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"networks\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"subnets\": [],\n            \"name\": \"public\",\n            \"admin_state_up\": true,\n            \"tenant_id\": \"rackspace\",\n            \"shared\": true,\n            \"id\": \"00000000-0000-0000-0000-000000000000\"\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"subnets\": [],\n            \"name\": \"private\",\n            \"admin_state_up\": true,\n            \"tenant_id\": \"rackspace\",\n            \"shared\": true,\n            \"id\": \"11111111-1111-1111-1111-111111111111\"\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"subnets\": [\n                \"017d8997-70ec-4448-91d9-a8097d6d60f3\"\n            ],\n            \"name\": \"RackNet\",\n            \"admin_state_up\": true,\n            \"tenant_id\": \"123456\",\n            \"shared\": false,\n            \"id\": \"2993e407-5531-4ca8-9d2a-0d13b5cac904\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/networks/{network_id}": {
+            "parameters": [
+                {
+                    "name": "network_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the network.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showNetwork",
+                "summary": "Show network",
+                "description": "Retrieves information for a specified network.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"network\": {\n        \"status\": \"ACTIVE\",\n        \"subnets\": [],\n        \"name\": \"sameer-3\",\n        \"admin_state_up\": true,\n        \"tenant_id\": \"546428\",\n        \"shared\": false,\n        \"id\": \"4d4e772a-98e7-4409-8a3c-4fed4324da26\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateNetwork",
+                "summary": "Update network",
+                "description": "Updates a specified network.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {}
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteNetwork",
+                "summary": "Delete network",
+                "description": "Deletes a specified network and its associated resources.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,166 @@
+---
+swagger: '2.0'
+info:
+  title: os-hypervisors-v2.1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.1/os-hypervisors":
+    get:
+      operationId: listhypervisors
+      summary: List hypervisors
+      description: |
+        Lists hypervisors.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hypervisors": [
+                      {
+                          "id": 1,
+                          "hypervisor_hostname": "fake-mini"
+                      }
+                  ]
+              }
+  "/v2.1/os-hypervisors/statistics":
+    get:
+      operationId: showhypervisorstatistics
+      summary: Show hypervisor statistics
+      description: |
+        Shows statistics for all hypervisors.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hypervisor_statistics": {
+                      "count": 1,
+                      "vcpus_used": 0,
+                      "local_gb_used": 0,
+                      "memory_mb": 8192,
+                      "current_workload": 0,
+                      "vcpus": 1,
+                      "running_vms": 0,
+                      "free_disk_gb": 1028,
+                      "disk_available_least": 0,
+                      "local_gb": 1028,
+                      "free_ram_mb": 7680,
+                      "memory_mb_used": 512
+                  }
+              }
+  "/v2.1/os-hypervisors/search":
+    parameters:
+    - name: query
+      required: false
+      in: query
+      type: string
+      description: |
+        Filters the search results by the specified `?query={filter}` query parameter.
+    get:
+      operationId: searchhypervisors
+      summary: Search hypervisors
+      description: |
+        Searches hypervisors by specified host name.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hypervisors": [
+                      {
+                          "id": 1,
+                          "hypervisor_hostname": "fake-mini"
+                      }
+                  ]
+              }
+  "/v2.1/os-hypervisors/{hypervisor_id}":
+    get:
+      operationId: showhypervisordetails
+      summary: Show hypervisor details
+      description: |
+        Shows details for a specified hypervisor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hypervisor": {
+                      "service": {
+                          "host": "043b3cacf6f34c90a7245151fc8ebcda",
+                          "id": 2
+                      },
+                      "current_workload": 0,
+                      "hypervisor_type": "fake",
+                      "vcpus_used": 0,
+                      "local_gb_used": 0,
+                      "hypervisor_hostname": "fake-mini",
+                      "memory_mb_used": 512,
+                      "memory_mb": 8192,
+                      "cpu_info": "?",
+                      "vcpus": 1,
+                      "running_vms": 0,
+                      "free_disk_gb": 1028,
+                      "hypervisor_version": 1,
+                      "disk_available_least": 0,
+                      "local_gb": 1028,
+                      "free_ram_mb": 7680,
+                      "id": 1
+                  }
+              }
+  "/v2.1/os-hypervisors/{hypervisor_id}/uptime":
+    get:
+      operationId: showhypervisoruptime
+      summary: Show hypervisor uptime
+      description: |
+        Shows the uptime for a specified hypervisor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hypervisor": {
+                      "uptime": " 08:32:11 up 93 days, 18:25, 12 users,  load average: 0.20, 0.12, 0.14",
+                      "id": 1,
+                      "hypervisor_hostname": "fake-mini"
+                  }
+              }
+  "/v2.1/os-hypervisors/{hypervisor_id}/servers":
+    get:
+      operationId: listservers
+      summary: List servers for a hypervisor
+      description: |
+        Lists servers that run on a specified hypervisor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hypervisors": [
+                      {
+                          "id": 1,
+                          "hypervisor_hostname": "fake-mini"
+                      }
+                  ]
+              }

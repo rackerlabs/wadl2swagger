@@ -1,0 +1,165 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "metering-labels",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/metering/metering-labels": {
+            "get": {
+                "operationId": "listMeteringLabels",
+                "summary": "List metering labels",
+                "description": "Lists all l3 metering labels that belong to the specified tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metering_labels\": [\n        {\n            \"id\": \"a6700594-5b7a-4105-8bfe-723b346ce866\",\n            \"tenant_id\": \"45345b0ee1ea477fac0f541b2cb79cd4\",\n            \"description\": \"label1 description\",\n            \"name\": \"label1\"\n        },\n        {\n            \"id\": \"e131d186-b02d-4c0b-83d5-0c0725c4f812\",\n            \"tenant_id\": \"45345b0ee1ea477fac0f541b2cb79cd4\",\n            \"description\": \"label2 description\",\n            \"name\": \"label2\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createMeteringLabel",
+                "summary": "Create metering label",
+                "description": "Creates a l3 metering label.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"metering_label\": {\n        \"id\": \"bc91b832-8465-40a7-a5d8-ba87de442266\",\n        \"tenant_id\": \"45345b0ee1ea477fac0f541b2cb79cd4\",\n        \"description\": \"description of label1\",\n        \"name\": \"label1\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/metering/metering-labels/{metering_label_id}": {
+            "parameters": [
+                {
+                    "name": "metering_label_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the metering label.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getMeteringLabel",
+                "summary": "Show metering label",
+                "description": "Shows informations for a specified metering label.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metering_label\": {\n        \"id\": \"a6700594-5b7a-4105-8bfe-723b346ce866\",\n        \"tenant_id\": \"45345b0ee1ea477fac0f541b2cb79cd4\",\n        \"description\": \"label1 description\",\n        \"name\": \"label1\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteMeteringLabel",
+                "summary": "Delete metering label",
+                "description": "Deletes a l3 metering label.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "204 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/v2.0/metering/metering-label-rules": {
+            "get": {
+                "operationId": "listMeteringLabelRules",
+                "summary": "List metering label rules",
+                "description": "Lists a summary of all l3 metering label rules belonging to the specified tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metering_label_rules\": [\n        {\n            \"remote_ip_prefix\": \"20.0.0.0/24\",\n            \"direction\": \"ingress\",\n            \"metering_label_id\": \"e131d186-b02d-4c0b-83d5-0c0725c4f812\",\n            \"id\": \"9536641a-7d14-4dc5-afaf-93a973ce0eb8\",\n            \"excluded\": false\n        },\n        {\n            \"remote_ip_prefix\": \"10.0.0.0/24\",\n            \"direction\": \"ingress\",\n            \"metering_label_id\": \"e131d186-b02d-4c0b-83d5-0c0725c4f812\",\n            \"id\": \"ffc6fd15-40de-4e7d-b617-34d3f7a93aec\",\n            \"excluded\": false\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createMeteringLabelRule",
+                "summary": "Create metering label rule",
+                "description": "Creates a l3 metering label rule.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"metering_label_rule\": {\n        \"remote_ip_prefix\": \"10.0.1.0/24\",\n        \"direction\": \"ingress\",\n        \"metering_label_id\": \"e131d186-b02d-4c0b-83d5-0c0725c4f812\",\n        \"id\": \"00e13b58-b4f2-4579-9c9c-7ac94615f9ae\",\n        \"excluded\": false\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/metering/metering-label-rules/{metering-label-rule-id}": {
+            "parameters": [
+                {
+                    "name": "metering-label-rule-id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of metering label rule.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getMeteringLabelRule",
+                "summary": "Show metering label rule",
+                "description": "Shows detailed informations for a specified metering label rule.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metering_label_rule\": {\n        \"remote_ip_prefix\": \"20.0.0.0/24\",\n        \"direction\": \"ingress\",\n        \"metering_label_id\": \"e131d186-b02d-4c0b-83d5-0c0725c4f812\",\n        \"id\": \"9536641a-7d14-4dc5-afaf-93a973ce0eb8\",\n        \"excluded\": false\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteMeteringLabelRule",
+                "summary": "Delete metering label rule",
+                "description": "Deletes a specified l3 metering label rule.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "204 response",
+                        "examples": {}
+                    }
+                }
+            }
+        }
+    }
+}

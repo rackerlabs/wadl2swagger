@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-ext-az-v2">
+        <resource path="/v2/{tenant_id}/servers/{server_id}" id="server_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy cloud.
+                       </para>
+            </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The UUID for the server of
+                                   interest to you.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="showServer">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Show server">
+               <para role="shortdesc">Shows information for a specified
+                server, including its availability zone.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "server": {
+        "OS-EXT-AZ:availability_zone": "nova",
+        "accessIPv4": "",
+        "accessIPv6": "",
+        "addresses": {
+            "private": [
+                {
+                    "addr": "192.168.0.3",
+                    "version": 4
+                }
+            ]
+        },
+        "created": "2013-01-30T13:38:47Z",
+        "flavor": {
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/1",
+                    "rel": "bookmark"
+                }
+            ]
+        },
+        "hostId": "d38ea49a033b0efaf80c165de63f4805c886dfb94dc0fe731227eccb",
+        "id": "fb7babfd-e1a1-4add-90e6-3558180983c7",
+        "image": {
+            "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                    "rel": "bookmark"
+                }
+            ]
+        },
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/servers/fb7babfd-e1a1-4add-90e6-3558180983c7",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/servers/fb7babfd-e1a1-4add-90e6-3558180983c7",
+                "rel": "bookmark"
+            }
+        ],
+        "metadata": {
+            "My Server Name": "Apache1"
+        },
+        "name": "new-server-test",
+        "progress": 0,
+        "status": "ACTIVE",
+        "tenant_id": "openstack",
+        "updated": "2013-01-30T13:38:49Z",
+        "user_id": "fake"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;server xmlns:OS-EXT-AZ="http://docs.openstack.org/compute/ext/extended_availability_zone/api/v2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" status="ACTIVE" updated="2013-01-30T14:29:20Z" hostId="471e52951e3182954c5a93489dafc3fc38a9ef3e0b62d26dc740460c" name="new-server-test" created="2013-01-30T14:29:19Z" userId="fake" tenantId="openstack" accessIPv4="" accessIPv6="" progress="0" id="26ea8424-758d-483a-addc-9a5905afc9e6" OS-EXT-AZ:availability_zone="nova"&gt;
+  &lt;image id="70a599e0-31e7-49b7-b260-868f441e862b"&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="bookmark"/&gt;
+  &lt;/image&gt;
+  &lt;flavor id="1"&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;metadata&gt;
+    &lt;meta key="My Server Name"&gt;Apache1&lt;/meta&gt;
+  &lt;/metadata&gt;
+  &lt;addresses&gt;
+    &lt;network id="private"&gt;
+      &lt;ip version="4" addr="192.168.0.3"/&gt;
+    &lt;/network&gt;
+  &lt;/addresses&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/servers/26ea8424-758d-483a-addc-9a5905afc9e6" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/servers/26ea8424-758d-483a-addc-9a5905afc9e6" rel="bookmark"/&gt;
+&lt;/server&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    <resource path="/v2/{tenant_id}/servers/detail" id="detail">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy cloud.
+                       </para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="detailServers">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List details for servers">
+               <para role="shortdesc">Lists details for servers,
+                including their current availability zone.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "servers": [
+        {
+            "OS-EXT-AZ:availability_zone": "nova",
+            "accessIPv4": "",
+            "accessIPv6": "",
+            "addresses": {
+                "private": [
+                    {
+                        "addr": "192.168.0.3",
+                        "version": 4
+                    }
+                ]
+            },
+            "created": "2013-01-30T13:26:51Z",
+            "flavor": {
+                "id": "1",
+                "links": [
+                    {
+                        "href": "http://openstack.example.com/openstack/flavors/1",
+                        "rel": "bookmark"
+                    }
+                ]
+            },
+            "hostId": "60c988a84401fa15888a32833e5848e9caa99a45778310ba7b363165",
+            "id": "3dbf5b00-dabc-41ff-b6ab-4409568fae9d",
+            "image": {
+                "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                "links": [
+                    {
+                        "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                        "rel": "bookmark"
+                    }
+                ]
+            },
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/servers/3dbf5b00-dabc-41ff-b6ab-4409568fae9d",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/servers/3dbf5b00-dabc-41ff-b6ab-4409568fae9d",
+                    "rel": "bookmark"
+                }
+            ],
+            "metadata": {
+                "My Server Name": "Apache1"
+            },
+            "name": "new-server-test",
+            "progress": 0,
+            "status": "ACTIVE",
+            "tenant_id": "openstack",
+            "updated": "2013-01-30T13:26:52Z",
+            "user_id": "fake"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;servers xmlns:OS-EXT-AZ="http://docs.openstack.org/compute/ext/extended_availability_zone/api/v2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;server status="ACTIVE" updated="2013-01-30T14:29:20Z" hostId="85adf7d0492dedf0a7e3dc44ef7d16186b768ca3df33c4d608e630d9" name="new-server-test" created="2013-01-30T14:29:19Z" userId="fake" tenantId="openstack" accessIPv4="" accessIPv6="" progress="0" id="a668c72d-2bac-4806-a297-c7c11d97e3b3" OS-EXT-AZ:availability_zone="nova"&gt;
+    &lt;image id="70a599e0-31e7-49b7-b260-868f441e862b"&gt;
+      &lt;atom:link href="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="bookmark"/&gt;
+    &lt;/image&gt;
+    &lt;flavor id="1"&gt;
+      &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+    &lt;/flavor&gt;
+    &lt;metadata&gt;
+      &lt;meta key="My Server Name"&gt;Apache1&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;addresses&gt;
+      &lt;network id="private"&gt;
+        &lt;ip version="4" addr="192.168.0.3"/&gt;
+      &lt;/network&gt;
+    &lt;/addresses&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/servers/a668c72d-2bac-4806-a297-c7c11d97e3b3" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/servers/a668c72d-2bac-4806-a297-c7c11d97e3b3" rel="bookmark"/&gt;
+  &lt;/server&gt;
+&lt;/servers&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showServer">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="detailServers">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

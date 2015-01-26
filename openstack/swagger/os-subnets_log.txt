@@ -1,0 +1,8 @@
+INFO:wadls/os-subnets.wadl:Converting: wadls/os-subnets.wadl to swagger/os-subnets.json
+WARNING:wadls/os-subnets.wadl:Autofix: path parameters must be required in Swagger (subnet_id)
+INFO:root:Saving swagger to swagger/os-subnets.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

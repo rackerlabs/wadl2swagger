@@ -1,0 +1,69 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-flavor-rxtx-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/flavors": {
+            "post": {
+                "operationId": "createflavor",
+                "summary": "Create flavor",
+                "description": "Creates a flavor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavor\": {\n        \"flavor-access:is_public\": true,\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v3/flavors/100\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/flavors/100\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"ram\": 1024,\n        \"ephemeral\": 0,\n        \"disabled\": false,\n        \"vcpus\": 2,\n        \"swap\": 0,\n        \"rxtx_factor\": 2.0,\n        \"disk\": 10,\n        \"id\": \"100\",\n        \"name\": \"flavortest\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/flavors/detail": {
+            "get": {
+                "operationId": "returnallflavor",
+                "summary": "List flavors with details",
+                "description": "Lists flavors with details.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavors\": [\n        {\n            \"flavor-access:is_public\": true,\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v3/flavors/1\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"ram\": 512,\n            \"ephemeral\": 0,\n            \"disabled\": false,\n            \"vcpus\": 1,\n            \"swap\": 0,\n            \"rxtx_factor\": 1.0,\n            \"disk\": 1,\n            \"id\": \"1\",\n            \"name\": \"m1.tiny\"\n        },\n        {\n            \"flavor-access:is_public\": true,\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v3/flavors/2\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/flavors/2\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"ram\": 2048,\n            \"ephemeral\": 0,\n            \"disabled\": false,\n            \"vcpus\": 1,\n            \"swap\": 0,\n            \"rxtx_factor\": 1.0,\n            \"disk\": 20,\n            \"id\": \"2\",\n            \"name\": \"m1.small\"\n        },\n        {\n            \"flavor-access:is_public\": true,\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v3/flavors/3\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/flavors/3\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"ram\": 4096,\n            \"ephemeral\": 0,\n            \"disabled\": false,\n            \"vcpus\": 2,\n            \"swap\": 0,\n            \"rxtx_factor\": 1.0,\n            \"disk\": 40,\n            \"id\": \"3\",\n            \"name\": \"m1.medium\"\n        },\n        {\n            \"flavor-access:is_public\": true,\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v3/flavors/4\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/flavors/4\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"ram\": 8192,\n            \"ephemeral\": 0,\n            \"disabled\": false,\n            \"vcpus\": 4,\n            \"swap\": 0,\n            \"rxtx_factor\": 1.0,\n            \"disk\": 80,\n            \"id\": \"4\",\n            \"name\": \"m1.large\"\n        },\n        {\n            \"flavor-access:is_public\": true,\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v3/flavors/5\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/flavors/5\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"ram\": 16384,\n            \"ephemeral\": 0,\n            \"disabled\": false,\n            \"vcpus\": 8,\n            \"swap\": 0,\n            \"rxtx_factor\": 1.0,\n            \"disk\": 160,\n            \"id\": \"5\",\n            \"name\": \"m1.xlarge\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/flavors/{flavor_id}": {
+            "get": {
+                "operationId": "returndata",
+                "summary": "Show flavor details",
+                "description": "Shows details for a specified flavor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavor\": {\n        \"flavor-access:is_public\": true,\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v3/flavors/1\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/flavors/1\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"ram\": 512,\n        \"ephemeral\": 0,\n        \"disabled\": false,\n        \"vcpus\": 1,\n        \"swap\": 0,\n        \"rxtx_factor\": 1.0,\n        \"disk\": 1,\n        \"id\": \"1\",\n        \"name\": \"m1.tiny\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

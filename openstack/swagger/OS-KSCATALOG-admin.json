@@ -1,0 +1,252 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "OS-KSCATALOG-admin",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/tenants/{tenantId}/OS-KSCATALOG/endpoints": {
+            "parameters": [
+                {
+                    "name": "X-Auth-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token for an administrative user.\n"
+                },
+                {
+                    "name": "tenantId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listEndpoints",
+                "summary": "List endpoints",
+                "description": "Lists endpoints for a tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"endpoints_links\": [],\n    \"endpoints\": [\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"North\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 1,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"South\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 2,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"East\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 3,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"West\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 4,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"Global\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 5,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"endpoints_links\": [],\n    \"endpoints\": [\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"North\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 1,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"South\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 2,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"East\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 3,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"West\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 4,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"Global\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 5,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "addEndpoint",
+                "summary": "Add endpoint",
+                "description": "Adds endpoint to a tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"endpoint\": {\n        \"versionInfo\": \"https://compute.north.public.com/v1/\",\n        \"adminURL\": \"https://compute.north.internal.com/v1\",\n        \"region\": \"North\",\n        \"internalURL\": \"https://compute.north.internal.com/v1\",\n        \"versionId\": \"1\",\n        \"versionList\": \"https://compute.north.public.com/\",\n        \"tenantId\": 1,\n        \"type\": \"compute\",\n        \"id\": 1,\n        \"publicURL\": \"https://compute.north.public.com/v1\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/tenants/{tenantId}/OS-KSCATALOG/endpoints/{endpointId}": {
+            "parameters": [
+                {
+                    "name": "X-Auth-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token for an administrative user.\n"
+                },
+                {
+                    "name": "tenantId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID.\n"
+                },
+                {
+                    "name": "endpointId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The endpoint ID.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getEndpoint",
+                "summary": "Get endpoint",
+                "description": "Gets endpoint for a tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"endpoint\": {\n        \"versionInfo\": \"https://compute.north.public.com/v1/\",\n        \"adminURL\": \"https://compute.north.internal.com/v1\",\n        \"region\": \"North\",\n        \"internalURL\": \"https://compute.north.internal.com/v1\",\n        \"versionId\": \"1\",\n        \"versionList\": \"https://compute.north.public.com/\",\n        \"tenantId\": 1,\n        \"type\": \"compute\",\n        \"id\": 1,\n        \"publicURL\": \"https://compute.north.public.com/v1\"\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"endpoint\": {\n        \"versionInfo\": \"https://compute.north.public.com/v1/\",\n        \"adminURL\": \"https://compute.north.internal.com/v1\",\n        \"region\": \"North\",\n        \"internalURL\": \"https://compute.north.internal.com/v1\",\n        \"versionId\": \"1\",\n        \"versionList\": \"https://compute.north.public.com/\",\n        \"tenantId\": 1,\n        \"type\": \"compute\",\n        \"id\": 1,\n        \"publicURL\": \"https://compute.north.public.com/v1\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteEndpoint",
+                "summary": "Delete endpoint",
+                "description": "Deletes an endpoint from a tenant.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v2.0/OS-KSCATALOG/endpointTemplates": {
+            "parameters": [
+                {
+                    "name": "X-Auth-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token for an administrative user.\n"
+                },
+                {
+                    "name": "serviceId",
+                    "required": false,
+                    "in": "query",
+                    "type": "string",
+                    "description": "The service ID.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listEndpointTemplates",
+                "summary": "List endpoint templates",
+                "description": "Lists endpoint templates.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"OS-KSCATALOG:endpointsTemplates\": [\n        {\n            \"region\": \"North\",\n            \"global\": true,\n            \"enabled\": true,\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"type\": \"compute\",\n            \"id\": 1,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"region\": \"South\",\n            \"enabled\": false,\n            \"id\": 2,\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.south.public.com/\",\n            \"versionInfo\": \"https://compute.south.public.com/v1/\",\n            \"type\": \"compute\",\n            \"internalURL\": \"https://compute.south.internal.com/v1\",\n            \"publicURL\": \"https://compute.south.public.com/v1\"\n        },\n        {\n            \"region\": \"North\",\n            \"global\": true,\n            \"enabled\": true,\n            \"versionId\": \"1.0\",\n            \"versionList\": \"https://object-store.north.public.com/\",\n            \"versionInfo\": \"https://object-store.north.public.com/v1.0/\",\n            \"type\": \"object-store\",\n            \"id\": 3,\n            \"publicURL\": \"https://object-store.north.public.com/v1.0\"\n        },\n        {\n            \"region\": \"South\",\n            \"enabled\": true,\n            \"versionId\": \"2\",\n            \"versionList\": \"https://object-store.south.public.com/\",\n            \"versionInfo\": \"https://object-store.south.public.com/v2/\",\n            \"type\": \"object-store\",\n            \"id\": 4,\n            \"publicURL\": \"https://object-store.south.public.com/v2\"\n        },\n        {\n            \"global\": true,\n            \"enabled\": true,\n            \"versionId\": \"1.0\",\n            \"versionList\": \"https://dns.public.com/\",\n            \"versionInfo\": \"https://dns.public.com/v1.0/\",\n            \"type\": \"OS-DNS:DNS\",\n            \"id\": 5,\n            \"publicURL\": \"https://dns.public.com/v3.2\"\n        }\n    ],\n    \"OS-KSCATALOG:endpointsTemplates_links\": []\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"OS-KSCATALOG:endpointsTemplates\": [\n        {\n            \"region\": \"North\",\n            \"global\": true,\n            \"enabled\": true,\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"type\": \"compute\",\n            \"id\": 1,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"region\": \"South\",\n            \"enabled\": false,\n            \"id\": 2,\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.south.public.com/\",\n            \"versionInfo\": \"https://compute.south.public.com/v1/\",\n            \"type\": \"compute\",\n            \"internalURL\": \"https://compute.south.internal.com/v1\",\n            \"publicURL\": \"https://compute.south.public.com/v1\"\n        },\n        {\n            \"region\": \"North\",\n            \"global\": true,\n            \"enabled\": true,\n            \"versionId\": \"1.0\",\n            \"versionList\": \"https://object-store.north.public.com/\",\n            \"versionInfo\": \"https://object-store.north.public.com/v1.0/\",\n            \"type\": \"object-store\",\n            \"id\": 3,\n            \"publicURL\": \"https://object-store.north.public.com/v1.0\"\n        },\n        {\n            \"region\": \"South\",\n            \"enabled\": true,\n            \"versionId\": \"2\",\n            \"versionList\": \"https://object-store.south.public.com/\",\n            \"versionInfo\": \"https://object-store.south.public.com/v2/\",\n            \"type\": \"object-store\",\n            \"id\": 4,\n            \"publicURL\": \"https://object-store.south.public.com/v2\"\n        },\n        {\n            \"global\": true,\n            \"enabled\": true,\n            \"versionId\": \"1.0\",\n            \"versionList\": \"https://dns.public.com/\",\n            \"versionInfo\": \"https://dns.public.com/v1.0/\",\n            \"type\": \"OS-DNS:DNS\",\n            \"id\": 5,\n            \"publicURL\": \"https://dns.public.com/v3.2\"\n        }\n    ],\n    \"OS-KSCATALOG:endpointsTemplates_links\": []\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "addEndpointTemplate",
+                "summary": "Add endpoint template",
+                "description": "Adds endpoint template.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"OS-KSCATALOG:endpointTemplate\": {\n        \"region\": \"North\",\n        \"global\": true,\n        \"enabled\": true,\n        \"internalURL\": \"https://compute.north.internal.com/v1\",\n        \"versionId\": \"1\",\n        \"versionList\": \"https://compute.north.public.com/\",\n        \"versionInfo\": \"https://compute.north.public.com/v1/\",\n        \"type\": \"compute\",\n        \"id\": 1,\n        \"publicURL\": \"https://compute.north.public.com/v1\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/OS-KSCATALOG/endpointTemplates/{endpointTemplateId}": {
+            "parameters": [
+                {
+                    "name": "X-Auth-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token for an administrative user.\n"
+                },
+                {
+                    "name": "endpointTemplateId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The endpoint template ID.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getEndpointTemplate",
+                "summary": "Get endpoint template",
+                "description": "Gets endpoint templates.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"OS-KSCATALOG:endpointTemplate\": {\n        \"region\": \"North\",\n        \"global\": true,\n        \"enabled\": true,\n        \"internalURL\": \"https://compute.north.internal.com/v1\",\n        \"versionId\": \"1\",\n        \"versionList\": \"https://compute.north.public.com/\",\n        \"versionInfo\": \"https://compute.north.public.com/v1/\",\n        \"type\": \"compute\",\n        \"id\": 1,\n        \"publicURL\": \"https://compute.north.public.com/v1\"\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"OS-KSCATALOG:endpointTemplate\": {\n        \"region\": \"North\",\n        \"global\": true,\n        \"enabled\": true,\n        \"internalURL\": \"https://compute.north.internal.com/v1\",\n        \"versionId\": \"1\",\n        \"versionList\": \"https://compute.north.public.com/\",\n        \"versionInfo\": \"https://compute.north.public.com/v1/\",\n        \"type\": \"compute\",\n        \"id\": 1,\n        \"publicURL\": \"https://compute.north.public.com/v1\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateEndpointTemplate",
+                "summary": "Update endpoint template",
+                "description": "Updates endpoint template.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"OS-KSCATALOG:endpointTemplate\": {\n        \"region\": \"North\",\n        \"global\": true,\n        \"enabled\": true,\n        \"internalURL\": \"https://compute.north.internal.com/v1\",\n        \"versionId\": \"1\",\n        \"versionList\": \"https://compute.north.public.com/\",\n        \"versionInfo\": \"https://compute.north.public.com/v1/\",\n        \"type\": \"compute\",\n        \"id\": 1,\n        \"publicURL\": \"https://compute.north.public.com/v1\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteEndpointTemplate",
+                "summary": "Delete endpoint template.",
+                "description": "Deletes an endpoint template.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        }
+    }
+}

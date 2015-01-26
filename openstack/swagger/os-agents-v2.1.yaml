@@ -1,0 +1,80 @@
+---
+swagger: '2.0'
+info:
+  title: os-agents-v2.1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.1/os-agents":
+    post:
+      operationId: agentbuild
+      summary: Create agent build
+      description: |
+        Creates an agent build.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "agent": {
+                      "url": "xxxxxxxxxxxx",
+                      "hypervisor": "hypervisor",
+                      "md5hash": "add6bb58e139be103324d04d82d8f545",
+                      "version": "8.0",
+                      "agent_id": "1",
+                      "os": "os",
+                      "architecture": "x86"
+                  }
+              }
+    get:
+      operationId: listbuilds
+      summary: List agent builds
+      description: |
+        Lists agent builds.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "agents": [
+                      {
+                          "url": "xxxxxxxxxxxx",
+                          "hypervisor": "hypervisor",
+                          "md5hash": "add6bb58e139be103324d04d82d8f545",
+                          "version": "8.0",
+                          "agent_id": "1",
+                          "os": "os",
+                          "architecture": "x86"
+                      }
+                  ]
+              }
+  "/v2.1/os-agents/{id}":
+    put:
+      operationId: updatebuild
+      summary: Update agent build
+      description: |
+        Updates an agent build.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "agent": {
+                      "url": "xxx://xxxx/xxx/xxx",
+                      "md5hash": "add6bb58e139be103324d04d82d8f545",
+                      "agent_id": "1",
+                      "version": "7.0"
+                  }
+              }

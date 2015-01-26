@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-services-v2">
+        <resource id="os-services" path="/v2/{tenant_id}/os-services">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="listServices">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List services">
+               <para role="shortdesc">Lists running services.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "services": [
+        {
+            "binary": "nova-scheduler",
+            "host": "host1",
+            "state": "up",
+            "status": "disabled",
+            "updated_at": "2012-10-29T13:42:02.000000",
+            "zone": "internal"
+        },
+        {
+            "binary": "nova-compute",
+            "host": "host1",
+            "state": "up",
+            "status": "disabled",
+            "updated_at": "2012-10-29T13:42:05.000000",
+            "zone": "nova"
+        },
+        {
+            "binary": "nova-scheduler",
+            "host": "host2",
+            "state": "down",
+            "status": "enabled",
+            "updated_at": "2012-09-19T06:55:34.000000",
+            "zone": "internal"
+        },
+        {
+            "binary": "nova-compute",
+            "host": "host2",
+            "state": "down",
+            "status": "disabled",
+            "updated_at": "2012-09-18T08:03:38.000000",
+            "zone": "nova"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    <resource path="/v2/{tenant_id}/os-services/enable" id="enable">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="PUT" rax:id="enableScheduling">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Enable scheduling for a service">
+               <para role="shortdesc">Enables scheduling for a
+                service.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": "host1",
+    "binary": "nova-compute"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "service": {
+        "host": "host1",
+        "binary": "nova-compute",
+        "status": "enabled"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                    <resource path="/v2/{tenant_id}/os-services/disable" id="disable">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="PUT" rax:id="disableScheduling">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Disable scheduling for a service">
+               <para role="shortdesc">Disables scheduling for a
+                service.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": "host1",
+    "binary": "nova-compute"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "service": {
+        "host": "host1",
+        "binary": "nova-compute",
+        "status": "disabled"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                    <resource path="/v2/{tenant_id}/os-services/disable-log-reason"
+                id="disable-log-reason">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="PUT" rax:id="disableLogReason">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Log disabled service information">
+               <para role="shortdesc">Logs information to the service
+                table about why a service was disabled.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": "host1",
+    "binary": "nova-compute",
+    "disabled_reason": "test2"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;service host="host1" binary="nova-compute" disabled_reason="test2"/&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="host" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The host
+                        name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="binary" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The service
+                        name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="disabled_reason"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The reason the service was
+                            disabled.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "service": {
+        "binary": "nova-compute",
+        "host": "host1",
+        "disabled_reason": "test2",
+        "status": "disabled"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;service host="host1" binary="nova-compute" status="disabled" disabled_reason="test2" /&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                    <resource path="/v2/{tenant_id}/os-services/detail" id="detail">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="getDisableReasonDetail">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List disabled services">
+               <para role="shortdesc">Lists disabled services. If
+                information exists, includes reasons why services were
+                disabled.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "services": [
+        {
+            "binary": "nova-scheduler",
+            "host": "host1",
+            "state": "up",
+            "status": "disabled",
+            "updated_at": "2012-10-29T13:42:02.000000",
+            "zone": "internal",
+            "disabled_reason": "test1"
+        },
+        {
+            "binary": "nova-compute",
+            "host": "host1",
+            "state": "up",
+            "status": "disabled",
+            "updated_at": "2012-10-29T13:42:05.000000",
+            "zone": "nova",
+            "disabled_reason": "test2"
+        },
+        {
+            "binary": "nova-scheduler",
+            "host": "host2",
+            "state": "down",
+            "status": "enabled",
+            "updated_at": "2012-09-19T06:55:34.000000",
+            "zone": "internal",
+            "disabled_reason": ""
+        },
+        {
+            "binary": "nova-compute",
+            "host": "host2",
+            "state": "down",
+            "status": "disabled",
+            "updated_at": "2012-09-18T08:03:38.000000",
+            "zone": "nova",
+            "disabled_reason": "test4"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;services&gt;
+    &lt;service status="disabled" binary="nova-scheduler" zone="internal" state="up" host="host1" updated_at="2012-10-29T13:42:02.000000" disabled_reason="test1"/&gt;
+    &lt;service status="disabled" binary="nova-compute" zone="nova" state="up" host="host1" updated_at="2012-10-29T13:42:05.000000" disabled_reason="test2"/&gt;
+    &lt;service status="enabled" binary="nova-scheduler" zone="internal" state="down" host="host2" updated_at="2012-09-19T06:55:34.000000" disabled_reason=""/&gt;
+    &lt;service status="disabled" binary="nova-compute" zone="nova" state="down" host="host2" updated_at="2012-09-18T08:03:38.000000" disabled_reason="test4"/&gt;
+&lt;/services&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listServices">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="enableScheduling">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="disableScheduling">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="disableLogReason">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="host" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="binary" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="disabled_reason"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getDisableReasonDetail">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

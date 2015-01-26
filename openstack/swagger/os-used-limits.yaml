@@ -1,0 +1,123 @@
+---
+swagger: '2.0'
+info:
+  title: os-used-limits
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/limits":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: getLimits
+      summary: Get limits
+      description: |
+        Gets absolute and rate limit information, including information on currently used absolute limits.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "limits": {
+                      "rate": [
+                          {
+                              "regex": ".*",
+                              "limit": [
+                                  {
+                                      "value": 120,
+                                      "verb": "POST",
+                                      "next-available": "2012-11-27T17:24:52Z",
+                                      "remaining": 120,
+                                      "unit": "MINUTE"
+                                  },
+                                  {
+                                      "value": 120,
+                                      "verb": "PUT",
+                                      "next-available": "2012-11-27T17:24:52Z",
+                                      "remaining": 120,
+                                      "unit": "MINUTE"
+                                  },
+                                  {
+                                      "value": 120,
+                                      "verb": "DELETE",
+                                      "next-available": "2012-11-27T17:24:52Z",
+                                      "remaining": 120,
+                                      "unit": "MINUTE"
+                                  }
+                              ],
+                              "uri": "*"
+                          },
+                          {
+                              "regex": "^/servers",
+                              "limit": [
+                                  {
+                                      "value": 120,
+                                      "verb": "POST",
+                                      "next-available": "2012-11-27T17:24:52Z",
+                                      "remaining": 120,
+                                      "unit": "MINUTE"
+                                  }
+                              ],
+                              "uri": "*/servers"
+                          },
+                          {
+                              "regex": ".*changes-since.*",
+                              "limit": [
+                                  {
+                                      "value": 120,
+                                      "verb": "GET",
+                                      "next-available": "2012-11-27T17:24:52Z",
+                                      "remaining": 120,
+                                      "unit": "MINUTE"
+                                  }
+                              ],
+                              "uri": "*changes-since*"
+                          },
+                          {
+                              "regex": "^/os-fping",
+                              "limit": [
+                                  {
+                                      "value": 12,
+                                      "verb": "GET",
+                                      "next-available": "2012-11-27T17:24:52Z",
+                                      "remaining": 12,
+                                      "unit": "MINUTE"
+                                  }
+                              ],
+                              "uri": "*/os-fping"
+                          }
+                      ],
+                      "absolute": {
+                          "maxServerMeta": 128,
+                          "maxPersonality": 5,
+                          "totalServerGroupsUsed": 0,
+                          "maxImageMeta": 128,
+                          "maxPersonalitySize": 10240,
+                          "maxTotalRAMSize": 51200,
+                          "maxSecurityGroupRules": 20,
+                          "maxTotalKeypairs": 100,
+                          "totalCoresUsed": 0,
+                          "totalRAMUsed": 0,
+                          "maxSecurityGroups": 10,
+                          "totalFloatingIpsUsed": 0,
+                          "totalInstancesUsed": 0,
+                          "maxServerGroupMembers": 10,
+                          "maxTotalFloatingIps": 10,
+                          "totalSecurityGroupsUsed": 0,
+                          "maxTotalInstances": 10,
+                          "maxTotalCores": 20,
+                          "maxServerGroups": 10
+                      }
+                  }
+              }

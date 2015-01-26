@@ -1,0 +1,13 @@
+INFO:wadls/os-layer3-ext.wadl:Converting: wadls/os-layer3-ext.wadl to swagger/os-layer3-ext.json
+WARNING:wadls/os-layer3-ext.wadl:Autofix: path parameters must be required in Swagger (router_id)
+WARNING:wadls/os-layer3-ext.wadl:No support for application/json for resource at /v2.0/routers/{router_id}/add_router_interface
+WARNING:wadls/os-layer3-ext.wadl:Autofix: path parameters must be required in Swagger (router_id)
+WARNING:wadls/os-layer3-ext.wadl:No support for application/json for resource at /v2.0/routers/{router_id}/remove_router_interface
+WARNING:wadls/os-layer3-ext.wadl:Autofix: path parameters must be required in Swagger (router_id)
+WARNING:wadls/os-layer3-ext.wadl:Autofix: path parameters must be required in Swagger (floatingip_id)
+INFO:root:Saving swagger to swagger/os-layer3-ext.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

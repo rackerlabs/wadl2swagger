@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:db="http://docbook.org/ns/docbook"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-flavor-rxtx-v2">
+        <resource id="Flavors" path="/v2/{tenant_id}/flavors">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="POST" rax:id="createFlavor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create flavor with rxtx_factor">
+               <para role="shortdesc">Creates a flavor. Includes the
+                rxtx_factor extended attribute.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavor": {
+        "name": "flavortest",
+        "ram": 1024,
+        "vcpus": 2,
+        "disk": 10,
+        "id": "100",
+        "rxtx_factor": 2.0
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;flavor xmlns="http://docs.openstack.org/compute/api/v1.1"
+    xmlns:OS-FLV-EXT-DATA="http://docs.openstack.org/compute/ext/flavor_extra_data/api/v1.1"
+    name="flavortest"
+    ram="1024"
+    vcpus="2"
+    disk="10"
+    id="100"
+    rxtx_factor="2.0" /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavor": {
+        "disk": 10,
+        "id": "100",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/flavors/100",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/flavors/100",
+                "rel": "bookmark"
+            }
+        ],
+        "name": "flavortest",
+        "ram": 1024,
+        "rxtx_factor": 2.0,
+        "vcpus": 2
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" disk="10" vcpus="2" ram="1024" name="flavortest" id="100" rxtx_factor="2.0"&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/100" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/flavors/100" rel="bookmark"/&gt;
+&lt;/flavor&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <resource path="/v2/{tenant_id}/flavors/{flavor_id}" id="flavor_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="flavor_id" style="template">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The flavor ID.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getFlavor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get flavor with rxtx_factor">
+               <para role="shortdesc">Gets details for a specified
+                flavor. Includes the rxtx_factor extended
+                attribute.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavor": {
+        "disk": 1,
+        "id": "1",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/flavors/1",
+                "rel": "bookmark"
+            }
+        ],
+        "name": "m1.tiny",
+        "ram": 512,
+        "rxtx_factor": 1.0,
+        "vcpus": 1
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" disk="1" vcpus="1" ram="512" name="m1.tiny" id="1" rxtx_factor="1.0"&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/1" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+&lt;/flavor&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    
+                    <resource path="/v2/{tenant_id}/flavors/detail" id="detail">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="getFlavorDetails">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get flavor Details with rxtx_factor">
+               <para role="shortdesc">Lists details for available flavors
+                and includes the rxtx_factor extended
+                attribute.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavors": [
+        {
+            "disk": 1,
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.tiny",
+            "ram": 512,
+            "rxtx_factor": 1.0,
+            "vcpus": 1
+        },
+        {
+            "disk": 20,
+            "id": "2",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/2",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/2",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.small",
+            "ram": 2048,
+            "rxtx_factor": 1.0,
+            "vcpus": 1
+        },
+        {
+            "disk": 40,
+            "id": "3",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/3",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/3",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.medium",
+            "ram": 4096,
+            "rxtx_factor": 1.0,
+            "vcpus": 2
+        },
+        {
+            "disk": 80,
+            "id": "4",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/4",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/4",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.large",
+            "ram": 8192,
+            "rxtx_factor": 1.0,
+            "vcpus": 4
+        },
+        {
+            "disk": 160,
+            "id": "5",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/5",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/5",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.xlarge",
+            "ram": 16384,
+            "rxtx_factor": 1.0,
+            "vcpus": 8
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavors xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;flavor disk="1" vcpus="1" ram="512" name="m1.tiny" id="1" rxtx_factor="1.0"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/1" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="20" vcpus="1" ram="2048" name="m1.small" id="2" rxtx_factor="1.0"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/2" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/2" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="40" vcpus="2" ram="4096" name="m1.medium" id="3" rxtx_factor="1.0"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/3" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/3" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="80" vcpus="4" ram="8192" name="m1.large" id="4" rxtx_factor="1.0"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/4" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/4" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="160" vcpus="8" ram="16384" name="m1.xlarge" id="5" rxtx_factor="1.0"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/5" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/5" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+&lt;/flavors&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createFlavor">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getFlavor">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getFlavorDetails">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

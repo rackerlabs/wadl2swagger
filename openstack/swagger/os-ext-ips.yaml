@@ -1,0 +1,168 @@
+---
+swagger: '2.0'
+info:
+  title: os-ext-ips
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/servers/{server_id}/action":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: server_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the server of interest to you.
+    get:
+      operationId: serverIPDetails
+      summary: Show IP type
+      description: |
+        Shows the type of IP assigned to a specified server, either fixed or floating.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "server": {
+                      "status": "ACTIVE",
+                      "updated": "2013-02-07T18:46:29Z",
+                      "hostId": "4e2003eddbfdb1280c2618d04090bcdd6773203b8da8347af0b2723d",
+                      "user_id": "fake",
+                      "addresses": {
+                          "private": [
+                              {
+                                  "version": 4,
+                                  "addr": "192.168.0.3",
+                                  "OS-EXT-IPS:type": "fixed"
+                              }
+                          ]
+                      },
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/servers/dc7281f9-ee47-40b9-9950-9f73e7961caa",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/servers/dc7281f9-ee47-40b9-9950-9f73e7961caa",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "created": "2013-02-07T18:46:28Z",
+                      "tenant_id": "openstack",
+                      "image": {
+                          "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "name": "new-server-test",
+                      "accessIPv4": "",
+                      "accessIPv6": "",
+                      "progress": 0,
+                      "flavor": {
+                          "id": "1",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/1",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "id": "dc7281f9-ee47-40b9-9950-9f73e7961caa",
+                      "metadata": {
+                          "My Server Name": "Apache1"
+                      }
+                  }
+              }
+  "/v2/{tenant_id}/servers/detail":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    get:
+      operationId: serversIPList
+      summary: List servers with IP type
+      description: |
+        Lists servers and shows their IPs by type. Type is either fixed or floating.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "servers": [
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2013-02-07T18:40:59Z",
+                          "hostId": "fe866a4962fe3bdb6c2db9c8f7dcdb9555aca73387e72b5cb9c45bd3",
+                          "user_id": "fake",
+                          "addresses": {
+                              "private": [
+                                  {
+                                      "version": 4,
+                                      "addr": "192.168.0.3",
+                                      "OS-EXT-IPS:type": "fixed"
+                                  }
+                              ]
+                          },
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/servers/76908712-653a-4d16-807e-d89d41435d24",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/servers/76908712-653a-4d16-807e-d89d41435d24",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "created": "2013-02-07T18:40:59Z",
+                          "tenant_id": "openstack",
+                          "image": {
+                              "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                              "links": [
+                                  {
+                                      "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                      "rel": "bookmark"
+                                  }
+                              ]
+                          },
+                          "name": "new-server-test",
+                          "accessIPv4": "",
+                          "accessIPv6": "",
+                          "progress": 0,
+                          "flavor": {
+                              "id": "1",
+                              "links": [
+                                  {
+                                      "href": "http://openstack.example.com/openstack/flavors/1",
+                                      "rel": "bookmark"
+                                  }
+                              ]
+                          },
+                          "id": "76908712-653a-4d16-807e-d89d41435d24",
+                          "metadata": {
+                              "My Server Name": "Apache1"
+                          }
+                      }
+                  ]
+              }

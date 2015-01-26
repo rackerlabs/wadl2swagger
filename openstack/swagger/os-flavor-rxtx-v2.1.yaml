@@ -1,0 +1,211 @@
+---
+swagger: '2.0'
+info:
+  title: os-flavor-rxtx-v2.1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.1/flavors":
+    post:
+      operationId: createflavor
+      summary: Create flavor
+      description: |
+        Creates a flavor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor": {
+                      "flavor-access:is_public": true,
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v3/flavors/100",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/flavors/100",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "ram": 1024,
+                      "ephemeral": 0,
+                      "disabled": false,
+                      "vcpus": 2,
+                      "swap": 0,
+                      "rxtx_factor": 2.0,
+                      "disk": 10,
+                      "id": "100",
+                      "name": "flavortest"
+                  }
+              }
+  "/v2.1/flavors/detail":
+    get:
+      operationId: returnallflavor
+      summary: List flavors with details
+      description: |
+        Lists flavors with details.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavors": [
+                      {
+                          "flavor-access:is_public": true,
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v3/flavors/1",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/flavors/1",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 512,
+                          "ephemeral": 0,
+                          "disabled": false,
+                          "vcpus": 1,
+                          "swap": 0,
+                          "rxtx_factor": 1.0,
+                          "disk": 1,
+                          "id": "1",
+                          "name": "m1.tiny"
+                      },
+                      {
+                          "flavor-access:is_public": true,
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v3/flavors/2",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/flavors/2",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 2048,
+                          "ephemeral": 0,
+                          "disabled": false,
+                          "vcpus": 1,
+                          "swap": 0,
+                          "rxtx_factor": 1.0,
+                          "disk": 20,
+                          "id": "2",
+                          "name": "m1.small"
+                      },
+                      {
+                          "flavor-access:is_public": true,
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v3/flavors/3",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/flavors/3",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 4096,
+                          "ephemeral": 0,
+                          "disabled": false,
+                          "vcpus": 2,
+                          "swap": 0,
+                          "rxtx_factor": 1.0,
+                          "disk": 40,
+                          "id": "3",
+                          "name": "m1.medium"
+                      },
+                      {
+                          "flavor-access:is_public": true,
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v3/flavors/4",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/flavors/4",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 8192,
+                          "ephemeral": 0,
+                          "disabled": false,
+                          "vcpus": 4,
+                          "swap": 0,
+                          "rxtx_factor": 1.0,
+                          "disk": 80,
+                          "id": "4",
+                          "name": "m1.large"
+                      },
+                      {
+                          "flavor-access:is_public": true,
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v3/flavors/5",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/flavors/5",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 16384,
+                          "ephemeral": 0,
+                          "disabled": false,
+                          "vcpus": 8,
+                          "swap": 0,
+                          "rxtx_factor": 1.0,
+                          "disk": 160,
+                          "id": "5",
+                          "name": "m1.xlarge"
+                      }
+                  ]
+              }
+  "/v2.1/flavors/{flavor_id}":
+    get:
+      operationId: returndata
+      summary: Show flavor details
+      description: |
+        Shows details for a specified flavor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor": {
+                      "flavor-access:is_public": true,
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v3/flavors/1",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/flavors/1",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "ram": 512,
+                      "ephemeral": 0,
+                      "disabled": false,
+                      "vcpus": 1,
+                      "swap": 0,
+                      "rxtx_factor": 1.0,
+                      "disk": 1,
+                      "id": "1",
+                      "name": "m1.tiny"
+                  }
+              }

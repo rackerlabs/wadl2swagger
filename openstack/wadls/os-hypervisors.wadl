@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-hypervisors-v2">
+        <resource id="os-hypervisors" path="/v2/{tenant_id}/os-hypervisors">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="listHypervisors">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List hypervisors">
+               <para role="shortdesc">Lists hypervisors information for
+                each server obtained through the hypervisor-specific
+                API, such as libvirt or XenAPI.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "hypervisors": [
+        {
+            "hypervisor_hostname": "fake-mini",
+            "id": 1
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;hypervisors&gt;
+  &lt;hypervisor id="1" hypervisor_hostname="fake-mini"/&gt;
+&lt;/hypervisors&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="hypervisor_hostname"
+                         style="plain"
+                         required="true"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Hypervisor host name,
+                            retrieved from the per-server
+                            listing.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Hypervisor
+                        ID.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    <resource id="detail" path="/v2/{tenant_id}/os-hypervisors/detail">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="showHypervisor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show hypervisor information">
+               <para role="shortdesc">Shows information for a specified
+                hypervisor. Typically configured as an admin-only
+                extension by using <filename>policy.json</filename>
+                settings.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "hypervisors": [
+        {
+            "cpu_info": "?",
+            "current_workload": 0,
+            "disk_available_least": null,
+            "free_disk_gb": 1028,
+            "free_ram_mb": 7680,
+            "hypervisor_hostname": "fake-mini",
+            "hypervisor_type": "fake",
+            "hypervisor_version": 1,
+            "id": 1,
+            "local_gb": 1028,
+            "local_gb_used": 0,
+            "memory_mb": 8192,
+            "memory_mb_used": 512,
+            "running_vms": 0,
+            "service": {
+                "host": "1e0d7892083548cfb347e782d3b20342",
+                "id": 2
+            },
+            "vcpus": 1,
+            "vcpus_used": 0
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;hypervisors&gt;
+  &lt;hypervisor vcpus_used="0" hypervisor_type="fake" local_gb_used="0" hypervisor_hostname="fake-mini" memory_mb_used="512" memory_mb="8192" current_workload="0" vcpus="1" cpu_info="?" running_vms="0" free_disk_gb="1028" hypervisor_version="1" disk_available_least="None" local_gb="1028" free_ram_mb="7680" id="1"&gt;
+    &lt;service host="4400f556a66d44ce95dfa61e75a23aaf" id="2"/&gt;
+  &lt;/hypervisor&gt;
+&lt;/hypervisors&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                    <resource id="statistics" path="/v2/{tenant_id}/os-hypervisors/statistics">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="getHypervisorStats">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show statistics for hypervisors">
+               <para role="shortdesc">Shows hypervisor statistics over
+                all compute nodes.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "hypervisor_statistics": {
+        "count": 1,
+        "current_workload": 0,
+        "disk_available_least": 0,
+        "free_disk_gb": 1028,
+        "free_ram_mb": 7680,
+        "local_gb": 1028,
+        "local_gb_used": 0,
+        "memory_mb": 8192,
+        "memory_mb_used": 512,
+        "running_vms": 0,
+        "vcpus": 1,
+        "vcpus_used": 0
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;hypervisor_statistics count="1" vcpus_used="0" local_gb_used="0" memory_mb="8192" current_workload="0" vcpus="1" running_vms="0" free_disk_gb="1028" disk_available_least="0" local_gb="1028" free_ram_mb="7680" memory_mb_used="512"/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                    <resource path="/v2/{tenant_id}/os-hypervisors/{hypervisor_hostname}"
+                id="hypervisor_hostname">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="hypervisor_hostname" style="template" type="xsd:string">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The name of the
+                                   host that runs the
+                                   hypervisor.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getHypervisorUptime">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show hypervisor up time">
+               <para role="shortdesc">Shows the up time for a specified
+                hypervisor.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "hypervisor": {
+        "hypervisor_hostname": "fake-mini",
+        "id": 1,
+        "uptime": " 08:32:11 up 93 days, 18:25, 12 users,  load average: 0.20, 0.12, 0.14"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;hypervisor uptime=" 08:32:11 up 93 days, 18:25, 12 users,  load average: 0.20, 0.12, 0.14" id="1" hypervisor_hostname="fake-mini"/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                        <resource id="servers"
+                path="/v2/{tenant_id}/os-hypervisors/{hypervisor_hostname}/servers">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="hypervisor_hostname" style="template" type="xsd:string">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The name of the
+                                   host that runs the
+                                   hypervisor.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="listHypervisorInstances">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List instances for hypervisors">
+               <para role="shortdesc">Lists instances that belong to
+                specific hypervisors.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "hypervisors": [
+        {
+            "hypervisor_hostname": "fake-mini",
+            "id": 1
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;hypervisors&gt;
+  &lt;hypervisor id="1" hypervisor_hostname="fake-mini"&gt;
+    &lt;servers/&gt;
+  &lt;/hypervisor&gt;
+&lt;/hypervisors&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listHypervisors">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="hypervisor_hostname"
+                   style="plain"
+                   required="true"
+                   type="xsd:string">
+                    
+                </param>
+                <param name="id" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showHypervisor">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listHypervisorInstances">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getHypervisorStats">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getHypervisorUptime">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

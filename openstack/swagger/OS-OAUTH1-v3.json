@@ -1,0 +1,270 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "OS-OAUTH1-v3",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v3/OS-OAUTH1/consumers": {
+            "post": {
+                "operationId": "createConsumer",
+                "summary": "Create consumer",
+                "description": "Enables a user to create a consumer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"consumer\": {\n        \"secret\": \"secretsecret\",\n        \"description\": \"My consumer\",\n        \"links\": {\n            \"self\": \"http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d\"\n        },\n        \"id\": \"7fea2d\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "listConsumers",
+                "summary": "List consumers",
+                "description": "Lists consumers.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"links\": {\n        \"self\": \"http://identity:35357/v3/OS-OAUTH1/consumers\",\n        \"previous\": null,\n        \"next\": null\n    },\n    \"consumers\": [\n        {\n            \"id\": \"0c2a74\",\n            \"links\": {\n                \"self\": \"http://identity:35357/v3/OS-OAUTH1/consumers/0c2a74\"\n            }\n        },\n        {\n            \"description\": \"My consumer\",\n            \"links\": {\n                \"self\": \"http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d\"\n            },\n            \"id\": \"7fea2d\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v3/OS-OAUTH1/consumers/{consumer_id}": {
+            "parameters": [
+                {
+                    "name": "consumer_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the consumer.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showConsumer",
+                "summary": "Show consumer",
+                "description": "Shows information for a specified consumer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"consumer\": {\n        \"id\": \"7fea2d\",\n        \"links\": {\n            \"self\": \"http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d\"\n        },\n        \"description\": \"My consumer\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "updateConsumer",
+                "summary": "Update consumer",
+                "description": "Updates the description for a specified consumer.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"consumer\": {\n        \"description\": \"My new consumer\",\n        \"links\": {\n            \"self\": \"http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d\"\n        },\n        \"id\": \"7fea2d\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteConsumer",
+                "summary": "Delete consumer",
+                "description": "Deletes a specified consumer.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v3/OS-OAUTH1/access_token": {
+            "post": {
+                "operationId": "createAccessToken",
+                "summary": "Create access token",
+                "description": "Enables a consumer to create an access token by exchanging a request token for an access token.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v3/OS-OAUTH1/users/{user_id}/access_tokens": {
+            "parameters": [
+                {
+                    "name": "user_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the user.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listAuthorizedAccessTokens",
+                "summary": "List authorized access tokens",
+                "description": "Lists authorized access tokens.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"access_tokens\": [\n        {\n            \"authorizing_user_id\": \"ce9e07\",\n            \"links\": {\n                \"self\": \"http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a\",\n                \"roles\": \"http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a/roles\"\n            },\n            \"expires_at\": \"2013-09-11T06:07:51.501805Z\",\n            \"consumer_id\": \"7fea2d\",\n            \"project_id\": \"b9fca3\",\n            \"id\": \"6be26a\"\n        }\n    ],\n    \"links\": {\n        \"self\": \"http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens\",\n        \"previous\": null,\n        \"next\": null\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v3/OS-OAUTH1/users/{user_id}/access_tokens/{access_token_id}": {
+            "parameters": [
+                {
+                    "name": "user_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the user.\n"
+                },
+                {
+                    "name": "access_token_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the access token.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getAuthorizedAccessToken",
+                "summary": "Get authorized access token",
+                "description": "Gets an authorized access token.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"access_token\": {\n        \"authorizing_user_id\": \"ce9e07\",\n        \"links\": {\n            \"self\": \"http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a\",\n            \"roles\": \"http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a/roles\"\n        },\n        \"expires_at\": \"2013-09-11T06:07:51.501805Z\",\n        \"consumer_id\": \"7fea2d\",\n        \"project_id\": \"b9fca3\",\n        \"id\": \"6be26a\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "revokeAccessToken",
+                "summary": "Revoke access token",
+                "description": "Enables a user to revoke an access token, which prevents the consumer from requesting new Identity Service API tokens. Also, revokes any Identity Service API tokens that were issued to the consumer through that access token.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v3/OS-OAUTH1/users/{user_id}/access_tokens/{access_token_id}/roles": {
+            "parameters": [
+                {
+                    "name": "user_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the user.\n"
+                },
+                {
+                    "name": "access_token_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the access token.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listRolesOfAccessToken",
+                "summary": "List roles for an access token",
+                "description": "Lists associated roles for a specified access token.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v3/OS-OAUTH1/users/{user_id}/access_tokens/{access_token_id}/roles/{role_id}": {
+            "parameters": [
+                {
+                    "name": "user_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the user.\n"
+                },
+                {
+                    "name": "access_token_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the access token.\n"
+                },
+                {
+                    "name": "role_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID of the role.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getRoleOfAccessToken",
+                "summary": "Get role information for an access token",
+                "description": "Gets information about a specified role for a specified access token.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v3/auth/tokens": {
+            "post": {
+                "operationId": "authenticate",
+                "summary": "Get an Identity Service token",
+                "description": "Enables a consumer to get an Identity Service authentication token.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,283 @@
+---
+swagger: '2.0'
+info:
+  title: os-qos-v2
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/qos-specs":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique ID of the tenant or account.
+    post:
+      operationId: createQoSSpec
+      summary: Create QoS specification
+      description: |
+        Creates a QoS specification.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "qos_specs": {
+                      "id": "0388d6c6-d5d4-42a3-b289-95205c50dd15",
+                      "consumer": "back-end",
+                      "specs": {
+                          "availability": "100",
+                          "numberOfFailures": "0"
+                      },
+                      "name": "reliability-spec"
+                  },
+                  "links": [
+                      {
+                          "href": "http://23.253.228.211:8776/v2/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15",
+                          "rel": "self"
+                      },
+                      {
+                          "href": "http://23.253.228.211:8776/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15",
+                          "rel": "bookmark"
+                      }
+                  ]
+              }
+    get:
+      operationId: listQoSSpecs
+      summary: List QoS specs
+      description: |
+        Lists quality of service (QoS) specifications.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 300 response
+          examples:
+            application/json: |-
+              {
+                  "qos_specs": [
+                      {
+                          "id": "0388d6c6-d5d4-42a3-b289-95205c50dd15",
+                          "consumer": "back-end",
+                          "specs": {
+                              "availability": "100",
+                              "numberOfFailures": "0"
+                          },
+                          "name": "reliability-spec"
+                      },
+                      {
+                          "id": "ecfc6e2e-7117-44a4-8eec-f84d04f531a8",
+                          "consumer": "back-end",
+                          "specs": {
+                              "delay": "0",
+                              "throughput": "100"
+                          },
+                          "name": "performance-spec"
+                      }
+                  ]
+              }
+        '300':
+          description: 200 300 response
+          examples:
+            application/json: |-
+              {
+                  "qos_specs": [
+                      {
+                          "id": "0388d6c6-d5d4-42a3-b289-95205c50dd15",
+                          "consumer": "back-end",
+                          "specs": {
+                              "availability": "100",
+                              "numberOfFailures": "0"
+                          },
+                          "name": "reliability-spec"
+                      },
+                      {
+                          "id": "ecfc6e2e-7117-44a4-8eec-f84d04f531a8",
+                          "consumer": "back-end",
+                          "specs": {
+                              "delay": "0",
+                              "throughput": "100"
+                          },
+                          "name": "performance-spec"
+                      }
+                  ]
+              }
+  "/v2/{tenant_id}/qos-specs/{qos_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique ID of the tenant or account.
+    - name: qos_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the QoS specification.
+    get:
+      operationId: showQoSDetails
+      summary: Show QoS specification details
+      description: |
+        Shows details for a specified QoS specification.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "qos_specs": {
+                      "id": "0388d6c6-d5d4-42a3-b289-95205c50dd15",
+                      "consumer": "back-end",
+                      "specs": {
+                          "availability": "100",
+                          "numberOfFailures": "0"
+                      },
+                      "name": "reliability-spec"
+                  },
+                  "links": [
+                      {
+                          "href": "http://23.253.228.211:8776/v2/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15",
+                          "rel": "self"
+                      },
+                      {
+                          "href": "http://23.253.228.211:8776/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15",
+                          "rel": "bookmark"
+                      }
+                  ]
+              }
+    delete:
+      operationId: deleteQoSSpec
+      summary: Delete QoS specification
+      description: |
+        Deletes a specified QoS specification.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+  "/v2/{tenant_id}/qos-specs/{qos_id}/associate":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique ID of the tenant or account.
+    - name: qos_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the QoS specification.
+    - name: vol_type_id
+      required: false
+      in: query
+      type: string
+      description: |
+        The unique ID of the volume type.
+    get:
+      operationId: associateQoSSpec
+      summary: Associate QoS specification with volume type
+      description: |
+        Associates a QoS specification with a specified volume type.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+  "/v2/{tenant_id}/qos-specs/{qos_id}/disassociate":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique ID of the tenant or account.
+    - name: qos_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the QoS specification.
+    - name: vol_type_id
+      required: false
+      in: query
+      type: string
+      description: |
+        The unique ID of the volume type.
+    get:
+      operationId: disassociateQoSSpec
+      summary: Disassociate QoS specification from volume type
+      description: |
+        Disassociates a QoS specification from a specified volume type.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+  "/v2/{tenant_id}/qos-specs/{qos_id}/disassociate_all":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique ID of the tenant or account.
+    - name: qos_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the QoS specification.
+    get:
+      operationId: disassociateQoSSpecAll
+      summary: Disassociate QoS specification from all associations
+      description: |
+        Disassociates a specified QoS specification from all associations.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+  "/v2/{tenant_id}/qos-specs/{qos_id}/associations":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique ID of the tenant or account.
+    - name: qos_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the QoS specification.
+    get:
+      operationId: getQoSAssociations
+      summary: Get all associations for QoS specification
+      description: |
+        Gets all associations for a specified QoS specification.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "qos_associations": [
+                      {
+                          "association_type": "volume_type",
+                          "name": "reliability-type",
+                          "id": "a12983c2-83bd-4afa-be9f-ad796573ead6"
+                      }
+                  ]
+              }

@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2011-2014 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entities with xmllint         -->
+<!--                                                       -->
+<!--        xmllint -noent os-compute-1.1.wadl             -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <wadl:grammars xmlns:db="http://docbook.org/ns/docbook"
+                  xmlns="http://wadl.dev.java.net/2009/02">
+      <wadl:include href="29588-os-volume_attachments-xsd-1.xsd"/>
+      <wadl:include href="29588-os-volume_attachments-xsd-2.xsd"/>
+   </wadl:grammars>
+    <resources xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://docs.openstack.org/api/compute/2.0"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-volume-attachments-v2">
+        <resource path="/v2/{tenant_id}/servers/{server_id}/os-volume_attachments"
+                id="os-volume-attachments">
+         <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                   xml:lang="EN"
+                   title="Volume attachment list">
+            <para>A list of volume attachments associated with a
+                server.</para>
+         </wadl:doc>
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The UUID for the server of
+                                   interest to you.</para>
+            </wadl:doc>
+                        </param>
+         <method name="POST" rax:id="attachVolume">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Attach volume">
+               <para role="shortdesc">Attaches a volume to the specified
+                server.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/xml" element="csapi:attachvolume">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;volumeAttachment volumeId="a26887c6-c47b-4654-abb5-dfadf7d3f803" device="/dev/vdd" /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volumeAttachment": {
+        "volumeId": "a26887c6-c47b-4654-abb5-dfadf7d3f803",
+        "device": "/dev/vdd"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="volumeId" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>ID of the volume to attach.
+                       </para>
+                     </wadl:doc>
+                  </param>
+                  <param name="device" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Name of the device such as, /dev/vdb.
+                            Skip this parameter or set to null for auto-assign (if
+                            supported).</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="volumeAttachment" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A dictionary representation of a volume
+                            attachment.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/xml" element="csapi:attachvolume">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;volumeAttachment device="/dev/vdd" serverId="20f0cb44-7b00-4019-a612-364777cd2931" id="a26887c6-c47b-4654-abb5-dfadf7d3f803" volumeId="a26887c6-c47b-4654-abb5-dfadf7d3f803"/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volumeAttachment": {
+        "device": "/dev/vdd",
+        "id": "a26887c6-c47b-4654-abb5-dfadf7d3f803",
+        "serverId": "0c92f3f6-c253-4c9b-bd43-e880a8d2eb0a",
+        "volumeId": "a26887c6-c47b-4654-abb5-dfadf7d3f803"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <!-- Common, GET, postput, inProgress Faults--> 
+            <response>
+               <representation mediaType="application/xml" element="csapi:computeFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="csapi:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="csapi:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+        
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="415">
+               <representation mediaType="application/xml" element="csapi:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:NetworkNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+         <method name="GET" rax:id="listVolumeAttachments">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List volume attachments">
+               <para role="shortdesc">Lists the volume attachments for a
+                specified server.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/xml" element="csapi:attachvolume"/>
+               <representation mediaType="application/json" element="csapi:attachvolume"/>
+            </request>
+            <response status="202">
+               <representation mediaType="application/xml" element="csapi:attachvolume">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;volumeAttachments&gt;
+  &lt;volumeAttachment device="/dev/sdd" serverId="4335bab6-6086-4247-8274-8b8b048edaaa" id="a26887c6-c47b-4654-abb5-dfadf7d3f803" volumeId="a26887c6-c47b-4654-abb5-dfadf7d3f803"/&gt;
+  &lt;volumeAttachment device="/dev/sdc" serverId="4335bab6-6086-4247-8274-8b8b048edaaa" id="a26887c6-c47b-4654-abb5-dfadf7d3f804" volumeId="a26887c6-c47b-4654-abb5-dfadf7d3f804"/&gt;
+&lt;/volumeAttachments&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volumeAttachments": [
+        {
+            "device": "/dev/sdd",
+            "id": "a26887c6-c47b-4654-abb5-dfadf7d3f803",
+            "serverId": "4d8c3732-a248-40ed-bebc-539a6ffd25c0",
+            "volumeId": "a26887c6-c47b-4654-abb5-dfadf7d3f803"
+        },
+        {
+            "device": "/dev/sdc",
+            "id": "a26887c6-c47b-4654-abb5-dfadf7d3f804",
+            "serverId": "4d8c3732-a248-40ed-bebc-539a6ffd25c0",
+            "volumeId": "a26887c6-c47b-4654-abb5-dfadf7d3f804"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <!-- Common, GET, postput, inProgress Faults--> 
+            <response>
+               <representation mediaType="application/xml" element="csapi:computeFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="csapi:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="csapi:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+        
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="415">
+               <representation mediaType="application/xml" element="csapi:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:NetworkNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+      <resource path="/v2/{tenant_id}/servers/{server_id}/os-volume_attachments/{attachment_id}"
+                id="attachment_id">
+         <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                   xml:lang="EN"
+                   title="Volume attachment list">
+            <para>A list of volume attachments associated with a
+                server.</para>
+         </wadl:doc>
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The UUID for the server of
+                                   interest to you.</para>
+            </wadl:doc>
+                        </param>
+         <param name="attachment_id" style="template" type="xsd:string">
+                                   <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                   <para>Volume attachment
+                                   ID.</para>
+            </wadl:doc>
+                                </param>
+         <method name="GET" rax:id="getVolumeAttachmentDetails">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show volume attachment details">
+               <para role="shortdesc">Shows details for the specified
+                volume attachment.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/xml" element="csapi:attachvolume"/>
+               <representation mediaType="application/json" element="csapi:attachvolume"/>
+            </request>
+            <response status="202">
+               <representation mediaType="application/xml" element="csapi:attachvolume">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;volumeAttachment device="/dev/sdd" serverId="20f12907-3993-44f7-a680-d51e2ceedbd9" id="a26887c6-c47b-4654-abb5-dfadf7d3f803" volumeId="a26887c6-c47b-4654-abb5-dfadf7d3f803"/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volumeAttachment": {
+        "device": "/dev/sdd",
+        "id": "a26887c6-c47b-4654-abb5-dfadf7d3f803",
+        "serverId": "2390fb4d-1693-45d7-b309-e29c4af16538",
+        "volumeId": "a26887c6-c47b-4654-abb5-dfadf7d3f803"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <!-- Common, GET, postput, inProgress Faults--> 
+            <response>
+               <representation mediaType="application/xml" element="csapi:computeFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="csapi:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="csapi:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+        
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="415">
+               <representation mediaType="application/xml" element="csapi:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:NetworkNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+         <method name="DELETE" rax:id="deleteVolumeAttachment">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete volume attachment">
+               <para role="shortdesc">Deletes the specified volume
+                attachment from a specified server.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/xml" element="csapi:attachvolume"/>
+               <representation mediaType="application/json" element="csapi:attachvolume"/>
+            </request>
+            <response status="202"/>
+            <!-- Common, GET, postput, inProgress Faults--> 
+            <response>
+               <representation mediaType="application/xml" element="csapi:computeFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="csapi:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="csapi:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+        
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="415">
+               <representation mediaType="application/xml" element="csapi:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:NetworkNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+    </resources>
+    <!--*******************************************************-->
+    <!--               Resource Types                          -->
+    <!--*******************************************************-->
+    
+    
+
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--****************************************************** -->
+    <!-- Volume Actions -->
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/api/compute/2.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="attachVolume">
+        
+        <request>
+
+            <representation mediaType="application/xml" element="csapi:attachvolume">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+                <param name="volumeId" style="template" type="xsd:string">
+                    
+                </param>
+                <param name="device" style="template" type="xsd:string">
+                    
+                </param>
+                <param name="volumeAttachment" style="template" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202">
+            <representation mediaType="application/xml" element="csapi:attachvolume">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+        <!-- Common, GET, postput, inProgress Faults--> 
+        <response>
+            <representation mediaType="application/xml" element="csapi:computeFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="csapi:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="csapi:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+        
+        <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        <response status="415">
+            <representation mediaType="application/xml" element="csapi:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:NetworkNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/api/compute/2.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listVolumeAttachments">
+        
+        <request>
+            <representation mediaType="application/xml" element="csapi:attachvolume"/>
+            <representation mediaType="application/json" element="csapi:attachvolume"/>
+        </request>
+        <response status="202">
+            <representation mediaType="application/xml" element="csapi:attachvolume">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+        <!-- Common, GET, postput, inProgress Faults--> 
+        <response>
+            <representation mediaType="application/xml" element="csapi:computeFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="csapi:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="csapi:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+        
+        <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        <response status="415">
+            <representation mediaType="application/xml" element="csapi:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:NetworkNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/api/compute/2.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getVolumeAttachmentDetails">
+        
+        <request>
+            <representation mediaType="application/xml" element="csapi:attachvolume"/>
+            <representation mediaType="application/json" element="csapi:attachvolume"/>
+        </request>
+        <response status="202">
+            <representation mediaType="application/xml" element="csapi:attachvolume">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+        <!-- Common, GET, postput, inProgress Faults--> 
+        <response>
+            <representation mediaType="application/xml" element="csapi:computeFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="csapi:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="csapi:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+        
+        <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        <response status="415">
+            <representation mediaType="application/xml" element="csapi:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:NetworkNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/api/compute/2.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteVolumeAttachment">
+        
+        <request>
+            <representation mediaType="application/xml" element="csapi:attachvolume"/>
+            <representation mediaType="application/json" element="csapi:attachvolume"/>
+        </request>
+        <response status="202"/>
+        <!-- Common, GET, postput, inProgress Faults--> 
+        <response>
+            <representation mediaType="application/xml" element="csapi:computeFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="csapi:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="csapi:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+        
+        <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        <response status="415">
+            <representation mediaType="application/xml" element="csapi:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:NetworkNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+</wadl:application>

@@ -1,0 +1,49 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-quota-class-sets-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/os-quota-class-sets/{class_id}": {
+            "get": {
+                "operationId": "showquota",
+                "summary": "Show quota",
+                "description": "Shows the quota for a specified class.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota_class_set\": {\n        \"metadata_items\": 128,\n        \"server_groups\": 10,\n        \"server_group_members\": 10,\n        \"ram\": 51200,\n        \"floating_ips\": 10,\n        \"key_pairs\": 100,\n        \"instances\": 10,\n        \"security_group_rules\": 20,\n        \"cores\": 20,\n        \"fixed_ips\": -1,\n        \"id\": \"test_class\",\n        \"security_groups\": 10\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updatequota",
+                "summary": "Update quota",
+                "description": "Updates quota for a specified class.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota_class_set\": {\n        \"metadata_items\": 128,\n        \"server_groups\": 10,\n        \"server_group_members\": 10,\n        \"ram\": 51200,\n        \"floating_ips\": 10,\n        \"key_pairs\": 100,\n        \"instances\": 50,\n        \"security_group_rules\": 20,\n        \"cores\": 50,\n        \"fixed_ips\": -1,\n        \"id\": \"test_class\",\n        \"security_groups\": 10\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

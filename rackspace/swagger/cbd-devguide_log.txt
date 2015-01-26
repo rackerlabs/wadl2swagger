@@ -1,0 +1,44 @@
+INFO:wadls/cbd-devguide.wadl:Converting: wadls/cbd-devguide.wadl to swagger/cbd-devguide.json
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (clusterId)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:No support for application/json for resource at /v1.0/{tenant_id}/clusters/{clusterId}/action
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (clusterId)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (clusterId)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (clusterId)
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (nodeId)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+ERROR:wadls/cbd-devguide.wadl:Unparsable code sample in wadls/cbd-devguide.wadl ('List available flavors'), caused by ValueError('Expecting , delimiter: line 71 column 9 (char 2254)',)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (flavorId)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (flavorId)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (typeId)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (typeId)
+WARNING:wadls/cbd-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cbd-devguide.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/cbd-devguide.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

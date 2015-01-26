@@ -1,0 +1,10 @@
+INFO:wadls/os-agents.wadl:Converting: wadls/os-agents.wadl to swagger/os-agents.json
+WARNING:wadls/os-agents.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-agents.wadl:No support for application/json for resource at /v2/{tenant_id}/os-agents/{id}
+WARNING:wadls/os-agents.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-agents.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

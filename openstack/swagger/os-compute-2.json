@@ -1,0 +1,1237 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-compute-2",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "listVersionsv2",
+                "summary": "List API versions",
+                "description": "Lists information about all Compute API versions.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": "{\n    \"versions\": [\n        {\n            \"status\": \"CURRENT\",\n            \"updated\": \"2011-01-21T11:33:21Z\",\n            \"id\": \"v2.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:8774/v2/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"EXPERIMENTAL\",\n            \"updated\": \"2013-07-23T11:33:21Z\",\n            \"id\": \"v3.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:8774/v3/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    },
+                    "300": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": "{\n    \"versions\": [\n        {\n            \"status\": \"CURRENT\",\n            \"updated\": \"2011-01-21T11:33:21Z\",\n            \"id\": \"v2.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:8774/v2/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"EXPERIMENTAL\",\n            \"updated\": \"2013-07-23T11:33:21Z\",\n            \"id\": \"v3.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:8774/v3/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2": {
+            "get": {
+                "operationId": "getVersionDetailsv2",
+                "summary": "Show API version details",
+                "description": "Shows details for Compute API v2.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"version\": {\n        \"status\": \"CURRENT\",\n        \"updated\": \"2011-01-21T11:33:21Z\",\n        \"media-types\": [\n            {\n                \"base\": \"application/xml\",\n                \"type\": \"application/vnd.openstack.compute+xml;version=2\"\n            },\n            {\n                \"base\": \"application/json\",\n                \"type\": \"application/vnd.openstack.compute+json;version=2\"\n            }\n        ],\n        \"id\": \"v2.0\",\n        \"links\": [\n            {\n                \"href\": \"http://23.253.228.211:8774/v2/\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf\",\n                \"type\": \"application/pdf\",\n                \"rel\": \"describedby\"\n            },\n            {\n                \"href\": \"http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl\",\n                \"type\": \"application/vnd.sun.wadl+xml\",\n                \"rel\": \"describedby\"\n            }\n        ]\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"version\": {\n        \"status\": \"CURRENT\",\n        \"updated\": \"2011-01-21T11:33:21Z\",\n        \"media-types\": [\n            {\n                \"base\": \"application/xml\",\n                \"type\": \"application/vnd.openstack.compute+xml;version=2\"\n            },\n            {\n                \"base\": \"application/json\",\n                \"type\": \"application/vnd.openstack.compute+json;version=2\"\n            }\n        ],\n        \"id\": \"v2.0\",\n        \"links\": [\n            {\n                \"href\": \"http://23.253.228.211:8774/v2/\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf\",\n                \"type\": \"application/pdf\",\n                \"rel\": \"describedby\"\n            },\n            {\n                \"href\": \"http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl\",\n                \"type\": \"application/vnd.sun.wadl+xml\",\n                \"rel\": \"describedby\"\n            }\n        ]\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/extensions": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listExtensionsv2",
+                "summary": "List extensions",
+                "description": "Lists available extensions.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"extensions\": [\n        {\n            \"updated\": \"2011-06-09T00:00:00+00:00\",\n            \"description\": \"Multiple network support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/multinic/api/v1.1\",\n            \"alias\": \"NMN\",\n            \"name\": \"Multinic\"\n        },\n        {\n            \"updated\": \"2011-09-27T00:00:00+00:00\",\n            \"description\": \"Disk Management Extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/disk_config/api/v1.1\",\n            \"alias\": \"OS-DCF\",\n            \"name\": \"DiskConfig\"\n        },\n        {\n            \"updated\": \"2013-01-30T00:00:00+00:00\",\n            \"description\": \"Extended Server Attributes support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_availability_zone/api/v2\",\n            \"alias\": \"OS-EXT-AZ\",\n            \"name\": \"ExtendedAvailabilityZone\"\n        },\n        {\n            \"updated\": \"2013-02-19T00:00:00+00:00\",\n            \"description\": \"Adds image size to image listings.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/image_size/api/v1.1\",\n            \"alias\": \"OS-EXT-IMG-SIZE\",\n            \"name\": \"ImageSize\"\n        },\n        {\n            \"updated\": \"2013-01-06T00:00:00+00:00\",\n            \"description\": \"Adds type parameter to the ip list.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_ips/api/v1.1\",\n            \"alias\": \"OS-EXT-IPS\",\n            \"name\": \"ExtendedIps\"\n        },\n        {\n            \"updated\": \"2013-03-07T00:00:00+00:00\",\n            \"description\": \"Adds mac address parameter to the ip list.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_ips_mac/api/v1.1\",\n            \"alias\": \"OS-EXT-IPS-MAC\",\n            \"name\": \"ExtendedIpsMac\"\n        },\n        {\n            \"updated\": \"2011-11-03T00:00:00+00:00\",\n            \"description\": \"Extended Server Attributes support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_status/api/v1.1\",\n            \"alias\": \"OS-EXT-SRV-ATTR\",\n            \"name\": \"ExtendedServerAttributes\"\n        },\n        {\n            \"updated\": \"2011-11-03T00:00:00+00:00\",\n            \"description\": \"Extended Status support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_status/api/v1.1\",\n            \"alias\": \"OS-EXT-STS\",\n            \"name\": \"ExtendedStatus\"\n        },\n        {\n            \"updated\": \"2013-03-07T00:00:00+00:00\",\n            \"description\": \"Adds network id parameter to the virtual interface list.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended-virtual-interfaces-net/api/v1.1\",\n            \"alias\": \"OS-EXT-VIF-NET\",\n            \"name\": \"ExtendedVIFNet\"\n        },\n        {\n            \"updated\": \"2012-08-29T00:00:00+00:00\",\n            \"description\": \"Support to show the disabled status of a flavor.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_disabled/api/v1.1\",\n            \"alias\": \"OS-FLV-DISABLED\",\n            \"name\": \"FlavorDisabled\"\n        },\n        {\n            \"updated\": \"2011-09-14T00:00:00+00:00\",\n            \"description\": \"Provide additional data for flavors.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_extra_data/api/v1.1\",\n            \"alias\": \"OS-FLV-EXT-DATA\",\n            \"name\": \"FlavorExtraData\"\n        },\n        {\n            \"updated\": \"2011-07-19T00:00:00+00:00\",\n            \"description\": \"Pass arbitrary key/value pairs to the scheduler.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/scheduler-hints/api/v2\",\n            \"alias\": \"OS-SCH-HNT\",\n            \"name\": \"SchedulerHints\"\n        },\n        {\n            \"updated\": \"2013-04-29T00:00:00+00:00\",\n            \"description\": \"Adds launched_at and terminated_at on Servers.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/server_usage/api/v1.1\",\n            \"alias\": \"OS-SRV-USG\",\n            \"name\": \"ServerUsage\"\n        },\n        {\n            \"updated\": \"2011-09-20T00:00:00+00:00\",\n            \"description\": \"Enable admin-only server actions\\n\\n    Actions include: pause, unpause, suspend, resume, migrate,\\n    resetNetwork, injectNetworkInfo, lock, unlock, createBackup\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/admin-actions/api/v1.1\",\n            \"alias\": \"os-admin-actions\",\n            \"name\": \"AdminActions\"\n        },\n        {\n            \"updated\": \"2012-10-28T00:00:00-00:00\",\n            \"description\": \"Agents support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/agents/api/v2\",\n            \"alias\": \"os-agents\",\n            \"name\": \"Agents\"\n        },\n        {\n            \"updated\": \"2012-01-12T00:00:00+00:00\",\n            \"description\": \"Admin-only aggregate administration.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/aggregates/api/v1.1\",\n            \"alias\": \"os-aggregates\",\n            \"name\": \"Aggregates\"\n        },\n        {\n            \"updated\": \"2013-08-29T00:00:00-00:00\",\n            \"description\": \"Assisted volume snapshots.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/assisted-volume-snapshots/api/v2\",\n            \"alias\": \"os-assisted-volume-snapshots\",\n            \"name\": \"AssistedVolumeSnapshots\"\n        },\n        {\n            \"updated\": \"2012-07-22T00:00:00+00:00\",\n            \"description\": \"Attach interface support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/interfaces/api/v1.1\",\n            \"alias\": \"os-attach-interfaces\",\n            \"name\": \"AttachInterfaces\"\n        },\n        {\n            \"updated\": \"2012-12-21T00:00:00+00:00\",\n            \"description\": \"1. Add availability_zone to the Create Server v1.1 API.\\n       2. Add availability zones describing.\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/availabilityzone/api/v1.1\",\n            \"alias\": \"os-availability-zone\",\n            \"name\": \"AvailabilityZone\"\n        },\n        {\n            \"updated\": \"2013-08-27T00:00:00+00:00\",\n            \"description\": \"Add extended status in Baremetal Nodes v2 API.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/baremetal_ext_status/api/v2\",\n            \"alias\": \"os-baremetal-ext-status\",\n            \"name\": \"BareMetalExtStatus\"\n        },\n        {\n            \"updated\": \"2013-01-04T00:00:00+00:00\",\n            \"description\": \"Admin-only bare-metal node administration.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/baremetal_nodes/api/v2\",\n            \"alias\": \"os-baremetal-nodes\",\n            \"name\": \"BareMetalNodes\"\n        },\n        {\n            \"updated\": \"2013-07-08T00:00:00+00:00\",\n            \"description\": \"Allow boot with the new BDM data format.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/block_device_mapping_v2_boot/api/v2\",\n            \"alias\": \"os-block-device-mapping-v2-boot\",\n            \"name\": \"BlockDeviceMappingV2Boot\"\n        },\n        {\n            \"updated\": \"2013-05-27T00:00:00+00:00\",\n            \"description\": \"Adding functionality to get cell capacities.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/cell_capacities/api/v1.1\",\n            \"alias\": \"os-cell-capacities\",\n            \"name\": \"CellCapacities\"\n        },\n        {\n            \"updated\": \"2013-05-14T00:00:00+00:00\",\n            \"description\": \"Enables cells-related functionality such as adding neighbor cells,\\n    listing neighbor cells, and getting the capabilities of the local cell.\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/cells/api/v1.1\",\n            \"alias\": \"os-cells\",\n            \"name\": \"Cells\"\n        },\n        {\n            \"updated\": \"2012-01-19T00:00:00+00:00\",\n            \"description\": \"Certificates support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/certificates/api/v1.1\",\n            \"alias\": \"os-certificates\",\n            \"name\": \"Certificates\"\n        },\n        {\n            \"updated\": \"2011-12-16T00:00:00+00:00\",\n            \"description\": \"Adds actions to create cloudpipe instances.\\n\\n    When running with the Vlan network mode, you need a mechanism to route\\n    from the public Internet to your vlans.  This mechanism is known as a\\n    cloudpipe.\\n\\n    At the time of creating this class, only OpenVPN is supported.  Support for\\n    a SSH Bastion host is forthcoming.\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/cloudpipe/api/v1.1\",\n            \"alias\": \"os-cloudpipe\",\n            \"name\": \"Cloudpipe\"\n        },\n        {\n            \"updated\": \"2012-11-14T00:00:00+00:00\",\n            \"description\": \"Adds the ability to set the vpn ip/port for cloudpipe instances.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/cloudpipe-update/api/v2\",\n            \"alias\": \"os-cloudpipe-update\",\n            \"name\": \"CloudpipeUpdate\"\n        },\n        {\n            \"updated\": \"2012-07-16T00:00:00+00:00\",\n            \"description\": \"Config Drive Extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/config_drive/api/v1.1\",\n            \"alias\": \"os-config-drive\",\n            \"name\": \"ConfigDrive\"\n        },\n        {\n            \"updated\": \"2011-12-08T00:00:00+00:00\",\n            \"description\": \"Console log output support, with tailing ability.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-console-output/api/v2\",\n            \"alias\": \"os-console-output\",\n            \"name\": \"ConsoleOutput\"\n        },\n        {\n            \"updated\": \"2011-12-23T00:00:00+00:00\",\n            \"description\": \"Interactive Console support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-consoles/api/v2\",\n            \"alias\": \"os-consoles\",\n            \"name\": \"Consoles\"\n        },\n        {\n            \"updated\": \"2011-07-19T00:00:00+00:00\",\n            \"description\": \"Extended support to the Create Server v1.1 API.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/createserverext/api/v1.1\",\n            \"alias\": \"os-create-server-ext\",\n            \"name\": \"Createserverext\"\n        },\n        {\n            \"updated\": \"2011-09-01T00:00:00+00:00\",\n            \"description\": \"Instance deferred delete.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/deferred-delete/api/v1.1\",\n            \"alias\": \"os-deferred-delete\",\n            \"name\": \"DeferredDelete\"\n        },\n        {\n            \"updated\": \"2013-01-06T00:00:00+00:00\",\n            \"description\": \"Enables server evacuation.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/evacuate/api/v2\",\n            \"alias\": \"os-evacuate\",\n            \"name\": \"Evacuate\"\n        },\n        {\n            \"updated\": \"2013-04-19T00:00:00+00:00\",\n            \"description\": \"Adds optional fixed_address to the add floating IP command.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_floating_ips/api/v2\",\n            \"alias\": \"os-extended-floating-ips\",\n            \"name\": \"ExtendedFloatingIps\"\n        },\n        {\n            \"updated\": \"2013-06-09T00:00:00+00:00\",\n            \"description\": \"Adds ability for admins to delete quota\\n    and optionally force the update Quota command.\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_quotas/api/v1.1\",\n            \"alias\": \"os-extended-quotas\",\n            \"name\": \"ExtendedQuotas\"\n        },\n        {\n            \"updated\": \"2013-10-21T00:00:00-00:00\",\n            \"description\": \"Extended hypervisors support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_hypervisors/api/v1.1\",\n            \"alias\": \"os-extended-hypervisors\",\n            \"name\": \"ExtendedHypervisors\"\n        },\n        {\n            \"updated\": \"2013-05-17T00:00:00-00:00\",\n            \"description\": \"Extended services support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_services/api/v2\",\n            \"alias\": \"os-extended-services\",\n            \"name\": \"ExtendedServices\"\n        },\n        {\n            \"updated\": \"2013-06-07T00:00:00+00:00\",\n            \"description\": \"Extended Volumes support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_volumes/api/v1.1\",\n            \"alias\": \"os-extended-volumes\",\n            \"name\": \"ExtendedVolumes\"\n        },\n        {\n            \"updated\": \"2012-10-18T13:25:27-06:00\",\n            \"description\": \"Fixed IPs support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/fixed_ips/api/v2\",\n            \"alias\": \"os-fixed-ips\",\n            \"name\": \"FixedIPs\"\n        },\n        {\n            \"updated\": \"2012-08-01T00:00:00+00:00\",\n            \"description\": \"Flavor access support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_access/api/v2\",\n            \"alias\": \"os-flavor-access\",\n            \"name\": \"FlavorAccess\"\n        },\n        {\n            \"updated\": \"2011-06-23T00:00:00+00:00\",\n            \"description\": \"Instance type (flavor) extra specs.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_extra_specs/api/v1.1\",\n            \"alias\": \"os-flavor-extra-specs\",\n            \"name\": \"FlavorExtraSpecs\"\n        },\n        {\n            \"updated\": \"2012-01-19T00:00:00+00:00\",\n            \"description\": \"\\n    Flavor create/delete API support\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_manage/api/v1.1\",\n            \"alias\": \"os-flavor-manage\",\n            \"name\": \"FlavorManage\"\n        },\n        {\n            \"updated\": \"2012-08-29T00:00:00+00:00\",\n            \"description\": \"Support to show the rxtx status of a flavor.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_rxtx/api/v1.1\",\n            \"alias\": \"os-flavor-rxtx\",\n            \"name\": \"FlavorRxtx\"\n        },\n        {\n            \"updated\": \"2012-08-29T00:00:00+00:00\",\n            \"description\": \"Support to show the swap status of a flavor.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_swap/api/v1.1\",\n            \"alias\": \"os-flavor-swap\",\n            \"name\": \"FlavorSwap\"\n        },\n        {\n            \"updated\": \"2011-12-23T00:00:00+00:00\",\n            \"description\": \"Floating IP DNS support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/floating_ip_dns/api/v1.1\",\n            \"alias\": \"os-floating-ip-dns\",\n            \"name\": \"FloatingIpDns\"\n        },\n        {\n            \"updated\": \"2012-01-04T00:00:00+00:00\",\n            \"description\": \"Floating IPs support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/floating_ip_pools/api/v1.1\",\n            \"alias\": \"os-floating-ip-pools\",\n            \"name\": \"FloatingIpPools\"\n        },\n        {\n            \"updated\": \"2011-06-16T00:00:00+00:00\",\n            \"description\": \"Floating IPs support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/floating_ips/api/v1.1\",\n            \"alias\": \"os-floating-ips\",\n            \"name\": \"FloatingIps\"\n        },\n        {\n            \"updated\": \"2012-10-29T13:25:27-06:00\",\n            \"description\": \"Bulk handling of Floating IPs.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/floating_ips_bulk/api/v2\",\n            \"alias\": \"os-floating-ips-bulk\",\n            \"name\": \"FloatingIpsBulk\"\n        },\n        {\n            \"updated\": \"2012-07-06T00:00:00+00:00\",\n            \"description\": \"Fping Management Extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/fping/api/v1.1\",\n            \"alias\": \"os-fping\",\n            \"name\": \"Fping\"\n        },\n        {\n            \"updated\": \"2012-12-11T00:00:00+00:00\",\n            \"description\": \"Support hiding server addresses in certain states.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/hide_server_addresses/api/v1.1\",\n            \"alias\": \"os-hide-server-addresses\",\n            \"name\": \"HideServerAddresses\"\n        },\n        {\n            \"updated\": \"2011-06-29T00:00:00+00:00\",\n            \"description\": \"Admin-only host administration.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/hosts/api/v1.1\",\n            \"alias\": \"os-hosts\",\n            \"name\": \"Hosts\"\n        },\n        {\n            \"updated\": \"2012-06-21T00:00:00+00:00\",\n            \"description\": \"Admin-only hypervisor administration.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/hypervisors/api/v1.1\",\n            \"alias\": \"os-hypervisors\",\n            \"name\": \"Hypervisors\"\n        },\n        {\n            \"updated\": \"2013-02-08T00:00:00+00:00\",\n            \"description\": \"View a log of actions and events taken on an instance.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/instance-actions/api/v1.1\",\n            \"alias\": \"os-instance-actions\",\n            \"name\": \"InstanceActions\"\n        },\n        {\n            \"updated\": \"2014-02-18T00:00:00-00:00\",\n            \"description\": \"Server External Event Triggers.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/server-external-events/api/v2\",\n            \"alias\": \"os-server-external-events\",\n            \"name\": \"ServerExternalEvents\"\n        },\n        {\n            \"updated\": \"2013-06-01T00:00:00+00:00\",\n            \"description\": \"Server group support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/servergroups/api/v2\",\n            \"alias\": \"os-server-groups\",\n            \"name\": \"ServerGroups\"\n        },\n        {\n            \"updated\": \"2014-07-25T00:00:00Z\",\n            \"description\": \"Adds quota support to server groups.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/server-group-quotas/api/v2\",\n            \"alias\": \"os-server-group-quotas\",\n            \"name\": \"ServerGroupQuotas\"\n        },\n        {\n            \"updated\": \"2012-07-06T01:00:00+00:00\",\n            \"description\": \"Admin-only Task Log Monitoring.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/services/api/v1.1\",\n            \"alias\": \"os-instance_usage_audit_log\",\n            \"name\": \"OSInstanceUsageAuditLog\"\n        },\n        {\n            \"updated\": \"2011-08-08T00:00:00+00:00\",\n            \"description\": \"Keypair Support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/keypairs/api/v1.1\",\n            \"alias\": \"os-keypairs\",\n            \"name\": \"Keypairs\"\n        },\n        {\n            \"updated\": \"2013-05-30T00:00:00+00:00\",\n            \"description\": \"Provide data on migrations.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/migrations/api/v2.0\",\n            \"alias\": \"os-migrations\",\n            \"name\": \"Migrations\"\n        },\n        {\n            \"updated\": \"2012-08-07T00:00:00+00:00\",\n            \"description\": \"Allow multiple create in the Create Server v1.1 API.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/multiplecreate/api/v1.1\",\n            \"alias\": \"os-multiple-create\",\n            \"name\": \"MultipleCreate\"\n        },\n        {\n            \"updated\": \"2011-12-23T00:00:00+00:00\",\n            \"description\": \"Admin-only Network Management Extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-networks/api/v1.1\",\n            \"alias\": \"os-networks\",\n            \"name\": \"Networks\"\n        },\n        {\n            \"updated\": \"2012-11-19T00:00:00+00:00\",\n            \"description\": \"Network association support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/networks_associate/api/v2\",\n            \"alias\": \"os-networks-associate\",\n            \"name\": \"NetworkAssociationSupport\"\n        },\n        {\n            \"updated\": \"2013-12-17T00:00:00+00:00\",\n            \"description\": \"Allow preservation of the ephemeral partition on rebuild.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/preserve_ephemeral_rebuild/api/v2\",\n            \"alias\": \"os-preserve-ephemeral-rebuild\",\n            \"name\": \"PreserveEphemeralOnRebuild\"\n        },\n        {\n            \"updated\": \"2011-08-08T00:00:00+00:00\",\n            \"description\": \"Quotas management support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/quotas-sets/api/v1.1\",\n            \"alias\": \"os-quota-sets\",\n            \"name\": \"Quotas\"\n        },\n        {\n            \"updated\": \"2011-08-18T00:00:00+00:00\",\n            \"description\": \"Instance rescue mode.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/rescue/api/v1.1\",\n            \"alias\": \"os-rescue\",\n            \"name\": \"Rescue\"\n        },\n        {\n            \"updated\": \"2014-03-05T00:00:00+00:00\",\n            \"description\": \"Rescue instance with the image specified.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_rescue_with_image/api/v2\",\n            \"alias\": \"os-extended-rescue-with-image\",\n            \"name\": \"ExtendedRescueWithImage\"\n        },\n        {\n            \"updated\": \"2013-02-05T00:00:00+00:00\",\n            \"description\": \"Default rules for security group support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/securitygroupdefaultrules/api/v1.1\",\n            \"alias\": \"os-security-group-default-rules\",\n            \"name\": \"SecurityGroupDefaultRules\"\n        },\n        {\n            \"updated\": \"2013-05-28T00:00:00+00:00\",\n            \"description\": \"Security group support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/securitygroups/api/v1.1\",\n            \"alias\": \"os-security-groups\",\n            \"name\": \"SecurityGroups\"\n        },\n        {\n            \"updated\": \"2011-12-21T00:00:00+00:00\",\n            \"description\": \"Allow Admins to view server diagnostics through server action.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/server-diagnostics/api/v1.1\",\n            \"alias\": \"os-server-diagnostics\",\n            \"name\": \"ServerDiagnostics\"\n        },\n        {\n            \"updated\": \"2012-11-29T00:00:00+00:00\",\n            \"description\": \"Server password support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/server-password/api/v2\",\n            \"alias\": \"os-server-password\",\n            \"name\": \"ServerPassword\"\n        },\n        {\n            \"updated\": \"2012-01-23T00:00:00+00:00\",\n            \"description\": \"Start/Stop instance compute API support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/servers/api/v1.1\",\n            \"alias\": \"os-server-start-stop\",\n            \"name\": \"ServerStartStop\"\n        },\n        {\n            \"updated\": \"2012-10-28T00:00:00-00:00\",\n            \"description\": \"Services support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/services/api/v2\",\n            \"alias\": \"os-services\",\n            \"name\": \"Services\"\n        },\n        {\n            \"updated\": \"2013-04-06T00:00:00+00:00\",\n            \"description\": \"Instance shelve mode.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/shelve/api/v1.1\",\n            \"alias\": \"os-shelve\",\n            \"name\": \"Shelve\"\n        },\n        {\n            \"updated\": \"2011-08-19T00:00:00+00:00\",\n            \"description\": \"Simple tenant usage extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-simple-tenant-usage/api/v1.1\",\n            \"alias\": \"os-simple-tenant-usage\",\n            \"name\": \"SimpleTenantUsage\"\n        },\n        {\n            \"updated\": \"2012-03-07T09:46:43-05:00\",\n            \"description\": \"Tenant-based Network Management Extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-tenant-networks/api/v2\",\n            \"alias\": \"os-tenant-networks\",\n            \"name\": \"OSTenantNetworks\"\n        },\n        {\n            \"updated\": \"2012-07-13T00:00:00+00:00\",\n            \"description\": \"Provide data on limited resources that are being used.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/used_limits/api/v1.1\",\n            \"alias\": \"os-used-limits\",\n            \"name\": \"UsedLimits\"\n        },\n        {\n            \"updated\": \"2013-05-02T00:00:00+00:00\",\n            \"description\": \"Provide data to admin on limited resources used by other tenants.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/used_limits_for_admin/api/v1.1\",\n            \"alias\": \"os-used-limits-for-admin\",\n            \"name\": \"UsedLimitsForAdmin\"\n        },\n        {\n            \"updated\": \"2012-08-07T00:00:00+00:00\",\n            \"description\": \"Add user_data to the Create Server v1.1 API.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/userdata/api/v1.1\",\n            \"alias\": \"os-user-data\",\n            \"name\": \"UserData\"\n        },\n        {\n            \"updated\": \"2013-07-18T00:00:00+00:00\",\n            \"description\": \"Project user quota support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/user_quotas/api/v1.1\",\n            \"alias\": \"os-user-quotas\",\n            \"name\": \"UserQuotas\"\n        },\n        {\n            \"updated\": \"2011-08-17T00:00:00+00:00\",\n            \"description\": \"Virtual interface support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/virtual_interfaces/api/v1.1\",\n            \"alias\": \"os-virtual-interfaces\",\n            \"name\": \"VirtualInterfaces\"\n        },\n        {\n            \"updated\": \"2013-06-20T00:00:00-00:00\",\n            \"description\": \"Support for updating a volume attachment.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-volume-attachment-update/api/v2\",\n            \"alias\": \"os-volume-attachment-update\",\n            \"name\": \"VolumeAttachmentUpdate\"\n        },\n        {\n            \"updated\": \"2011-03-25T00:00:00+00:00\",\n            \"description\": \"Volumes support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/volumes/api/v1.1\",\n            \"alias\": \"os-volumes\",\n            \"name\": \"Volumes\"\n        },\n        {\n            \"updated\": \"2013-12-10T00:00:00+00:00\",\n            \"description\": \"Services deletion support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_services_delete/api/v2\",\n            \"alias\": \"os-extended-services-delete\",\n            \"name\": \"ExtendedServicesDelete\"\n        },\n        {\n            \"updated\": \"2013-08-13T00:00:00+00:00\",\n            \"description\": \"Console token authentication support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/consoles-auth-tokens/api/v2\",\n            \"alias\": \"os-console-auth-tokens\",\n            \"name\": \"ConsoleAuthTokens\"\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"extensions\": [\n        {\n            \"updated\": \"2011-06-09T00:00:00+00:00\",\n            \"description\": \"Multiple network support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/multinic/api/v1.1\",\n            \"alias\": \"NMN\",\n            \"name\": \"Multinic\"\n        },\n        {\n            \"updated\": \"2011-09-27T00:00:00+00:00\",\n            \"description\": \"Disk Management Extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/disk_config/api/v1.1\",\n            \"alias\": \"OS-DCF\",\n            \"name\": \"DiskConfig\"\n        },\n        {\n            \"updated\": \"2013-01-30T00:00:00+00:00\",\n            \"description\": \"Extended Server Attributes support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_availability_zone/api/v2\",\n            \"alias\": \"OS-EXT-AZ\",\n            \"name\": \"ExtendedAvailabilityZone\"\n        },\n        {\n            \"updated\": \"2013-02-19T00:00:00+00:00\",\n            \"description\": \"Adds image size to image listings.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/image_size/api/v1.1\",\n            \"alias\": \"OS-EXT-IMG-SIZE\",\n            \"name\": \"ImageSize\"\n        },\n        {\n            \"updated\": \"2013-01-06T00:00:00+00:00\",\n            \"description\": \"Adds type parameter to the ip list.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_ips/api/v1.1\",\n            \"alias\": \"OS-EXT-IPS\",\n            \"name\": \"ExtendedIps\"\n        },\n        {\n            \"updated\": \"2013-03-07T00:00:00+00:00\",\n            \"description\": \"Adds mac address parameter to the ip list.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_ips_mac/api/v1.1\",\n            \"alias\": \"OS-EXT-IPS-MAC\",\n            \"name\": \"ExtendedIpsMac\"\n        },\n        {\n            \"updated\": \"2011-11-03T00:00:00+00:00\",\n            \"description\": \"Extended Server Attributes support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_status/api/v1.1\",\n            \"alias\": \"OS-EXT-SRV-ATTR\",\n            \"name\": \"ExtendedServerAttributes\"\n        },\n        {\n            \"updated\": \"2011-11-03T00:00:00+00:00\",\n            \"description\": \"Extended Status support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_status/api/v1.1\",\n            \"alias\": \"OS-EXT-STS\",\n            \"name\": \"ExtendedStatus\"\n        },\n        {\n            \"updated\": \"2013-03-07T00:00:00+00:00\",\n            \"description\": \"Adds network id parameter to the virtual interface list.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended-virtual-interfaces-net/api/v1.1\",\n            \"alias\": \"OS-EXT-VIF-NET\",\n            \"name\": \"ExtendedVIFNet\"\n        },\n        {\n            \"updated\": \"2012-08-29T00:00:00+00:00\",\n            \"description\": \"Support to show the disabled status of a flavor.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_disabled/api/v1.1\",\n            \"alias\": \"OS-FLV-DISABLED\",\n            \"name\": \"FlavorDisabled\"\n        },\n        {\n            \"updated\": \"2011-09-14T00:00:00+00:00\",\n            \"description\": \"Provide additional data for flavors.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_extra_data/api/v1.1\",\n            \"alias\": \"OS-FLV-EXT-DATA\",\n            \"name\": \"FlavorExtraData\"\n        },\n        {\n            \"updated\": \"2011-07-19T00:00:00+00:00\",\n            \"description\": \"Pass arbitrary key/value pairs to the scheduler.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/scheduler-hints/api/v2\",\n            \"alias\": \"OS-SCH-HNT\",\n            \"name\": \"SchedulerHints\"\n        },\n        {\n            \"updated\": \"2013-04-29T00:00:00+00:00\",\n            \"description\": \"Adds launched_at and terminated_at on Servers.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/server_usage/api/v1.1\",\n            \"alias\": \"OS-SRV-USG\",\n            \"name\": \"ServerUsage\"\n        },\n        {\n            \"updated\": \"2011-09-20T00:00:00+00:00\",\n            \"description\": \"Enable admin-only server actions\\n\\n    Actions include: pause, unpause, suspend, resume, migrate,\\n    resetNetwork, injectNetworkInfo, lock, unlock, createBackup\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/admin-actions/api/v1.1\",\n            \"alias\": \"os-admin-actions\",\n            \"name\": \"AdminActions\"\n        },\n        {\n            \"updated\": \"2012-10-28T00:00:00-00:00\",\n            \"description\": \"Agents support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/agents/api/v2\",\n            \"alias\": \"os-agents\",\n            \"name\": \"Agents\"\n        },\n        {\n            \"updated\": \"2012-01-12T00:00:00+00:00\",\n            \"description\": \"Admin-only aggregate administration.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/aggregates/api/v1.1\",\n            \"alias\": \"os-aggregates\",\n            \"name\": \"Aggregates\"\n        },\n        {\n            \"updated\": \"2013-08-29T00:00:00-00:00\",\n            \"description\": \"Assisted volume snapshots.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/assisted-volume-snapshots/api/v2\",\n            \"alias\": \"os-assisted-volume-snapshots\",\n            \"name\": \"AssistedVolumeSnapshots\"\n        },\n        {\n            \"updated\": \"2012-07-22T00:00:00+00:00\",\n            \"description\": \"Attach interface support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/interfaces/api/v1.1\",\n            \"alias\": \"os-attach-interfaces\",\n            \"name\": \"AttachInterfaces\"\n        },\n        {\n            \"updated\": \"2012-12-21T00:00:00+00:00\",\n            \"description\": \"1. Add availability_zone to the Create Server v1.1 API.\\n       2. Add availability zones describing.\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/availabilityzone/api/v1.1\",\n            \"alias\": \"os-availability-zone\",\n            \"name\": \"AvailabilityZone\"\n        },\n        {\n            \"updated\": \"2013-08-27T00:00:00+00:00\",\n            \"description\": \"Add extended status in Baremetal Nodes v2 API.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/baremetal_ext_status/api/v2\",\n            \"alias\": \"os-baremetal-ext-status\",\n            \"name\": \"BareMetalExtStatus\"\n        },\n        {\n            \"updated\": \"2013-01-04T00:00:00+00:00\",\n            \"description\": \"Admin-only bare-metal node administration.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/baremetal_nodes/api/v2\",\n            \"alias\": \"os-baremetal-nodes\",\n            \"name\": \"BareMetalNodes\"\n        },\n        {\n            \"updated\": \"2013-07-08T00:00:00+00:00\",\n            \"description\": \"Allow boot with the new BDM data format.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/block_device_mapping_v2_boot/api/v2\",\n            \"alias\": \"os-block-device-mapping-v2-boot\",\n            \"name\": \"BlockDeviceMappingV2Boot\"\n        },\n        {\n            \"updated\": \"2013-05-27T00:00:00+00:00\",\n            \"description\": \"Adding functionality to get cell capacities.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/cell_capacities/api/v1.1\",\n            \"alias\": \"os-cell-capacities\",\n            \"name\": \"CellCapacities\"\n        },\n        {\n            \"updated\": \"2013-05-14T00:00:00+00:00\",\n            \"description\": \"Enables cells-related functionality such as adding neighbor cells,\\n    listing neighbor cells, and getting the capabilities of the local cell.\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/cells/api/v1.1\",\n            \"alias\": \"os-cells\",\n            \"name\": \"Cells\"\n        },\n        {\n            \"updated\": \"2012-01-19T00:00:00+00:00\",\n            \"description\": \"Certificates support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/certificates/api/v1.1\",\n            \"alias\": \"os-certificates\",\n            \"name\": \"Certificates\"\n        },\n        {\n            \"updated\": \"2011-12-16T00:00:00+00:00\",\n            \"description\": \"Adds actions to create cloudpipe instances.\\n\\n    When running with the Vlan network mode, you need a mechanism to route\\n    from the public Internet to your vlans.  This mechanism is known as a\\n    cloudpipe.\\n\\n    At the time of creating this class, only OpenVPN is supported.  Support for\\n    a SSH Bastion host is forthcoming.\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/cloudpipe/api/v1.1\",\n            \"alias\": \"os-cloudpipe\",\n            \"name\": \"Cloudpipe\"\n        },\n        {\n            \"updated\": \"2012-11-14T00:00:00+00:00\",\n            \"description\": \"Adds the ability to set the vpn ip/port for cloudpipe instances.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/cloudpipe-update/api/v2\",\n            \"alias\": \"os-cloudpipe-update\",\n            \"name\": \"CloudpipeUpdate\"\n        },\n        {\n            \"updated\": \"2012-07-16T00:00:00+00:00\",\n            \"description\": \"Config Drive Extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/config_drive/api/v1.1\",\n            \"alias\": \"os-config-drive\",\n            \"name\": \"ConfigDrive\"\n        },\n        {\n            \"updated\": \"2011-12-08T00:00:00+00:00\",\n            \"description\": \"Console log output support, with tailing ability.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-console-output/api/v2\",\n            \"alias\": \"os-console-output\",\n            \"name\": \"ConsoleOutput\"\n        },\n        {\n            \"updated\": \"2011-12-23T00:00:00+00:00\",\n            \"description\": \"Interactive Console support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-consoles/api/v2\",\n            \"alias\": \"os-consoles\",\n            \"name\": \"Consoles\"\n        },\n        {\n            \"updated\": \"2011-07-19T00:00:00+00:00\",\n            \"description\": \"Extended support to the Create Server v1.1 API.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/createserverext/api/v1.1\",\n            \"alias\": \"os-create-server-ext\",\n            \"name\": \"Createserverext\"\n        },\n        {\n            \"updated\": \"2011-09-01T00:00:00+00:00\",\n            \"description\": \"Instance deferred delete.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/deferred-delete/api/v1.1\",\n            \"alias\": \"os-deferred-delete\",\n            \"name\": \"DeferredDelete\"\n        },\n        {\n            \"updated\": \"2013-01-06T00:00:00+00:00\",\n            \"description\": \"Enables server evacuation.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/evacuate/api/v2\",\n            \"alias\": \"os-evacuate\",\n            \"name\": \"Evacuate\"\n        },\n        {\n            \"updated\": \"2013-04-19T00:00:00+00:00\",\n            \"description\": \"Adds optional fixed_address to the add floating IP command.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_floating_ips/api/v2\",\n            \"alias\": \"os-extended-floating-ips\",\n            \"name\": \"ExtendedFloatingIps\"\n        },\n        {\n            \"updated\": \"2013-06-09T00:00:00+00:00\",\n            \"description\": \"Adds ability for admins to delete quota\\n    and optionally force the update Quota command.\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_quotas/api/v1.1\",\n            \"alias\": \"os-extended-quotas\",\n            \"name\": \"ExtendedQuotas\"\n        },\n        {\n            \"updated\": \"2013-10-21T00:00:00-00:00\",\n            \"description\": \"Extended hypervisors support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_hypervisors/api/v1.1\",\n            \"alias\": \"os-extended-hypervisors\",\n            \"name\": \"ExtendedHypervisors\"\n        },\n        {\n            \"updated\": \"2013-05-17T00:00:00-00:00\",\n            \"description\": \"Extended services support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_services/api/v2\",\n            \"alias\": \"os-extended-services\",\n            \"name\": \"ExtendedServices\"\n        },\n        {\n            \"updated\": \"2013-06-07T00:00:00+00:00\",\n            \"description\": \"Extended Volumes support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_volumes/api/v1.1\",\n            \"alias\": \"os-extended-volumes\",\n            \"name\": \"ExtendedVolumes\"\n        },\n        {\n            \"updated\": \"2012-10-18T13:25:27-06:00\",\n            \"description\": \"Fixed IPs support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/fixed_ips/api/v2\",\n            \"alias\": \"os-fixed-ips\",\n            \"name\": \"FixedIPs\"\n        },\n        {\n            \"updated\": \"2012-08-01T00:00:00+00:00\",\n            \"description\": \"Flavor access support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_access/api/v2\",\n            \"alias\": \"os-flavor-access\",\n            \"name\": \"FlavorAccess\"\n        },\n        {\n            \"updated\": \"2011-06-23T00:00:00+00:00\",\n            \"description\": \"Instance type (flavor) extra specs.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_extra_specs/api/v1.1\",\n            \"alias\": \"os-flavor-extra-specs\",\n            \"name\": \"FlavorExtraSpecs\"\n        },\n        {\n            \"updated\": \"2012-01-19T00:00:00+00:00\",\n            \"description\": \"\\n    Flavor create/delete API support\\n    \",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_manage/api/v1.1\",\n            \"alias\": \"os-flavor-manage\",\n            \"name\": \"FlavorManage\"\n        },\n        {\n            \"updated\": \"2012-08-29T00:00:00+00:00\",\n            \"description\": \"Support to show the rxtx status of a flavor.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_rxtx/api/v1.1\",\n            \"alias\": \"os-flavor-rxtx\",\n            \"name\": \"FlavorRxtx\"\n        },\n        {\n            \"updated\": \"2012-08-29T00:00:00+00:00\",\n            \"description\": \"Support to show the swap status of a flavor.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/flavor_swap/api/v1.1\",\n            \"alias\": \"os-flavor-swap\",\n            \"name\": \"FlavorSwap\"\n        },\n        {\n            \"updated\": \"2011-12-23T00:00:00+00:00\",\n            \"description\": \"Floating IP DNS support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/floating_ip_dns/api/v1.1\",\n            \"alias\": \"os-floating-ip-dns\",\n            \"name\": \"FloatingIpDns\"\n        },\n        {\n            \"updated\": \"2012-01-04T00:00:00+00:00\",\n            \"description\": \"Floating IPs support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/floating_ip_pools/api/v1.1\",\n            \"alias\": \"os-floating-ip-pools\",\n            \"name\": \"FloatingIpPools\"\n        },\n        {\n            \"updated\": \"2011-06-16T00:00:00+00:00\",\n            \"description\": \"Floating IPs support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/floating_ips/api/v1.1\",\n            \"alias\": \"os-floating-ips\",\n            \"name\": \"FloatingIps\"\n        },\n        {\n            \"updated\": \"2012-10-29T13:25:27-06:00\",\n            \"description\": \"Bulk handling of Floating IPs.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/floating_ips_bulk/api/v2\",\n            \"alias\": \"os-floating-ips-bulk\",\n            \"name\": \"FloatingIpsBulk\"\n        },\n        {\n            \"updated\": \"2012-07-06T00:00:00+00:00\",\n            \"description\": \"Fping Management Extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/fping/api/v1.1\",\n            \"alias\": \"os-fping\",\n            \"name\": \"Fping\"\n        },\n        {\n            \"updated\": \"2012-12-11T00:00:00+00:00\",\n            \"description\": \"Support hiding server addresses in certain states.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/hide_server_addresses/api/v1.1\",\n            \"alias\": \"os-hide-server-addresses\",\n            \"name\": \"HideServerAddresses\"\n        },\n        {\n            \"updated\": \"2011-06-29T00:00:00+00:00\",\n            \"description\": \"Admin-only host administration.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/hosts/api/v1.1\",\n            \"alias\": \"os-hosts\",\n            \"name\": \"Hosts\"\n        },\n        {\n            \"updated\": \"2012-06-21T00:00:00+00:00\",\n            \"description\": \"Admin-only hypervisor administration.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/hypervisors/api/v1.1\",\n            \"alias\": \"os-hypervisors\",\n            \"name\": \"Hypervisors\"\n        },\n        {\n            \"updated\": \"2013-02-08T00:00:00+00:00\",\n            \"description\": \"View a log of actions and events taken on an instance.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/instance-actions/api/v1.1\",\n            \"alias\": \"os-instance-actions\",\n            \"name\": \"InstanceActions\"\n        },\n        {\n            \"updated\": \"2014-02-18T00:00:00-00:00\",\n            \"description\": \"Server External Event Triggers.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/server-external-events/api/v2\",\n            \"alias\": \"os-server-external-events\",\n            \"name\": \"ServerExternalEvents\"\n        },\n        {\n            \"updated\": \"2013-06-01T00:00:00+00:00\",\n            \"description\": \"Server group support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/servergroups/api/v2\",\n            \"alias\": \"os-server-groups\",\n            \"name\": \"ServerGroups\"\n        },\n        {\n            \"updated\": \"2014-07-25T00:00:00Z\",\n            \"description\": \"Adds quota support to server groups.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/server-group-quotas/api/v2\",\n            \"alias\": \"os-server-group-quotas\",\n            \"name\": \"ServerGroupQuotas\"\n        },\n        {\n            \"updated\": \"2012-07-06T01:00:00+00:00\",\n            \"description\": \"Admin-only Task Log Monitoring.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/services/api/v1.1\",\n            \"alias\": \"os-instance_usage_audit_log\",\n            \"name\": \"OSInstanceUsageAuditLog\"\n        },\n        {\n            \"updated\": \"2011-08-08T00:00:00+00:00\",\n            \"description\": \"Keypair Support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/keypairs/api/v1.1\",\n            \"alias\": \"os-keypairs\",\n            \"name\": \"Keypairs\"\n        },\n        {\n            \"updated\": \"2013-05-30T00:00:00+00:00\",\n            \"description\": \"Provide data on migrations.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/migrations/api/v2.0\",\n            \"alias\": \"os-migrations\",\n            \"name\": \"Migrations\"\n        },\n        {\n            \"updated\": \"2012-08-07T00:00:00+00:00\",\n            \"description\": \"Allow multiple create in the Create Server v1.1 API.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/multiplecreate/api/v1.1\",\n            \"alias\": \"os-multiple-create\",\n            \"name\": \"MultipleCreate\"\n        },\n        {\n            \"updated\": \"2011-12-23T00:00:00+00:00\",\n            \"description\": \"Admin-only Network Management Extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-networks/api/v1.1\",\n            \"alias\": \"os-networks\",\n            \"name\": \"Networks\"\n        },\n        {\n            \"updated\": \"2012-11-19T00:00:00+00:00\",\n            \"description\": \"Network association support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/networks_associate/api/v2\",\n            \"alias\": \"os-networks-associate\",\n            \"name\": \"NetworkAssociationSupport\"\n        },\n        {\n            \"updated\": \"2013-12-17T00:00:00+00:00\",\n            \"description\": \"Allow preservation of the ephemeral partition on rebuild.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/preserve_ephemeral_rebuild/api/v2\",\n            \"alias\": \"os-preserve-ephemeral-rebuild\",\n            \"name\": \"PreserveEphemeralOnRebuild\"\n        },\n        {\n            \"updated\": \"2011-08-08T00:00:00+00:00\",\n            \"description\": \"Quotas management support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/quotas-sets/api/v1.1\",\n            \"alias\": \"os-quota-sets\",\n            \"name\": \"Quotas\"\n        },\n        {\n            \"updated\": \"2011-08-18T00:00:00+00:00\",\n            \"description\": \"Instance rescue mode.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/rescue/api/v1.1\",\n            \"alias\": \"os-rescue\",\n            \"name\": \"Rescue\"\n        },\n        {\n            \"updated\": \"2014-03-05T00:00:00+00:00\",\n            \"description\": \"Rescue instance with the image specified.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_rescue_with_image/api/v2\",\n            \"alias\": \"os-extended-rescue-with-image\",\n            \"name\": \"ExtendedRescueWithImage\"\n        },\n        {\n            \"updated\": \"2013-02-05T00:00:00+00:00\",\n            \"description\": \"Default rules for security group support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/securitygroupdefaultrules/api/v1.1\",\n            \"alias\": \"os-security-group-default-rules\",\n            \"name\": \"SecurityGroupDefaultRules\"\n        },\n        {\n            \"updated\": \"2013-05-28T00:00:00+00:00\",\n            \"description\": \"Security group support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/securitygroups/api/v1.1\",\n            \"alias\": \"os-security-groups\",\n            \"name\": \"SecurityGroups\"\n        },\n        {\n            \"updated\": \"2011-12-21T00:00:00+00:00\",\n            \"description\": \"Allow Admins to view server diagnostics through server action.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/server-diagnostics/api/v1.1\",\n            \"alias\": \"os-server-diagnostics\",\n            \"name\": \"ServerDiagnostics\"\n        },\n        {\n            \"updated\": \"2012-11-29T00:00:00+00:00\",\n            \"description\": \"Server password support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/server-password/api/v2\",\n            \"alias\": \"os-server-password\",\n            \"name\": \"ServerPassword\"\n        },\n        {\n            \"updated\": \"2012-01-23T00:00:00+00:00\",\n            \"description\": \"Start/Stop instance compute API support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/servers/api/v1.1\",\n            \"alias\": \"os-server-start-stop\",\n            \"name\": \"ServerStartStop\"\n        },\n        {\n            \"updated\": \"2012-10-28T00:00:00-00:00\",\n            \"description\": \"Services support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/services/api/v2\",\n            \"alias\": \"os-services\",\n            \"name\": \"Services\"\n        },\n        {\n            \"updated\": \"2013-04-06T00:00:00+00:00\",\n            \"description\": \"Instance shelve mode.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/shelve/api/v1.1\",\n            \"alias\": \"os-shelve\",\n            \"name\": \"Shelve\"\n        },\n        {\n            \"updated\": \"2011-08-19T00:00:00+00:00\",\n            \"description\": \"Simple tenant usage extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-simple-tenant-usage/api/v1.1\",\n            \"alias\": \"os-simple-tenant-usage\",\n            \"name\": \"SimpleTenantUsage\"\n        },\n        {\n            \"updated\": \"2012-03-07T09:46:43-05:00\",\n            \"description\": \"Tenant-based Network Management Extension.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-tenant-networks/api/v2\",\n            \"alias\": \"os-tenant-networks\",\n            \"name\": \"OSTenantNetworks\"\n        },\n        {\n            \"updated\": \"2012-07-13T00:00:00+00:00\",\n            \"description\": \"Provide data on limited resources that are being used.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/used_limits/api/v1.1\",\n            \"alias\": \"os-used-limits\",\n            \"name\": \"UsedLimits\"\n        },\n        {\n            \"updated\": \"2013-05-02T00:00:00+00:00\",\n            \"description\": \"Provide data to admin on limited resources used by other tenants.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/used_limits_for_admin/api/v1.1\",\n            \"alias\": \"os-used-limits-for-admin\",\n            \"name\": \"UsedLimitsForAdmin\"\n        },\n        {\n            \"updated\": \"2012-08-07T00:00:00+00:00\",\n            \"description\": \"Add user_data to the Create Server v1.1 API.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/userdata/api/v1.1\",\n            \"alias\": \"os-user-data\",\n            \"name\": \"UserData\"\n        },\n        {\n            \"updated\": \"2013-07-18T00:00:00+00:00\",\n            \"description\": \"Project user quota support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/user_quotas/api/v1.1\",\n            \"alias\": \"os-user-quotas\",\n            \"name\": \"UserQuotas\"\n        },\n        {\n            \"updated\": \"2011-08-17T00:00:00+00:00\",\n            \"description\": \"Virtual interface support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/virtual_interfaces/api/v1.1\",\n            \"alias\": \"os-virtual-interfaces\",\n            \"name\": \"VirtualInterfaces\"\n        },\n        {\n            \"updated\": \"2013-06-20T00:00:00-00:00\",\n            \"description\": \"Support for updating a volume attachment.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/os-volume-attachment-update/api/v2\",\n            \"alias\": \"os-volume-attachment-update\",\n            \"name\": \"VolumeAttachmentUpdate\"\n        },\n        {\n            \"updated\": \"2011-03-25T00:00:00+00:00\",\n            \"description\": \"Volumes support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/volumes/api/v1.1\",\n            \"alias\": \"os-volumes\",\n            \"name\": \"Volumes\"\n        },\n        {\n            \"updated\": \"2013-12-10T00:00:00+00:00\",\n            \"description\": \"Services deletion support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/extended_services_delete/api/v2\",\n            \"alias\": \"os-extended-services-delete\",\n            \"name\": \"ExtendedServicesDelete\"\n        },\n        {\n            \"updated\": \"2013-08-13T00:00:00+00:00\",\n            \"description\": \"Console token authentication support.\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/compute/ext/consoles-auth-tokens/api/v2\",\n            \"alias\": \"os-console-auth-tokens\",\n            \"name\": \"ConsoleAuthTokens\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/extensions/{alias}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "alias",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "An alias, which is a name for a pointer to a resource. For example, a named extension.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getExtensionv2",
+                "summary": "Get extension",
+                "description": "Gets details about the specified extension.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"extension\": {\n        \"updated\": \"2011-09-27T00:00:00+00:00\",\n        \"name\": \"DiskConfig\",\n        \"links\": [],\n        \"namespace\": \"http://docs.openstack.org/compute/ext/disk_config/api/v1.1\",\n        \"alias\": \"OS-DCF\",\n        \"description\": \"Disk Management Extension.\"\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"extension\": {\n        \"updated\": \"2011-09-27T00:00:00+00:00\",\n        \"name\": \"DiskConfig\",\n        \"links\": [],\n        \"namespace\": \"http://docs.openstack.org/compute/ext/disk_config/api/v1.1\",\n        \"alias\": \"OS-DCF\",\n        \"description\": \"Disk Management Extension.\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/limits": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listLimits",
+                "summary": "List limits",
+                "description": "Lists the current limits for the account.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"limits\": {\n        \"rate\": [\n            {\n                \"regex\": \".*\",\n                \"limit\": [\n                    {\n                        \"value\": 120,\n                        \"verb\": \"POST\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    },\n                    {\n                        \"value\": 120,\n                        \"verb\": \"PUT\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    },\n                    {\n                        \"value\": 120,\n                        \"verb\": \"DELETE\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*\"\n            },\n            {\n                \"regex\": \"^/servers\",\n                \"limit\": [\n                    {\n                        \"value\": 120,\n                        \"verb\": \"POST\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*/servers\"\n            },\n            {\n                \"regex\": \".*changes-since.*\",\n                \"limit\": [\n                    {\n                        \"value\": 120,\n                        \"verb\": \"GET\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*changes-since*\"\n            },\n            {\n                \"regex\": \"^/os-fping\",\n                \"limit\": [\n                    {\n                        \"value\": 12,\n                        \"verb\": \"GET\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 12,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*/os-fping\"\n            }\n        ],\n        \"absolute\": {\n            \"maxServerMeta\": 128,\n            \"maxPersonality\": 5,\n            \"maxImageMeta\": 128,\n            \"maxPersonalitySize\": 10240,\n            \"maxTotalRAMSize\": 51200,\n            \"maxSecurityGroupRules\": 20,\n            \"maxTotalKeypairs\": 100,\n            \"maxSecurityGroups\": 10,\n            \"maxServerGroupMembers\": 10,\n            \"maxTotalFloatingIps\": 10,\n            \"maxTotalInstances\": 10,\n            \"maxTotalCores\": 20,\n            \"maxServerGroups\": 10\n        }\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"limits\": {\n        \"rate\": [\n            {\n                \"regex\": \".*\",\n                \"limit\": [\n                    {\n                        \"value\": 120,\n                        \"verb\": \"POST\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    },\n                    {\n                        \"value\": 120,\n                        \"verb\": \"PUT\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    },\n                    {\n                        \"value\": 120,\n                        \"verb\": \"DELETE\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*\"\n            },\n            {\n                \"regex\": \"^/servers\",\n                \"limit\": [\n                    {\n                        \"value\": 120,\n                        \"verb\": \"POST\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*/servers\"\n            },\n            {\n                \"regex\": \".*changes-since.*\",\n                \"limit\": [\n                    {\n                        \"value\": 120,\n                        \"verb\": \"GET\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*changes-since*\"\n            },\n            {\n                \"regex\": \"^/os-fping\",\n                \"limit\": [\n                    {\n                        \"value\": 12,\n                        \"verb\": \"GET\",\n                        \"next-available\": \"2012-11-27T17:22:18Z\",\n                        \"remaining\": 12,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*/os-fping\"\n            }\n        ],\n        \"absolute\": {\n            \"maxServerMeta\": 128,\n            \"maxPersonality\": 5,\n            \"maxImageMeta\": 128,\n            \"maxPersonalitySize\": 10240,\n            \"maxTotalRAMSize\": 51200,\n            \"maxSecurityGroupRules\": 20,\n            \"maxTotalKeypairs\": 100,\n            \"maxSecurityGroups\": 10,\n            \"maxServerGroupMembers\": 10,\n            \"maxTotalFloatingIps\": 10,\n            \"maxTotalInstances\": 10,\n            \"maxTotalCores\": 20,\n            \"maxServerGroups\": 10\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listServers",
+                "summary": "List servers",
+                "description": "Lists IDs, names, and links for all servers.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"servers\": [\n        {\n            \"id\": \"616fb98f-46ca-475e-917e-2563e5a8cd19\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/servers/616fb98f-46ca-475e-917e-2563e5a8cd19\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/servers/616fb98f-46ca-475e-917e-2563e5a8cd19\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"new-server-test\"\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"servers\": [\n        {\n            \"id\": \"616fb98f-46ca-475e-917e-2563e5a8cd19\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/servers/616fb98f-46ca-475e-917e-2563e5a8cd19\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/servers/616fb98f-46ca-475e-917e-2563e5a8cd19\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"new-server-test\"\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "changes-since",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "A time/date stamp for when the server last changed status.\n"
+                    },
+                    {
+                        "name": "image",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the image in URL format.\n"
+                    },
+                    {
+                        "name": "flavor",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the flavor in URL format.\n"
+                    },
+                    {
+                        "name": "name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the server as a string; can be queried with regular expressions. Realize that ?name=bob returns both bob and bobb. If you need to match bob only, you can use a regular expression matching the syntax of the underlying database server implemented for Compute (such as MySQL or PostgreSQL).\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "UUID of the server at which you want to set a marker.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the limit of values to return.\n"
+                    },
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Value of the status of the server so that you can filter on \"ACTIVE\" for example.\n"
+                    },
+                    {
+                        "name": "host",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the host as a string.\n"
+                    }
+                ]
+            },
+            "post": {
+                "operationId": "createServer",
+                "summary": "Create server",
+                "description": "Creates a server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"links\": [\n            {\n                \"href\": \"http://166.78.46.130:8774/v2/4fd44f30292945e481c7b8a0c8908869/servers/c6d04159-9bfc-4ab8-823d-0d5ca2abe152\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://166.78.46.130:8774/4fd44f30292945e481c7b8a0c8908869/servers/c6d04159-9bfc-4ab8-823d-0d5ca2abe152\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"OS-DCF:diskConfig\": \"MANUAL\",\n        \"id\": \"c6d04159-9bfc-4ab8-823d-0d5ca2abe152\",\n        \"security_groups\": [\n            {\n                \"name\": \"default\"\n            }\n        ],\n        \"adminPass\": \"aabbccddeeff\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listDetailServers",
+                "summary": "List details for servers",
+                "description": "Lists details for all servers.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"servers\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2012-09-07T16:56:37Z\",\n            \"hostId\": \"16d193736a5cfdb60c697ca27ad071d6126fa13baeb670fc9d10645e\",\n            \"user_id\": \"fake\",\n            \"addresses\": {\n                \"private\": [\n                    {\n                        \"version\": 4,\n                        \"addr\": \"192.168.0.3\"\n                    }\n                ]\n            },\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/servers/05184ba3-00ba-4fbc-b7a2-03b62b884931\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/servers/05184ba3-00ba-4fbc-b7a2-03b62b884931\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"created\": \"2012-09-07T16:56:37Z\",\n            \"tenant_id\": \"openstack\",\n            \"image\": {\n                \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"name\": \"new-server-test\",\n            \"accessIPv4\": \"\",\n            \"accessIPv6\": \"\",\n            \"progress\": 0,\n            \"flavor\": {\n                \"id\": \"1\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"id\": \"05184ba3-00ba-4fbc-b7a2-03b62b884931\",\n            \"metadata\": {\n                \"My Server Name\": \"Apache1\"\n            }\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"servers\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2012-09-07T16:56:37Z\",\n            \"hostId\": \"16d193736a5cfdb60c697ca27ad071d6126fa13baeb670fc9d10645e\",\n            \"user_id\": \"fake\",\n            \"addresses\": {\n                \"private\": [\n                    {\n                        \"version\": 4,\n                        \"addr\": \"192.168.0.3\"\n                    }\n                ]\n            },\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/servers/05184ba3-00ba-4fbc-b7a2-03b62b884931\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/servers/05184ba3-00ba-4fbc-b7a2-03b62b884931\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"created\": \"2012-09-07T16:56:37Z\",\n            \"tenant_id\": \"openstack\",\n            \"image\": {\n                \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"name\": \"new-server-test\",\n            \"accessIPv4\": \"\",\n            \"accessIPv6\": \"\",\n            \"progress\": 0,\n            \"flavor\": {\n                \"id\": \"1\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"id\": \"05184ba3-00ba-4fbc-b7a2-03b62b884931\",\n            \"metadata\": {\n                \"My Server Name\": \"Apache1\"\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "changes-since",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "A time/date stamp for when the server last changed status.\n"
+                    },
+                    {
+                        "name": "image",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the image in URL format.\n"
+                    },
+                    {
+                        "name": "flavor",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the flavor in URL format.\n"
+                    },
+                    {
+                        "name": "name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the server as a string; can be queried with regular expressions. Realize that ?name=bob returns both bob and bobb. If you need to match bob only, you can use a regular expression matching the syntax of the underlying database server implemented for Compute (such as MySQL or PostgreSQL).\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "UUID of the server at which you want to set a marker.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the limit of values to return.\n"
+                    },
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Value of the status of the server so that you can filter on \"ACTIVE\" for example.\n"
+                    },
+                    {
+                        "name": "host",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the host as a string.\n"
+                    }
+                ]
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getServer",
+                "summary": "Get server details",
+                "description": "Gets details for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": \"2012-08-20T21:11:09Z\",\n        \"hostId\": \"65201c14a29663e06d0748e561207d998b343e1d164bfa0aafa9c45d\",\n        \"user_id\": \"fake\",\n        \"addresses\": {\n            \"private\": [\n                {\n                    \"version\": 4,\n                    \"addr\": \"192.168.0.3\"\n                }\n            ]\n        },\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/servers/893c7791-f1df-4c3d-8383-3caae9656c62\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/servers/893c7791-f1df-4c3d-8383-3caae9656c62\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"created\": \"2012-08-20T21:11:09Z\",\n        \"tenant_id\": \"openstack\",\n        \"image\": {\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"name\": \"new-server-test\",\n        \"accessIPv4\": \"\",\n        \"accessIPv6\": \"\",\n        \"progress\": 0,\n        \"flavor\": {\n            \"id\": \"1\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"id\": \"893c7791-f1df-4c3d-8383-3caae9656c62\",\n        \"metadata\": {\n            \"My Server Name\": \"Apache1\"\n        }\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": \"2012-08-20T21:11:09Z\",\n        \"hostId\": \"65201c14a29663e06d0748e561207d998b343e1d164bfa0aafa9c45d\",\n        \"user_id\": \"fake\",\n        \"addresses\": {\n            \"private\": [\n                {\n                    \"version\": 4,\n                    \"addr\": \"192.168.0.3\"\n                }\n            ]\n        },\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/servers/893c7791-f1df-4c3d-8383-3caae9656c62\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/servers/893c7791-f1df-4c3d-8383-3caae9656c62\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"created\": \"2012-08-20T21:11:09Z\",\n        \"tenant_id\": \"openstack\",\n        \"image\": {\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"name\": \"new-server-test\",\n        \"accessIPv4\": \"\",\n        \"accessIPv6\": \"\",\n        \"progress\": 0,\n        \"flavor\": {\n            \"id\": \"1\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"id\": \"893c7791-f1df-4c3d-8383-3caae9656c62\",\n        \"metadata\": {\n            \"My Server Name\": \"Apache1\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateServer",
+                "summary": "Update server",
+                "description": "Updates the editable attributes of the specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": \"2010-11-12T12:55:55Z\",\n        \"hostId\": \"e4d909c290d0fb1ca068ffaddf22cbd0\",\n        \"user_id\": \"5678\",\n        \"name\": \"new-server-test\",\n        \"links\": [\n            {\n                \"href\": \"http://servers.api.openstack.org/v2/1234/servers/52415800-8b69-11e0-9b19-734fcece0043\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://servers.api.openstack.org/1234/servers/52415800-8b69-11e0-9b19-734fcece0043\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"created\": \"2010-11-11T12:00:00Z\",\n        \"tenant_id\": \"1234\",\n        \"image\": {\n            \"id\": \"52415800-8b69-11e0-9b19-734f6f006e54\",\n            \"links\": [\n                {\n                    \"href\": \"http://servers.api.openstack.org/v2/1234/images/52415800-8b69-11e0-9b19-734f6f006e54\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://servers.api.openstack.org/1234/images/52415800-8b69-11e0-9b19-734f6f006e54\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"CentOS 5.2\"\n        },\n        \"addresses\": {\n            \"public\": [\n                {\n                    \"version\": 4,\n                    \"addr\": \"67.23.10.138\"\n                },\n                {\n                    \"version\": 6,\n                    \"addr\": \"::babe:67.23.10.138\"\n                }\n            ],\n            \"private\": [\n                {\n                    \"version\": 4,\n                    \"addr\": \"10.176.42.19\"\n                },\n                {\n                    \"version\": 6,\n                    \"addr\": \"::babe:10.176.42.19\"\n                }\n            ]\n        },\n        \"accessIPv4\": \"67.23.10.132\",\n        \"accessIPv6\": \"::babe:67.23.10.132\",\n        \"progress\": 0,\n        \"flavor\": {\n            \"id\": \"52415800-8b69-11e0-9b19-734f1195ff37\",\n            \"links\": [\n                {\n                    \"href\": \"http://servers.api.openstack.org/v2/1234/flavors/52415800-8b69-11e0-9b19-734f1195ff37\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://servers.api.openstack.org/1234/flavors/52415800-8b69-11e0-9b19-734f1195ff37\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"256 MB Server\"\n        },\n        \"id\": \"52415800-8b69-11e0-9b19-734f565bc83b\",\n        \"metadata\": {\n            \"My Server Name\": \"Apache1\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteServer",
+                "summary": "Delete server",
+                "description": "Deletes a specified server.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}/metadata": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showServerMetadata",
+                "summary": "Show server metadata",
+                "description": "Shows metadata for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"foo\": \"Foo Value\"\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"foo\": \"Foo Value\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "createServerMetadata",
+                "summary": "Create or replace server metadata items",
+                "description": "Creates or replaces metadata items for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"name\": \"test_server\",\n        \"server_type\": \"test\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "updateServerMetadata",
+                "summary": "Update server metadata items",
+                "description": "Updates metadata items by key for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"name\": \"test_server\",\n        \"server_type\": \"test\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}/metadata/{key}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server.\n"
+                },
+                {
+                    "name": "key",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "A string. Maximum length is 255 characters.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getServerMetadataItem",
+                "summary": "Show server metadata item details",
+                "description": "Shows details for a metadata item by key for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"name\": \"test_server\",\n        \"server_type\": \"test\"\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"name\": \"test_server\",\n        \"server_type\": \"test\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "setServerMetadataItem",
+                "summary": "Create or update server metadata item",
+                "description": "Sets a metadata item by key for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"name\": \"test_server\",\n        \"server_type\": \"test\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteServerMetadataItem",
+                "summary": "Delete server metadata item",
+                "description": "Deletes a metadata item by key for a specified server.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}/ips": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getServerAddresses",
+                "summary": "List addresses",
+                "description": "Lists networks and addresses for a specified tenant and server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"addresses\": {\n        \"public\": [\n            {\n                \"version\": 4,\n                \"addr\": \"67.23.10.132\"\n            },\n            {\n                \"version\": 6,\n                \"addr\": \"::babe:67.23.10.132\"\n            },\n            {\n                \"version\": 4,\n                \"addr\": \"67.23.10.131\"\n            },\n            {\n                \"version\": 6,\n                \"addr\": \"::babe:4317:0A83\"\n            }\n        ],\n        \"private\": [\n            {\n                \"version\": 4,\n                \"addr\": \"10.176.42.16\"\n            },\n            {\n                \"version\": 6,\n                \"addr\": \"::babe:10.176.42.16\"\n            }\n        ]\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"addresses\": {\n        \"public\": [\n            {\n                \"version\": 4,\n                \"addr\": \"67.23.10.132\"\n            },\n            {\n                \"version\": 6,\n                \"addr\": \"::babe:67.23.10.132\"\n            },\n            {\n                \"version\": 4,\n                \"addr\": \"67.23.10.131\"\n            },\n            {\n                \"version\": 6,\n                \"addr\": \"::babe:4317:0A83\"\n            }\n        ],\n        \"private\": [\n            {\n                \"version\": 4,\n                \"addr\": \"10.176.42.16\"\n            },\n            {\n                \"version\": 6,\n                \"addr\": \"::babe:10.176.42.16\"\n            }\n        ]\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}/ips/{network_label}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server.\n"
+                },
+                {
+                    "name": "network_label",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The network label, such as `public` or `private`.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getNetworkAddresses",
+                "summary": "List addresses by network",
+                "description": "Lists addresses for a specified tenant, server, and network.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"network\": {\n        \"ip\": [\n            {\n                \"version\": 4,\n                \"addr\": \"67.23.10.132\"\n            },\n            {\n                \"version\": 6,\n                \"addr\": \"::babe:67.23.10.132\"\n            },\n            {\n                \"version\": 4,\n                \"addr\": \"67.23.10.131\"\n            },\n            {\n                \"version\": 6,\n                \"addr\": \"::babe:4317:0A83\"\n            }\n        ],\n        \"id\": \"public\"\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"network\": {\n        \"ip\": [\n            {\n                \"version\": 4,\n                \"addr\": \"67.23.10.132\"\n            },\n            {\n                \"version\": 6,\n                \"addr\": \"::babe:67.23.10.132\"\n            },\n            {\n                \"version\": 4,\n                \"addr\": \"67.23.10.131\"\n            },\n            {\n                \"version\": 6,\n                \"addr\": \"::babe:4317:0A83\"\n            }\n        ],\n        \"id\": \"public\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}/action": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createImage",
+                "summary": "Create image",
+                "description": "Creates a new image. Specify the `createImage` action in the request body.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/images": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listImages",
+                "summary": "List images",
+                "description": "Lists IDs, names, and links for available images.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"images\": [\n        {\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage7\"\n        },\n        {\n            \"id\": \"155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage123456\"\n        },\n        {\n            \"id\": \"a2459075-d96c-40d5-893e-577ff92e721c\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage123456\"\n        },\n        {\n            \"id\": \"a440c04b-79fa-479c-bed1-0b816eaec379\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage6\"\n        },\n        {\n            \"id\": \"c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage123456\"\n        },\n        {\n            \"id\": \"cedef40a-ed67-4d10-800e-17455edce175\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage123456\"\n        },\n        {\n            \"id\": \"76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage123456\"\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"images\": [\n        {\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage7\"\n        },\n        {\n            \"id\": \"155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage123456\"\n        },\n        {\n            \"id\": \"a2459075-d96c-40d5-893e-577ff92e721c\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage123456\"\n        },\n        {\n            \"id\": \"a440c04b-79fa-479c-bed1-0b816eaec379\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage6\"\n        },\n        {\n            \"id\": \"c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage123456\"\n        },\n        {\n            \"id\": \"cedef40a-ed67-4d10-800e-17455edce175\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage123456\"\n        },\n        {\n            \"id\": \"76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"name\": \"fakeimage123456\"\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "changes-since",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "A time/date stamp for when the image last changed status.\n"
+                    },
+                    {
+                        "name": "server",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the server in URL format.\n"
+                    },
+                    {
+                        "name": "name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the image as a string.\n"
+                    },
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Value of the status of the image so that you can filter on \"ACTIVE\" for example.\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "UUID of the image at which you want to set a marker.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the limit of values to return.\n"
+                    },
+                    {
+                        "name": "type",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Value of the type of image, such as snapshot or backup.\n"
+                    }
+                ]
+            }
+        },
+        "/v2/{tenant_id}/images/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listDetailImages",
+                "summary": "List images details",
+                "description": "Lists all details for available images.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"images\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage7\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"metadata\": {\n                \"auto_disk_config\": \"True\",\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\",\n                \"architecture\": \"x86_64\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage123456\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\",\n                \"architecture\": \"x86_64\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage123456\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"a2459075-d96c-40d5-893e-577ff92e721c\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage6\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"a440c04b-79fa-479c-bed1-0b816eaec379\",\n            \"metadata\": {\n                \"auto_disk_config\": \"False\",\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\",\n                \"architecture\": \"x86_64\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage123456\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n            \"metadata\": {\n                \"kernel_id\": \"155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                \"ramdisk_id\": null\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage123456\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"cedef40a-ed67-4d10-800e-17455edce175\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage123456\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\"\n            }\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"images\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage7\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"metadata\": {\n                \"auto_disk_config\": \"True\",\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\",\n                \"architecture\": \"x86_64\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage123456\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\",\n                \"architecture\": \"x86_64\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage123456\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"a2459075-d96c-40d5-893e-577ff92e721c\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage6\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"a440c04b-79fa-479c-bed1-0b816eaec379\",\n            \"metadata\": {\n                \"auto_disk_config\": \"False\",\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\",\n                \"architecture\": \"x86_64\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage123456\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"c905cedb-7281-47e4-8a62-f26bc5fc4c77\",\n            \"metadata\": {\n                \"kernel_id\": \"155d900f-4e14-4e4c-a73d-069cbf4541e6\",\n                \"ramdisk_id\": null\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage123456\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"cedef40a-ed67-4d10-800e-17455edce175\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\"\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2011-01-01T01:02:03Z\",\n            \"name\": \"fakeimage123456\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"rel\": \"bookmark\"\n                },\n                {\n                    \"href\": \"http://glance.openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n                    \"type\": \"application/vnd.openstack.image\",\n                    \"rel\": \"alternate\"\n                }\n            ],\n            \"created\": \"2011-01-01T01:02:03Z\",\n            \"minDisk\": 0,\n            \"progress\": 100,\n            \"minRam\": 0,\n            \"id\": \"76fa36fc-c930-4bf3-8c8a-ea2a2420deb6\",\n            \"metadata\": {\n                \"kernel_id\": \"nokernel\",\n                \"ramdisk_id\": \"nokernel\"\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "changes-since",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "A time/date stamp for when the image last changed status.\n"
+                    },
+                    {
+                        "name": "server",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the server in URL format.\n"
+                    },
+                    {
+                        "name": "name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the image as a string.\n"
+                    },
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Value of the status of the image so that you can filter on \"ACTIVE\" for example.\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "UUID of the image at which you want to set a marker.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the limit of values to return.\n"
+                    },
+                    {
+                        "name": "type",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Value of the type of image, such as snapshot or backup.\n"
+                    }
+                ]
+            }
+        },
+        "/v2/{tenant_id}/images/{image_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "image_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the image.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getImage",
+                "summary": "Get image details",
+                "description": "Gets details for a specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"image\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": \"2011-01-01T01:02:03Z\",\n        \"name\": \"fakeimage7\",\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"rel\": \"bookmark\"\n            },\n            {\n                \"href\": \"http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"type\": \"application/vnd.openstack.image\",\n                \"rel\": \"alternate\"\n            }\n        ],\n        \"created\": \"2011-01-01T01:02:03Z\",\n        \"minDisk\": 0,\n        \"progress\": 100,\n        \"minRam\": 0,\n        \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n        \"metadata\": {\n            \"auto_disk_config\": \"True\",\n            \"kernel_id\": \"nokernel\",\n            \"ramdisk_id\": \"nokernel\",\n            \"architecture\": \"x86_64\"\n        }\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"image\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": \"2011-01-01T01:02:03Z\",\n        \"name\": \"fakeimage7\",\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"rel\": \"bookmark\"\n            },\n            {\n                \"href\": \"http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"type\": \"application/vnd.openstack.image\",\n                \"rel\": \"alternate\"\n            }\n        ],\n        \"created\": \"2011-01-01T01:02:03Z\",\n        \"minDisk\": 0,\n        \"progress\": 100,\n        \"minRam\": 0,\n        \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n        \"metadata\": {\n            \"auto_disk_config\": \"True\",\n            \"kernel_id\": \"nokernel\",\n            \"ramdisk_id\": \"nokernel\",\n            \"architecture\": \"x86_64\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteImage",
+                "summary": "Delete image",
+                "description": "Deletes a specified image.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/images/{image_id}/metadata": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "image_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the image.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showImageMetadata",
+                "summary": "Show image metadata",
+                "description": "Shows metadata for a specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"auto_disk_config\": \"True\",\n        \"kernel_id\": \"nokernel\",\n        \"ramdisk_id\": \"nokernel\",\n        \"architecture\": \"x86_64\"\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"auto_disk_config\": \"True\",\n        \"kernel_id\": \"nokernel\",\n        \"ramdisk_id\": \"nokernel\",\n        \"architecture\": \"x86_64\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "createImageMetadata",
+                "summary": "Create or replace image metadata",
+                "description": "Creates or replaces metadata for a specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"auto_disk_config\": \"True\",\n        \"Label\": \"Changed\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "updateImageMetadata",
+                "summary": "Update image metadata items",
+                "description": "Updates metadata items by key for a specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"auto_disk_config\": \"True\",\n        \"kernel_id\": \"False\",\n        \"ramdisk_id\": \"nokernel\",\n        \"architecture\": \"x86_64\",\n        \"Label\": \"UpdatedImage\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/images/{image_id}/metadata/{key}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "image_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the image.\n"
+                },
+                {
+                    "name": "key",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "A string. Maximum length is 255 characters.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getImageMetadataItem",
+                "summary": "Show image metadata item details",
+                "description": "Shows details for a metadata item by key for a specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"auto_disk_config\": \"True\",\n        \"kernel_id\": \"nokernel\",\n        \"ramdisk_id\": \"nokernel\",\n        \"architecture\": \"x86_64\"\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"auto_disk_config\": \"True\",\n        \"kernel_id\": \"nokernel\",\n        \"ramdisk_id\": \"nokernel\",\n        \"architecture\": \"x86_64\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "setImageMetadataItem",
+                "summary": "Create or update image metadata item",
+                "description": "Creates or updates a metadata item by key for a specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"auto_disk_config\": \"True\",\n        \"Label\": \"Changed\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteImageMetadataItem",
+                "summary": "Delete image metadata item",
+                "description": "Deletes a metadata item by key for a specified image.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/flavors": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listFlavors",
+                "summary": "List flavors",
+                "description": "Lists IDs, names, and links for available flavors.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavors\": [\n        {\n            \"id\": \"1\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/1\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.tiny\"\n        },\n        {\n            \"id\": \"2\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/2\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/2\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.small\"\n        },\n        {\n            \"id\": \"3\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/3\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/3\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.medium\"\n        },\n        {\n            \"id\": \"4\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/4\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/4\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.large\"\n        },\n        {\n            \"id\": \"5\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/5\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/5\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.xlarge\"\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavors\": [\n        {\n            \"id\": \"1\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/1\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.tiny\"\n        },\n        {\n            \"id\": \"2\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/2\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/2\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.small\"\n        },\n        {\n            \"id\": \"3\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/3\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/3\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.medium\"\n        },\n        {\n            \"id\": \"4\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/4\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/4\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.large\"\n        },\n        {\n            \"id\": \"5\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/5\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/5\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.xlarge\"\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "minDisk",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the minimum disk space in GB so you can filter results.\n"
+                    },
+                    {
+                        "name": "minRam",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the minimum RAM so you can filter results.\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "UUID of the flavor at which you want to set a marker.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the limit of values to return.\n"
+                    }
+                ]
+            }
+        },
+        "/v2/{tenant_id}/flavors/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listDetailFlavors",
+                "summary": "List details for flavors",
+                "description": "Lists all details for available flavors.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavors\": [\n        {\n            \"id\": \"1\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/1\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.tiny\"\n        },\n        {\n            \"id\": \"2\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/2\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/2\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.small\"\n        },\n        {\n            \"id\": \"3\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/3\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/3\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.medium\"\n        },\n        {\n            \"id\": \"4\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/4\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/4\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.large\"\n        },\n        {\n            \"id\": \"5\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/5\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/5\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.xlarge\"\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavors\": [\n        {\n            \"id\": \"1\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/1\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.tiny\"\n        },\n        {\n            \"id\": \"2\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/2\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/2\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.small\"\n        },\n        {\n            \"id\": \"3\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/3\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/3\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.medium\"\n        },\n        {\n            \"id\": \"4\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/4\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/4\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.large\"\n        },\n        {\n            \"id\": \"5\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/flavors/5\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/5\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"m1.xlarge\"\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "minDisk",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the minimum disk space in GB so you can filter results.\n"
+                    },
+                    {
+                        "name": "minRam",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the minimum RAM so you can filter results.\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "UUID of the flavor at which you want to set a marker.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the limit of values to return.\n"
+                    }
+                ]
+            }
+        },
+        "/v2/{tenant_id}/flavors/{flavor_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "flavor_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "UUID for the specific flavor (combination of memory, disk size, and CPUs).\n"
+                }
+            ],
+            "get": {
+                "operationId": "getFlavor",
+                "summary": "Get flavor details",
+                "description": "Gets details for a specified flavor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavor\": {\n        \"name\": \"m1.tiny\",\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/flavors/1\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"ram\": 512,\n        \"vcpus\": 1,\n        \"disk\": 1,\n        \"id\": \"1\"\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavor\": {\n        \"name\": \"m1.tiny\",\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/flavors/1\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"ram\": 512,\n        \"vcpus\": 1,\n        \"disk\": 1,\n        \"id\": \"1\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

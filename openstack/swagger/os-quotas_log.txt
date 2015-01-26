@@ -1,0 +1,7 @@
+INFO:wadls/os-quotas.wadl:Converting: wadls/os-quotas.wadl to swagger/os-quotas.json
+INFO:root:Saving swagger to swagger/os-quotas.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

@@ -1,0 +1,12 @@
+INFO:wadls/os-volume_attachments.wadl:Converting: wadls/os-volume_attachments.wadl to swagger/os-volume_attachments.json
+WARNING:wadls/os-volume_attachments.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-volume_attachments.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-volume_attachments.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-volume_attachments.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-volume_attachments.wadl:Autofix: path parameters must be required in Swagger (attachment_id)
+INFO:root:Saving swagger to swagger/os-volume_attachments.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

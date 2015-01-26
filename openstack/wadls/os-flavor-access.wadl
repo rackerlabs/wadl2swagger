@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:db="http://docbook.org/ns/docbook"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-flavor-access-v2">
+        
+        <resource id="flavors" path="/v2/{tenant_id}/flavors">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="detailAccess">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List flavors with access type">
+               <para role="shortdesc">Lists flavors and includes the
+                access type, which is public or private.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavors": [
+        {
+            "disk": 1,
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.tiny",
+            "os-flavor-access:is_public": true,
+            "ram": 512,
+            "vcpus": 1
+        },
+        {
+            "disk": 20,
+            "id": "2",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/2",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/2",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.small",
+            "os-flavor-access:is_public": true,
+            "ram": 2048,
+            "vcpus": 1
+        },
+        {
+            "disk": 40,
+            "id": "3",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/3",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/3",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.medium",
+            "os-flavor-access:is_public": true,
+            "ram": 4096,
+            "vcpus": 2
+        },
+        {
+            "disk": 80,
+            "id": "4",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/4",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/4",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.large",
+            "os-flavor-access:is_public": true,
+            "ram": 8192,
+            "vcpus": 4
+        },
+        {
+            "disk": 160,
+            "id": "5",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/5",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/5",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.xlarge",
+            "os-flavor-access:is_public": true,
+            "ram": 16384,
+            "vcpus": 8
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavors xmlns:os-flavor-access="http://docs.openstack.org/compute/ext/flavor_access/api/v2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;flavor disk="1" vcpus="1" ram="512" name="m1.tiny" id="1" os-flavor-access:is_public="True"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/1" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="20" vcpus="1" ram="2048" name="m1.small" id="2" os-flavor-access:is_public="True"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/2" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/2" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="40" vcpus="2" ram="4096" name="m1.medium" id="3" os-flavor-access:is_public="True"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/3" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/3" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="80" vcpus="4" ram="8192" name="m1.large" id="4" os-flavor-access:is_public="True"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/4" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/4" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="160" vcpus="8" ram="16384" name="m1.xlarge" id="5" os-flavor-access:is_public="True"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/5" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/5" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+&lt;/flavors&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="disk" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Integer value for the minimum disk space
+                            in GB.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The flavor ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="links" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Flavor links.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The flavor name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="ram" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Amount of RAM.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="vcpus" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Number of VCPUs.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param name="os-flavor-access:is_public"
+                         style="plain"
+                         required="true"
+                         type="xsd:Boolean">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Set to true if access is
+                            public.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="createAccess">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create private flavor">
+               <para role="shortdesc">Creates a private flavor.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavor": {
+        "name": "test_flavor",
+        "ram": 1024,
+        "vcpus": 2,
+        "disk": 10,
+        "id": "10",
+        "os-flavor-access:is_public": false
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor xmlns="http://docs.openstack.org/compute/api/v1.1"
+   xmlns:os-flavor-access="http://docs.openstack.org/compute/ext/flavor_access/api/v1.1"
+   name="test_flavor"
+   ram="1024"
+   vcpus="2"
+   disk="10"
+   id="10"
+   os-flavor-access:is_public="False"
+/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="disk" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Integer value for the minimum disk space
+                            in GB.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The flavor ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The flavor name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="ram" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Amount of RAM.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="vcpus" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Number of VCPUs.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param name="os-flavor-access:is_public"
+                         style="plain"
+                         required="true"
+                         type="xsd:Boolean">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Set to true if access is
+                            public. Set to false if access is
+                            private.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavor": {
+        "disk": 10,
+        "id": "10",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/flavors/10",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/flavors/10",
+                "rel": "bookmark"
+            }
+        ],
+        "name": "test_flavor",
+        "os-flavor-access:is_public": false,
+        "ram": 1024,
+        "vcpus": 2
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor xmlns:os-flavor-access="http://docs.openstack.org/compute/ext/flavor_access/api/v2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" disk="10" vcpus="2" ram="1024" name="test_flavor" id="10" os-flavor-access:is_public="False"&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/10" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/flavors/10" rel="bookmark"/&gt;
+&lt;/flavor&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="disk" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Integer value for the minimum disk space
+                            in GB.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The flavor ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="links" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Flavor links.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The flavor name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="ram" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Amount of RAM.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="vcpus" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Number of VCPUs.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param name="os-flavor-access:is_public"
+                         style="plain"
+                         required="true"
+                         type="xsd:Boolean">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Set to true if access is
+                            public.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource path="/v2/{tenant_id}/flavors/{flavor_id}" id="flavor_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="flavor_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para role="shortdesc">
+                                   The ID of the flavor of interest to
+                                   you.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="showAccess">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show flavor access type">
+               <para role="shortdesc">Gets the flavor access type, which
+                is public or private.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavor": {
+        "disk": 1,
+        "id": "1",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/flavors/1",
+                "rel": "bookmark"
+            }
+        ],
+        "name": "m1.tiny",
+        "os-flavor-access:is_public": true,
+        "ram": 512,
+        "vcpus": 1
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor xmlns:os-flavor-access="http://docs.openstack.org/compute/ext/flavor_access/api/v2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" disk="1" vcpus="1" ram="512" name="m1.tiny" id="1" os-flavor-access:is_public="True"&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/1" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+&lt;/flavor&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="disk" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Integer value for the minimum disk space
+                            in GB.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The flavor ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="links" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Flavor links.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The flavor name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="ram" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Amount of RAM.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="vcpus" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Number of VCPUs.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param name="os-flavor-access:is_public"
+                         style="plain"
+                         required="true"
+                         type="xsd:Boolean">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Set to true if access is
+                            public.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                        <resource path="/v2/{tenant_id}/flavors/{flavor_id}/os-flavor-access"
+                id="os-flavor-access">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="flavor_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para role="shortdesc">
+                                   The ID of the flavor of interest to
+                                   you.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="listAccess">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List tenants with access to private flavor">
+               <para role="shortdesc">Lists tenants with access to the
+                specified private flavor.</para>
+            </wadl:doc>
+            <response status="200">
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavor_access": [
+        {
+            "flavor_id": "10",
+            "tenant_id": "fake_tenant"
+        },
+        {
+            "flavor_id": "10",
+            "tenant_id": "openstack"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor_access&gt;
+  &lt;access tenant_id="fake_tenant" flavor_id="10"/&gt;
+  &lt;access tenant_id="openstack" flavor_id="10"/&gt;
+&lt;/flavor_access&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="flavor_id" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The flavor
+                        ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         required="true"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant
+                        ID.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                        
+                        <resource path="/v2/{tenant_id}/flavors/{flavor_id}/action" id="action">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="flavor_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para role="shortdesc">
+                                   The ID of the flavor of interest to
+                                   you.</para>
+            </wadl:doc>
+                        </param>
+         <method name="POST" rax:id="addTenantAccess">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Add access to private flavor">
+               <para role="shortdesc">Gives a specified tenant access to
+                the specified private flavor.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "addTenantAccess": {
+        "tenant": "fake_tenant"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;addTenantAccess&gt;
+   &lt;tenant&gt;fake_tenant&lt;/tenant&gt;
+&lt;/addTenantAccess&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="addTenantAccess"
+                         style="plain"
+                         required="true"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Specify the
+                                <code>addTenantAccess</code>
+                            action.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The name of the tenant to
+                            which to give access.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavor_access": [
+        {
+            "flavor_id": "10",
+            "tenant_id": "fake_tenant"
+        },
+        {
+            "flavor_id": "10",
+            "tenant_id": "openstack"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor_access&gt;
+  &lt;access tenant_id="fake_tenant" flavor_id="10"/&gt;
+  &lt;access tenant_id="openstack" flavor_id="10"/&gt;
+&lt;/flavor_access&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="flavor_id" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The flavor
+                        ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         required="true"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant
+                        ID.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+         <method name="DELETE" rax:id="removeTenantAccess">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete access from private flavor">
+               <para role="shortdesc">Revokes access from the specified
+                tenant for the specified private flavor.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "removeTenantAccess": {
+        "tenant": "fake_tenant"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;removeTenantAccess&gt;
+   &lt;tenant&gt;fake_tenant&lt;/tenant&gt;
+&lt;/removeTenantAccess&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="removeTenantAccess"
+                         style="plain"
+                         required="true"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Specify the
+                                <code>removeTenantAccess</code>
+                            action.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The name of the tenant
+                            from which to revoke
+                        access.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavor_access": [
+        {
+            "flavor_id": "10",
+            "tenant_id": "openstack"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor_access&gt;
+    &lt;access tenant_id="openstack" flavor_id="10"/&gt;
+&lt;/flavor_access&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="flavor_id" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The flavor
+                        ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         required="true"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant
+                        ID.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                            
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="detailAccess">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                <param name="disk" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="id" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="links" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="name" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="ram" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="vcpus" style="plain" required="true" type="xsd:int">
+                    
+                </param> 
+            <param name="os-flavor-access:is_public"
+                   style="plain"
+                   required="true"
+                   type="xsd:Boolean">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createAccess">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                <param name="disk" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="id" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="name" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="ram" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="vcpus" style="plain" required="true" type="xsd:int">
+                    
+                </param> 
+            <param name="os-flavor-access:is_public"
+                   style="plain"
+                   required="true"
+                   type="xsd:Boolean">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                <param name="disk" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="id" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="links" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="name" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="ram" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="vcpus" style="plain" required="true" type="xsd:int">
+                    
+                </param> 
+            <param name="os-flavor-access:is_public"
+                   style="plain"
+                   required="true"
+                   type="xsd:Boolean">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showAccess">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                <param name="disk" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="id" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="links" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="name" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="ram" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="vcpus" style="plain" required="true" type="xsd:int">
+                    
+                </param> 
+            <param name="os-flavor-access:is_public"
+                   style="plain"
+                   required="true"
+                   type="xsd:Boolean">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listAccess">
+        
+        <response status="200">
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="flavor_id" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="tenant_id"
+                   style="plain"
+                   required="true"
+                   type="xsd:string">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="addTenantAccess">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="addTenantAccess"
+                   style="plain"
+                   required="true"
+                   type="xsd:string">
+                    
+                </param>
+                <param name="tenant" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="flavor_id" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="tenant_id"
+                   style="plain"
+                   required="true"
+                   type="xsd:string">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="removeTenantAccess">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="removeTenantAccess"
+                   style="plain"
+                   required="true"
+                   type="xsd:string">
+                    
+                </param>
+                <param name="tenant" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="flavor_id" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+                <param name="tenant_id"
+                   style="plain"
+                   required="true"
+                   type="xsd:string">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+</wadl:application>

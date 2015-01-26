@@ -1,0 +1,55 @@
+---
+swagger: '2.0'
+info:
+  title: os-diagnostics
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/servers/{server_id}/diagnostics":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: server_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the server of interest to you.
+    get:
+      operationId: getDiagnostics
+      summary: Get server diagnostics
+      description: |
+        Gets basic usage data for a specified server.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "vnet0_tx_errors": 0,
+                  "vda_read": 4447232,
+                  "vnet0_tx_packets": 1259,
+                  "vda_write": 4347904,
+                  "vda_write_req": 3523,
+                  "memory-actual": 524288,
+                  "memory": 524288,
+                  "vnet0_tx": 364840,
+                  "vnet0_rx_drop": 0,
+                  "vnet0_tx_drop": 0,
+                  "memory-rss": 243188,
+                  "vnet0_rx_errors": 0,
+                  "cpu0_time": 195230000000,
+                  "vnet0_rx_packets": 1423,
+                  "vda_read_req": 291,
+                  "vnet0_rx": 363725,
+                  "vda_errors": -1
+              }

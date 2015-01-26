@@ -1,0 +1,13 @@
+INFO:wadls/image-schemas-2.0.wadl:Converting: wadls/image-schemas-2.0.wadl to swagger/image-schemas-2.0.json
+WARNING:wadls/image-schemas-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/image-schemas-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/image-schemas-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/image-schemas-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/image-schemas-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/image-schemas-2.0.wadl:Autofix: Adding leading / to path
+INFO:root:Saving swagger to swagger/image-schemas-2.0.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

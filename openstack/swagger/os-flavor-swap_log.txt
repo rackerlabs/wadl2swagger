@@ -1,0 +1,8 @@
+INFO:wadls/os-flavor-swap.wadl:Converting: wadls/os-flavor-swap.wadl to swagger/os-flavor-swap.json
+WARNING:wadls/os-flavor-swap.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-flavor-swap.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

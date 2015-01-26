@@ -1,0 +1,19 @@
+INFO:wadls/os-floating-ip-dns.wadl:Converting: wadls/os-floating-ip-dns.wadl to swagger/os-floating-ip-dns.json
+WARNING:wadls/os-floating-ip-dns.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-floating-ip-dns.wadl:No support for application/json for resource at /v2/{tenant_id}/os-floating-ip-dns/{domain}
+WARNING:wadls/os-floating-ip-dns.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-floating-ip-dns.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-floating-ip-dns.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-floating-ip-dns.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v2~1{tenant_id}~1os-floating-ip-dns~1{domain}~1entries~1{ip}: API path (or equivalent) already defined: /v2/{tenant_id}/os-floating-ip-dns/{domain}/entries/{ip}
+  #/paths/~1v2~1{tenant_id}~1os-floating-ip-dns~1{domain}~1entries~1{ip}/get: API requires path parameter but it is not defined: ip
+
+2 errors and 0 warnings
+Invalid

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:db="http://docbook.org/ns/docbook"
+              xmlns:common="http://docs.openstack.org/common/api/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-agents-v2">
+        <resource id="os-agents" path="/v2/{tenant_id}/os-agents">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique ID of the tenant or
+                            account.</para>
+                    </wadl:doc>
+                </param>
+         <method name="GET" rax:id="listAgents">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List agents">
+               <para role="shortdesc">Lists all agent builds.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "agents": [
+        {
+            "agent_id": "1",
+            "architecture": "x86",
+            "hypervisor": "hypervisor",
+            "md5hash": "add6bb58e139be103324d04d82d8f545",
+            "os": "os",
+            "url": "xxxxxxxxxxxx",
+            "version": "8.0"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;agents&gt;
+  &lt;agent url="xxxxxxxxxxxx" hypervisor="hypervisor" md5hash="add6bb58e139be103324d04d82d8f545" version="8.0" architecture="x86" os="os" agent_id="1"/&gt;
+&lt;/agents&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="createAgent">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create agent">
+               <para role="shortdesc">Creates an agent build.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "agent": {
+        "hypervisor": "hypervisor",
+        "os": "os",
+        "architecture": "x86",
+        "version": "8.0",
+        "md5hash": "add6bb58e139be103324d04d82d8f545",
+        "url": "xxxxxxxxxxxx"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;agent&gt;
+  &lt;hypervisor&gt;hypervisor&lt;/hypervisor&gt;
+  &lt;os&gt;os&lt;/os&gt;
+  &lt;architecture&gt;x86&lt;/architecture&gt;
+  &lt;version&gt;8.0&lt;/version&gt;
+  &lt;md5hash&gt;add6bb58e139be103324d04d82d8f545&lt;/md5hash&gt;
+  &lt;url&gt;xxxxxxxxxxxx&lt;/url&gt;
+&lt;/agent&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "agent": {
+        "agent_id": "1",
+        "architecture": "x86",
+        "hypervisor": "hypervisor",
+        "md5hash": "add6bb58e139be103324d04d82d8f545",
+        "os": "os",
+        "url": "xxxxxxxxxxxx",
+        "version": "8.0"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;agent&gt;
+  &lt;url&gt;xxxxxxxxxxxx&lt;/url&gt;
+  &lt;hypervisor&gt;hypervisor&lt;/hypervisor&gt;
+  &lt;md5hash&gt;add6bb58e139be103324d04d82d8f545&lt;/md5hash&gt;
+  &lt;version&gt;8.0&lt;/version&gt;
+  &lt;architecture&gt;x86&lt;/architecture&gt;
+  &lt;os&gt;os&lt;/os&gt;
+  &lt;agent_id&gt;1&lt;/agent_id&gt;
+&lt;/agent&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="DELETE" rax:id="deleteAgent">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete agent">
+               <para role="shortdesc">Deletes an existing agent
+                build.</para>
+            </wadl:doc>
+            <response status="202"/>
+         </method>
+      </resource>
+                    
+                    
+                    <resource path="/v2/{tenant_id}/os-agents/{id}" id="agent_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique ID of the tenant or
+                            account.</para>
+                    </wadl:doc>
+                </param>
+         <param name="id" style="template" required="true" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The unique ID
+                                   associated with the
+                                agent.</para>
+            </wadl:doc>
+                        </param>
+         <method name="PUT" rax:id="updateAgent">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update agent">
+               <para role="shortdesc">Updates an agent build.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "para": {
+        "url": "xxx://xxxx/xxx/xxx",
+        "md5hash": "add6bb58e139be103324d04d82d8f545",
+        "version": "7.0"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;para&gt;
+  &lt;version&gt;7.0&lt;/version&gt;
+  &lt;url&gt;xxx://xxxx/xxx/xxx&lt;/url&gt;
+  &lt;md5hash&gt;add6bb58e139be103324d04d82d8f545&lt;/md5hash&gt;
+&lt;/para&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "agent": {
+        "agent_id": "1",
+        "md5hash": "add6bb58e139be103324d04d82d8f545",
+        "url": "xxx://xxxx/xxx/xxx",
+        "version": "7.0"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;agent&gt;
+  &lt;url&gt;xxx://xxxx/xxx/xxx&lt;/url&gt;
+  &lt;version&gt;7.0&lt;/version&gt;
+  &lt;agent_id&gt;1&lt;/agent_id&gt;
+  &lt;md5hash&gt;add6bb58e139be103324d04d82d8f545&lt;/md5hash&gt;
+&lt;/agent&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listAgents">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteAgent">
+        
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createAgent">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateAgent">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

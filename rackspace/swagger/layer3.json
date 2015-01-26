@@ -1,0 +1,157 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "layer3",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/routers": {
+            "get": {
+                "operationId": "listRouters",
+                "summary": "List Routers",
+                "description": "Lists logical routers that are accessible to the tenant who submits the request.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"routers\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"external_gateway_info\": null,\n            \"name\": \"second_routers\",\n            \"admin_state_up\": true,\n            \"tenant_id\": \"6b96ff0cb17a4b859e1e575d221683d3\",\n            \"id\": \"7177abc4-5ae9-4bb7-b0d4-89e94a4abf3b\"\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"external_gateway_info\": {\n                \"network_id\": \"3c5bcddd-6af9-4e6b-9c3e-c153e521cab8\"\n            },\n            \"name\": \"router1\",\n            \"admin_state_up\": true,\n            \"tenant_id\": \"33a40233088643acb66ff6eb0ebea679\",\n            \"id\": \"a9254bdb-2613-4a13-ac4c-adc581fba50d\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createRouter",
+                "summary": "Create Router",
+                "description": "Creates a logical router.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"router\": {\n        \"status\": \"ACTIVE\",\n        \"external_gateway_info\": null,\n        \"name\": \"another_router\",\n        \"admin_state_up\": true,\n        \"tenant_id\": \"6b96ff0cb17a4b859e1e575d221683d3\",\n        \"id\": \"8604a0de-7f6b-409a-a47c-a1cc7bc77b2e\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/routers/{router_id}": {
+            "parameters": [
+                {
+                    "name": "router_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID of the router.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showRouter",
+                "summary": "Show Router Details",
+                "description": "Shows details for the specified router.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"router\": {\n        \"status\": \"ACTIVE\",\n        \"external_gateway_info\": {\n            \"network_id\": \"3c5bcddd-6af9-4e6b-9c3e-c153e521cab8\"\n        },\n        \"name\": \"router1\",\n        \"admin_state_up\": true,\n        \"tenant_id\": \"33a40233088643acb66ff6eb0ebea679\",\n        \"id\": \"a9254bdb-2613-4a13-ac4c-adc581fba50d\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateRouter",
+                "summary": "Update Router",
+                "description": "Updates the specified router.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"router\": {\n        \"status\": \"ACTIVE\",\n        \"external_gateway_info\": {\n            \"network_id\": \"8ca37218-28ff-41cb-9b10-039601ea7e6b\"\n        },\n        \"name\": \"another_router\",\n        \"admin_state_up\": true,\n        \"tenant_id\": \"6b96ff0cb17a4b859e1e575d221683d3\",\n        \"id\": \"8604a0de-7f6b-409a-a47c-a1cc7bc77b2e\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteRouter",
+                "summary": "Delete Router",
+                "description": "Deletes the logical router and its external gateway interface.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v2.0/routers/{router_id}/add_router_interface": {
+            "parameters": [
+                {
+                    "name": "router_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID of the router.\n"
+                }
+            ],
+            "put": {
+                "operationId": "addRouterInterface",
+                "summary": "Add Interface to Router",
+                "description": "Adds an internal interface to the specified logical router.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"subnet_id\": \"a2f1f29d-571b-4533-907f-5803ab96ead1\",\n    \"port_id\": \"3a44f4e5-1694-493a-a1fb-393881c673a4\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/routers/{router_id}/remove_router_interface": {
+            "parameters": [
+                {
+                    "name": "router_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID of the router.\n"
+                }
+            ],
+            "put": {
+                "operationId": "removeRouterInterface",
+                "summary": "Remove Interface from Router",
+                "description": "Removes an internal interface from the specified logical router.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"subnet_id\": \"a2f1f29d-571b-4533-907f-5803ab96ead1\",\n    \"tenant_id\": \"2f245a7b-796b-4f26-9cf9-9e82d248fda7\",\n    \"port_id\": \"3a44f4e5-1694-493a-a1fb-393881c673a4\",\n    \"id\": \"8604a0de-7f6b-409a-a47c-a1cc7bc77b2e\"\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

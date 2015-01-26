@@ -1,0 +1,1619 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entites with xmllint          -->
+<!--                                                       -->
+<!--        xmllint -noent os-subnets.wadl                 -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+    <resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:linkend="http://www.w3.org/1999/linkend"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://neutron.example.com/"
+              xml:id="os-subnets-v2">
+        <resource id="Subnets" path="/v2.0/subnets">
+         <method name="GET" rax:id="listSubnets">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List subnets">
+               <para role="shortdesc">Lists subnets to which the
+                specified tenant has access.</para>
+               <para>Default policy settings returns exclusively subnets
+                owned by the tenant submitting the request, unless the
+                request is submitted by an user with administrative
+                rights. You can control which attributes are returned
+                by using the fields query parameter. You can filter
+                results by using query string parameters. For
+                information, see <link xlink:href="http://docs.openstack.org/api/openstack-network/2.0/content/filtering.html">Filtering and Column Selection</link> in the
+                    <citetitle>OpenStack Networking API v2.0
+                    Reference</citetitle>.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "subnets": [
+        {
+            "name": "private-subnet",
+            "enable_dhcp": true,
+            "network_id": "db193ab3-96e3-4cb3-8fc5-05f4296d0324",
+            "tenant_id": "26a7980765d0414dbc1fc1f88cdb7e6e",
+            "dns_nameservers": [],
+            "allocation_pools": [
+                {
+                    "start": "10.0.0.2",
+                    "end": "10.0.0.254"
+                }
+            ],
+            "host_routes": [],
+            "ip_version": 4,
+            "gateway_ip": "10.0.0.1",
+            "cidr": "10.0.0.0/24",
+            "id": "08eae331-0402-425a-923c-34f7cfe39c1b"
+        },
+        {
+            "name": "my_subnet",
+            "enable_dhcp": true,
+            "network_id": "d32019d3-bc6e-4319-9c1d-6722fc136a22",
+            "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+            "dns_nameservers": [],
+            "allocation_pools": [
+                {
+                    "start": "192.0.0.2",
+                    "end": "192.255.255.254"
+                }
+            ],
+            "host_routes": [],
+            "ip_version": 4,
+            "gateway_ip": "192.0.0.1",
+            "cidr": "192.0.0.0/8",
+            "id": "54d6f61d-db07-451c-9ab3-b9609b6b6f0b"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;subnets xmlns="http://openstack.org/quantum/api/v2.0"
+    xmlns:quantum="http://openstack.org/quantum/api/v2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+    &lt;subnet&gt;
+        &lt;name&gt;private-subnet&lt;/name&gt;
+        &lt;enable_dhcp quantum:type="bool"&gt;True&lt;/enable_dhcp&gt;
+        &lt;network_id&gt;db193ab3-96e3-4cb3-8fc5-05f4296d0324&lt;/network_id&gt;
+        &lt;tenant_id&gt;26a7980765d0414dbc1fc1f88cdb7e6e&lt;/tenant_id&gt;
+        &lt;dns_nameservers quantum:type="list"/&gt;
+        &lt;allocation_pools&gt;
+            &lt;allocation_pool&gt;
+                &lt;start&gt;10.0.0.2&lt;/start&gt;
+                &lt;end&gt;10.0.0.254&lt;/end&gt;
+            &lt;/allocation_pool&gt;
+        &lt;/allocation_pools&gt;
+        &lt;host_routes quantum:type="list"/&gt;
+        &lt;ip_version quantum:type="long"&gt;4&lt;/ip_version&gt;
+        &lt;gateway_ip&gt;10.0.0.1&lt;/gateway_ip&gt;
+        &lt;cidr&gt;10.0.0.0/24&lt;/cidr&gt;
+        &lt;id&gt;08eae331-0402-425a-923c-34f7cfe39c1b&lt;/id&gt;
+    &lt;/subnet&gt;
+    &lt;subnet&gt;
+        &lt;name&gt;my_subnet&lt;/name&gt;
+        &lt;enable_dhcp quantum:type="bool"&gt;True&lt;/enable_dhcp&gt;
+        &lt;network_id&gt;d32019d3-bc6e-4319-9c1d-6722fc136a22&lt;/network_id&gt;
+        &lt;tenant_id&gt;4fd44f30292945e481c7b8a0c8908869&lt;/tenant_id&gt;
+        &lt;dns_nameservers quantum:type="list"/&gt;
+        &lt;allocation_pools&gt;
+            &lt;allocation_pool&gt;
+                &lt;start&gt;192.0.0.2&lt;/start&gt;
+                &lt;end&gt;192.255.255.254&lt;/end&gt;
+            &lt;/allocation_pool&gt;
+        &lt;/allocation_pools&gt;
+        &lt;host_routes quantum:type="list"/&gt;
+        &lt;ip_version quantum:type="long"&gt;4&lt;/ip_version&gt;
+        &lt;gateway_ip&gt;192.0.0.1&lt;/gateway_ip&gt;
+        &lt;cidr&gt;192.0.0.0/8&lt;/cidr&gt;
+        &lt;id&gt;54d6f61d-db07-451c-9ab3-b9609b6b6f0b&lt;/id&gt;
+    &lt;/subnet&gt;
+&lt;/subnets&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="POST" rax:id="createSubnet">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create subnet">
+               <para role="shortdesc">Creates a subnet on a specified
+                network.</para>
+               <para>By default, OpenStack Networking creates IP v4
+                subnets. To create an IP v6 subnet, you must specify
+                the value 6 for the <code>ip_version</code> attribute
+                in the request body. OpenStack Networking does not try
+                to derive the correct IP version from the provided
+                CIDR. If the parameter for the gateway address,
+                    <code>gateway_ip</code>, is not specified,
+                OpenStack Networking allocates an address from the
+                cidr for the gateway for the subnet.</para>
+               <para>To specify a subnet without a gateway, specify the
+                value null for the <code>gateway_ip</code> attribute
+                in the request body. If allocation pools attribute,
+                    <code>allocation_pools</code>, is not specified,
+                OpenStack Networking automatically allocates pools for
+                covering all IP addresses in the CIDR, excluding the
+                address reserved for the subnet gateway. Otherwise,
+                you can explicitly specify allocation pools as shown
+                in the following example.</para>
+               <para>When <code>allocation_pools</code> and
+                    <code>gateway_ip</code> are both specified, it is
+                up to the user to ensure that the gateway IP does not
+                overlap with the specified allocation pools; otherwise
+                a 409 Conflict error occurs.</para>
+            </wadl:doc>
+            <request> 
+               <param required="false" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The subnet name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the tenant who owns the network. Only administrative users can specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="allocation_pools"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The start and end addresses for the allocation pools.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="gateway_ip"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The gateway IP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="ip_version"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP version, which is 4 or 6.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="cidr" style="plain" type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The CIDR.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="enable_dhcp"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Set to true if DHCP is enabled and false if DHCP is disabled.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "subnet": {
+        "network_id": "d32019d3-bc6e-4319-9c1d-6722fc136a22",
+        "ip_version": 4,
+        "cidr": "192.168.199.0/24"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;subnet&gt;
+    &lt;name&gt;test_subnet_1&lt;/name&gt;
+    &lt;network_id&gt;d32019d3-bc6e-4319-9c1d-6722fc136a22&lt;/network_id&gt;
+    &lt;cidr&gt;192.0.0.0/8&lt;/cidr&gt;
+    &lt;ip_version&gt;4&lt;/ip_version&gt;
+&lt;/subnet&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="201"> 
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The subnet name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the tenant who owns the network. Only administrative users can specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="allocation_pools"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The start and end addresses for the allocation pools.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="gateway_ip"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The gateway IP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="ip_version"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP version, which is 4 or 6.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="cidr" style="plain" type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The CIDR.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="enable_dhcp"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Set to true if DHCP is enabled and false if DHCP is disabled.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "subnet": {
+        "name": "",
+        "enable_dhcp": true,
+        "network_id": "d32019d3-bc6e-4319-9c1d-6722fc136a22",
+        "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+        "dns_nameservers": [],
+        "allocation_pools": [
+            {
+                "start": "192.168.199.2",
+                "end": "192.168.199.254"
+            }
+        ],
+        "host_routes": [],
+        "ip_version": 4,
+        "gateway_ip": "192.168.199.1",
+        "cidr": "192.168.199.0/24",
+        "id": "3b80198d-4f7b-4f77-9ef5-774d54e17126"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;subnet xmlns="http://openstack.org/quantum/api/v2.0"
+    xmlns:quantum="http://openstack.org/quantum/api/v2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+    &lt;name&gt;test_subnet_1&lt;/name&gt;
+    &lt;enable_dhcp quantum:type="bool"&gt;True&lt;/enable_dhcp&gt;
+    &lt;network_id&gt;d32019d3-bc6e-4319-9c1d-6722fc136a22&lt;/network_id&gt;
+    &lt;tenant_id&gt;4fd44f30292945e481c7b8a0c8908869&lt;/tenant_id&gt;
+    &lt;dns_nameservers quantum:type="list"/&gt;
+    &lt;allocation_pools&gt;
+        &lt;allocation_pool&gt;
+            &lt;start&gt;192.0.0.2&lt;/start&gt;
+            &lt;end&gt;192.255.255.254&lt;/end&gt;
+        &lt;/allocation_pool&gt;
+    &lt;/allocation_pools&gt;
+    &lt;host_routes quantum:type="list"/&gt;
+    &lt;ip_version quantum:type="int"&gt;4&lt;/ip_version&gt;
+    &lt;gateway_ip&gt;192.0.0.1&lt;/gateway_ip&gt;
+    &lt;cidr&gt;192.0.0.0/8&lt;/cidr&gt;
+    &lt;id&gt;54d6f61d-db07-451c-9ab3-b9609b6b6f0b&lt;/id&gt;
+&lt;/subnet&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="POST" rax:id="bulkCreateSubnet">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Bulk create subnet">
+               <para role="shortdesc">Creates multiple subnets in a
+                single request. Specify a list of subnets in the
+                request body.</para>
+               <para>The bulk create operation is always atomic. Either
+                all or no subnets in the request body are
+                created.</para>
+            </wadl:doc>
+            <request> 
+               <param required="false" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The subnet name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the tenant who owns the network. Only administrative users can specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="allocation_pools"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The start and end addresses for the allocation pools.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="gateway_ip"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The gateway IP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="ip_version"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP version, which is 4 or 6.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="cidr" style="plain" type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The CIDR.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="enable_dhcp"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Set to true if DHCP is enabled and false if DHCP is disabled.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "subnets": [
+        {
+            "cidr": "192.168.199.0/24",
+            "ip_version": 4,
+            "network_id": "e6031bc2-901a-4c66-82da-f4c32ed89406"
+        },
+        {
+            "cidr": "10.56.4.0/22",
+            "ip_version": 4,
+            "network_id": "64239a54-dcc4-4b39-920b-b37c2144effa"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;subnets&gt;
+    &lt;subnet&gt;
+        &lt;name&gt;test_subnet_1&lt;/name&gt;
+        &lt;network_id&gt;a3775a7d-9f8b-4148-be81-c84bbd0837ce&lt;/network_id&gt;
+        &lt;cidr&gt;10.0.0.0/8&lt;/cidr&gt;
+        &lt;ip_version&gt;4&lt;/ip_version&gt;
+    &lt;/subnet&gt;
+    &lt;subnet&gt;
+        &lt;name&gt;test_subnet_2&lt;/name&gt;
+        &lt;network_id&gt;a3775a7d-9f8b-4148-be81-c84bbd0837ce&lt;/network_id&gt;
+        &lt;cidr&gt;192.168.0.0/16&lt;/cidr&gt;
+        &lt;ip_version&gt;4&lt;/ip_version&gt;
+    &lt;/subnet&gt;
+&lt;/subnets&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="201"> 
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The subnet name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the tenant who owns the network. Only administrative users can specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="allocation_pools"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The start and end addresses for the allocation pools.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="gateway_ip"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The gateway IP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="ip_version"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP version, which is 4 or 6.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="cidr" style="plain" type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The CIDR.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="enable_dhcp"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Set to true if DHCP is enabled and false if DHCP is disabled.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "subnets": [
+        {
+            "allocation_pools": [
+                {
+                    "end": "192.168.199.254",
+                    "start": "192.168.199.2"
+                }
+            ],
+            "cidr": "192.168.199.0/24",
+            "dns_nameservers": [],
+            "enable_dhcp": true,
+            "gateway_ip": "192.168.199.1",
+            "host_routes": [],
+            "id": "0468a7a7-290d-4127-aedd-6c9449775a24",
+            "ip_version": 4,
+            "name": "",
+            "network_id": "e6031bc2-901a-4c66-82da-f4c32ed89406",
+            "tenant_id": "d19231fc08ec4bc4829b668040d34512"
+        },
+        {
+            "allocation_pools": [
+                {
+                    "end": "10.56.7.254",
+                    "start": "10.56.4.2"
+                }
+            ],
+            "cidr": "10.56.4.0/22",
+            "dns_nameservers": [],
+            "enable_dhcp": true,
+            "gateway_ip": "10.56.4.1",
+            "host_routes": [],
+            "id": "b0e7435c-1512-45fb-aa9e-9a7c5932fb30",
+            "ip_version": 4,
+            "name": "",
+            "network_id": "64239a54-dcc4-4b39-920b-b37c2144effa",
+            "tenant_id": "d19231fc08ec4bc4829b668040d34512"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;subnets xmlns="http://openstack.org/quantum/api/v2.0"
+    xmlns:quantum="http://openstack.org/quantum/api/v2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+    &lt;subnet&gt;
+        &lt;name&gt;test_subnet_1&lt;/name&gt;
+        &lt;enable_dhcp quantum:type="bool"&gt;True&lt;/enable_dhcp&gt;
+        &lt;network_id&gt;a3775a7d-9f8b-4148-be81-c84bbd0837ce&lt;/network_id&gt;
+        &lt;tenant_id&gt;60cd4f6dbc2f491982a284e7b83b5be3&lt;/tenant_id&gt;
+        &lt;dns_nameservers quantum:type="list"/&gt;
+        &lt;allocation_pools&gt;
+            &lt;allocation_pool&gt;
+                &lt;start&gt;10.0.0.2&lt;/start&gt;
+                &lt;end&gt;10.255.255.254&lt;/end&gt;
+            &lt;/allocation_pool&gt;
+        &lt;/allocation_pools&gt;
+        &lt;host_routes quantum:type="list"/&gt;
+        &lt;ip_version quantum:type="int"&gt;4&lt;/ip_version&gt;
+        &lt;gateway_ip&gt;10.0.0.1&lt;/gateway_ip&gt;
+        &lt;cidr&gt;10.0.0.0/8&lt;/cidr&gt;
+        &lt;id&gt;bd3fd365-fe19-431a-be63-07017a09316c&lt;/id&gt;
+    &lt;/subnet&gt;
+    &lt;subnet&gt;
+        &lt;name&gt;test_subnet_2&lt;/name&gt;
+        &lt;enable_dhcp quantum:type="bool"&gt;True&lt;/enable_dhcp&gt;
+        &lt;network_id&gt;a3775a7d-9f8b-4148-be81-c84bbd0837ce&lt;/network_id&gt;
+        &lt;tenant_id&gt;60cd4f6dbc2f491982a284e7b83b5be3&lt;/tenant_id&gt;
+        &lt;dns_nameservers quantum:type="list"/&gt;
+        &lt;allocation_pools&gt;
+            &lt;allocation_pool&gt;
+                &lt;start&gt;192.168.0.2&lt;/start&gt;
+                &lt;end&gt;192.168.255.254&lt;/end&gt;
+            &lt;/allocation_pool&gt;
+        &lt;/allocation_pools&gt;
+        &lt;host_routes quantum:type="list"/&gt;
+        &lt;ip_version quantum:type="int"&gt;4&lt;/ip_version&gt;
+        &lt;gateway_ip&gt;192.168.0.1&lt;/gateway_ip&gt;
+        &lt;cidr&gt;192.168.0.0/16&lt;/cidr&gt;
+        &lt;id&gt;86e7c838-fb75-402b-9dbf-d68166e3f5fe&lt;/id&gt;
+    &lt;/subnet&gt;
+&lt;/subnets&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+      <resource path="/v2.0/subnets/{subnet_id}" id="subnet_id">
+         <param name="subnet_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Subnet ID">
+                                <para>The UUID for the subnet of
+                                   interest to you.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="showSubnet">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Show subnet">
+               <para role="shortdesc">Shows information for a specified
+                subnet.</para>
+               <para>You can control which attributes are returned by
+                using the fields query parameter. For information, see
+                    <link xlink:href="http://docs.openstack.org/api/openstack-network/2.0/content/filtering.html">Filtering and Column Selection</link> in the
+                    <citetitle>OpenStack Networking API v2.0
+                    Reference</citetitle>.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The subnet name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the tenant who owns the network. Only administrative users can specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="allocation_pools"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The start and end addresses for the allocation pools.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="gateway_ip"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The gateway IP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="ip_version"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP version, which is 4 or 6.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="cidr" style="plain" type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The CIDR.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="enable_dhcp"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Set to true if DHCP is enabled and false if DHCP is disabled.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "subnet": {
+        "name": "my_subnet",
+        "enable_dhcp": true,
+        "network_id": "d32019d3-bc6e-4319-9c1d-6722fc136a22",
+        "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+        "dns_nameservers": [],
+        "allocation_pools": [
+            {
+                "start": "192.0.0.2",
+                "end": "192.255.255.254"
+            }
+        ],
+        "host_routes": [],
+        "ip_version": 4,
+        "gateway_ip": "192.0.0.1",
+        "cidr": "192.0.0.0/8",
+        "id": "54d6f61d-db07-451c-9ab3-b9609b6b6f0b"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;subnet xmlns="http://openstack.org/quantum/api/v2.0"
+    xmlns:quantum="http://openstack.org/quantum/api/v2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+    &lt;name&gt;test_subnet_1&lt;/name&gt;
+    &lt;enable_dhcp quantum:type="bool"&gt;True&lt;/enable_dhcp&gt;
+    &lt;network_id&gt;d32019d3-bc6e-4319-9c1d-6722fc136a22&lt;/network_id&gt;
+    &lt;tenant_id&gt;4fd44f30292945e481c7b8a0c8908869&lt;/tenant_id&gt;
+    &lt;dns_nameservers quantum:type="list"/&gt;
+    &lt;allocation_pools&gt;
+        &lt;allocation_pool&gt;
+            &lt;start&gt;192.0.0.2&lt;/start&gt;
+            &lt;end&gt;192.255.255.254&lt;/end&gt;
+        &lt;/allocation_pool&gt;
+    &lt;/allocation_pools&gt;
+    &lt;host_routes quantum:type="list"/&gt;
+    &lt;ip_version quantum:type="long"&gt;4&lt;/ip_version&gt;
+    &lt;gateway_ip&gt;192.0.0.1&lt;/gateway_ip&gt;
+    &lt;cidr&gt;192.0.0.0/8&lt;/cidr&gt;
+    &lt;id&gt;54d6f61d-db07-451c-9ab3-b9609b6b6f0b&lt;/id&gt;
+&lt;/subnet&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="PUT" rax:id="updateSubnet">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update subnet">
+               <para role="shortdesc">Updates a specified subnet.</para>
+               <para>Some attributes, such as IP version (ip_version),
+                and CIDR (cidr) cannot be updated. Attempting to
+                update these attributes results in a <code>400 Bad
+                    Request</code> error.</para>
+            </wadl:doc>
+            <request> 
+               <param required="false" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The subnet name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the tenant who owns the network. Only administrative users can specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="allocation_pools"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The start and end addresses for the allocation pools.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="gateway_ip"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The gateway IP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="enable_dhcp"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Set to true if DHCP is enabled and false if DHCP is disabled.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "subnet": {
+        "name": "my_subnet"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;subnet&gt;
+    &lt;name&gt;my_subnet&lt;/name&gt;
+&lt;/subnet&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200"> 
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The subnet name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the tenant who owns the network. Only administrative users can specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="allocation_pools"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The start and end addresses for the allocation pools.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="gateway_ip"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The gateway IP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="ip_version"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP version, which is 4 or 6.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="cidr" style="plain" type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The CIDR.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="enable_dhcp"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Set to true if DHCP is enabled and false if DHCP is disabled.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "subnet": {
+        "name": "private-subnet",
+        "enable_dhcp": true,
+        "network_id": "db193ab3-96e3-4cb3-8fc5-05f4296d0324",
+        "tenant_id": "26a7980765d0414dbc1fc1f88cdb7e6e",
+        "dns_nameservers": [],
+        "allocation_pools": [
+            {
+                "start": "10.0.0.2",
+                "end": "10.0.0.254"
+            }
+        ],
+        "host_routes": [],
+        "ip_version": 4,
+        "gateway_ip": "10.0.0.1",
+        "cidr": "10.0.0.0/24",
+        "id": "08eae331-0402-425a-923c-34f7cfe39c1b"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;subnet xmlns="http://openstack.org/quantum/api/v2.0"
+    xmlns:quantum="http://openstack.org/quantum/api/v2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+    &lt;name&gt;my_subnet&lt;/name&gt;
+    &lt;enable_dhcp quantum:type="bool"&gt;True&lt;/enable_dhcp&gt;
+    &lt;network_id&gt;d32019d3-bc6e-4319-9c1d-6722fc136a22&lt;/network_id&gt;
+    &lt;tenant_id&gt;4fd44f30292945e481c7b8a0c8908869&lt;/tenant_id&gt;
+    &lt;dns_nameservers quantum:type="list"/&gt;
+    &lt;allocation_pools&gt;
+        &lt;allocation_pool&gt;
+            &lt;start&gt;192.0.0.2&lt;/start&gt;
+            &lt;end&gt;192.255.255.254&lt;/end&gt;
+        &lt;/allocation_pool&gt;
+    &lt;/allocation_pools&gt;
+    &lt;host_routes quantum:type="list"/&gt;
+    &lt;ip_version quantum:type="long"&gt;4&lt;/ip_version&gt;
+    &lt;gateway_ip&gt;192.0.0.1&lt;/gateway_ip&gt;
+    &lt;cidr&gt;192.0.0.0/8&lt;/cidr&gt;
+    &lt;id&gt;54d6f61d-db07-451c-9ab3-b9609b6b6f0b&lt;/id&gt;
+&lt;/subnet&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="DELETE" rax:id="removeSubnet">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete subnet">
+               <para role="shortdesc">Deletes a specified subnet.</para>
+               <para>The operation fails if subnet IP addresses are still
+                allocated.</para>
+            </wadl:doc>
+            <response status="204"/> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                        
+                        
+                        
+                        
+                    
+    </resources>
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+    <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listSubnets">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createSubnet">
+        
+        <request> 
+         <param required="false" name="name" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="allocation_pools"
+                style="plain"
+                type="xsd:dict">
+         
+     </param>
+         <param required="false"
+                name="gateway_ip"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="ip_version"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true" name="cidr" style="plain" type="xsd:bool">
+         
+     </param>
+         <param required="false" name="id" style="plain" type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="enable_dhcp"
+                style="plain"
+                type="xsd:boolean">
+         
+     </param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="201"> 
+         <param required="true" name="name" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="allocation_pools"
+                style="plain"
+                type="xsd:dict">
+         
+     </param>
+         <param required="true"
+                name="gateway_ip"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="ip_version"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true" name="cidr" style="plain" type="xsd:bool">
+         
+     </param>
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="enable_dhcp"
+                style="plain"
+                type="xsd:boolean">
+         
+     </param>
+        <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="bulkCreateSubnet">
+        
+        <request> 
+         <param required="false" name="name" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="allocation_pools"
+                style="plain"
+                type="xsd:dict">
+         
+     </param>
+         <param required="false"
+                name="gateway_ip"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="ip_version"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true" name="cidr" style="plain" type="xsd:bool">
+         
+     </param>
+         <param required="false" name="id" style="plain" type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="enable_dhcp"
+                style="plain"
+                type="xsd:boolean">
+         
+     </param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="201"> 
+         <param required="true" name="name" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="allocation_pools"
+                style="plain"
+                type="xsd:dict">
+         
+     </param>
+         <param required="true"
+                name="gateway_ip"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="ip_version"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true" name="cidr" style="plain" type="xsd:bool">
+         
+     </param>
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="enable_dhcp"
+                style="plain"
+                type="xsd:boolean">
+         
+     </param>
+        <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showSubnet">
+        
+        <response status="200"> 
+         <param required="true" name="name" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="allocation_pools"
+                style="plain"
+                type="xsd:dict">
+         
+     </param>
+         <param required="true"
+                name="gateway_ip"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="ip_version"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true" name="cidr" style="plain" type="xsd:bool">
+         
+     </param>
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="enable_dhcp"
+                style="plain"
+                type="xsd:boolean">
+         
+     </param>
+        <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateSubnet">
+        
+        <request> 
+         <param required="false" name="name" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="false"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="allocation_pools"
+                style="plain"
+                type="xsd:dict">
+         
+     </param>
+         <param required="false"
+                name="gateway_ip"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="false" name="id" style="plain" type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="enable_dhcp"
+                style="plain"
+                type="xsd:boolean">
+         
+     </param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="200"> 
+         <param required="true" name="name" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="allocation_pools"
+                style="plain"
+                type="xsd:dict">
+         
+     </param>
+         <param required="true"
+                name="gateway_ip"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true"
+                name="ip_version"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="true" name="cidr" style="plain" type="xsd:bool">
+         
+     </param>
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="enable_dhcp"
+                style="plain"
+                type="xsd:boolean">
+         
+     </param>
+        <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="removeSubnet">
+        
+        <response status="204"/> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+</wadl:application>

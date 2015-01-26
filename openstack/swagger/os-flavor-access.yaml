@@ -1,0 +1,298 @@
+---
+swagger: '2.0'
+info:
+  title: os-flavor-access
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/flavors":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: detailAccess
+      summary: List flavors with access type
+      description: |
+        Lists flavors and includes the access type, which is public or private.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavors": [
+                      {
+                          "name": "m1.tiny",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/1",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 512,
+                          "vcpus": 1,
+                          "os-flavor-access:is_public": true,
+                          "disk": 1,
+                          "id": "1"
+                      },
+                      {
+                          "name": "m1.small",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/2",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/2",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 2048,
+                          "vcpus": 1,
+                          "os-flavor-access:is_public": true,
+                          "disk": 20,
+                          "id": "2"
+                      },
+                      {
+                          "name": "m1.medium",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/3",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/3",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 4096,
+                          "vcpus": 2,
+                          "os-flavor-access:is_public": true,
+                          "disk": 40,
+                          "id": "3"
+                      },
+                      {
+                          "name": "m1.large",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/4",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/4",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 8192,
+                          "vcpus": 4,
+                          "os-flavor-access:is_public": true,
+                          "disk": 80,
+                          "id": "4"
+                      },
+                      {
+                          "name": "m1.xlarge",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/5",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/5",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 16384,
+                          "vcpus": 8,
+                          "os-flavor-access:is_public": true,
+                          "disk": 160,
+                          "id": "5"
+                      }
+                  ]
+              }
+    post:
+      operationId: createAccess
+      summary: Create private flavor
+      description: |
+        Creates a private flavor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor": {
+                      "name": "test_flavor",
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/flavors/10",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/flavors/10",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "ram": 1024,
+                      "vcpus": 2,
+                      "os-flavor-access:is_public": false,
+                      "disk": 10,
+                      "id": "10"
+                  }
+              }
+  "/v2/{tenant_id}/flavors/{flavor_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: flavor_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the flavor of interest to you.
+    get:
+      operationId: showAccess
+      summary: Show flavor access type
+      description: |
+        Gets the flavor access type, which is public or private.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor": {
+                      "name": "m1.tiny",
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/flavors/1",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "ram": 512,
+                      "vcpus": 1,
+                      "os-flavor-access:is_public": true,
+                      "disk": 1,
+                      "id": "1"
+                  }
+              }
+  "/v2/{tenant_id}/flavors/{flavor_id}/os-flavor-access":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: flavor_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the flavor of interest to you.
+    get:
+      operationId: listAccess
+      summary: List tenants with access to private flavor
+      description: |
+        Lists tenants with access to the specified private flavor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor_access": [
+                      {
+                          "tenant_id": "fake_tenant",
+                          "flavor_id": "10"
+                      },
+                      {
+                          "tenant_id": "openstack",
+                          "flavor_id": "10"
+                      }
+                  ]
+              }
+  "/v2/{tenant_id}/flavors/{flavor_id}/action":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: flavor_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the flavor of interest to you.
+    post:
+      operationId: addTenantAccess
+      summary: Add access to private flavor
+      description: |
+        Gives a specified tenant access to the specified private flavor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor_access": [
+                      {
+                          "tenant_id": "fake_tenant",
+                          "flavor_id": "10"
+                      },
+                      {
+                          "tenant_id": "openstack",
+                          "flavor_id": "10"
+                      }
+                  ]
+              }
+    delete:
+      operationId: removeTenantAccess
+      summary: Delete access from private flavor
+      description: |
+        Revokes access from the specified tenant for the specified private flavor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor_access": [
+                      {
+                          "tenant_id": "openstack",
+                          "flavor_id": "10"
+                      }
+                  ]
+              }

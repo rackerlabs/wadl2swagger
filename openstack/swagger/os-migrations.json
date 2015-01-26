@@ -1,0 +1,63 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-migrations",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-migrations": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "host",
+                    "required": false,
+                    "in": "query",
+                    "type": "string",
+                    "description": "Filters the response by host name. Include the host name in the URI as follows: `host={host}`.\n"
+                },
+                {
+                    "name": "status",
+                    "required": false,
+                    "in": "query",
+                    "type": "string",
+                    "description": "Filters the response by status. Include the status in the URI as follows: `status={status}`.\n"
+                },
+                {
+                    "name": "cell_name",
+                    "required": false,
+                    "in": "query",
+                    "type": "string",
+                    "description": "Filters the response by cell name. Include the cell name in the URI as follows: `cell_name={cell}`.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getMigrations",
+                "summary": "Get migrations",
+                "description": "Enables an administrative user to fetch in-progress migrations for a region or specified cell in a region.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"migrations\": [\n        {\n            \"dest_host\": \"1.2.3.4\",\n            \"instance_uuid\": \"instance_id_123\",\n            \"created_at\": \"2012-10-29T13:42:02.000000\",\n            \"source_node\": \"node1\",\n            \"updated_at\": \"2012-10-29T13:42:02.000000\",\n            \"dest_compute\": \"compute2\",\n            \"status\": \"Done\",\n            \"new_instance_type_id\": 2,\n            \"old_instance_type_id\": 1,\n            \"dest_node\": \"node2\",\n            \"id\": 1234,\n            \"source_compute\": \"compute1\"\n        },\n        {\n            \"dest_host\": \"5.6.7.8\",\n            \"instance_uuid\": \"instance_id_456\",\n            \"created_at\": \"2013-10-22T13:42:02.000000\",\n            \"source_node\": \"node10\",\n            \"updated_at\": \"2013-10-22T13:42:02.000000\",\n            \"dest_compute\": \"compute20\",\n            \"status\": \"Done\",\n            \"new_instance_type_id\": 6,\n            \"old_instance_type_id\": 5,\n            \"dest_node\": \"node20\",\n            \"id\": 5678,\n            \"source_compute\": \"compute10\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

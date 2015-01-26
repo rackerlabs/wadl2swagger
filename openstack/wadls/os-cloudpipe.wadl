@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:db="http://docbook.org/ns/docbook"
+              xmlns:common="http://docs.openstack.org/common/api/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-cloudpipe-v2">
+        <resource path="/v2/{tenant_id}/os-cloudpipe" id="os-cloudpipe">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="listCloudpipes">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List cloudpipes">
+               <para role="shortdesc">Lists cloudpipes.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "cloudpipes": [
+        {
+            "created_at": "2012-11-27T17:18:01Z",
+            "instance_id": "27deecdb-baa3-4a26-9c82-32994b815b01",
+            "internal_ip": "192.168.0.3",
+            "project_id": "cloudpipe-fa1765bd-a352-49c7-a6b7-8ee108a3cb0c",
+            "public_ip": "127.0.0.1",
+            "public_port": 22,
+            "state": "down"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;cloudpipes&gt;
+  &lt;cloudpipe&gt;
+    &lt;public_ip&gt;127.0.0.1&lt;/public_ip&gt;
+    &lt;created_at&gt;2012-09-25T18:18:49Z&lt;/created_at&gt;
+    &lt;public_port&gt;22&lt;/public_port&gt;
+    &lt;state&gt;down&lt;/state&gt;
+    &lt;instance_id&gt;1a17f615-343b-430f-976a-457c029eddb7&lt;/instance_id&gt;
+    &lt;internal_ip&gt;192.168.0.3&lt;/internal_ip&gt;
+    &lt;project_id&gt;cloudpipe-6405f2ca-caf9-493b-a1f6-e55f595d75ab&lt;/project_id&gt;
+  &lt;/cloudpipe&gt;
+&lt;/cloudpipes&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="createCloudpipe">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create cloudpipe">
+               <para role="shortdesc">Creates a cloudpipe.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "cloudpipe": {
+        "project_id": "cloudpipe-059f21e3-c20e-4efc-9e7a-eba2ab3c6f9a"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;cloudpipe
+    project_id="cloudpipe-6405f2ca-caf9-493b-a1f6-e55f595d75ab"
+/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="project_id"
+                         style="query"
+                         required="false"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Creates the cloudpipe for
+                            the specified project ID. If omitted, the
+                            project ID defaults to the calling
+                            tenant.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "instance_id": "1e9b8425-34af-488e-b969-4d46f4a6382e"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;cloudpipe&gt;
+  &lt;instance_id&gt;1a17f615-343b-430f-976a-457c029eddb7&lt;/instance_id&gt;
+&lt;/cloudpipe&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource path="/v2/{tenant_id}/os-cloudpipe/configure-project"
+                id="configure-project">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="POST" rax:id="updateCloudpipe">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update cloudpipe">
+               <para role="shortdesc">Updates the virtual private network
+                (VPN) IP address and port for a specified cloudpipe
+                instance.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "configure_project": {
+        "vpn_ip": "192.168.1.1",
+        "vpn_port": "2000"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;configure_project&gt;
+  &lt;vpn_ip&gt;192.168.1.1&lt;/vpn_ip&gt;
+  &lt;vpn_port&gt;2000&lt;/vpn_port&gt;
+&lt;/configure_project&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="vpn_ip" style="header" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The VPN IP
+                        address.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="vpn_port"
+                         style="header"
+                         required="true"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The VPN
+                        port.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+      </resource>
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listCloudpipes">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createCloudpipe">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="project_id"
+                   style="query"
+                   required="false"
+                   type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="updateCloudpipe">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="vpn_ip" style="header" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="vpn_port"
+                   style="header"
+                   required="true"
+                   type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+</wadl:application>

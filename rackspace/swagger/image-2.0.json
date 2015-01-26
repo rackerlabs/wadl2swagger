@@ -1,0 +1,409 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "image-2.0",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/images": {
+            "get": {
+                "operationId": "listImages",
+                "summary": "List images",
+                "description": "Lists public virtual machine (VM) images.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request succeeded.",
+                        "examples": {
+                            "application/json": "{\n    \"images\": [\n        {\n            \"status\": \"active\",\n            \"name\": \"cirros-0.3.0-x86_64-uec-ramdisk\",\n            \"tags\": [\n                \"ping\",\n                \"pong\"\n            ],\n            \"checksum\": \"2cec138d7dae2aa59038ef8c9aec2390\",\n            \"created_at\": \"2012-08-10T19:23:50Z\",\n            \"updated_at\": \"2012-08-10T19:23:50Z\",\n            \"visibility\": \"public\",\n            \"self\": \"/v2/images/da3b75d9-3f4a-40e7-8a2c-bfab23927dea\",\n            \"file\": \"/v2/images/da3b75d9-3f4a-40e7-8a2c-bfab23927dea/file\",\n            \"schema\": \"/v2/schemas/image\",\n            \"id\": \"da3b75d9-3f4a-40e7-8a2c-bfab23927dea\",\n            \"size\": 2254249\n        },\n        {\n            \"status\": \"active\",\n            \"name\": \"cirros-0.3.0-x86_64-uec\",\n            \"tags\": [],\n            \"checksum\": \"2f81976cae15c16ef0010c51e3a6c163\",\n            \"created_at\": \"2012-08-10T19:23:50Z\",\n            \"updated_at\": \"2012-08-10T19:23:50Z\",\n            \"visibility\": \"public\",\n            \"self\": \"/v2/images/0d5bcbc7-b066-4217-83f4-7111a60a399a\",\n            \"file\": \"/v2/images/0d5bcbc7-b066-4217-83f4-7111a60a399a/file\",\n            \"schema\": \"/v2/schemas/image\",\n            \"id\": \"0d5bcbc7-b066-4217-83f4-7111a60a399a\",\n            \"size\": 25165824\n        },\n        {\n            \"status\": \"active\",\n            \"name\": \"cirros-0.3.0-x86_64-uec-kernel\",\n            \"tags\": [],\n            \"checksum\": \"cfb203e7267a28e435dbcb05af5910a9\",\n            \"created_at\": \"2012-08-10T19:23:49Z\",\n            \"updated_at\": \"2012-08-10T19:23:49Z\",\n            \"visibility\": \"public\",\n            \"self\": \"/v2/images/e6421c88-b1ed-4407-8824-b57298249091\",\n            \"file\": \"/v2/images/e6421c88-b1ed-4407-8824-b57298249091/file\",\n            \"schema\": \"/v2/schemas/image\",\n            \"id\": \"e6421c88-b1ed-4407-8824-b57298249091\",\n            \"size\": 4731440\n        }\n    ],\n    \"schema\": \"/v2/schemas/images\",\n    \"next\": \"/v2/images?limit=3&marker=e6421c88-b1ed-4407-8824-b57298249091\",\n    \"first\": \"/v2/images?limit=3\"\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Requests a specific page size. Expect a response to a limited request to return between zero items and the number specified. The typical pattern for using the `limit` and `marker` parameters is to make an initial limited request and then to use the ID of the last image from the response as the `marker` parameter in a subsequent limited request.\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Specifies the ID of the last-seen image. The typical pattern for using the `limit` and `marker` parameters is to make an initial limited request and then to use the ID of the last image from the response as the `marker` parameter in a subsequent limited request.\n"
+                    },
+                    {
+                        "name": "name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter that specifies the name of the image as a string.\n"
+                    },
+                    {
+                        "name": "visibility",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter that specifies image visibility as either `public` or `private`.\n"
+                    },
+                    {
+                        "name": "member_status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter that shows images with the specified member status. Valid values are `accepted`, `pending`, `rejected`, and `all`. The default is `accepted`.\n"
+                    },
+                    {
+                        "name": "owner",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter that shows images shared with me by the specified tag.\n"
+                    },
+                    {
+                        "name": "tag",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter that shows images with the specified tag, where the owner is indicated by tenant ID.\n"
+                    },
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Filter parameter that species the image status as `queued`, `saving`, `active`, `killed`, `deleted`, or `pending_delete`.\n"
+                    },
+                    {
+                        "name": "size_min",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter that specifies the minimum size of the image in bytes.\n"
+                    },
+                    {
+                        "name": "size_max",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter that specifies the maximum size of the image in bytes.\n"
+                    },
+                    {
+                        "name": "sort_key",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Sort key. All image attributes can be used as the sort key, except `tags` and `link` attributes. The default is `created_at`.\n"
+                    },
+                    {
+                        "name": "sort_dir",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Sort direction. Valid values are `asc` (ascending) and `desc` (descending). The default is `desc`.\n"
+                    }
+                ]
+            }
+        },
+        "/images/{image_id}": {
+            "parameters": [
+                {
+                    "name": "image_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Image ID stored through the image API, typically a UUID.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getImage",
+                "summary": "Get image details",
+                "description": "Gets the details for the specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"active\",\n    \"name\": \"cirros-0.3.0-x86_64-uec-ramdisk\",\n    \"tags\": [\n        \"ping\",\n        \"pong\"\n    ],\n    \"checksum\": \"2cec138d7dae2aa59038ef8c9aec2390\",\n    \"created_at\": \"2012-08-10T19:23:50Z\",\n    \"updated_at\": \"2012-08-10T19:23:50Z\",\n    \"visibility\": \"public\",\n    \"self\": \"/v2/images/da3b75d9-3f4a-40e7-8a2c-bfab23927dea\",\n    \"file\": \"/v2/images/da3b75d9-3f4a-40e7-8a2c-bfab23927dea/file\",\n    \"schema\": \"/v2/schemas/image\",\n    \"id\": \"da3b75d9-3f4a-40e7-8a2c-bfab23927dea\",\n    \"size\": 2254249\n}"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "updateImage",
+                "summary": "Update image",
+                "description": "Updates the specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request succeeded.",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"queued\",\n    \"name\": \"Fedora 17\",\n    \"tags\": [\n        \"fedora\",\n        \"beefy\"\n    ],\n    \"created_at\": \"2012-08-11T17:15:52Z\",\n    \"updated_at\": \"2012-08-11T17:15:52Z\",\n    \"visibility\": \"public\",\n    \"self\": \"/v2/images/e7db3b45-8db7-47ad-8109-3fb55c2c24fd\",\n    \"file\": \"/v2/images/e7db3b45-8db7-47ad-8109-3fb55c2c24fd/file\",\n    \"id\": \"e7db3b45-8db7-47ad-8109-3fb55c2c24fd\",\n    \"schema\": \"/v2/schemas/image\"\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteImage",
+                "summary": "Delete image",
+                "description": "Deletes the specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete request succeeded."
+                    }
+                }
+            }
+        },
+        "/images/{image_id}/tags/{tag}": {
+            "parameters": [
+                {
+                    "name": "image_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Image ID stored through the image API, typically a UUID.\n"
+                },
+                {
+                    "name": "tag",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Image tag (may be up to 255 characters in length).\n"
+                }
+            ],
+            "put": {
+                "operationId": "addImageTag",
+                "summary": "Add image tag",
+                "description": "Adds the specified tag to the specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Request succeeded."
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteImageTag",
+                "summary": "Delete image tag",
+                "description": "Deletes the specified tag from the image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete request succeeded."
+                    }
+                }
+            }
+        },
+        "/images/{image_id}/members": {
+            "parameters": [
+                {
+                    "name": "image_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Image ID stored through the image API, typically a UUID.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createImageMember",
+                "summary": "Create image member",
+                "description": "Adds the specified `account ID/tenant ID` specified in the request body as an image member.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request succeeded.",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"pending\",\n    \"created_at\": \"2013-09-20T19:22:19Z\",\n    \"updated_at\": \"2013-09-20T19:25:31Z\",\n    \"image_id\": \"a96be11e-8536-4910-92cb-de50aa19dfe6\",\n    \"member_id\": \"554433\",\n    \"schema\": \"/v2/schemas/member\"\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "listImageMembers",
+                "summary": "List image members",
+                "description": "Returns collection of members (users) with whom the image has been shared.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request succeeded.",
+                        "examples": {
+                            "application/json": "{\n    \"members\": [\n        {\n            \"status\": \"pending\",\n            \"created_at\": \"2013-10-07T17:58:03Z\",\n            \"updated_at\": \"2013-10-07T17:58:03Z\",\n            \"image_id\": \"dbc999e3-c52f-4200-bedd-3b18fe7f87fe\",\n            \"member_id\": \"123456789\",\n            \"schema\": \"/v2/schemas/member\"\n        },\n        {\n            \"status\": \"accepted\",\n            \"created_at\": \"2013-10-07T17:58:55Z\",\n            \"updated_at\": \"2013-10-08T12:08:55Z\",\n            \"image_id\": \"dbc999e3-c52f-4200-bedd-3b18fe7f87fe\",\n            \"member_id\": \"987654321\",\n            \"schema\": \"/v2/schemas/member\"\n        }\n    ],\n    \"schema\": \"/v2/schemas/members\"\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "visibility",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters images on visibility. Options for visibility are as follows:\n\n`shared`  \nShows images that are shared with the user where the member status is `accepted`.\n\n`private`  \nShows images that the user owns.\n\n`public`  \nShows images that are public images, published by the cloud provider, and available to everyone. Public images do not have members.\n\n\n"
+                    },
+                    {
+                        "name": "member_status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters images on any chosen status. For example, `visibility=shared&member_status=pending` shows only images shared with the user where the member status is `pending`. Options for member\\_status are as follows:\n\n`pending`  \nShows images where member\\_status is `pending`.\n\n`accepted`  \nShows images where member\\_status is `accepted`.\n\n`rejected`  \nShows images where member\\_status is `rejected`.\n\n`all`  \nShows images regardless of member\\_status.\n\n> **Note**\n>\n> The member\\_status filter is ignored if the visibility parameter is not set to \"shared\".\n"
+                    },
+                    {
+                        "name": "owner",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filters images by owner. For example, `visibility=shared&owner=<OWNER_ID>` shows only images shared with this user by the user whose tenant id is `OWNER_ID`.\n\n> **Note**\n>\n> The owner filter is ignored if the visibility parameter is not set to \"shared\".\n\nBecause the default image list only includes images you have accepted, the filter visibility=shared&owner=\\<OWNER\\_ID\\> is actually equivalent to visibility=shared&member\\_status=accepted&owner=\\<OWNER\\_ID\\>. If you want to see images from an owner that are in a different status, include the member\\_status filter. For example, if you want to review an image you previously rejected, use these filters to narrow down your search for that image: visibility=shared&member\\_status=rejected&owner=\\<OWNER\\_ID\\>\n"
+                    }
+                ]
+            }
+        },
+        "/images/{image_id}/members/{member_id}": {
+            "parameters": [
+                {
+                    "name": "image_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Image ID stored through the image API, typically a UUID.\n"
+                },
+                {
+                    "name": "member_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Image member ID. For example, the tenant ID of the user with whom the image is being shared.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getImageMember",
+                "summary": "Get image member details",
+                "description": "Gets the details for the specified image member.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request succeeded.",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"pending\",\n    \"created_at\": \"2014-02-20T04:15:17Z\",\n    \"updated_at\": \"2014-02-20T04:15:17Z\",\n    \"image_id\": \"634985e5-0f2e-488e-bd7c-928d9a8ea82a\",\n    \"member_id\": \"348129\",\n    \"schema\": \"/v2/schemas/member\"\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteImageMember",
+                "summary": "Delete image member",
+                "description": "Deletes the specified `account ID/tenant ID` from the member list of the specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete request succeeded."
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateImageMember",
+                "summary": "Update image member",
+                "description": "Sets the specified status for the specified member of the specified image.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request succeeded.",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"accepted\",\n    \"created_at\": \"2013-09-20T19:22:19Z\",\n    \"updated_at\": \"2013-09-20T20:15:31Z\",\n    \"image_id\": \"a96be11e-8536-4910-92cb-de50aa19dfe6\",\n    \"member_id\": \"554433\",\n    \"schema\": \"/v2/schemas/member\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks": {
+            "post": {
+                "operationId": "exportImage",
+                "summary": "Task to export image",
+                "description": "Exports an image using an asynchronous task request. See the request body for specific details.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Task export request succeeded.",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"pending\",\n    \"created_at\": \"2014-02-26T02:01:13Z\",\n    \"updated_at\": \"2014-02-26T02:01:13Z\",\n    \"self\": \"/v2/tasks/7bdc8ede-9098-4d79-9477-697f586cb333\",\n    \"owner\": \"00000123\",\n    \"input\": {\n        \"image_uuid\": \"ca5e7f11-5d57-4dd7-8ace-03ab647fe6c6\",\n        \"receiving_swift_container\": \"exports\"\n    },\n    \"message\": \"None\",\n    \"type\": \"export\",\n    \"id\": \"7bdc8ede-9098-4d79-9477-697f586cb333\",\n    \"schema\": \"/v2/schemas/task\"\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "listTasks",
+                "summary": "List tasks",
+                "description": "Lists tasks.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request succeeded.",
+                        "examples": {
+                            "application/json": "{\n    \"tasks\": [\n        {\n            \"status\": \"pending\",\n            \"created_at\": \"2014-02-26T02:04:18Z\",\n            \"updated_at\": \"2014-02-26T02:04:18Z\",\n            \"self\": \"/v2/tasks/baef2134-9c33-47b9-9d63-c29a2a224715\",\n            \"owner\": \"00000123\",\n            \"type\": \"export\",\n            \"id\": \"baef2134-9c33-47b9-9d63-c29a2a224715\",\n            \"schema\": \"/v2/schemas/task\"\n        },\n        {\n            \"status\": \"processing\",\n            \"created_at\": \"2014-02-26T02:01:13Z\",\n            \"updated_at\": \"2014-02-26T02:01:13Z\",\n            \"self\": \"/v2/tasks/7bdc8ede-9098-4d79-9477-697f586cb333\",\n            \"owner\": \"00000123\",\n            \"type\": \"export\",\n            \"id\": \"7bdc8ede-9098-4d79-9477-697f586cb333\",\n            \"schema\": \"/v2/schemas/task\"\n        }\n    ],\n    \"schema\": \"/v2/schemas/tasks\",\n    \"first\": \"/v2/tasks\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks/{taskID}": {
+            "parameters": [
+                {
+                    "name": "task_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The task id. This task id is the same as the id parameter returned in the Import Task or Export Task operation response body.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getTask",
+                "summary": "Get task details",
+                "description": "Gets the details for the specified task.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"failure\",\n    \"created_at\": \"2014-02-26T02:04:18Z\",\n    \"updated_at\": \"2014-02-26T02:25:12Z\",\n    \"expires_at\": \"2014-02-28T02:25:12Z\",\n    \"self\": \"/v2/tasks/baef2134-9c33-47b9-9d63-c29a2a224715\",\n    \"owner\": \"00000123\",\n    \"input\": {\n        \"image_uuid\": \"ca5e7f11-5d57-4dd7-8ace-03ab647fe6c6\",\n        \"receiving_swift_container\": \"exports\"\n    },\n    \"message\": \"Swift already has an object with id 'ca5e7f11-5d57-4dd7-8ace-03ab647fe6c6.vhd' in container 'exports'\",\n    \"type\": \"export\",\n    \"id\": \"baef2134-9c33-47b9-9d63-c29a2a224715\",\n    \"schema\": \"/v2/schemas/task\"\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

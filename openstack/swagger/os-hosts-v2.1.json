@@ -1,0 +1,121 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-hosts-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/os-hosts": {
+            "get": {
+                "operationId": "listallhosts",
+                "summary": "List hosts",
+                "description": "Lists hosts.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hosts\": [\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"b6e4adbc193d428ea923899d07fb001e\",\n            \"service\": \"conductor\"\n        },\n        {\n            \"zone\": \"nova\",\n            \"host_name\": \"09c025b0efc64211bd23fc50fa974cdf\",\n            \"service\": \"compute\"\n        },\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"a942ebfa00064d9d89a9e5a175cb9ba8\",\n            \"service\": \"cert\"\n        },\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"e73ec0bd35c64de4a1adfa8b8969a1f6\",\n            \"service\": \"consoleauth\"\n        },\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"396a8a0a234f476eb05fb9fbc5802ba7\",\n            \"service\": \"network\"\n        },\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"abffda96592c4eacaf4111c28fddee17\",\n            \"service\": \"scheduler\"\n        },\n        {\n            \"zone\": \"internal\",\n            \"host_name\": \"a8820f04962a4b4ba9fe2e9540c24094\",\n            \"service\": \"cells\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-hosts/{host_name}": {
+            "put": {
+                "operationId": "enablehost",
+                "summary": "Enables host",
+                "description": "Enables or puts a host in maintenance mode.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"host\": {\n        \"status\": \"enabled\",\n        \"maintenance_mode\": \"off_maintenance\",\n        \"host\": \"65c5d5b7e3bd44308e67fc50f362aee6\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "showinfo",
+                "summary": "Show host details",
+                "description": "Shows details for a specified host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"host\": [\n        {\n            \"resource\": {\n                \"memory_mb\": 8192,\n                \"project\": \"(total)\",\n                \"host\": \"c1a7de0ac9d94e4baceae031d05caae3\",\n                \"cpu\": 1,\n                \"disk_gb\": 1028\n            }\n        },\n        {\n            \"resource\": {\n                \"memory_mb\": 512,\n                \"project\": \"(used_now)\",\n                \"host\": \"c1a7de0ac9d94e4baceae031d05caae3\",\n                \"cpu\": 0,\n                \"disk_gb\": 0\n            }\n        },\n        {\n            \"resource\": {\n                \"memory_mb\": 0,\n                \"project\": \"(used_max)\",\n                \"host\": \"c1a7de0ac9d94e4baceae031d05caae3\",\n                \"cpu\": 0,\n                \"disk_gb\": 0\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-hosts/{host_name}/reboot": {
+            "get": {
+                "operationId": "reboothost",
+                "summary": "Reboot host",
+                "description": "Reboots a host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"host\": {\n        \"host\": \"9557750dbc464741a89c907921c1cb31\",\n        \"power_action\": \"reboot\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-hosts/{host_name}/shutdown": {
+            "get": {
+                "operationId": "shutdownhost",
+                "summary": "Shut down host",
+                "description": "Shuts down a host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"host\": {\n        \"host\": \"77cfa0002e4d45fe97f185968111b27b\",\n        \"power_action\": \"shutdown\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-hosts/{host_name}/startup": {
+            "get": {
+                "operationId": "startshost",
+                "summary": "Start host",
+                "description": "Starts a host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"host\": {\n        \"host\": \"4b392b27930343bbaa27fd5d8328a564\",\n        \"power_action\": \"startup\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,288 @@
+---
+swagger: '2.0'
+info:
+  title: OS-OAUTH1-v3
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v3/OS-OAUTH1/consumers":
+    post:
+      operationId: createConsumer
+      summary: Create consumer
+      description: |
+        Enables a user to create a consumer.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "consumer": {
+                      "secret": "secretsecret",
+                      "description": "My consumer",
+                      "links": {
+                          "self": "http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d"
+                      },
+                      "id": "7fea2d"
+                  }
+              }
+    get:
+      operationId: listConsumers
+      summary: List consumers
+      description: |
+        Lists consumers.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "links": {
+                      "self": "http://identity:35357/v3/OS-OAUTH1/consumers",
+                      "previous": null,
+                      "next": null
+                  },
+                  "consumers": [
+                      {
+                          "id": "0c2a74",
+                          "links": {
+                              "self": "http://identity:35357/v3/OS-OAUTH1/consumers/0c2a74"
+                          }
+                      },
+                      {
+                          "description": "My consumer",
+                          "links": {
+                              "self": "http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d"
+                          },
+                          "id": "7fea2d"
+                      }
+                  ]
+              }
+  "/v3/OS-OAUTH1/consumers/{consumer_id}":
+    parameters:
+    - name: consumer_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the consumer.
+    get:
+      operationId: showConsumer
+      summary: Show consumer
+      description: |
+        Shows information for a specified consumer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "consumer": {
+                      "id": "7fea2d",
+                      "links": {
+                          "self": "http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d"
+                      },
+                      "description": "My consumer"
+                  }
+              }
+    patch:
+      operationId: updateConsumer
+      summary: Update consumer
+      description: |
+        Updates the description for a specified consumer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "consumer": {
+                      "description": "My new consumer",
+                      "links": {
+                          "self": "http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d"
+                      },
+                      "id": "7fea2d"
+                  }
+              }
+    delete:
+      operationId: deleteConsumer
+      summary: Delete consumer
+      description: |
+        Deletes a specified consumer.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v3/OS-OAUTH1/access_token":
+    post:
+      operationId: createAccessToken
+      summary: Create access token
+      description: |
+        Enables a consumer to create an access token by exchanging a request token for an access token.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+  "/v3/OS-OAUTH1/users/{user_id}/access_tokens":
+    parameters:
+    - name: user_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the user.
+    get:
+      operationId: listAuthorizedAccessTokens
+      summary: List authorized access tokens
+      description: |
+        Lists authorized access tokens.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "access_tokens": [
+                      {
+                          "authorizing_user_id": "ce9e07",
+                          "links": {
+                              "self": "http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a",
+                              "roles": "http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a/roles"
+                          },
+                          "expires_at": "2013-09-11T06:07:51.501805Z",
+                          "consumer_id": "7fea2d",
+                          "project_id": "b9fca3",
+                          "id": "6be26a"
+                      }
+                  ],
+                  "links": {
+                      "self": "http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens",
+                      "previous": null,
+                      "next": null
+                  }
+              }
+  "/v3/OS-OAUTH1/users/{user_id}/access_tokens/{access_token_id}":
+    parameters:
+    - name: user_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the user.
+    - name: access_token_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the access token.
+    get:
+      operationId: getAuthorizedAccessToken
+      summary: Get authorized access token
+      description: |
+        Gets an authorized access token.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "access_token": {
+                      "authorizing_user_id": "ce9e07",
+                      "links": {
+                          "self": "http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a",
+                          "roles": "http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a/roles"
+                      },
+                      "expires_at": "2013-09-11T06:07:51.501805Z",
+                      "consumer_id": "7fea2d",
+                      "project_id": "b9fca3",
+                      "id": "6be26a"
+                  }
+              }
+    delete:
+      operationId: revokeAccessToken
+      summary: Revoke access token
+      description: |
+        Enables a user to revoke an access token, which prevents the consumer from requesting new Identity Service API tokens. Also, revokes any Identity Service API tokens that were issued to the consumer through that access token.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v3/OS-OAUTH1/users/{user_id}/access_tokens/{access_token_id}/roles":
+    parameters:
+    - name: user_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the user.
+    - name: access_token_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the access token.
+    get:
+      operationId: listRolesOfAccessToken
+      summary: List roles for an access token
+      description: |
+        Lists associated roles for a specified access token.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+  "/v3/OS-OAUTH1/users/{user_id}/access_tokens/{access_token_id}/roles/{role_id}":
+    parameters:
+    - name: user_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the user.
+    - name: access_token_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the access token.
+    - name: role_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the role.
+    get:
+      operationId: getRoleOfAccessToken
+      summary: Get role information for an access token
+      description: |
+        Gets information about a specified role for a specified access token.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+  "/v3/auth/tokens":
+    post:
+      operationId: authenticate
+      summary: Get an Identity Service token
+      description: |
+        Enables a consumer to get an Identity Service authentication token.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response

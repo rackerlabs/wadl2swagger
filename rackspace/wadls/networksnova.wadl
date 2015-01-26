@@ -1,0 +1,1741 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2011-2013 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!-- Import Common XML Entities -->
+<!-- You can resolve the entites with xmllint -->
+<!-- xmllint -noent networks.wadl -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xsi:schemaLocation="http://docs.openstack.org/identity/api/v3.0 ../common/xsd/api.xsd     http://docs.openstack.org/common/api/v1.0 ../common/xsd/api-common.xsd     http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd     ">
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+    <!-- We should use SSL in production -->
+    <resources xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="http://localhost:35357"
+              xml:id="networksnova-v2.0">
+        <!-- FYI: double slash needed in path to get a single slash to display -->
+        <resource id="networksnova" path="os-networksv2">
+         <method name="GET" rax:id="listNetworks">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Networks">
+               <para role="shortdesc">Lists the networks configured for the specified tenant ID.</para>
+               <para>This operation lists the networks configured for the tenant ID specified in the request URI.</para>
+               <note>
+                  <para>To list the networks that are associated with servers, see
+                    <link xlink:href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Servers-d1e2078.html">List Servers</link>
+                    in the <citetitle>Next Generation Cloud Servers Developer Guide</citetitle>.</para>
+               </note>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="javascript">{
+   "networks":[
+      {
+         "cidr":"192.168.0.0/24",
+         "id":"1f84c238-b05a-4374-a0cb-aa6140032cd1",
+         "label":"new_network"
+      },
+      {
+         "id":"00000000-0000-0000-0000-000000000000",
+         "label":"public"
+      },
+      {
+         "id":"11111111-1111-1111-1111-111111111111",
+         "label":"private"
+      }
+   ]
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+                  <param name="id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.parameters.id">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="id">
+                        <p>The network ID.</p>
+                    </wadl:doc>
+                  </param>
+                  <param name="label"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.parameters.label">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="id">
+                        <p>The name of the network. ServiceNet is labeled as private and PublicNet is labeled as public in
+                            the network list.</p>
+                    </wadl:doc>
+                  </param>
+                  <param name="cidr"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.parameters.cidr">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="id">
+                        <p>The CIDR for an isolated network.</p>
+                    </wadl:doc>
+                  </param>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;networks&gt;
+    &lt;network&gt;
+        &lt;cidr&gt;172.16.0.0/24&lt;/cidr&gt;
+        &lt;id&gt;e65accc0-1d98-45eb-af76-ab3d31edc7d2&lt;/id&gt;
+        &lt;label&gt;new_network&lt;/label&gt;
+    &lt;/network&gt;
+    &lt;network&gt;
+        &lt;id&gt;00000000-0000-0000-0000-000000000000&lt;/id&gt;
+        &lt;label&gt;public&lt;/label&gt;
+    &lt;/network&gt;
+    &lt;network&gt;
+        &lt;id&gt;11111111-1111-1111-1111-111111111111&lt;/id&gt;
+        &lt;label&gt;private&lt;/label&gt;
+    &lt;/network&gt;
+&lt;/networks&gt;
+</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response> 
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+               <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>  
+         </method>
+         <method name="POST" rax:id="createNetworks">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create Networks">
+               <para role="shortdesc">Creates a network for the specified tenant ID.</para>
+               <para>This operation creates a network for the tenant ID specified in the request URI.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="javascript">{
+    "network": 
+        {
+            "cidr": "192.168.0.0/24", 
+            "label": "superprivate"
+        }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+                  <param name="cidr"
+                         style="plain"
+                         type="capi:UUID"
+                         required="true"
+                         path="$.parameters.cidr">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>The IP block from which to allocate the network. For example, <emphasis role="bold">172.16.0.0/24</emphasis> or <emphasis role="bold">2001:DB8::/64</emphasis>. For more
+                            information about CIDR notation, see
+                            <link xlink:href="http://www.rackspace.com/knowledge_center/article/using-cidr-notation">
+                              <citetitle>
+                                Using CIDR Notation in CLoud Networks</citetitle>
+                           </link>
+                            in the KNowledge Center.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="label"
+                         style="plain"
+                         type="capi:UUID"
+                         required="true"
+                         path="$.parameters.label">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>The name of the new network. For example, <emphasis role="bold">my_new_network</emphasis>.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;network 
+  cidr="192.168.0.0/24" 
+  label="superprivate_xml"
+/&gt; 
+</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="javascript">{
+    "network": {
+        "cidr": "192.168.0.0/24", 
+        "id": "1ff4489e-db0e-45a6-8c9f-4616c6ef5db1", 
+        "label": "superprivate"
+    }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+                  <param name="id"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.id">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="id">
+                        <p>The network ID.</p>
+                    </wadl:doc>
+                  </param>
+                  <param name="label"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.label">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="id">
+                        <p>The name of the new network.</p>
+                    </wadl:doc>
+                  </param>
+                  <param name="cidr"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.cidr">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="id">
+                        <p>The IP block from which the network was allocated.</p>
+                    </wadl:doc>
+                  </param>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="xml">&lt;network&gt;
+    &lt;cidr&gt;192.168.0.0/24&lt;/cidr&gt;
+    &lt;id&gt;f212726e-6321-4210-9bae-a13f5a33f83f&lt;/id&gt;
+    &lt;label&gt;superprivate_xml&lt;/label&gt;
+&lt;/network&gt;
+</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+        
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+              <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>  
+         </method>
+      </resource>
+            
+            
+            <resource id="networkID" path="os-networksv2/{id}">
+         <param name="id" style="template" type="UUID">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="Image ID">
+                        <p>The network ID.</p>
+                    </wadl:doc>
+                </param>
+         <method name="GET" rax:id="showNetwork">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show Network">
+               <para role="shortdesc">Shows information for the specified network.</para>
+               <para>This operation shows information for the network specified in the request URI.</para>
+               <note>
+                  <para>To list the networks that are associated with servers, see
+                    <link xlink:href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Servers-d1e2078.html">List Servers</link>
+                    in the <citetitle>Next Generation Cloud Servers Developer Guide</citetitle>.</para>
+               </note>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="javascript">{
+    "network": {
+        "cidr": "192.168.0.0/24", 
+        "id": "f212726e-6321-4210-9bae-a13f5a33f83f", 
+        "label": "superprivate_xml"
+    }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+                  <param name="id"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.id">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="id">
+                        <p>The network ID.</p>
+                    </wadl:doc>
+                  </param>
+                  <param name="label"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.label">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="id">
+                        <p>The name of the network.</p>
+                    </wadl:doc>
+                  </param>
+                  <param name="cidr"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.cidr">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="id">
+                        <p>The CIDR for an isolated network.</p>
+                    </wadl:doc>
+                  </param>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="xml">&lt;network&gt;
+    &lt;cidr&gt;192.168.0.0/24&lt;/cidr&gt;
+    &lt;id&gt;f212726e-6321-4210-9bae-a13f5a33f83f&lt;/id&gt;
+    &lt;label&gt;superprivate_xml&lt;/label&gt;
+&lt;/network&gt;
+</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response>
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+              <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>  
+        
+            <response status="420">
+               <representation mediaType="application/xml" element="csapi:networkNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+         </method>
+         <method name="DELETE" rax:id="deleteNetwork">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete Network">
+               <para role="shortdesc">Deletes the specified network.</para>
+               <para>This operation deletes the network specified in the request URI.</para>
+               <note>
+                  <para>You can delete an isolated network only if it is not attached to any server. To detach a network from a
+                    server, delete the virtual interface for the network from the server instance. See
+                    <xref linkend="DELETE_deleteInterface__servers__instance_id__os-virtual-interfacesv2__interface_id__section_virt_ext"/>.</para>
+               </note>
+            </wadl:doc>
+            <response status="202"/>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+        
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+              <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>  
+        
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          </method>
+      </resource>
+                
+                
+                
+            
+        
+        <resource id="serversnova" path="/servers">
+         <method name="POST" rax:id="attachNetworks">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Provision Servers and Attach Networks">
+               <para role="shortdesc">Provisions a new server with specified networks.</para>
+               <para>This operation asynchronously provisions a new server. For complete information about this API operation,
+                see
+                <link xlink:href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/CreateServers.html">Create Server</link>
+                in the <citetitle>Next Generation Cloud Servers Developer Guide</citetitle>.</para>
+               <para>You must specify the networks that you want to attach to your server. If you do not specify any networks,
+                ServiceNet and PublicNet are attached by default. For information about the Rackspace networks, see
+                <link xlink:href="http://docs.rackspace.com/servers/api/v2/cn-gettingstarted/content/networks.html">
+                    Isolated Networks and Rackspace Networks</link>.</para>
+               <para>You can optionally provision the server instance with specified isolated networks. However, if you specify
+                an isolated network, you must explicitly specify the UUIDs for PublicNet and ServiceNet to attach these
+                networks to your server. The UUID for ServiceNet is <literal xmlns:svg="http://www.w3.org/2000/svg"
+                           xmlns:m="http://www.w3.org/1998/Math/MathML"
+                           xmlns:html="http://www.w3.org/1999/xhtml">11111111-1111-1111-1111-111111111111</literal>, and the UUID for PublicNet is <literal xmlns:svg="http://www.w3.org/2000/svg"
+                           xmlns:m="http://www.w3.org/1998/Math/MathML"
+                           xmlns:html="http://www.w3.org/1999/xhtml">00000000-0000-0000-0000-000000000000</literal>. Omit these
+                UUIDs from the request to detach from these networks.</para>
+               <warning>
+                  <para>RackConnect and Managed Cloud Service Level customers receive an error if they opt out of attaching to
+                    PublicNet or ServiceNet.</para>
+               </warning>
+               <para>To attach a network to an existing server, you must create a virtual interface. See
+                <xref linkend="POST_createInterface__servers__instance_id__os-virtual-interfacesv2_section_virt_ext"/>.</para>
+               <note>
+                  <para>To list the networks that are associated with servers, see
+                    <link xlink:href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Servers-d1e2078.html">List Servers</link>
+                    in the <citetitle>Next Generation Cloud Servers Developer Guide</citetitle>.</para>
+               </note>
+               <para>The following table shows the status transition as the operation executes:</para>
+               <informaltable rules="all" width="100%">
+                  <tbody>
+                    <tr>
+                        <td colspan="1">Status Transition:</td>
+                        <td colspan="3">
+                            <code>BUILD</code> 
+                           <inlinemediaobject>
+                              <imageobject>
+                                 <imagedata fileref="../figures/Arrow_east.svg" format="SVG" scale="60"/>
+                              </imageobject>
+                           </inlinemediaobject> 
+                           <code>ACTIVE</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="1"/>
+                        <td colspan="3">
+                            <code>BUILD</code> 
+                           <inlinemediaobject>
+                              <imageobject>
+                                 <imagedata fileref="../figures/Arrow_east.svg" format="SVG" scale="60"/>
+                              </imageobject>
+                           </inlinemediaobject> 
+                           <code>ERROR</code> (on error) </td>
+                    </tr>
+                  </tbody>
+               </informaltable>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="javascript">{
+    "server" : {
+        "name" : "api-test-server-1",
+        "imageRef" : "3afe97b2-26dc-49c5-a2cc-a2fc8d80c001",
+        "flavorRef" : "2",
+        "config_drive": true,
+        "key_name":"name_of_keypair",
+        "OS-DCF:diskConfig" : "AUTO",
+        "metadata" : {
+            "My Server Name" : "API Test Server 1" 
+        },
+        "personality" : [
+            {
+                "path" : "/etc/banner.txt",
+                "contents" : "ICAgICAgDQoiQSBjbG91ZCBkb2VzIG5vdCBrbm93IHdoeSBp dCBtb3ZlcyBpbiBqdXN0IHN1Y2ggYSBkaXJlY3Rpb24gYW5k IGF0IHN1Y2ggYSBzcGVlZC4uLkl0IGZlZWxzIGFuIGltcHVs c2lvbi4uLnRoaXMgaXMgdGhlIHBsYWNlIHRvIGdvIG5vdy4g QnV0IHRoZSBza3kga25vd3MgdGhlIHJlYXNvbnMgYW5kIHRo ZSBwYXR0ZXJucyBiZWhpbmQgYWxsIGNsb3VkcywgYW5kIHlv dSB3aWxsIGtub3csIHRvbywgd2hlbiB5b3UgbGlmdCB5b3Vy c2VsZiBoaWdoIGVub3VnaCB0byBzZWUgYmV5b25kIGhvcml6 b25zLiINCg0KLVJpY2hhcmQgQmFjaA==" 
+            }
+        ],
+        "networks": [
+            {
+                 "uuid": "f212726e-6321-4210-9bae-a13f5a33f83f"
+            }, 
+            {
+                 "uuid": "00000000-0000-0000-0000-000000000000"
+            }, 
+            {
+                 "uuid": "11111111-1111-1111-1111-111111111111"
+            } 
+        ]
+    }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+                  <param name="name"
+                         style="plain"
+                         type="string"
+                         required="true"
+                         path="$.parameters.name">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>The server name.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="imageRef"
+                         style="plain"
+                         type="string"
+                         required="true"
+                         path="$.parameters.imageRef">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>The image reference (either an ID or a full URL).</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="flavorRef"
+                         style="plain"
+                         type="string"
+                         required="true"
+                         path="$.parameters.flavorRef">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>The flavor reference (either an ID or a full URL).</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="config_drive"
+                         style="plain"
+                         type="bool"
+                         required="false"
+                         path="$.parameters.config_drive">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>Is config_drive enabled (either <literal>true</literal> or <literal>false</literal>).</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="key_name"
+                         style="plain"
+                         type="string"
+                         required="false"
+                         path="$.parameters.key_name">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>The name of the key pair.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="networks"
+                         style="plain"
+                         type="array"
+                         required="true"
+                         path="$.parameters.networks">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>Contains network uuids.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="uuid"
+                         style="plain"
+                         type="UUID"
+                         required="false"
+                         path="$.parameters.networks.uuid">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>By default, the server instance is provisioned with all Rackspace networks and isolated
+                            networks for the tenant. Optionally, to provision the server instance with a specific isolated
+                            tenant network, specify the UUID of the network in the <emphasis role="bold">UUID</emphasis>
+                            attribute. You can specify multiple UUIDs.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="OS-DCF:diskConfig"
+                         style="plain"
+                         type="string"
+                         required="false"
+                         path="$.parameters.OS-DCF:diskConfig">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>The disk configuration value, which is <literal xmlns:raxm="http://docs.rackspace.com/api/metadata">AUTO</literal> or <literal xmlns:raxm="http://docs.rackspace.com/api/metadata">MANUAL</literal>. See
+                            <link xlink:href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ch_extensions.html">Disk Configuration
+                                   Extension</link>.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="metadata"
+                         style="plain"
+                         type="meta"
+                         required="false"
+                         path="$.parameters.metadata">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>Metadata key and value pairs.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="personality"
+                         style="plain"
+                         required="false"
+                         path="$.parameters.personality">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para> The container for personality file path and contents.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="path"
+                         style="plain"
+                         type="string"
+                         required="false"
+                         path="$.parameters.personality.path">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para> The path for the personality file.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="contents"
+                         style="plain"
+                         type="file"
+                         required="false"
+                         path="$.parameters.personality.contents">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para> The contents of the personality file.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;server xmlns="http://docs.openstack.org/compute/api/v1.1" imageRef="3afe97b2-26dc-49c5-a2cc-a2fc8d80c001" flavorRef="2"
+  name="api-test-server-xml2"&gt;
+  &lt;metadata&gt;
+    &lt;meta key="My Server Name"&gt;API Test Server XML&lt;/meta&gt;
+  &lt;/metadata&gt;
+  &lt;personality&gt;
+    &lt;file path="/etc/banner.txt"&gt; ICAgICAgDQoiQSBjbG91ZCBkb2VzIG5vdCBrbm93IHdoeSBp
+      dCBtb3ZlcyBpbiBqdXN0IHN1Y2ggYSBkaXJlY3Rpb24gYW5k IGF0IHN1Y2ggYSBzcGVlZC4uLkl0IGZlZWxzIGFuIGltcHVs
+      c2lvbi4uLnRoaXMgaXMgdGhlIHBsYWNlIHRvIGdvIG5vdy4g QnV0IHRoZSBza3kga25vd3MgdGhlIHJlYXNvbnMgYW5kIHRo
+      ZSBwYXR0ZXJucyBiZWhpbmQgYWxsIGNsb3VkcywgYW5kIHlv dSB3aWxsIGtub3csIHRvbywgd2hlbiB5b3UgbGlmdCB5b3Vy
+      c2VsZiBoaWdoIGVub3VnaCB0byBzZWUgYmV5b25kIGhvcml6 b25zLiINCg0KLVJpY2hhcmQgQmFjaA==&lt;/file&gt;
+  &lt;/personality&gt;
+  &lt;networks&gt;
+    &lt;network uuid="0ef47ac7-6797-4e01-8a47-ed26ec3aaa56"/&gt;
+    &lt;network uuid="00000000-0000-0000-0000-000000000000"/&gt;
+    &lt;network uuid="11111111-1111-1111-1111-111111111111"/&gt;
+  &lt;/networks&gt;
+  &lt;keypair&gt;
+    &lt;key_name&gt;name_of_keypair-96bbe50e-05e1-4d59-9115-4779a3ebcc2e&lt;/key_name&gt;
+  &lt;/keypair&gt;
+&lt;/server&gt;
+</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="javascript">{
+    "server": {
+        "OS-DCF:diskConfig": "AUTO",
+        "adminPass": "LMoheHauXt8w",
+        "id": "ef08aa7a-b5e4-4bb8-86df-5ac56230f841",
+        "links": [
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/v2/010101/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841",
+                "rel": "self"
+            },
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/010101/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841",
+                "rel": "bookmark"
+            }
+        ]
+    }
+}   </programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+                  <param name="OS-DCF:diskConfig"
+                         style="plain"
+                         type="string"
+                         required="true"
+                         path="$.parameters.OS-DCF:diskConfig">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>The disk configuration value, which is <literal xmlns:raxm="http://docs.rackspace.com/api/metadata">AUTO</literal> or <literal xmlns:raxm="http://docs.rackspace.com/api/metadata">MANUAL</literal>. See
+                            <link xlink:href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ch_extensions.html">Disk Configuration
+                                   Extension</link>.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="adminPass"
+                         style="plain"
+                         type="string"
+                         required="true"
+                         path="$.parameters.adminPass">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>The Admin password for the server.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="UUID"
+                         required="true"
+                         path="$.parameters.id">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>The ID for the server.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="links"
+                         style="plain"
+                         type="array"
+                         required="true"
+                         path="$.parameters.links">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                        <para>The <parameter>bookmark</parameter> and <parameter>self</parameter> for the server. For more
+                            information on links, see
+                            <link xlink:href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/LinksReferences.html">Links and References</link>
+                            in the <citetitle>Next Generation Cloud Servers Developer Guide</citetitle>.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;server
+    xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns="http://docs.openstack.org/compute/api/v1.1"
+    id="ed5c7754-29b6-45fa-96cb-ab64958c8c0a" adminPass="Dd5pNZtpVVQ3"
+    OS-DCF:diskConfig="AUTO"&gt;
+    &lt;metadata/&gt;
+    &lt;atom:link
+        href="https://dfw.servers.api.rackspacecloud.com/v2/010101/servers/ed5c7754-29b6-45fa-96cb-ab64958c8c0a"
+        rel="self"/&gt;
+    &lt;atom:link
+        href="https://dfw.servers.api.rackspacecloud.com/010101/servers/ed5c7754-29b6-45fa-96cb-ab64958c8c0a"
+        rel="bookmark"/&gt;
+&lt;/server&gt;
+</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+        
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+              <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>  
+        
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+               <response status="405">
+               <representation mediaType="application/xml" element="csapi:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response> 
+              <response status="413">
+               <representation mediaType="application/xml" element="csapi:overLimit"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+           
+            <response status="415">
+
+               <representation mediaType="application/xml" element="csapi:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="csapi:computeFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+        
+            <response status="503">
+               <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+         </method>
+      </resource>
+            
+            <resource id="interfaces" path="/servers/{instance_id}/os-virtual-interfacesv2">
+         <param name="instance_id" style="template" type="UUID">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="Instance ID">
+                        <p>The instance ID.</p>
+                    </wadl:doc>
+                </param>
+         <method name="GET" rax:id="listInterfaces">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Virtual Interfaces">
+               <para role="shortdesc">Lists the virtual interfaces configured for a server instance. </para>
+               <para>This operation lists the virtual interfaces configured for a server instance.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="javascript">{
+    "virtual_interfaces": [
+        {
+            "id": "a589b11b-cd51-4274-8ec0-832ce799d156", 
+            "ip_addresses": [
+                {
+                    "address": "2001:4800:7810:0512:d87b:9cbc:ff04:850c", 
+                    "network_id": "ba122b32-dbcc-4c21-836e-b701996baeb3", 
+                    "network_label": "public"
+                }, 
+                {
+                    "address": "64.49.226.149", 
+                    "network_id": "ba122b32-dbcc-4c21-836e-b701996baeb3", 
+                    "network_label": "public"
+                }
+            ], 
+            "mac_address": "BC:76:4E:04:85:0C"
+        }, 
+        {
+            "id": "de7c6d53-b895-4b4a-963c-517ccb0f0775", 
+            "ip_addresses": [
+                {
+                    "address": "192.168.0.2", 
+                    "network_id": "f212726e-6321-4210-9bae-a13f5a33f83f", 
+                    "network_label": "superprivate_xml"
+                }
+            ], 
+            "mac_address": "BC:76:4E:04:85:20"
+        }, 
+        {
+            "id": "e14e789d-3b98-44a6-9c2d-c23eb1d1465c", 
+            "ip_addresses": [
+                {
+                    "address": "10.181.1.30", 
+                    "network_id": "3b324a1b-31b8-4db5-9fe5-4a2067f60297", 
+                    "network_label": "private"
+                }
+            ], 
+            "mac_address": "BC:76:4E:04:81:55"
+        }
+    ]
+}
+</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+                  <param name="virtual_interfaces"
+                         style="plain"
+                         type="array"
+                         path="$.parameters.virtual_interfaces">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The array of virtual interfaces.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.virtual_interfaces.id">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The virtual interface ID.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="ip_addresses"
+                         style="plain"
+                         type="array"
+                         path="$.parameters.virtual_interfaces.ip_addresses">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The array of interface IP address details.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="address"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.virtual_interfaces.ip_addresses.address">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The interface IP address.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="network_id"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.virtual_interfaces.ip_addresses.network_id">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The interface network ID.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="network_label"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.virtual_interfaces.ip_addresses.network_label">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p> The interface network label.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="mac_address"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.virtual_interfaces.mac_address">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The Media Access Control (MAC) address for the virtual interface. A MAC address is a unique
+                    identifier assigned to network interfaces for communications on the physical network segment.</p>
+                     </wadl:doc>
+                  </param>
+           
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;virtual_interfaces xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+    &lt;virtual_interface id="a589b11b-cd51-4274-8ec0-832ce799d156" mac_address="BC:76:4E:04:85:0C"&gt;
+        &lt;ip_address network_id="ba122b32-dbcc-4c21-836e-b701996baeb3" network_label="public" address="2001:4800:7810:0512:d87b:9cbc:ff04:850c" /&gt;
+        &lt;ip_address network_id="ba122b32-dbcc-4c21-836e-b701996baeb3" network_label="public" address="64.49.226.149" /&gt;
+    &lt;/virtual_interface&gt;
+    &lt;virtual_interface id="de7c6d53-b895-4b4a-963c-517ccb0f0775" mac_address="BC:76:4E:04:85:20"&gt;
+        &lt;ip_address network_id="f212726e-6321-4210-9bae-a13f5a33f83f" network_label="superprivate_xml" address="192.168.0.2" /&gt;
+    &lt;/virtual_interface&gt;
+    &lt;virtual_interface id="e14e789d-3b98-44a6-9c2d-c23eb1d1465c" mac_address="BC:76:4E:04:81:55"&gt;
+        &lt;ip_address network_id="3b324a1b-31b8-4db5-9fe5-4a2067f60297" network_label="public" address="10.181.1.30" /&gt;
+    &lt;/virtual_interface&gt;
+&lt;/virtual_interfaces&gt;</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response>
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+              <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>  
+         </method>
+         <method name="POST" rax:id="createInterface">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create Virtual Interface">
+               <para role="shortdesc">Creates a virtual interface for a network and attaches the network to a server
+                instance.</para>
+               <para>This operation creates a virtual interface for a network and attaches the network to a server
+                instance.</para>
+               <note>
+                  <para>You can create a maximum of one virtual interface per instance per network.</para>
+               </note>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="javascript">{
+   "virtual_interface": 
+    {
+      "network_id": "1f7920d3-0e63-4fec-a1cb-f7916671e8eb"
+    }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+                  <param name="network_id"
+                         style="plain"
+                         type="xsd:UUID"
+                         required="true"
+                         path="$.parameters.network_id">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="network_id">
+                        <p>The ID of the network for which you want to create a virtual interface. You can create a virtual
+                            interface for an isolated network or for the Rackspace networks.</p>
+                    </wadl:doc>
+                  </param>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;virtual_interface 
+  network_id="0ef47ac7-6797-4e01-8a47-ed26ec3aaa56"
+/&gt;
+</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="javascript">{
+   "virtual_interfaces":[
+      {
+         "mac_address":"FE:ED:FA:00:08:93",
+         "id":"045f195f-3347-487b-8e80-8ee3390eda56",
+         "ip_addresses":[
+            {
+               "address":"192.168.0.1",
+               "network_id":"196a0246-86cc-46fa-9ecf-850f67c2cb7c",
+               "network_label":"added_network"
+            }
+         ]
+      }
+   ]
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+                  <param name="virtual_interfaces"
+                         style="plain"
+                         type="array"
+                         path="$.parameters.virtual_interfaces">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The array of virtual interfaces.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.virtual_interfaces.id">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The virtual interface ID.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="ip_addresses"
+                         style="plain"
+                         type="array"
+                         path="$.parameters.virtual_interfaces.ip_addresses">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The array of interface IP address details.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="address"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.virtual_interfaces.ip_addresses.address">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The interface IP address.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="network_id"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.virtual_interfaces.ip_addresses.network_id">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The interface network ID.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="network_label"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.virtual_interfaces.ip_addresses.network_label">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p> The interface network label.</p>
+                     </wadl:doc>
+                  </param>
+                  <param name="mac_address"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.virtual_interfaces.mac_address">
+                     <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">
+                        <p>The Media Access Control (MAC) address for the virtual interface. A MAC address is a unique
+                    identifier assigned to network interfaces for communications on the physical network segment.</p>
+                     </wadl:doc>
+                  </param>
+           
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                           <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;virtual_interfaces xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+    &lt;virtual_interface id="24293921-e8fe-4f93-ac52-b8cc08435d00"
+        mac_address="FE:ED:FA:00:0D:13"&gt;
+        &lt;ip_address address="1.1.1.129"
+            network_id="6d17d84a-9513-4c4c-bf5a-c2d5c0794292"
+            network_label="added_network"/&gt;
+    &lt;/virtual_interface&gt;
+&lt;/virtual_interfaces&gt;
+</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+        
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+              <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>  
+         </method>
+      </resource>
+                
+                
+                
+                <resource id="interfaceID"
+                path="/servers/{instance_id}/os-virtual-interfacesv2/{interface_id}">
+         <param name="instance_id" style="template" type="UUID">
+                    <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="Instance ID">
+                        <p>The instance ID.</p>
+                    </wadl:doc>
+                </param>
+         <param name="interface_id" style="template" type="UUID">
+                        <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" title="Instance ID">
+                            <p>The interface ID.</p>
+                        </wadl:doc>
+                    </param>
+         <method name="DELETE" rax:id="deleteInterface">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete Virtual Interface">
+               <para role="shortdesc">Deletes a virtual interface from a server instance.</para>
+               <para>This operation deletes the specified virtual interface from the specified server instance.</para>
+               <para>To find the ID of a virtual interface, issue the List Virtual Interfaces API operation. See
+                <xref linkend="GET_listInterfaces__servers__instance_id__os-virtual-interfacesv2_section_virt_ext"/>.</para>
+            </wadl:doc>
+            <response status="200"/>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+        
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+              <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>  
+        
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          </method>
+      </resource>
+                    
+                    
+                
+            
+        
+    </resources>
+
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+
+    <!--Nova Networks Operations-->
+
+    <!-- List Networks -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listNetworks">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+                <param name="id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.parameters.id">
+                    
+                </param>
+                <param name="label"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.parameters.label">
+                    
+                </param>
+                <param name="cidr"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.parameters.cidr">
+                    
+                </param>
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response> 
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+               <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>  
+         </method>
+
+    <!-- Create Networks -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createNetworks">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+                <param name="cidr"
+                   style="plain"
+                   type="capi:UUID"
+                   required="true"
+                   path="$.parameters.cidr">
+                    
+                </param>
+                <param name="label"
+                   style="plain"
+                   type="capi:UUID"
+                   required="true"
+                   path="$.parameters.label">
+                    
+                </param>
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+                <param name="id"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.id">
+                    
+                </param>
+                <param name="label"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.label">
+                    
+                </param>
+                <param name="cidr"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.cidr">
+                    
+                </param>
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+              <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>  
+         </method>
+
+    <!-- Provision Server and Attach Networks -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="attachNetworks">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+                <param name="name"
+                   style="plain"
+                   type="string"
+                   required="true"
+                   path="$.parameters.name">
+                    
+                </param>
+                <param name="imageRef"
+                   style="plain"
+                   type="string"
+                   required="true"
+                   path="$.parameters.imageRef">
+                    
+                </param>
+                <param name="flavorRef"
+                   style="plain"
+                   type="string"
+                   required="true"
+                   path="$.parameters.flavorRef">
+                    
+                </param>
+                <param name="config_drive"
+                   style="plain"
+                   type="bool"
+                   required="false"
+                   path="$.parameters.config_drive">
+                    
+                </param>
+                <param name="key_name"
+                   style="plain"
+                   type="string"
+                   required="false"
+                   path="$.parameters.key_name">
+                    
+                </param>
+                <param name="networks"
+                   style="plain"
+                   type="array"
+                   required="true"
+                   path="$.parameters.networks">
+                    
+                </param>
+                <param name="uuid"
+                   style="plain"
+                   type="UUID"
+                   required="false"
+                   path="$.parameters.networks.uuid">
+                    
+                </param>
+                <param name="OS-DCF:diskConfig"
+                   style="plain"
+                   type="string"
+                   required="false"
+                   path="$.parameters.OS-DCF:diskConfig">
+                    
+                </param>
+                <param name="metadata"
+                   style="plain"
+                   type="meta"
+                   required="false"
+                   path="$.parameters.metadata">
+                    
+                </param>
+                <param name="personality"
+                   style="plain"
+                   required="false"
+                   path="$.parameters.personality">
+                    
+                </param>
+                <param name="path"
+                   style="plain"
+                   type="string"
+                   required="false"
+                   path="$.parameters.personality.path">
+                    
+                </param>
+                <param name="contents"
+                   style="plain"
+                   type="file"
+                   required="false"
+                   path="$.parameters.personality.contents">
+                    
+                </param>
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="202">
+            <representation mediaType="application/json">
+                
+                <param name="OS-DCF:diskConfig"
+                   style="plain"
+                   type="string"
+                   required="true"
+                   path="$.parameters.OS-DCF:diskConfig">
+                    
+                </param>
+                <param name="adminPass"
+                   style="plain"
+                   type="string"
+                   required="true"
+                   path="$.parameters.adminPass">
+                    
+                </param>
+                <param name="id"
+                   style="plain"
+                   type="UUID"
+                   required="true"
+                   path="$.parameters.id">
+                    
+                </param>
+                <param name="links"
+                   style="plain"
+                   type="array"
+                   required="true"
+                   path="$.parameters.links">
+                    
+                </param>
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+              <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>  
+        
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+               <response status="405">
+            <representation mediaType="application/xml" element="csapi:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response> 
+              <response status="413">
+            <representation mediaType="application/xml" element="csapi:overLimit"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+           
+        <response status="415">
+
+            <representation mediaType="application/xml" element="csapi:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="csapi:computeFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        
+        <response status="503">
+            <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+         </method>
+
+    <!-- Show Network -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showNetwork">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+                <param name="id"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.id">
+                    
+                </param>
+                <param name="label"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.label">
+                    
+                </param>
+                <param name="cidr"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.cidr">
+                    
+                </param>
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+              <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>  
+        
+        <response status="420">
+            <representation mediaType="application/xml" element="csapi:networkNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+         </method>
+
+    <!-- Delete Network -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteNetwork">
+        
+        <response status="202"/>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+              <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>  
+        
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          </method>
+
+    <!--Nova Virtual Interfaces Operations-->
+
+    <!-- List Virtual Interface -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listInterfaces">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            <param name="virtual_interfaces"
+                   style="plain"
+                   type="array"
+                   path="$.parameters.virtual_interfaces">
+            
+        </param>
+            <param name="id"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.virtual_interfaces.id">
+            
+        </param>
+            <param name="ip_addresses"
+                   style="plain"
+                   type="array"
+                   path="$.parameters.virtual_interfaces.ip_addresses">
+            
+        </param>
+            <param name="address"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.virtual_interfaces.ip_addresses.address">
+            
+        </param>
+            <param name="network_id"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.virtual_interfaces.ip_addresses.network_id">
+            
+        </param>
+            <param name="network_label"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.virtual_interfaces.ip_addresses.network_label">
+            
+        </param>
+            <param name="mac_address"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.virtual_interfaces.mac_address">
+            
+        </param>
+           
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+              <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>  
+         </method>
+
+    <!-- Create Virtual Interface -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createInterface">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+                <param name="network_id"
+                   style="plain"
+                   type="xsd:UUID"
+                   required="true"
+                   path="$.parameters.network_id">
+                    
+                </param>
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            <param name="virtual_interfaces"
+                   style="plain"
+                   type="array"
+                   path="$.parameters.virtual_interfaces">
+            
+        </param>
+            <param name="id"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.virtual_interfaces.id">
+            
+        </param>
+            <param name="ip_addresses"
+                   style="plain"
+                   type="array"
+                   path="$.parameters.virtual_interfaces.ip_addresses">
+            
+        </param>
+            <param name="address"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.virtual_interfaces.ip_addresses.address">
+            
+        </param>
+            <param name="network_id"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.virtual_interfaces.ip_addresses.network_id">
+            
+        </param>
+            <param name="network_label"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.virtual_interfaces.ip_addresses.network_label">
+            
+        </param>
+            <param name="mac_address"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.virtual_interfaces.mac_address">
+            
+        </param>
+           
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+              <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>  
+         </method>
+
+    <!-- Delete Virtual Interface -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteInterface">
+        
+        <response status="200"/>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+              <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>  
+        
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          </method>
+
+</wadl:application>

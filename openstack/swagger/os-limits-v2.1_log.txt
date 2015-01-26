@@ -1,0 +1,8 @@
+INFO:wadls/os-limits-v2.1.wadl:Converting: wadls/os-limits-v2.1.wadl to swagger/os-limits-v2.1.json
+WARNING:wadls/os-limits-v2.1.wadl:No support for application/json for resource at /v2.1/limits
+INFO:root:Saving swagger to swagger/os-limits-v2.1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

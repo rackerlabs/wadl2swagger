@@ -1,0 +1,210 @@
+---
+swagger: '2.0'
+info:
+  title: os-createserverext
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/servers":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    post:
+      operationId: createServer
+      summary: Create server with configuration drive
+      description: |
+        Creates a server with the configuration drive extended attribute.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "server": {
+                      "id": "58da039c-dc81-4d8f-8688-a2f819e2f750",
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/servers/58da039c-dc81-4d8f-8688-a2f819e2f750",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/servers/58da039c-dc81-4d8f-8688-a2f819e2f750",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "adminPass": "am5LKVsBVQ4s"
+                  }
+              }
+  "/v2/{tenant_id}/servers/{server_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: server_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the server of interest to you.
+    get:
+      operationId: getServer
+      summary: Get server information with configuration drive
+      description: |
+        Shows information for a specified server including the configuration drive extended attribute.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "server": {
+                      "status": "ACTIVE",
+                      "updated": "2013-02-04T13:17:51Z",
+                      "hostId": "8725fb615b191d8249a40f3e90d1efde88d914412e4edb2719176afd",
+                      "user_id": "fake",
+                      "addresses": {
+                          "private": [
+                              {
+                                  "version": 4,
+                                  "addr": "192.168.0.3"
+                              }
+                          ]
+                      },
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/servers/dd3b0715-a3fc-43d8-bbd2-2720beb226fb",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/servers/dd3b0715-a3fc-43d8-bbd2-2720beb226fb",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "created": "2013-02-04T13:17:50Z",
+                      "tenant_id": "openstack",
+                      "image": {
+                          "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "name": "new-server-test",
+                      "accessIPv4": "",
+                      "accessIPv6": "",
+                      "progress": 0,
+                      "flavor": {
+                          "id": "1",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/1",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "metadata": {
+                          "My Server Name": "Apache1"
+                      },
+                      "id": "dd3b0715-a3fc-43d8-bbd2-2720beb226fb",
+                      "config_drive": ""
+                  }
+              }
+  "/v2/{tenant_id}/servers/{server_id}/detail":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: server_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the server of interest to you.
+    get:
+      operationId: getServersDetailed
+      summary: Get server details with configuration drive
+      description: |
+        Lists details for all servers including the configuration drive extended attribute.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "servers": [
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2013-02-04T13:21:44Z",
+                          "hostId": "76e154b0015e25fad65a7ab0c35a86dd79acfa8312075a6534ef6176",
+                          "user_id": "fake",
+                          "addresses": {
+                              "private": [
+                                  {
+                                      "version": 4,
+                                      "addr": "192.168.0.3"
+                                  }
+                              ]
+                          },
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/servers/720e688f-5ec8-4d4f-b585-dbd1a89ceeb0",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/servers/720e688f-5ec8-4d4f-b585-dbd1a89ceeb0",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "created": "2013-02-04T13:21:44Z",
+                          "tenant_id": "openstack",
+                          "image": {
+                              "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                              "links": [
+                                  {
+                                      "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                      "rel": "bookmark"
+                                  }
+                              ]
+                          },
+                          "name": "new-server-test",
+                          "accessIPv4": "",
+                          "accessIPv6": "",
+                          "progress": 0,
+                          "flavor": {
+                              "id": "1",
+                              "links": [
+                                  {
+                                      "href": "http://openstack.example.com/openstack/flavors/1",
+                                      "rel": "bookmark"
+                                  }
+                              ]
+                          },
+                          "metadata": {
+                              "My Server Name": "Apache1"
+                          },
+                          "id": "720e688f-5ec8-4d4f-b585-dbd1a89ceeb0",
+                          "config_drive": ""
+                      }
+                  ]
+              }

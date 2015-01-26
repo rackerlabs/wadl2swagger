@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xsi:schemaLocation="http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd">
+    <resources xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://manage.example.com/"
+              xml:id="volume-manage-v2">
+        <resource id="os-volume-manage" path="/v2/{tenant_id}/os-volume-manage">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <method name="POST" rax:id="manageExisting">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Manage existing volume">
+               <para role="shortdesc">Creates a Block Storage volume using
+                existing storage instead of creating new storage.
+            </para>
+               <para>When the request is made, the caller must specify
+                (in the <parameter>ref</parameter> element) a
+                reference to an existing storage volume. Each storage
+                driver may interpret the existing storage volume
+                reference differently, but should accept a reference
+                structure containing either a
+                <parameter>source-volume-id</parameter> or
+                <parameter>source-volume-name</parameter> element if
+                possible.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Show manage existing request: JSON">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume": {
+        "host": "geraint-VirtualBox",
+        "ref": {
+            "source-volume-name": "existingLV",
+            "source-volume-id": "1234"
+        },
+        "name": "New Volume",
+        "availability_zone": "az2",
+        "description": "Volume imported from existingLV",
+        "volume_type": null,
+        "bootable": "True",
+        "metadata": {
+            "key1": "value1",
+            "key2": "value2"
+        }
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+
+                  <param name="volume" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>volume</code>
+                        object.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="host" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The cinder host on which the existing
+                            volume resides.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="ref" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A reference to the existing volume.
+                            The internal structure of this reference
+                            is dependent on the implementation of the
+                            volume driver, see the specific driver's
+                            documentation for details of the required
+                            elements in the structure.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" type="xsd:string" required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The volume name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="availability_zone"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The availability zone.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="description"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The volume
+                            description.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="volume_type"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The associated volume
+                            type.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="bootable"
+                         style="plain"
+                         type="xsd:boolean"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Enables or disables the bootable
+                            attribute. You can boot an instance from a
+                            bootable volume.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="metadata"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>One or more metadata key and value pairs
+                            to associate with the
+                            volume.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+
+            <response status="202">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The response is the same as for a volume
+                    create API call. The size of the volume is chosen
+                    by inspecting the size of the existing storage
+                    volume and rounding up to the next
+                    gigabyte.</para>
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "volume": {
+        "status": "creating",
+        "user_id": "eae1472b5fc5496998a3d06550929e7e",
+        "attachments": [],
+        "links": [
+            {
+                "href": "http://10.0.2.15:8776/v2/87c8522052ca4eed98bc672b4c1a3ddb/volumes/23cf872b-c781-4cd4-847d-5f2ec8cbd91c",
+                "rel": "self"
+            },
+            {
+                "href": "http://10.0.2.15:8776/87c8522052ca4eed98bc672b4c1a3ddb/volumes/23cf872b-c781-4cd4-847d-5f2ec8cbd91c",
+                "rel": "bookmark"
+            }
+        ],
+        "availability_zone": "az2",
+        "bootable": "false",
+        "encrypted": "false",
+        "created_at": "2014-07-18T00:12:54.000000",
+        "description": "Volume imported from existingLV",
+        "os-vol-tenant-attr:tenant_id": "87c8522052ca4eed98bc672b4c1a3ddb",
+        "volume_type": null,
+        "name": "New Volume",
+        "source_volid": null,
+        "snapshot_id": null,
+        "metadata": {
+            "key2": "value2",
+            "key1": "value1"
+        },
+        "id": "23cf872b-c781-4cd4-847d-5f2ec8cbd91c",
+        "size": 0
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                
+    </resources>
+    <method xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="manageExisting">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+
+                <param name="volume" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="host" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="ref" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="name" style="plain" type="xsd:string" required="false">
+                    
+                </param>
+                <param name="availability_zone"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                    
+                </param>
+                <param name="description"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                    
+                </param>
+                <param name="volume_type"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                    
+                </param>
+                <param name="bootable"
+                   style="plain"
+                   type="xsd:boolean"
+                   required="false">
+                    
+                </param>
+                <param name="metadata"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                    
+                </param>
+            </representation>
+        </request>
+
+        <response status="202">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

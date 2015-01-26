@@ -1,0 +1,46 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-flavor-manage-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/flavors": {
+            "post": {
+                "operationId": "create-flavors",
+                "summary": "Create flavor",
+                "description": "Creates a flavor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavor\": {\n        \"flavor-access:is_public\": true,\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v3/flavors/10\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/flavors/10\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"ram\": 1024,\n        \"ephemeral\": 0,\n        \"disabled\": false,\n        \"vcpus\": 2,\n        \"swap\": 0,\n        \"disk\": 10,\n        \"id\": \"10\",\n        \"name\": \"test_flavor\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/flavors/{flavor_id}": {
+            "delete": {
+                "operationId": "delete-flavors",
+                "summary": "Delete flavor",
+                "description": "Deletes a flavor.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        }
+    }
+}

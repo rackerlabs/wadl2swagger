@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entites with xmllint          -->
+<!--                                                       -->
+<!--  xmllint -noent os-networks-multi-provider-ext.wadl   -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:linkend="http://www.w3.org/1999/linkend"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://neutron.example.com/"
+              xml:id="os-networks-multi-provider-ext-v2.0">
+        <resource id="Networks" path="/v2.0/networks">
+         <method name="GET" rax:id="listMultiNetworks">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List networks">
+               <para role="shortdesc">Lists networks that are accessible
+                to the tenant who submits the request. Networks with
+                multiple segments include the <code>segments</code>
+                list in the response.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the network, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The network ID.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The network name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="shared" style="plain" type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Indicates whether this network is shared across all tenants.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The network status.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="subnets" style="plain" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The associated subnets.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The tenant ID.</para>
+                  </wadl:doc>
+               </param>
+            
+               <param required="true" name="segments" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A <code>segments</code> object that defines one or more
+            provider segments.</para>
+                  </wadl:doc>
+               </param> 
+               <param required="false"
+                      name="provider:physical_network"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The physical network where this network object is
+            implemented. The Networking API v2.0 does not provide a
+            way to list available physical networks. For example, the
+            Open vSwitch plug-in configuration file defines a symbolic
+            name that maps to specific bridges on each Compute
+            host.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="provider:network_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The type of physical network that maps to this network
+            resource. Examples are flat, vlan, vxlan, and
+        gre.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="provider:segmentation_id"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>An isolated segment on the physical network. The
+            network_type attribute defines the segmentation model. For
+            example, if network_type is vlan, this ID is a vlan
+            identifier. If network_type is gre, this ID is a gre
+            key.</para>
+                  </wadl:doc>
+               </param>
+                <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "networks": [
+        {
+            "status": "ACTIVE",
+            "subnets": [],
+            "name": "net1",
+            "admin_state_up": true,
+            "tenant_id": "9bacb3c5d39d41a79512987f338cf177",
+            "segments": [
+                {
+                    "provider:segmentation_id": 2,
+                    "provider:physical_network": "8bab8453-1bc9-45af-8c70-f83aa9b50453",
+                    "provider:network_type": "vlan"
+                },
+                {
+                    "provider:segmentation_id": 0,
+                    "provider:physical_network": "8bab8453-1bc9-45af-8c70-f83aa9b50453",
+                    "provider:network_type": "stt"
+                }
+            ],
+            "router:external": false,
+            "shared": false,
+            "port_security_enabled": true,
+            "id": "4e8e5957-649f-477b-9e5b-f1f75b21c03c"
+        },
+        {
+            "status": "ACTIVE",
+            "subnets": [
+                "08eae331-0402-425a-923c-34f7cfe39c1b"
+            ],
+            "name": "private",
+            "provider:physical_network": null,
+            "admin_state_up": true,
+            "tenant_id": "26a7980765d0414dbc1fc1f88cdb7e6e",
+            "provider:network_type": "local",
+            "router:external": true,
+            "shared": true,
+            "id": "db193ab3-96e3-4cb3-8fc5-05f4296d0324",
+            "provider:segmentation_id": null
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="createMultiNetwork">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Create network with multiple segment mappings"
+                      xml:lang="EN">
+               <para role="shortdesc">Creates a network with multiple
+                segment mappings.</para>
+            </wadl:doc>
+            <request> 
+               <param required="false"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the network, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http:/docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The network name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="shared" style="plain" type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Admin-only. Indicates whether this network is shared
+            across all tenants.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the tenant that owns the network. Only
+            administrative users can specify a tenant ID other than
+            their own. You cannot change this value through
+            authorization policies.</para>
+                  </wadl:doc>
+               </param> 
+               <param required="true" name="segments" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A <code>segments</code> object that defines one or more
+            provider segments.</para>
+                  </wadl:doc>
+               </param>
+            
+               <param required="false"
+                      name="provider:physical_network"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The physical network where this network object is
+            implemented. The Networking API v2.0 does not provide a
+            way to list available physical networks. For example, the
+            Open vSwitch plug-in configuration file defines a symbolic
+            name that maps to specific bridges on each Compute
+            host.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="provider:network_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The type of physical network that maps to this network
+            resource. Examples are flat, vlan, vxlan, and
+        gre.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="provider:segmentation_id"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>An isolated segment on the physical network. The
+            network_type attribute defines the segmentation model. For
+            example, if network_type is vlan, this ID is a vlan
+            identifier. If network_type is gre, this ID is a gre
+            key.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "network": {
+        "segments": [
+            {
+                "provider:segmentation_id": "2",
+                "provider:physical_network": "8bab8453-1bc9-45af-8c70-f83aa9b50453",
+                "provider:network_type": "vlan"
+            },
+            {
+                "provider:physical_network": "8bab8453-1bc9-45af-8c70-f83aa9b50453",
+                "provider:network_type": "stt"
+            }
+        ],
+        "name": "net1",
+        "admin_state_up": true
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="201"> 
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the network, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The network ID.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The network name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="shared" style="plain" type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Indicates whether this network is shared across all tenants.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The network status.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="subnets" style="plain" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The associated subnets.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The tenant ID.</para>
+                  </wadl:doc>
+               </param>
+            
+               <param required="false"
+                      name="provider:physical_network"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The physical network where this network object is
+            implemented. The Networking API v2.0 does not provide a
+            way to list available physical networks. For example, the
+            Open vSwitch plug-in configuration file defines a symbolic
+            name that maps to specific bridges on each Compute
+            host.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="provider:network_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The type of physical network that maps to this network
+            resource. Examples are flat, vlan, vxlan, and
+        gre.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="provider:segmentation_id"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>An isolated segment on the physical network. The
+            network_type attribute defines the segmentation model. For
+            example, if network_type is vlan, this ID is a vlan
+            identifier. If network_type is gre, this ID is a gre
+            key.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "network": {
+        "status": "ACTIVE",
+        "subnets": [],
+        "name": "net1",
+        "admin_state_up": true,
+        "tenant_id": "9bacb3c5d39d41a79512987f338cf177",
+        "segments": [
+            {
+                "provider:segmentation_id": 2,
+                "provider:physical_network": "8bab8453-1bc9-45af-8c70-f83aa9b50453",
+                "provider:network_type": "vlan"
+            },
+            {
+                "provider:segmentation_id": null,
+                "provider:physical_network": "8bab8453-1bc9-45af-8c70-f83aa9b50453",
+                "provider:network_type": "stt"
+            }
+        ],
+        "shared": false,
+        "port_security_enabled": true,
+        "id": "4e8e5957-649f-477b-9e5b-f1f75b21c03c"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource path="/v2.0/networks/{network_id}" id="network_id">
+         <param name="network_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The UUID for the
+                                   network of interest to
+                                you.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="showMultiNetwork">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Show details for a network with multiple segments">
+               <para role="shortdesc">Shows details for a specified
+                network with multiple segments.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the network, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The network ID.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The network name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="shared" style="plain" type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Indicates whether this network is shared across all tenants.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The network status.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="subnets" style="plain" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The associated subnets.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The tenant ID.</para>
+                  </wadl:doc>
+               </param>
+            
+               <param required="true" name="segments" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A <code>segments</code> object that defines one or more
+            provider segments.</para>
+                  </wadl:doc>
+               </param> 
+               <param required="false"
+                      name="provider:physical_network"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The physical network where this network object is
+            implemented. The Networking API v2.0 does not provide a
+            way to list available physical networks. For example, the
+            Open vSwitch plug-in configuration file defines a symbolic
+            name that maps to specific bridges on each Compute
+            host.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="provider:network_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The type of physical network that maps to this network
+            resource. Examples are flat, vlan, vxlan, and
+        gre.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="provider:segmentation_id"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>An isolated segment on the physical network. The
+            network_type attribute defines the segmentation model. For
+            example, if network_type is vlan, this ID is a vlan
+            identifier. If network_type is gre, this ID is a gre
+            key.</para>
+                  </wadl:doc>
+               </param>
+                <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "network": {
+        "status": "ACTIVE",
+        "subnets": [],
+        "name": "net1",
+        "admin_state_up": true,
+        "tenant_id": "9bacb3c5d39d41a79512987f338cf177",
+        "segments": [
+            {
+                "provider:segmentation_id": 2,
+                "provider:physical_network": "8bab8453-1bc9-45af-8c70-f83aa9b50453",
+                "provider:network_type": "vlan"
+            },
+            {
+                "provider:segmentation_id": 0,
+                "provider:physical_network": "8bab8453-1bc9-45af-8c70-f83aa9b50453",
+                "provider:network_type": "stt"
+            }
+        ],
+        "router:external": false,
+        "shared": false,
+        "port_security_enabled": true,
+        "id": "4e8e5957-649f-477b-9e5b-f1f75b21c03c"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    
+                
+    </resources>
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listMultiNetworks">
+        
+        <response status="200"> 
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+          
+      </param>
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+          
+      </param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+          
+      </param>
+         <param required="true" name="shared" style="plain" type="xsd:bool">
+          
+      </param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+          
+      </param>
+         <param required="true" name="subnets" style="plain" type="xsd:dict">
+          
+      </param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+          
+      </param>
+            
+         <param required="true" name="segments" style="plain" type="xsd:string">
+    
+</param> 
+         <param required="false"
+                name="provider:physical_network"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="provider:network_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="provider:segmentation_id"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+                <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createMultiNetwork">
+        
+        <request> 
+         <param required="false"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+    
+</param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+         
+      </param>
+         <param required="false" name="shared" style="plain" type="xsd:bool">
+    
+</param>
+         <param required="false"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param> 
+         <param required="true" name="segments" style="plain" type="xsd:string">
+    
+</param>
+            
+         <param required="false"
+                name="provider:physical_network"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="provider:network_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="provider:segmentation_id"
+                style="plain"
+                type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="201"> 
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+          
+      </param>
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+          
+      </param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+          
+      </param>
+         <param required="true" name="shared" style="plain" type="xsd:bool">
+          
+      </param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+          
+      </param>
+         <param required="true" name="subnets" style="plain" type="xsd:dict">
+          
+      </param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+          
+      </param>
+            
+         <param required="false"
+                name="provider:physical_network"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="provider:network_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="provider:segmentation_id"
+                style="plain"
+                type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showMultiNetwork">
+        
+        <response status="200"> 
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+          
+      </param>
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+          
+      </param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+          
+      </param>
+         <param required="true" name="shared" style="plain" type="xsd:bool">
+          
+      </param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+          
+      </param>
+         <param required="true" name="subnets" style="plain" type="xsd:dict">
+          
+      </param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+          
+      </param>
+            
+         <param required="true" name="segments" style="plain" type="xsd:string">
+    
+</param> 
+         <param required="false"
+                name="provider:physical_network"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="provider:network_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="provider:segmentation_id"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+                <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

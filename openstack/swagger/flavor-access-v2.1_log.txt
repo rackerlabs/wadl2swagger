@@ -1,0 +1,9 @@
+INFO:wadls/flavor-access-v2.1.wadl:Converting: wadls/flavor-access-v2.1.wadl to swagger/flavor-access-v2.1.json
+WARNING:wadls/flavor-access-v2.1.wadl:No support for application/json for resource at /v2.1/flavors
+WARNING:wadls/flavor-access-v2.1.wadl:No support for application/json for resource at /v2.1/flavors/10/action
+INFO:root:Saving swagger to swagger/flavor-access-v2.1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

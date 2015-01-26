@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2011-2014 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entites with xmllint          -->
+<!--                                                       -->
+<!--        xmllint -noent RAX-KSKEY-admin.wadl             -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    
+    <!--<grammars>
+        <include href="../common/xsd/api.xsd"/>
+        <include href="../common/xsd/api-common.xsd"/>
+        <include href="../common/xsd/RAX-KSKEY-credentials.xsd" />
+    </grammars>-->
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+    
+    <!-- We should use SSL in production -->
+    <resources xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+              xmlns:RAX-KSKEY="http://docs.openstack.org/identity/api/ext/RAX-KSKEY/v1.0"
+              xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="http://localhost:35357"
+              xml:id="RAX-KSKEY-admin-v2.0">
+        <resource id="userCredentials" path="v2.0/users/{userId}/OS-KSADM/credentials">
+         <param name="X-Auth-Token"
+                style="header"
+                type="xsd:string"
+                required="true">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Use a valid authentication token for an administrative user.</para>
+            </wadl:doc>
+            </param>
+         <param name="userId"
+                style="template"
+                type="xsd:string"
+                required="true">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">The user ID assigned by system when user is added.</wadl:doc>
+                    </param>
+         <method name="POST" rax:id="addUserCredential">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Add user credential">
+               <para role="shortdesc">Adds a credential to a user.</para>
+            </wadl:doc>
+            <request>
+               <param name="X-Auth-Token"
+                      style="header"
+                      type="xsd:string"
+                      required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A valid
+                        authentication token for an
+                        administrative
+                        user.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="201">
+               <representation mediaType="application/xml" element="RAX-KSKEY:apiKeyCredentials">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;auth&gt;
+  &lt;apiKeyCredentials
+    xmlns="http://docs.rackspace.com/identity/api/ext/RAX-KSKEY/v1.0"
+    username="demoauthor"
+    apiKey="aaaaa-bbbbb-ccccc-12345678"/&gt;
+&lt;/auth&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "auth": {
+        "RAX-KSKEY:apiKeyCredentials": {
+            "username": "demoauthor",
+            "apiKey": "aaaaa-bbbbb-ccccc-12345678"
+        }
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+        
+            <response>
+               <representation mediaType="application/xml" element="identity:identityFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+        
+            <response status="415">
+               <representation mediaType="application/xml" element="identity:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+        
+            <response status="404">
+               <representation mediaType="application/xml" element="identity:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+         <method name="GET" rax:id="listCredentials">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Credentials">
+               <para role="shortdesc">
+                List credentials.
+            </para>
+               <para>List credentials.</para>
+            </wadl:doc>
+            <request>
+               <param name="X-Auth-Token"
+                      style="header"
+                      type="xsd:string"
+                      required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A valid
+                        authentication token for an
+                        administrative
+                        user.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200 203">
+               <representation mediaType="application/xml" element="identity:credentials">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;credentials xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://docs.openstack.org/identity/api/v2.0"&gt;
+    &lt;passwordCredentials username="test_user" password="test"/&gt;
+    &lt;apiKeyCredentials
+        xmlns="http://docs.rackspace.com/identity/api/ext/RAX-KSKEY/v1.0"
+        username="testuser"
+        apiKey="aaaaa-bbbbb-ccccc-12345678"/&gt;
+&lt;/credentials&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+"credentials":[{
+"passwordCredentials":{
+"username":"test_user",
+"password":"mypass"
+}
+},
+{
+"RAX-KSKEY:apiKeyCredentials":{
+"username":"test_user",
+"apiKey":"aaaaa-bbbbb-ccccc-12345678"
+}
+}
+],
+"credentials_links":[]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+        
+            <response>
+               <representation mediaType="application/xml" element="identity:identityFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+        
+            <response status="404">
+               <representation mediaType="application/xml" element="identity:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+                            
+                            
+                            <!--                            <resource id="tenants">
+                                <param name="X-Auth-Token"
+                                    style="header" type="xsd:string"
+                                    required="true">
+                                    <wadl:doc
+                                        xmlns="http://docbook.org/ns/docbook"
+                                        xml:lang="EN"><para>A valid
+                                            authentication token for an
+                                            administrative
+                                            user.</para></wadl:doc>
+                                </param>
+                                <param name="marker" style="query"
+                                    required="false" type="xsd:string">
+                                    <wadl:doc
+                                        xmlns="http://docbook.org/ns/docbook"
+                                        xml:lang="EN"><para>The ID of the
+                                            last item in the previous
+                                            list.</para></wadl:doc>
+                                </param>
+                                <param name="limit" style="query"
+                                    required="false" type="xsd:int">
+                                    <wadl:doc
+                                        xmlns="http://docbook.org/ns/docbook"
+                                        xml:lang="EN"><para>The page
+                                            size.</para></wadl:doc>
+                                </param> -->
+                            
+                        
+    </resources>
+    
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+    
+    <!-- User Credentials-->
+    <method xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:RAX-KSKEY="http://docs.openstack.org/identity/api/ext/RAX-KSKEY/v1.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="addUserCredential">
+        
+        <request>
+            <param name="X-Auth-Token"
+                style="header"
+                type="xsd:string"
+                required="true">
+                
+            </param>
+        </request>
+        <response status="201">
+            <representation mediaType="application/xml" element="RAX-KSKEY:apiKeyCredentials">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+        
+        <response>
+            <representation mediaType="application/xml" element="identity:identityFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="identity:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="identity:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="identity:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="identity:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="identity:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+        
+        <response status="415">
+            <representation mediaType="application/xml" element="identity:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+        
+        <response status="404">
+            <representation mediaType="application/xml" element="identity:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    </method>
+    
+    <method xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:RAX-KSKEY="http://docs.openstack.org/identity/api/ext/RAX-KSKEY/v1.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listCredentials">
+        
+        <request>
+            <param name="X-Auth-Token"
+                style="header"
+                type="xsd:string"
+                required="true">
+                
+            </param>
+        </request>
+        <response status="200 203">
+            <representation mediaType="application/xml" element="identity:credentials">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+        
+        <response>
+            <representation mediaType="application/xml" element="identity:identityFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="identity:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="identity:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="identity:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="identity:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="identity:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+        
+        <response status="404">
+            <representation mediaType="application/xml" element="identity:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    </method>
+    
+    <!--<method name="GET" id="listCredentialsByType">
+        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List Credentials by Type">
+            <para role="shortdesc">
+                List credentials by type.
+            </para>
+            <para>List credentials by type.</para>          
+        </wadl:doc>
+        <request>
+            <param name="marker" style="query" required="false" type="xsd:string">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN"> Allows us to page through list of users. </wadl:doc>
+            </param>
+            <param name="limit" style="query" required="false" type="xsd:int">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN"> Allows us to set size of page when paging through list of users. </wadl:doc>
+            </param>
+        </request>
+        <response status="200 203">
+            <representation mediaType="application/xml" element="identity:credentials">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
+                    <xsdxt:code href="../common/samples/credentials.xml"/>
+                </wadl:doc>
+            </representation>
+            <representation mediaType="application/json">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code href="../common/samples/credentials.json"/>
+                </wadl:doc>
+            </representation>
+        </response>
+        &commonFaults;
+        &getFaults;
+    </method>    
+    
+    <method name="POST" id="updateUserCredential">
+        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Update user API key credentials">
+            <para role="shortdesc">Update user credentials.
+            </para>
+            <para>
+                An API key is a credential; you can update a user's API key with this call.
+                To add a credential to a user, include the userid in the request. If you don't know the id, 
+                you can use the  <link xlink:href="GET_admin-getUserByName_v2.0_users_User_Calls.html"/> operation to find it.
+            </para>
+        </wadl:doc>
+        <request>
+            <representation mediaType="application/xml" element="RAX-KSKEY:apiKeyCredentials">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
+                    <xsdxt:code href="../common/samples/apiKeyCredentials.xml"/>
+                </wadl:doc>
+            </representation>
+            <representation mediaType="application/json">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
+                    <xsdxt:code href="../common/samples/apiKeyCredentials.json"/>
+                </wadl:doc>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml" element="RAX-KSKEY:apiKeyCredentials">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
+                    <xsdxt:code href="../common/samples/apiKeyCredentials.xml"/>
+                </wadl:doc>
+            </representation>
+            <representation mediaType="application/json">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN">
+                    <xsdxt:code href="../common/samples/apiKeyCredentials.json"/>
+                </wadl:doc>
+            </representation>
+        </response>
+        &commonFaults;
+        &postPutFaults;
+        &getFaults;
+    </method>
+    
+    <method name="DELETE" id="deleteUserCredential">
+        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Delete user API key credentials">
+            <para role="shortdesc">Delete user credentials.
+            </para>
+            <para>
+                An API key is a credential; you can delete a user's API key with this call.
+                To delete a credential from a user, specify the user ID in the request.
+                If you know the user name but not the ID, use                  
+                <link xlink:href="GET_admin-getUserByName_v2.0_users_User_Calls.html"/>
+                 to                   
+                obtain complete identifying information about the user.
+            </para>
+        </wadl:doc>
+        <response status="204"/>
+        &commonFaults;
+        &postPutFaults;
+        &getFaults;
+    </method>
+    
+    <method name="GET" id="getUserCredential">
+        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Get user API key credentials">
+            <para role="shortdesc">Get user credentials.</para>
+            <para>To list API key credentials for a specified user, include the userid in the request. If you don't know the id, 
+                you can use the  <link xlink:href="GET_admin-getUserByName_v2.0_users_User_Calls.html"/> operation to find it.
+            </para>
+        </wadl:doc>
+        <response status="200 203">
+            <representation mediaType="application/xml" element="RAX-KSKEY:apiKeyCredentials">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code href="../common/samples/apiKeyCredentials.xml"/>
+                </wadl:doc>
+            </representation>
+            <representation mediaType="application/json">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code href="../common/samples/apiKeyCredentials.json"/>
+                </wadl:doc>
+            </representation>
+        </response>
+        &commonFaults;
+        &getFaults;
+    </method>-->
+</wadl:application>

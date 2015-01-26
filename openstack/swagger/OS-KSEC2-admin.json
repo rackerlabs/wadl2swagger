@@ -1,0 +1,195 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "OS-KSEC2-admin",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/users/{userId}/OS-KSADM/credentials": {
+            "parameters": [
+                {
+                    "name": "X-Auth-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token.\n"
+                },
+                {
+                    "name": "userId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The user ID.\n"
+                },
+                {
+                    "name": "marker",
+                    "required": false,
+                    "in": "query",
+                    "type": "string",
+                    "description": "The ID of the last item in the previous list.\n"
+                },
+                {
+                    "name": "limit",
+                    "required": false,
+                    "in": "query",
+                    "type": "integer",
+                    "description": "The page size.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listCredentials",
+                "summary": "List Credentials",
+                "description": "Lists credentials.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"credentials\": [\n        {\n            \"passwordCredentials\": {\n                \"username\": \"test_user\",\n                \"password\": \"secretsecret\"\n            }\n        },\n        {\n            \"OS-KSEC2-ec2Credentials\": {\n                \"username\": \"test_user\",\n                \"secret\": \"secretsecret\",\n                \"signature\": \"bbb\"\n            }\n        }\n    ],\n    \"credentials_links\": []\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"credentials\": [\n        {\n            \"passwordCredentials\": {\n                \"username\": \"test_user\",\n                \"password\": \"secretsecret\"\n            }\n        },\n        {\n            \"OS-KSEC2-ec2Credentials\": {\n                \"username\": \"test_user\",\n                \"secret\": \"secretsecret\",\n                \"signature\": \"bbb\"\n            }\n        }\n    ],\n    \"credentials_links\": []\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "addUserCredential",
+                "summary": "Add User Credentials",
+                "description": "Adds a credential to a user.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"OS-KSEC2-ec2Credentials\": {\n        \"username\": \"test_user\",\n        \"secret\": \"secretsecret\",\n        \"signature\": \"bbb\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/users/{userId}/OS-KSADM/credentials/OS-KSEC2:ec2Credentials": {
+            "parameters": [
+                {
+                    "name": "X-Auth-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token.\n"
+                },
+                {
+                    "name": "userId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The user ID.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getUserCredential",
+                "summary": "Get User Credentials",
+                "description": "Gets user credentials.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"OS-KSEC2-ec2Credentials\": {\n        \"username\": \"test_user\",\n        \"secret\": \"secretsecret\",\n        \"signature\": \"bbb\"\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"OS-KSEC2-ec2Credentials\": {\n        \"username\": \"test_user\",\n        \"secret\": \"secretsecret\",\n        \"signature\": \"bbb\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "updateUserCredential",
+                "summary": "Update User Credentials",
+                "description": "Updates credentials for a specified user.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"OS-KSEC2-ec2Credentials\": {\n        \"username\": \"test_user\",\n        \"secret\": \"secretsecret\",\n        \"signature\": \"bbb\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteUserCredential",
+                "summary": "Delete User Credentials",
+                "description": "Deletes user credentials.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v2.0/users/{userId}/OS-KSADM/credentials/OS-KSEC2:ec2Credentials/{type}": {
+            "parameters": [
+                {
+                    "name": "X-Auth-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token.\n"
+                },
+                {
+                    "name": "userId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The user ID.\n"
+                },
+                {
+                    "name": "type",
+                    "required": true,
+                    "in": "query",
+                    "type": "string",
+                    "description": "The credential type.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listCredentialsByType",
+                "summary": "List Credentials by Type",
+                "description": "Lists credentials by type.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {}
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {}
+                    }
+                }
+            }
+        }
+    }
+}

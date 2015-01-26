@@ -1,0 +1,13 @@
+INFO:wadls/os-simple-tenant-usage-v2.1.wadl:Converting: wadls/os-simple-tenant-usage-v2.1.wadl to swagger/os-simple-tenant-usage-v2.1.json
+INFO:root:Saving swagger to swagger/os-simple-tenant-usage-v2.1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v2.1~1os-simple-tenant-usage~1{tenant_id}/get: API requires path parameter but it is not defined: tenant_id
+
+1 error and 0 warnings
+Invalid

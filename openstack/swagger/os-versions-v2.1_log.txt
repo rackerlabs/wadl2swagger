@@ -1,0 +1,7 @@
+INFO:wadls/os-versions-v2.1.wadl:Converting: wadls/os-versions-v2.1.wadl to swagger/os-versions-v2.1.json
+INFO:root:Saving swagger to swagger/os-versions-v2.1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

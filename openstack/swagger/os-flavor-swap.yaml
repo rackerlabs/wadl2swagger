@@ -1,0 +1,130 @@
+---
+swagger: '2.0'
+info:
+  title: os-flavor-swap
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/flavors/{flavor_id}/os-flavor-swap":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: flavor_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the flavor of interest to you.
+    get:
+      operationId: listFlavor-swap
+      summary: List flavor extra specs
+      description: |
+        Lists the flavor specs including swap value for the specified flavor. The swap value is the amount of swap disk space, in GBs, to allocate to a server.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavors": [
+                      {
+                          "name": "m1.tiny",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/1",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 512,
+                          "vcpus": 1,
+                          "swap": "",
+                          "disk": 1,
+                          "id": "1"
+                      },
+                      {
+                          "name": "m1.small",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/2",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/2",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 2048,
+                          "vcpus": 1,
+                          "swap": "",
+                          "disk": 20,
+                          "id": "2"
+                      },
+                      {
+                          "name": "m1.medium",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/3",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/3",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 4096,
+                          "vcpus": 2,
+                          "swap": "",
+                          "disk": 40,
+                          "id": "3"
+                      },
+                      {
+                          "name": "m1.large",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/4",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/4",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 8192,
+                          "vcpus": 4,
+                          "swap": "",
+                          "disk": 80,
+                          "id": "4"
+                      },
+                      {
+                          "name": "m1.xlarge",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/5",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/5",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 16384,
+                          "vcpus": 8,
+                          "swap": "",
+                          "disk": 160,
+                          "id": "5"
+                      }
+                  ]
+              }

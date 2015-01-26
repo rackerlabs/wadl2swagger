@@ -1,0 +1,187 @@
+---
+swagger: '2.0'
+info:
+  title: os-hypervisors
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-hypervisors":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: listHypervisors
+      summary: List hypervisors
+      description: |
+        Lists hypervisors information for each server obtained through the hypervisor-specific API, such as libvirt or XenAPI.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hypervisors": [
+                      {
+                          "id": 1,
+                          "hypervisor_hostname": "fake-mini"
+                      }
+                  ]
+              }
+  "/v2/{tenant_id}/os-hypervisors/detail":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: showHypervisor
+      summary: Show hypervisor information
+      description: |
+        Shows information for a specified hypervisor. Typically configured as an admin-only extension by using `policy.json` settings.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hypervisors": [
+                      {
+                          "service": {
+                              "host": "1e0d7892083548cfb347e782d3b20342",
+                              "id": 2
+                          },
+                          "current_workload": 0,
+                          "hypervisor_type": "fake",
+                          "vcpus_used": 0,
+                          "local_gb_used": 0,
+                          "hypervisor_hostname": "fake-mini",
+                          "memory_mb_used": 512,
+                          "memory_mb": 8192,
+                          "cpu_info": "?",
+                          "vcpus": 1,
+                          "running_vms": 0,
+                          "free_disk_gb": 1028,
+                          "hypervisor_version": 1,
+                          "disk_available_least": null,
+                          "local_gb": 1028,
+                          "free_ram_mb": 7680,
+                          "id": 1
+                      }
+                  ]
+              }
+  "/v2/{tenant_id}/os-hypervisors/statistics":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: getHypervisorStats
+      summary: Show statistics for hypervisors
+      description: |
+        Shows hypervisor statistics over all compute nodes.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hypervisor_statistics": {
+                      "count": 1,
+                      "vcpus_used": 0,
+                      "local_gb_used": 0,
+                      "memory_mb": 8192,
+                      "current_workload": 0,
+                      "vcpus": 1,
+                      "running_vms": 0,
+                      "free_disk_gb": 1028,
+                      "disk_available_least": 0,
+                      "local_gb": 1028,
+                      "free_ram_mb": 7680,
+                      "memory_mb_used": 512
+                  }
+              }
+  "/v2/{tenant_id}/os-hypervisors/{hypervisor_hostname}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: hypervisor_hostname
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the host that runs the hypervisor.
+    get:
+      operationId: getHypervisorUptime
+      summary: Show hypervisor up time
+      description: |
+        Shows the up time for a specified hypervisor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hypervisor": {
+                      "uptime": " 08:32:11 up 93 days, 18:25, 12 users,  load average: 0.20, 0.12, 0.14",
+                      "id": 1,
+                      "hypervisor_hostname": "fake-mini"
+                  }
+              }
+  "/v2/{tenant_id}/os-hypervisors/{hypervisor_hostname}/servers":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: hypervisor_hostname
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the host that runs the hypervisor.
+    get:
+      operationId: listHypervisorInstances
+      summary: List instances for hypervisors
+      description: |
+        Lists instances that belong to specific hypervisors.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hypervisors": [
+                      {
+                          "id": 1,
+                          "hypervisor_hostname": "fake-mini"
+                      }
+                  ]
+              }

@@ -1,0 +1,414 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-lbaasv1.0-ext",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v1.0/lb/vips": {
+            "get": {
+                "operationId": "listVIPs",
+                "summary": "List VIPs",
+                "description": "Lists VIPs.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"vips\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"protocol\": \"HTTP\",\n            \"description\": \"\",\n            \"admin_state_up\": true,\n            \"subnet_id\": \"8032909d-47a1-4715-90af-5153ffe39861\",\n            \"tenant_id\": \"83657cfcdfe44cd5920adaf26c48ceea\",\n            \"connection_limit\": 1000,\n            \"pool_id\": \"72741b06-df4d-4715-b142-276b6bce75ab\",\n            \"session_persistence\": {\n                \"cookie_name\": \"MyAppCookie\",\n                \"type\": \"APP_COOKIE\"\n            },\n            \"address\": \"10.0.0.10\",\n            \"protocol_port\": 80,\n            \"port_id\": \"b5a743d6-056b-468b-862d-fb13a9aa694e\",\n            \"id\": \"4ec89087-d057-4e2c-911f-60a3b47ee304\",\n            \"name\": \"my-vip\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createVIP",
+                "summary": "Create a load balancer VIP",
+                "description": "Creates a load balancer VIP.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"vip\": {\n        \"status\": \"PENDING_CREATE\",\n        \"protocol\": \"HTTP\",\n        \"description\": \"\",\n        \"admin_state_up\": true,\n        \"subnet_id\": \"8032909d-47a1-4715-90af-5153ffe39861\",\n        \"tenant_id\": \"83657cfcdfe44cd5920adaf26c48ceea\",\n        \"connection_limit\": -1,\n        \"pool_id\": \"61b1f87a-7a21-4ad3-9dda-7f81d249944f\",\n        \"address\": \"10.0.0.11\",\n        \"protocol_port\": 80,\n        \"port_id\": \"f7e6fe6a-b8b5-43a8-8215-73456b32e0f5\",\n        \"id\": \"c987d2be-9a3c-4ac9-a046-e8716b1350e2\",\n        \"name\": \"NewVip\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/lb/vips/{vip_id}": {
+            "parameters": [
+                {
+                    "name": "vip_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the VIP.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showVIP",
+                "summary": "Show VIP details",
+                "description": "Shows details for a specified VIP.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"vip\": {\n        \"status\": \"ACTIVE\",\n        \"protocol\": \"HTTP\",\n        \"description\": \"\",\n        \"admin_state_up\": true,\n        \"subnet_id\": \"8032909d-47a1-4715-90af-5153ffe39861\",\n        \"tenant_id\": \"83657cfcdfe44cd5920adaf26c48ceea\",\n        \"connection_limit\": 1000,\n        \"pool_id\": \"72741b06-df4d-4715-b142-276b6bce75ab\",\n        \"session_persistence\": {\n            \"cookie_name\": \"MyAppCookie\",\n            \"type\": \"APP_COOKIE\"\n        },\n        \"address\": \"10.0.0.10\",\n        \"protocol_port\": 80,\n        \"port_id\": \"b5a743d6-056b-468b-862d-fb13a9aa694e\",\n        \"id\": \"4ec89087-d057-4e2c-911f-60a3b47ee304\",\n        \"name\": \"my-vip\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateVIP",
+                "summary": "Update VIP",
+                "description": "Updates a specified load balancer VIP.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"vip\": {\n        \"status\": \"PENDING_UPDATE\",\n        \"protocol\": \"HTTP\",\n        \"description\": \"\",\n        \"admin_state_up\": true,\n        \"subnet_id\": \"8032909d-47a1-4715-90af-5153ffe39861\",\n        \"tenant_id\": \"83657cfcdfe44cd5920adaf26c48ceea\",\n        \"connection_limit\": 1000,\n        \"pool_id\": \"61b1f87a-7a21-4ad3-9dda-7f81d249944f\",\n        \"address\": \"10.0.0.11\",\n        \"protocol_port\": 80,\n        \"port_id\": \"f7e6fe6a-b8b5-43a8-8215-73456b32e0f5\",\n        \"id\": \"c987d2be-9a3c-4ac9-a046-e8716b1350e2\",\n        \"name\": \"NewVip\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteVIP",
+                "summary": "Delete VIP",
+                "description": "Deletes a specified load balancer VIP.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/lb/healthmonitors": {
+            "get": {
+                "operationId": "listHealthMonitors",
+                "summary": "List health monitors",
+                "description": "Lists health monitors.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"health_monitors\": [\n        {\n            \"admin_state_up\": true,\n            \"tenant_id\": \"83657cfcdfe44cd5920adaf26c48ceea\",\n            \"delay\": 10,\n            \"max_retries\": 1,\n            \"timeout\": 1,\n            \"type\": \"PING\",\n            \"id\": \"466c8345-28d8-4f84-a246-e04380b0461d\"\n        },\n        {\n            \"admin_state_up\": true,\n            \"tenant_id\": \"83657cfcdfe44cd5920adaf26c48ceea\",\n            \"delay\": 5,\n            \"expected_codes\": \"200\",\n            \"max_retries\": 2,\n            \"http_method\": \"GET\",\n            \"timeout\": 2,\n            \"url_path\": \"/\",\n            \"type\": \"HTTP\",\n            \"id\": \"5d4b5228-33b0-4e60-b225-9b727c1a20e7\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createHealthMonitor",
+                "summary": "Create a load balancer health monitor",
+                "description": "Creates a load balancer health monitor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"healthmonitor\": {\n        \"status\": \"ACTIVE\",\n        \"admin_state_up\": true,\n        \"tenant_id\": \"453105b9-1754-413f-aab1-55f1af620750\",\n        \"delay\": 20,\n        \"expected_codes\": \"200-299\",\n        \"max_retries\": 5,\n        \"http_method\": \"GET\",\n        \"timeout\": 10,\n        \"url_path\": \"/check\",\n        \"type\": \"HTTP\",\n        \"id\": \"f3eeab00-8367-4524-b662-55e64d4cacb5\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/lb/healthmonitors/{health_monitor_id}": {
+            "get": {
+                "operationId": "showHealthMonitor",
+                "summary": "Show health monitor details",
+                "description": "Shows details for a specified health monitor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"healthmonitor\": {\n        \"status\": \"ACTIVE\",\n        \"admin_state_up\": true,\n        \"tenant_id\": \"453105b9-1754-413f-aab1-55f1af620750\",\n        \"delay\": 20,\n        \"expected_codes\": \"200-299\",\n        \"max_retries\": 5,\n        \"http_method\": \"GET\",\n        \"timeout\": 10,\n        \"url_path\": \"/check\",\n        \"type\": \"HTTP\",\n        \"id\": \"f3eeab00-8367-4524-b662-55e64d4cacb5\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateHealthMonitor",
+                "summary": "Update health monitor",
+                "description": "Updates a specified load balancer health monitor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"health_monitor\": {\n        \"admin_state_up\": true,\n        \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n        \"delay\": 5,\n        \"max_retries\": 5,\n        \"http_method\": \"GET\",\n        \"timeout\": 1,\n        \"pools\": [\n            {\n                \"status\": \"PENDING_CREATE\",\n                \"status_description\": null,\n                \"pool_id\": \"6e55751f-6ad4-4e53-b8d4-02e442cd21df\"\n            }\n        ],\n        \"type\": \"PING\",\n        \"id\": \"b05e44b5-81f9-4551-b474-711a722698f7\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteHealthMonitor",
+                "summary": "Delete health monitor",
+                "description": "Deletes a specified load balancer health monitor.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/lb/pools": {
+            "get": {
+                "operationId": "listPools",
+                "summary": "List pools",
+                "description": "Lists pools.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"pools\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"lb_method\": \"ROUND_ROBIN\",\n            \"protocol\": \"HTTP\",\n            \"description\": \"\",\n            \"health_monitors\": [\n                \"466c8345-28d8-4f84-a246-e04380b0461d\",\n                \"5d4b5228-33b0-4e60-b225-9b727c1a20e7\"\n            ],\n            \"subnet_id\": \"8032909d-47a1-4715-90af-5153ffe39861\",\n            \"tenant_id\": \"83657cfcdfe44cd5920adaf26c48ceea\",\n            \"admin_state_up\": true,\n            \"vip_id\": \"4ec89087-d057-4e2c-911f-60a3b47ee304\",\n            \"members\": [\n                \"701b531b-111a-4f21-ad85-4795b7b12af6\",\n                \"beb53b4d-230b-4abd-8118-575b8fa006ef\"\n            ],\n            \"id\": \"72741b06-df4d-4715-b142-276b6bce75ab\",\n            \"name\": \"app_pool\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createPool",
+                "summary": "Create a load balancer pool",
+                "description": "Creates a load balancer pool.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"pool\": {\n        \"status\": \"PENDING_CREATE\",\n        \"lb_method\": \"ROUND_ROBIN\",\n        \"protocol\": \"HTTP\",\n        \"description\": \"\",\n        \"health_monitors\": [],\n        \"subnet_id\": \"1981f108-3c48-48d2-b908-30f7d28532c9\",\n        \"tenant_id\": \"2ffc6e22aae24e4795f87155d24c896f\",\n        \"admin_state_up\": true,\n        \"name\": \"Example pool\",\n        \"health_monitors_status\": [],\n        \"members\": [],\n        \"provider\": \"haproxy\",\n        \"status_description\": null,\n        \"id\": \"69055154-f603-4a28-8951-7cc2d9e54a9a\",\n        \"vip_id\": null\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/lb/pools/{pool_id}": {
+            "parameters": [
+                {
+                    "name": "pool_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the pool.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showPool",
+                "summary": "Show pool details",
+                "description": "Shows details for a specified pool.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"pool\": {\n        \"lb_algorithm\": \"ROUND_ROBIN\",\n        \"status\": \"ACTIVE\",\n        \"protocol\": \"tcp\",\n        \"description\": \"\",\n        \"admin_state_up\": true,\n        \"tenant_id\": \"19eaa775-cf5d-49bc-902e-2f85f668d995\",\n        \"session_persistence\": {},\n        \"healthmonitor_id\": null,\n        \"members\": [],\n        \"id\": \"332abe93-f488-41ba-870b-2ac66be7f853\",\n        \"name\": \"Example pool\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updatePool",
+                "summary": "Update pool",
+                "description": "Updates a specified load balancer pool.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"pool\": {\n        \"status\": \"PENDING_UPDATE\",\n        \"lb_method\": \"ROUND_ROBIN\",\n        \"protocol\": \"TCP\",\n        \"description\": \"\",\n        \"health_monitors\": [],\n        \"subnet_id\": \"8032909d-47a1-4715-90af-5153ffe39861\",\n        \"tenant_id\": \"83657cfcdfe44cd5920adaf26c48ceea\",\n        \"admin_state_up\": true,\n        \"vip_id\": null,\n        \"members\": [],\n        \"id\": \"61b1f87a-7a21-4ad3-9dda-7f81d249944f\",\n        \"name\": \"SuperPool\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deletePool",
+                "summary": "Delete pool",
+                "description": "Deletes a specified load balancer pool.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/lb/pools/{pool_id}/health_monitors": {
+            "parameters": [
+                {
+                    "name": "pool_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the pool.\n"
+                }
+            ],
+            "post": {
+                "operationId": "associateHealthMonitor",
+                "summary": "Associate health monitor with pool",
+                "description": "Associates a health monitor with a specified pool.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"health_monitor\": {}\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/lb/pools/{pool_id}/health_monitors/{health_monitor_id}": {
+            "parameters": [
+                {
+                    "name": "pool_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the pool.\n"
+                },
+                {
+                    "name": "health_monitor_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the health monitor.\n"
+                }
+            ],
+            "delete": {
+                "operationId": "disassociateHealthMonitor",
+                "summary": "Disassociate health monitor from pool",
+                "description": "Disassociates a specified health monitor from a pool.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v1.0/lb/members": {
+            "get": {
+                "operationId": "listMembers",
+                "summary": "List members",
+                "description": "Lists members.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"members\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"weight\": 1,\n            \"admin_state_up\": true,\n            \"tenant_id\": \"83657cfcdfe44cd5920adaf26c48ceea\",\n            \"pool_id\": \"72741b06-df4d-4715-b142-276b6bce75ab\",\n            \"address\": \"10.0.0.4\",\n            \"protocol_port\": 80,\n            \"id\": \"701b531b-111a-4f21-ad85-4795b7b12af6\"\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"weight\": 1,\n            \"admin_state_up\": true,\n            \"tenant_id\": \"83657cfcdfe44cd5920adaf26c48ceea\",\n            \"pool_id\": \"72741b06-df4d-4715-b142-276b6bce75ab\",\n            \"address\": \"10.0.0.3\",\n            \"protocol_port\": 80,\n            \"id\": \"beb53b4d-230b-4abd-8118-575b8fa006ef\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createMember",
+                "summary": "Create a load balancer member",
+                "description": "Creates a load balancer member.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"member\": {\n        \"status\": \"DOWN\",\n        \"weight\": 1,\n        \"admin_state_up\": true,\n        \"subnet_id\": \"SUBNET_ID\",\n        \"tenant_id\": \"453105b9-1754-413f-aab1-55f1af620750\",\n        \"address\": \"192.0.2.14\",\n        \"protocol_port\": 8080,\n        \"id\": \"975592ca-e308-48ad-8298-731935ee9f45\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/lb/members/{member_id}": {
+            "parameters": [
+                {
+                    "name": "member_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the member.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showMember",
+                "summary": "Show member details",
+                "description": "Shows details for a specified member.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"member\": {\n        \"status\": \"DOWN\",\n        \"weight\": 1,\n        \"admin_state_up\": true,\n        \"subnet_id\": \"SUBNET_ID\",\n        \"tenant_id\": \"453105b9-1754-413f-aab1-55f1af620750\",\n        \"address\": \"192.0.2.14\",\n        \"protocol_port\": 8080,\n        \"id\": \"975592ca-e308-48ad-8298-731935ee9f45\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateMember",
+                "summary": "Update member",
+                "description": "Updates a specified load balancer member.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"member\": {\n        \"status\": \"PENDING_UPDATE\",\n        \"status_description\": null,\n        \"weight\": 1,\n        \"admin_state_up\": false,\n        \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n        \"pool_id\": \"7803631d-f181-4500-b3a2-1b68ba2a75fd\",\n        \"address\": \"10.0.0.5\",\n        \"protocol_port\": 8080,\n        \"id\": \"48a471ea-64f1-4eb6-9be7-dae6bbe40a0f\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteMember",
+                "summary": "Delete member",
+                "description": "Deletes a specified load balancer member.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        }
+    }
+}

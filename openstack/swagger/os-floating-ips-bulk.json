@@ -1,0 +1,119 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-floating-ips-bulk",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-floating-ips-bulk": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "ListFloatingIPsBulk",
+                "summary": "List floating IPs",
+                "description": "Lists all floating IPs.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"floating_ip_info\": [\n        {\n            \"instance_uuid\": null,\n            \"interface\": \"eth0\",\n            \"project_id\": null,\n            \"pool\": \"nova\",\n            \"address\": \"10.10.10.1\"\n        },\n        {\n            \"instance_uuid\": null,\n            \"interface\": \"eth0\",\n            \"project_id\": null,\n            \"pool\": \"nova\",\n            \"address\": \"10.10.10.2\"\n        },\n        {\n            \"instance_uuid\": null,\n            \"interface\": \"eth0\",\n            \"project_id\": null,\n            \"pool\": \"nova\",\n            \"address\": \"10.10.10.3\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "CreateFloatingIPsBulk",
+                "summary": "Create floating IPs",
+                "description": "Bulk-creates floating IPs.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"floating_ips_bulk_create\": {\n        \"interface\": \"eth0\",\n        \"ip_range\": \"192.168.1.0/24\",\n        \"pool\": \"nova\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-floating-ips-bulk/delete": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "post": {
+                "operationId": "DeleteFloatingIPBulk",
+                "summary": "Bulk-delete floating IPs",
+                "description": "Bulk-deletes floating IPs.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"floating_ips_bulk_delete\": \"192.168.1.0/24\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-floating-ips-bulk/{host_name}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "host_name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of the host of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "ListFloatingIPsBulkbyHost",
+                "summary": "List floating IPs by host",
+                "description": "Lists all floating IPs for a specified host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"floating_ip_info\": [\n        {\n            \"instance_uuid\": null,\n            \"interface\": \"eth0\",\n            \"project_id\": null,\n            \"pool\": \"nova\",\n            \"address\": \"10.10.10.3\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

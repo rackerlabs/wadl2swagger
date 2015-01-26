@@ -1,0 +1,26 @@
+INFO:wadls/cq-devguide.wadl:Converting: wadls/cq-devguide.wadl to swagger/cq-devguide.json
+WARNING:wadls/cq-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cq-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cq-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cq-devguide.wadl:Autofix: path parameters must be required in Swagger (queue_name)
+WARNING:wadls/cq-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cq-devguide.wadl:Autofix: path parameters must be required in Swagger (queue_name)
+WARNING:wadls/cq-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cq-devguide.wadl:Autofix: path parameters must be required in Swagger (queue_name)
+WARNING:wadls/cq-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cq-devguide.wadl:Autofix: path parameters must be required in Swagger (queue_name)
+WARNING:wadls/cq-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cq-devguide.wadl:Autofix: path parameters must be required in Swagger (queue_name)
+WARNING:wadls/cq-devguide.wadl:Autofix: path parameters must be required in Swagger (messageId)
+WARNING:wadls/cq-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cq-devguide.wadl:No support for application/json for resource at /v1/queues/{queue_name}/claims
+WARNING:wadls/cq-devguide.wadl:Autofix: path parameters must be required in Swagger (queue_name)
+WARNING:wadls/cq-devguide.wadl:Autofix: Adding leading / to path
+WARNING:wadls/cq-devguide.wadl:Autofix: path parameters must be required in Swagger (queue_name)
+WARNING:wadls/cq-devguide.wadl:Autofix: path parameters must be required in Swagger (claimId)
+INFO:root:Saving swagger to swagger/cq-devguide.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:db="http://docbook.org/ns/docbook"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-flavormanage-v2">
+        <resource id="flavors" path="/v2/{tenant_id}/flavors">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique ID of the tenant or
+                            account.</para>
+                    </wadl:doc>
+                </param>
+         <method name="POST" rax:id="createFlavor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create flavor">
+               <para role="shortdesc">Creates a flavor.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavor": {
+        "name": "test_flavor",
+        "ram": 1024,
+        "vcpus": 2,
+        "disk": 10,
+        "id": "10"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;flavor&gt;
+    &lt;name&gt;test_flavor&lt;/name&gt;
+    &lt;ram&gt;1024&lt;/ram&gt;
+    &lt;vcpus&gt;2&lt;/vcpus&gt;
+    &lt;disk&gt;10&lt;/disk&gt;
+    &lt;id&gt;10&lt;/id&gt;
+&lt;/flavor&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param style="plain" name="name" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The name for the new flavor.</para>
+                    </wadl:doc>
+                  </param>
+                  <param style="plain" name="ram" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The amount of RAM, in MBs, for this
+                            flavor.</para>
+                    </wadl:doc>
+                  </param>
+                  <param style="plain" name="vcpus" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The virtual CPUs, in a whole integer
+                            amount, for the new flavor.</para>
+                    </wadl:doc>
+                  </param>
+                  <param style="plain" name="disk" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The amount of disk space, in GBs.</para>
+                    </wadl:doc>
+                  </param>
+                  <param style="plain" name="id" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the new flavor, which is a
+                            unique integer value.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "flavor": {
+        "disk": 10,
+        "id": "10",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/flavors/10",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/flavors/10",
+                "rel": "bookmark"
+            }
+        ],
+        "name": "test_flavor",
+        "ram": 1024,
+        "vcpus": 2
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" disk="10" vcpus="2" ram="1024" name="test_flavor" id="10"&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/10" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/flavors/10" rel="bookmark"/&gt;
+&lt;/flavor&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    <resource id="flavor_id" path="/v2/{tenant_id}/flavors/{flavor_id}">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique ID of the tenant or
+                            account.</para>
+                    </wadl:doc>
+                </param>
+         <param name="flavor_id" style="template">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The flavor ID.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="DELETE" rax:id="deleteFlavor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete flavor">
+               <para role="shortdesc">Deletes a flavor.</para>
+            </wadl:doc>
+            <response status="204"/>
+         </method>
+      </resource>
+                        
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createFlavor">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param style="plain" name="name" required="true">
+                    
+                </param>
+                <param style="plain" name="ram" required="true">
+                    
+                </param>
+                <param style="plain" name="vcpus" required="true">
+                    
+                </param>
+                <param style="plain" name="disk" required="true">
+                    
+                </param>
+                <param style="plain" name="id" required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteFlavor">
+        
+        <response status="204"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listFlavors">
+        
+        <response status="200"/>
+    </method>
+</wadl:application>

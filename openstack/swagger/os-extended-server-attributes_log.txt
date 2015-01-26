@@ -1,0 +1,10 @@
+INFO:wadls/os-extended-server-attributes.wadl:Converting: wadls/os-extended-server-attributes.wadl to swagger/os-extended-server-attributes.json
+WARNING:wadls/os-extended-server-attributes.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-extended-server-attributes.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-extended-server-attributes.wadl:Autofix: path parameters must be required in Swagger (server_id)
+INFO:root:Saving swagger to swagger/os-extended-server-attributes.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

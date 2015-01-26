@@ -1,0 +1,10 @@
+INFO:wadls/os-extended-status.wadl:Converting: wadls/os-extended-status.wadl to swagger/os-extended-status.json
+WARNING:wadls/os-extended-status.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-extended-status.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-extended-status.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-extended-status.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

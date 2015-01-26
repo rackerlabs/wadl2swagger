@@ -1,0 +1,103 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-ports",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/ports": {
+            "get": {
+                "operationId": "listPorts",
+                "summary": "List ports",
+                "description": "Lists ports to which the tenant has access.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"ports\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"binding:host_id\": \"devstack\",\n            \"name\": \"\",\n            \"allowed_address_pairs\": [],\n            \"admin_state_up\": true,\n            \"network_id\": \"70c1db1f-b701-45bd-96e0-a313ee3430b3\",\n            \"tenant_id\": \"\",\n            \"extra_dhcp_opts\": [],\n            \"binding:vnic_type\": \"normal\",\n            \"binding:vif_type\": \"ovs\",\n            \"device_owner\": \"network:router_gateway\",\n            \"mac_address\": \"fa:16:3e:58:42:ed\",\n            \"id\": \"d80b1a3b-4fc1-49f3-952e-1e2ab7081d8b\",\n            \"binding:profile\": {},\n            \"fixed_ips\": [\n                {\n                    \"subnet_id\": \"008ba151-0b8c-4a67-98b5-0d2b87666062\",\n                    \"ip_address\": \"172.24.4.2\"\n                }\n            ],\n            \"binding:vif_details\": {\n                \"port_filter\": true,\n                \"ovs_hybrid_plug\": true\n            },\n            \"security_groups\": [],\n            \"device_id\": \"9ae135f4-b6e0-4dad-9e91-3c223e385824\"\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"binding:host_id\": \"devstack\",\n            \"name\": \"\",\n            \"allowed_address_pairs\": [],\n            \"admin_state_up\": true,\n            \"network_id\": \"f27aa545-cbdd-4907-b0c6-c9e8b039dcc2\",\n            \"tenant_id\": \"d397de8a63f341818f198abb0966f6f3\",\n            \"extra_dhcp_opts\": [],\n            \"binding:vnic_type\": \"normal\",\n            \"binding:vif_type\": \"ovs\",\n            \"device_owner\": \"network:router_interface\",\n            \"mac_address\": \"fa:16:3e:bb:3c:e4\",\n            \"id\": \"f71a6703-d6de-4be1-a91a-a570ede1d159\",\n            \"binding:profile\": {},\n            \"fixed_ips\": [\n                {\n                    \"subnet_id\": \"288bf4a1-51ba-43b6-9d0a-520e9005db17\",\n                    \"ip_address\": \"10.0.0.1\"\n                }\n            ],\n            \"binding:vif_details\": {\n                \"port_filter\": true,\n                \"ovs_hybrid_plug\": true\n            },\n            \"security_groups\": [],\n            \"device_id\": \"9ae135f4-b6e0-4dad-9e91-3c223e385824\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "bulkCreatePorts",
+                "summary": "Bulk create ports",
+                "description": "Creates multiple ports in a single request. Specify a list of ports in the request body.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"ports\": [\n        {\n            \"status\": \"DOWN\",\n            \"binding:host_id\": \"\",\n            \"name\": \"sample_port_1\",\n            \"allowed_address_pairs\": [],\n            \"admin_state_up\": false,\n            \"network_id\": \"a87cc70a-3e15-4acf-8205-9b711a3531b7\",\n            \"tenant_id\": \"d6700c0c9ffa4f1cb322cd4a1f3906fa\",\n            \"binding:vif_details\": {},\n            \"binding:vnic_type\": \"normal\",\n            \"binding:vif_type\": \"unbound\",\n            \"device_owner\": \"\",\n            \"mac_address\": \"fa:16:3e:48:b8:9f\",\n            \"binding:profile\": {},\n            \"fixed_ips\": [\n                {\n                    \"subnet_id\": \"a0304c3a-4f08-4c43-88af-d796509c97d2\",\n                    \"ip_address\": \"10.0.0.5\"\n                }\n            ],\n            \"id\": \"94225baa-9d3f-4b93-bf12-b41e7ce49cdb\",\n            \"security_groups\": [\n                \"f0ac4394-7e4a-4409-9701-ba8be283dbc3\"\n            ],\n            \"device_id\": \"\"\n        },\n        {\n            \"status\": \"DOWN\",\n            \"binding:host_id\": \"\",\n            \"name\": \"sample_port_2\",\n            \"allowed_address_pairs\": [],\n            \"admin_state_up\": false,\n            \"network_id\": \"a87cc70a-3e15-4acf-8205-9b711a3531b7\",\n            \"tenant_id\": \"d6700c0c9ffa4f1cb322cd4a1f3906fa\",\n            \"binding:vif_details\": {},\n            \"binding:vnic_type\": \"normal\",\n            \"binding:vif_type\": \"unbound\",\n            \"device_owner\": \"\",\n            \"mac_address\": \"fa:16:3e:f4:73:df\",\n            \"binding:profile\": {},\n            \"fixed_ips\": [\n                {\n                    \"subnet_id\": \"a0304c3a-4f08-4c43-88af-d796509c97d2\",\n                    \"ip_address\": \"10.0.0.6\"\n                }\n            ],\n            \"id\": \"235b09e0-63c4-47f1-b221-66ba54c21760\",\n            \"security_groups\": [\n                \"f0ac4394-7e4a-4409-9701-ba8be283dbc3\"\n            ],\n            \"device_id\": \"\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/ports/{port_id}": {
+            "parameters": [
+                {
+                    "name": "port_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the port of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showPort",
+                "summary": "Show port",
+                "description": "Shows information for a specified port.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"port\": {\n        \"status\": \"ACTIVE\",\n        \"binding:host_id\": \"devstack\",\n        \"name\": \"\",\n        \"allowed_address_pairs\": [],\n        \"admin_state_up\": true,\n        \"network_id\": \"a87cc70a-3e15-4acf-8205-9b711a3531b7\",\n        \"tenant_id\": \"7e02058126cc4950b75f9970368ba177\",\n        \"extra_dhcp_opts\": [],\n        \"binding:vnic_type\": \"normal\",\n        \"binding:vif_type\": \"ovs\",\n        \"device_owner\": \"network:router_interface\",\n        \"mac_address\": \"fa:16:3e:23:fd:d7\",\n        \"id\": \"46d4bfb9-b26e-41f3-bd2e-e6dcc1ccedb2\",\n        \"binding:profile\": {},\n        \"fixed_ips\": [\n            {\n                \"subnet_id\": \"a0304c3a-4f08-4c43-88af-d796509c97d2\",\n                \"ip_address\": \"10.0.0.1\"\n            }\n        ],\n        \"binding:vif_details\": {\n            \"port_filter\": true,\n            \"ovs_hybrid_plug\": true\n        },\n        \"security_groups\": [],\n        \"device_id\": \"5e3898d7-11be-483e-9732-b2f5eccd2b2e\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updatePort",
+                "summary": "Update port",
+                "description": "Updates a specified port.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"port\": {\n        \"status\": \"DOWN\",\n        \"binding:host_id\": \"\",\n        \"name\": \"private-port\",\n        \"allowed_address_pairs\": [],\n        \"admin_state_up\": true,\n        \"network_id\": \"a87cc70a-3e15-4acf-8205-9b711a3531b7\",\n        \"tenant_id\": \"d6700c0c9ffa4f1cb322cd4a1f3906fa\",\n        \"binding:vif_details\": {},\n        \"binding:vnic_type\": \"normal\",\n        \"binding:vif_type\": \"unbound\",\n        \"device_owner\": \"\",\n        \"mac_address\": \"fa:16:3e:c9:cb:f0\",\n        \"binding:profile\": {},\n        \"fixed_ips\": [\n            {\n                \"subnet_id\": \"a0304c3a-4f08-4c43-88af-d796509c97d2\",\n                \"ip_address\": \"10.0.0.2\"\n            }\n        ],\n        \"id\": \"65c0ee9f-d634-4522-8954-51021b570b0d\",\n        \"security_groups\": [\n            \"f0ac4394-7e4a-4409-9701-ba8be283dbc3\"\n        ],\n        \"device_id\": \"\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "removePort",
+                "summary": "Delete port",
+                "description": "Deletes a specified port.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        }
+    }
+}

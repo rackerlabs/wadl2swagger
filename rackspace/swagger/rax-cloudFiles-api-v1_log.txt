@@ -1,0 +1,21 @@
+INFO:wadls/rax-cloudFiles-api-v1.wadl:Converting: wadls/rax-cloudFiles-api-v1.wadl to swagger/rax-cloudFiles-api-v1.json
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Autofix: Adding leading / to path
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Autofix: path parameters must be required in Swagger (account)
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Autofix: Adding leading / to path
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Autofix: path parameters must be required in Swagger (account)
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Autofix: path parameters must be required in Swagger (container)
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Autofix: Adding leading / to path
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:No support for application/json for resource at /v1/{account}/{container}/{object}
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Autofix: path parameters must be required in Swagger (account)
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Autofix: path parameters must be required in Swagger (container)
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Autofix: path parameters must be required in Swagger (object)
+WARNING:wadls/rax-cloudFiles-api-v1.wadl:Autofix: Using PUT instead of COPY verb (OpenStack services accept either, Swagger does not allow COPY)
+INFO:root:Saving swagger to swagger/rax-cloudFiles-api-v1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

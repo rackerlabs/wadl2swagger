@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-instance-usage-audit-log-v2.1">
+        <resource id="os-instance-usage-audit-log"
+                path="/v2.1/os-instance-usage-audit-log">
+         <method name="GET" rax:id="listusageaudits">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List usage audits">
+               <para role="shortdesc">Lists usage audits for a specified
+                instance.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "instance_usage_audit_log": {
+        "hosts_not_run": [
+            "defac351f91940668301096238d26b47"
+        ],
+        "log": {},
+        "num_hosts": 1,
+        "num_hosts_done": 0,
+        "num_hosts_not_run": 1,
+        "num_hosts_running": 0,
+        "overall_status": "0 of 1 hosts done. 0 errors.",
+        "period_beginning": "2013-08-01 00:00:00",
+        "period_ending": "2013-09-01 00:00:00",
+        "total_errors": 0,
+        "total_instances": 0
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                
+                <resource id="datetime" path="/v2.1/os-instance-usage-audit-log/{datetime}">
+         <param name="datetime" style="template" type="xsd:string">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                            <para>The date and time stamp.</para>
+                        </wadl:doc>
+                    </param>
+         <method name="GET" rax:id="listinstanceusage">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List instance usage">
+               <para role="shortdesc">Lists instance usage audits that
+                occurred before a specified time.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "instance_usage_audit_log": {
+        "hosts_not_run": [
+            "ccf86bf6d0104fe69ee658eaa31a7469"
+        ],
+        "log": {},
+        "num_hosts": 1,
+        "num_hosts_done": 0,
+        "num_hosts_not_run": 1,
+        "num_hosts_running": 0,
+        "overall_status": "0 of 1 hosts done. 0 errors.",
+        "period_beginning": "2012-06-01 00:00:00",
+        "period_ending": "2012-07-01 00:00:00",
+        "total_errors": 0,
+        "total_instances": 0
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                
+            
+    </resources>
+    <!-- *******************************************************-->
+    <!--      OS Instance Usage Audit Log            -->
+    <!--*******************************************************-->
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listusageaudits">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listinstanceusage">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+</wadl:application>

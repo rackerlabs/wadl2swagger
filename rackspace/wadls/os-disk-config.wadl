@@ -1,0 +1,1997 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="disk-config">
+        <resource id="Servers" path="/v2/{tenant_id}/servers">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <method name="POST" rax:id="createServer">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create server">
+               <para role="shortdesc">Creates a server.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "server": {
+        "name": "new-server-test",
+        "imageRef": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+        "flavorRef": "http://openstack.example.com/openstack/flavors/1",
+        "metadata": {
+            "My Server Name": "Apache1"
+        },
+        "personality": [
+            {
+                "path": "/etc/banner.txt",
+                "contents": "ICAgICAgDQoiQSBjbG91ZCBkb2VzIG5vdCBrbm93IHdoeSBpdCBtb3ZlcyBpbiBqdXN0IHN1Y2ggYSBkaXJlY3Rpb24gYW5kIGF0IHN1Y2ggYSBzcGVlZC4uLkl0IGZlZWxzIGFuIGltcHVsc2lvbi4uLnRoaXMgaXMgdGhlIHBsYWNlIHRvIGdvIG5vdy4gQnV0IHRoZSBza3kga25vd3MgdGhlIHJlYXNvbnMgYW5kIHRoZSBwYXR0ZXJucyBiZWhpbmQgYWxsIGNsb3VkcywgYW5kIHlvdSB3aWxsIGtub3csIHRvbywgd2hlbiB5b3UgbGlmdCB5b3Vyc2VsZiBoaWdoIGVub3VnaCB0byBzZWUgYmV5b25kIGhvcml6b25zLiINCg0KLVJpY2hhcmQgQmFjaA=="
+            }
+        ]
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;server xmlns="http://docs.openstack.org/compute/api/v1.1"
+  xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1"
+  imageRef="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" flavorRef="http://openstack.example.com/openstack/flavors/1" name="new-server-test" OS-DCF:diskConfig="AUTO"&gt;
+  &lt;metadata&gt;
+    &lt;meta key="My Server Name"&gt;Apache1&lt;/meta&gt;
+  &lt;/metadata&gt;
+  &lt;personality&gt;
+    &lt;file path="/etc/banner.txt"&gt;
+        ICAgICAgDQoiQSBjbG91ZCBkb2VzIG5vdCBrbm93IHdoeSBp
+        dCBtb3ZlcyBpbiBqdXN0IHN1Y2ggYSBkaXJlY3Rpb24gYW5k
+        IGF0IHN1Y2ggYSBzcGVlZC4uLkl0IGZlZWxzIGFuIGltcHVs
+        c2lvbi4uLnRoaXMgaXMgdGhlIHBsYWNlIHRvIGdvIG5vdy4g
+        QnV0IHRoZSBza3kga25vd3MgdGhlIHJlYXNvbnMgYW5kIHRo
+        ZSBwYXR0ZXJucyBiZWhpbmQgYWxsIGNsb3VkcywgYW5kIHlv
+        dSB3aWxsIGtub3csIHRvbywgd2hlbiB5b3UgbGlmdCB5b3Vy
+        c2VsZiBoaWdoIGVub3VnaCB0byBzZWUgYmV5b25kIGhvcml6
+        b25zLiINCg0KLVJpY2hhcmQgQmFjaA==
+    &lt;/file&gt;
+  &lt;/personality&gt;
+&lt;/server&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="security_groups"
+                         style="plain"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>security_groups</code>
+                        object.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="security_group"
+                         style="plain"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>One or more
+                            <code>security_group</code> objects.
+                        Specify the name of the security group in the
+                            <code>name</code> attribute. If you omit
+                        this attribute, the server is created in the
+                            <code>default</code> security
+                        group.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="user_data"
+                         style="plain"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Configuration information or
+                        scripts to use upon launch. Must be Base64
+                        encoded.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="availability_zone"
+                         style="plain"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The availability zone in which
+                        to launch the server.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="server"
+                         style="plain"
+                         required="true"
+                         type="csapi:ServerForCreate"
+                         path="/csapi:server">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="server">
+                        <para>server.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="imageRef"
+                         style="plain"
+                         required="true"
+                         type="csapi:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="imageRef">
+                        <para>The image reference for the desired image
+                        for your server instance.</para>
+                        <para>Specify as an ID or full
+                    URL.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="flavorRef"
+                         style="plain"
+                         required="true"
+                         type="csapi:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="flavorRef">
+                        <para>The flavor reference for the desired flavor
+                        for your server instance.</para>
+                        <para>Specify as an ID or full
+                    URL.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="networks"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>networks</code> object. By default,
+                        the server instance is provisioned with all
+                        isolated networks for the tenant.</para>
+                        <para>Optionally, you can create one or more NICs
+                        on the server.</para>
+                        <para>To provision the server instance with a NIC
+                        for a network, specify the UUID of the network
+                        in the <code>uuid</code> attribute in a
+                        <code>networks</code> object.</para>
+                        <para>To provision the server instance with a NIC
+                        for an already existing port, specify the
+                        port-id in the <code>port</code> attribute in
+                        a <code>networks</code> object.</para>
+                        <para>You can specify multiple NICs on the
+                        server.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="uuid" style="plain" type="xsd:string" required="false">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To provision the server instance with a NIC
+                        for a network, specify the UUID of the network
+                        in the <code>uuid</code> attribute in a
+                        <code>networks</code> object. Required if you
+                        omit the <code>port</code> attribute.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port" style="plain" type="xsd:string" required="false">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To provision the server instance with a NIC
+                        for an already existing port, specify the
+                        port-id in the <code>port</code> attribute in
+                        a <code>networks</code> object. Required if
+                        you omit the <code>uuid</code>
+                        attribute.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="fixed_ip"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A fixed IPv4 address for the NIC. Valid with
+                        a <code>neutron</code> or
+                            <code>nova-networks</code> network.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" required="true" type="csapi:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="name">
+                        <para>The server name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="metadata"
+                         style="plain"
+                         required="false"
+                         type="csapi:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="metadata">
+                        <para>Metadata key and value pairs. The maximum
+                        size of the metadata key and value is 255
+                        bytes each.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="personality"
+                         style="plain"
+                         required="false"
+                         type="csapi:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="personality">
+                        <para>File path and contents (text only) to inject
+                        into the server at launch. The maximum size of
+                        the file path data is 255 bytes. The maximum
+                        limit refers to the number of bytes in the
+                        decoded data and not the number of characters
+                        in the encoded data.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="block_device_mapping_v2"
+                         style="plain"
+                         type="csapi:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Enables booting the server from a volume
+                    when additional parameters are given.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="device_name"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.device_name">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Describes a path to the device for the
+                    volume you want to use to boot the
+                    server.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="source_type"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.source_type">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Describes the volume source type for the
+                    volume. Choices are "blank", "snapshot", "volume", or "image".</para>
+                    </wadl:doc>
+                    </param>
+                  <param name="destination_type"
+                         style="plain"
+                         type="csapi:string"
+                         required="false"
+                         path="$.parameters.block_device_mapping_v2.destination_type">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Describes where the volume comes from.
+                    Choices are "local" or "volume". When using
+                    "volume" the volume ID </para>
+                     </wadl:doc>
+                    </param>
+                  <param name="delete_on_termination"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.delete_on_termination">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To delete the boot volume when the server stops, specify
+                     <code>true</code>. Otherwise, specify <code>false</code>.</para>
+                     </wadl:doc>
+                    </param>
+                  <param name="guest_format"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.guest_format">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Specifies the guest server disk file system format, such
+                    as "ephemeral" or "swap".</para>
+                     </wadl:doc>
+                    </param>
+                  <param name="delete_on_termination"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.delete_on_termination">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To delete the boot volume when the server stops, specify
+                     <code>true</code>. Otherwise, specify <code>false</code>.</para>
+                     </wadl:doc>
+                    </param>
+                  <param name="boot_index"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.boot_index">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Indicates a number designating the boot order of the
+                    device. Use -1 for the boot volume, choose 0 for
+                    an attached volume.</para>
+                     </wadl:doc>
+                    </param>
+                  <param name="config_drive"
+                         style="plain"
+                         type="csapi:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Enables metadata injection in a server through a
+                     configuration drive.</para>
+                        <para>To enable a configuration drive, specify
+                     <code>true</code>. Otherwise, specify <code>false</code>.
+                     </para>
+                     </wadl:doc>
+                  </param> 
+                  <param name="OS-DCF:diskConfig" style="plain">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A valid value is AUTO or MANUAL.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "server": {
+        "OS-DCF:diskConfig": "AUTO",
+        "adminPass": "CQH9gWzgkVno",
+        "id": "324dfb7d-f4a9-419a-9a19-237df04b443b",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/servers/324dfb7d-f4a9-419a-9a19-237df04b443b",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/servers/324dfb7d-f4a9-419a-9a19-237df04b443b",
+                "rel": "bookmark"
+            }
+        ]
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;server xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" id="900a4ef7-f374-413f-8816-52d3dbfaf498" adminPass="Cj6sZgWq85qm" OS-DCF:diskConfig="AUTO"&gt;
+  &lt;metadata/&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/servers/900a4ef7-f374-413f-8816-52d3dbfaf498" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/servers/900a4ef7-f374-413f-8816-52d3dbfaf498" rel="bookmark"/&gt;
+&lt;/server&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="security_groups"
+                         style="plain"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>security_groups</code>
+                        object.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="security_group"
+                         style="plain"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>One or more
+                            <code>security_group</code> objects.
+                        Specify the name of the security group in the
+                            <code>name</code> attribute. If you omit
+                        this attribute, the server is created in the
+                            <code>default</code> security
+                        group.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="user_data"
+                         style="plain"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Configuration information or
+                        scripts to use upon launch. Must be Base64
+                        encoded.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="availability_zone"
+                         style="plain"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The availability zone in which
+                        to launch the server.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="server"
+                         style="plain"
+                         required="true"
+                         type="csapi:ServerForCreate"
+                         path="/csapi:server">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="server">
+                        <para>server.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="imageRef"
+                         style="plain"
+                         required="true"
+                         type="csapi:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="imageRef">
+                        <para>The image reference for the desired image
+                        for your server instance.</para>
+                        <para>Specify as an ID or full
+                    URL.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="flavorRef"
+                         style="plain"
+                         required="true"
+                         type="csapi:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="flavorRef">
+                        <para>The flavor reference for the desired flavor
+                        for your server instance.</para>
+                        <para>Specify as an ID or full
+                    URL.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="networks"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>networks</code> object. By default,
+                        the server instance is provisioned with all
+                        isolated networks for the tenant.</para>
+                        <para>Optionally, you can create one or more NICs
+                        on the server.</para>
+                        <para>To provision the server instance with a NIC
+                        for a network, specify the UUID of the network
+                        in the <code>uuid</code> attribute in a
+                        <code>networks</code> object.</para>
+                        <para>To provision the server instance with a NIC
+                        for an already existing port, specify the
+                        port-id in the <code>port</code> attribute in
+                        a <code>networks</code> object.</para>
+                        <para>You can specify multiple NICs on the
+                        server.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="uuid" style="plain" type="xsd:string" required="false">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To provision the server instance with a NIC
+                        for a network, specify the UUID of the network
+                        in the <code>uuid</code> attribute in a
+                        <code>networks</code> object. Required if you
+                        omit the <code>port</code> attribute.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port" style="plain" type="xsd:string" required="false">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To provision the server instance with a NIC
+                        for an already existing port, specify the
+                        port-id in the <code>port</code> attribute in
+                        a <code>networks</code> object. Required if
+                        you omit the <code>uuid</code>
+                        attribute.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="fixed_ip"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A fixed IPv4 address for the NIC. Valid with
+                        a <code>neutron</code> or
+                            <code>nova-networks</code> network.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" required="true" type="csapi:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="name">
+                        <para>The server name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="metadata"
+                         style="plain"
+                         required="false"
+                         type="csapi:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="metadata">
+                        <para>Metadata key and value pairs. The maximum
+                        size of the metadata key and value is 255
+                        bytes each.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="personality"
+                         style="plain"
+                         required="false"
+                         type="csapi:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="personality">
+                        <para>File path and contents (text only) to inject
+                        into the server at launch. The maximum size of
+                        the file path data is 255 bytes. The maximum
+                        limit refers to the number of bytes in the
+                        decoded data and not the number of characters
+                        in the encoded data.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="block_device_mapping_v2"
+                         style="plain"
+                         type="csapi:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Enables booting the server from a volume
+                    when additional parameters are given.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="device_name"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.device_name">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Describes a path to the device for the
+                    volume you want to use to boot the
+                    server.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="source_type"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.source_type">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Describes the volume source type for the
+                    volume. Choices are "blank", "snapshot", "volume", or "image".</para>
+                    </wadl:doc>
+                    </param>
+                  <param name="destination_type"
+                         style="plain"
+                         type="csapi:string"
+                         required="false"
+                         path="$.parameters.block_device_mapping_v2.destination_type">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Describes where the volume comes from.
+                    Choices are "local" or "volume". When using
+                    "volume" the volume ID </para>
+                     </wadl:doc>
+                    </param>
+                  <param name="delete_on_termination"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.delete_on_termination">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To delete the boot volume when the server stops, specify
+                     <code>true</code>. Otherwise, specify <code>false</code>.</para>
+                     </wadl:doc>
+                    </param>
+                  <param name="guest_format"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.guest_format">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Specifies the guest server disk file system format, such
+                    as "ephemeral" or "swap".</para>
+                     </wadl:doc>
+                    </param>
+                  <param name="delete_on_termination"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.delete_on_termination">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>To delete the boot volume when the server stops, specify
+                     <code>true</code>. Otherwise, specify <code>false</code>.</para>
+                     </wadl:doc>
+                    </param>
+                  <param name="boot_index"
+                         style="plain"
+                         type="csapi:string"
+                         required="true"
+                         path="$.parameters.block_device_mapping_v2.boot_index">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Indicates a number designating the boot order of the
+                    device. Use -1 for the boot volume, choose 0 for
+                    an attached volume.</para>
+                     </wadl:doc>
+                    </param>
+                  <param name="config_drive"
+                         style="plain"
+                         type="csapi:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Enables metadata injection in a server through a
+                     configuration drive.</para>
+                        <para>To enable a configuration drive, specify
+                     <code>true</code>. Otherwise, specify <code>false</code>.
+                     </para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    <resource path="/v2/{tenant_id}/servers/{server_id}" id="server_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The UUID for the server of
+                                   interest to you.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getServer">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show server information">
+               <para role="shortdesc">Shows information for a specified
+                server.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "server": {
+        "OS-DCF:diskConfig": "AUTO",
+        "accessIPv4": "",
+        "accessIPv6": "",
+        "addresses": {
+            "private": [
+                {
+                    "addr": "192.168.0.3",
+                    "version": 4
+                }
+            ]
+        },
+        "created": "2012-12-02T02:11:55Z",
+        "flavor": {
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/1",
+                    "rel": "bookmark"
+                }
+            ]
+        },
+        "hostId": "c949ab4256cea23b6089b710aa2df48bf6577ed915278b62e33ad8bb",
+        "id": "5046e2f2-3b33-4041-b3cf-e085f73e78e7",
+        "image": {
+            "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                    "rel": "bookmark"
+                }
+            ]
+        },
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/servers/5046e2f2-3b33-4041-b3cf-e085f73e78e7",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/servers/5046e2f2-3b33-4041-b3cf-e085f73e78e7",
+                "rel": "bookmark"
+            }
+        ],
+        "metadata": {
+            "My Server Name": "Apache1"
+        },
+        "name": "new-server-test",
+        "progress": 0,
+        "status": "ACTIVE",
+        "tenant_id": "openstack",
+        "updated": "2012-12-02T02:11:55Z",
+        "user_id": "fake"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;server xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" status="ACTIVE" updated="2012-12-02T02:15:37Z" hostId="afa0a883de4743c7a0c164327bda5284b875c50e1a9e30de910ac126" name="new-server-test" created="2012-12-02T02:15:37Z" userId="fake" tenantId="openstack" accessIPv4="" accessIPv6="" progress="0" id="d5d844c0-ecc3-4202-90ed-2e85b7fe513d" OS-DCF:diskConfig="AUTO"&gt;
+  &lt;image id="70a599e0-31e7-49b7-b260-868f441e862b"&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="bookmark"/&gt;
+  &lt;/image&gt;
+  &lt;flavor id="1"&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;metadata&gt;
+    &lt;meta key="My Server Name"&gt;Apache1&lt;/meta&gt;
+  &lt;/metadata&gt;
+  &lt;addresses&gt;
+    &lt;network id="private"&gt;
+      &lt;ip version="4" addr="192.168.0.3"/&gt;
+    &lt;/network&gt;
+  &lt;/addresses&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/servers/d5d844c0-ecc3-4202-90ed-2e85b7fe513d" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/servers/d5d844c0-ecc3-4202-90ed-2e85b7fe513d" rel="bookmark"/&gt;
+&lt;/server&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="OS-DCF:diskConfig" style="plain" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Valid value is AUTO or
+                            MANUAL.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+         <method name="PUT" rax:id="updateServer">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update server">
+               <para role="shortdesc">Updates a specified server.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "server": {
+        "OS-DCF:diskConfig": "AUTO"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;server xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1"
+        xmlns:atom="http://www.w3.org/2005/Atom"
+        xmlns="http://docs.openstack.org/compute/api/v1.1"
+        OS-DCF:diskConfig="AUTO" /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "server": {
+        "OS-DCF:diskConfig": "AUTO",
+        "accessIPv4": "",
+        "accessIPv6": "",
+        "addresses": {
+            "private": [
+                {
+                    "addr": "192.168.0.3",
+                    "version": 4
+                }
+            ]
+        },
+        "created": "2012-12-02T02:11:57Z",
+        "flavor": {
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/1",
+                    "rel": "bookmark"
+                }
+            ]
+        },
+        "hostId": "6e84af987b4e7ec1c039b16d21f508f4a505672bd94fb0218b668d07",
+        "id": "324dfb7d-f4a9-419a-9a19-237df04b443b",
+        "image": {
+            "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                    "rel": "bookmark"
+                }
+            ]
+        },
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/servers/324dfb7d-f4a9-419a-9a19-237df04b443b",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/servers/324dfb7d-f4a9-419a-9a19-237df04b443b",
+                "rel": "bookmark"
+            }
+        ],
+        "metadata": {
+            "My Server Name": "Apache1"
+        },
+        "name": "new-server-test",
+        "progress": 0,
+        "status": "ACTIVE",
+        "tenant_id": "openstack",
+        "updated": "2012-12-02T02:11:58Z",
+        "user_id": "fake"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;server xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" status="ACTIVE" updated="2012-12-02T02:15:40Z" hostId="e987bebf62599c59c4559b249d0f5f300a302d1e9ff22dd1f0c5c4b0" name="new-server-test" created="2012-12-02T02:15:40Z" userId="fake" tenantId="openstack" accessIPv4="" accessIPv6="" progress="0" id="900a4ef7-f374-413f-8816-52d3dbfaf498" OS-DCF:diskConfig="AUTO"&gt;
+  &lt;image id="70a599e0-31e7-49b7-b260-868f441e862b"&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="bookmark"/&gt;
+  &lt;/image&gt;
+  &lt;flavor id="1"&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;metadata&gt;
+    &lt;meta key="My Server Name"&gt;Apache1&lt;/meta&gt;
+  &lt;/metadata&gt;
+  &lt;addresses&gt;
+    &lt;network id="private"&gt;
+      &lt;ip version="4" addr="192.168.0.3"/&gt;
+    &lt;/network&gt;
+  &lt;/addresses&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/servers/900a4ef7-f374-413f-8816-52d3dbfaf498" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/servers/900a4ef7-f374-413f-8816-52d3dbfaf498" rel="bookmark"/&gt;
+&lt;/server&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                        
+                        
+                        <resource path="/v2/{tenant_id}/servers/{server_id}/action" id="action">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The UUID for the server of
+                                   interest to you.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="POST" rax:id="resize">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Resize server">
+               <para role="shortdesc">Resizes a server.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "resize": {
+        "flavorRef": "3",
+        "OS-DCF:diskConfig": "AUTO"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;resize xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1"
+        xmlns:atom="http://www.w3.org/2005/Atom"
+        xmlns="http://docs.openstack.org/compute/api/v1.1"
+        OS-DCF:diskConfig="AUTO"
+        flavorRef="3" /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="rebuild">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Rebuild server">
+               <para role="shortdesc">Rebuilds a specified server.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "rebuild": {
+        "imageRef": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+        "OS-DCF:diskConfig": "AUTO"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;rebuild xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1"
+         xmlns:atom="http://www.w3.org/2005/Atom"
+         xmlns="http://docs.openstack.org/compute/api/v1.1"
+         imageRef="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b"
+         OS-DCF:diskConfig="AUTO" /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "server": {
+        "OS-DCF:diskConfig": "AUTO",
+        "accessIPv4": "",
+        "accessIPv6": "",
+        "addresses": {
+            "private": [
+                {
+                    "addr": "192.168.0.3",
+                    "version": 4
+                }
+            ]
+        },
+        "adminPass": "NBjMaJoFL4EF",
+        "created": "2012-12-02T02:11:56Z",
+        "flavor": {
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/1",
+                    "rel": "bookmark"
+                }
+            ]
+        },
+        "hostId": "c076393ad900d62c4805a42df10d9b364f629842681c00cce035487f",
+        "id": "63a8aa13-60fe-41c4-b079-77f6fdf3c841",
+        "image": {
+            "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                    "rel": "bookmark"
+                }
+            ]
+        },
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/servers/63a8aa13-60fe-41c4-b079-77f6fdf3c841",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/servers/63a8aa13-60fe-41c4-b079-77f6fdf3c841",
+                "rel": "bookmark"
+            }
+        ],
+        "metadata": {
+            "My Server Name": "Apache1"
+        },
+        "name": "new-server-test",
+        "progress": 0,
+        "status": "ACTIVE",
+        "tenant_id": "openstack",
+        "updated": "2012-12-02T02:11:56Z",
+        "user_id": "fake"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;server xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" status="ACTIVE" updated="2012-12-02T02:15:39Z" hostId="981de784ae4d8c49ca075024977828a16e7f3c2beeb19115b0366e17" name="new-server-test" created="2012-12-02T02:15:38Z" userId="fake" tenantId="openstack" accessIPv4="" accessIPv6="" progress="0" id="10791a94-8900-4d0c-b93d-0debb224882e" adminPass="mTxoVD3eALpv" OS-DCF:diskConfig="AUTO"&gt;
+  &lt;image id="70a599e0-31e7-49b7-b260-868f441e862b"&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="bookmark"/&gt;
+  &lt;/image&gt;
+  &lt;flavor id="1"&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;metadata&gt;
+    &lt;meta key="My Server Name"&gt;Apache1&lt;/meta&gt;
+  &lt;/metadata&gt;
+  &lt;addresses&gt;
+    &lt;network id="private"&gt;
+      &lt;ip version="4" addr="192.168.0.3"/&gt;
+    &lt;/network&gt;
+  &lt;/addresses&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/servers/10791a94-8900-4d0c-b93d-0debb224882e" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/servers/10791a94-8900-4d0c-b93d-0debb224882e" rel="bookmark"/&gt;
+&lt;/server&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                            
+                        
+                    
+                    <resource path="/v2/{tenant_id}/servers/detail" id="detail">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <method name="GET" rax:id="getServersDetailed">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List servers">
+               <para role="shortdesc">Lists servers with detailed config drive information.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "servers": [
+        {
+            "OS-DCF:diskConfig": "AUTO",
+            "accessIPv4": "",
+            "accessIPv6": "",
+            "addresses": {
+                "private": [
+                    {
+                        "addr": "192.168.0.3",
+                        "version": 4
+                    }
+                ]
+            },
+            "created": "2012-12-02T02:11:55Z",
+            "flavor": {
+                "id": "1",
+                "links": [
+                    {
+                        "href": "http://openstack.example.com/openstack/flavors/1",
+                        "rel": "bookmark"
+                    }
+                ]
+            },
+            "hostId": "99428f32351a5d89d0f7727c6eec68c1777c545a0972aaac645508dc",
+            "id": "05372e62-05b9-4ee2-9343-9a1fdf2a5fda",
+            "image": {
+                "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                "links": [
+                    {
+                        "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                        "rel": "bookmark"
+                    }
+                ]
+            },
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/servers/05372e62-05b9-4ee2-9343-9a1fdf2a5fda",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/servers/05372e62-05b9-4ee2-9343-9a1fdf2a5fda",
+                    "rel": "bookmark"
+                }
+            ],
+            "metadata": {
+                "My Server Name": "Apache1"
+            },
+            "name": "new-server-test",
+            "progress": 0,
+            "status": "ACTIVE",
+            "tenant_id": "openstack",
+            "updated": "2012-12-02T02:11:56Z",
+            "user_id": "fake"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;servers xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;server status="ACTIVE" updated="2012-12-02T02:15:38Z" hostId="85973b57730e91f4eea36b3e7a2a7e3fdaf56008af335dd59f897a59" name="new-server-test" created="2012-12-02T02:15:38Z" userId="fake" tenantId="openstack" accessIPv4="" accessIPv6="" progress="0" id="08266bed-2651-4b6c-9dc8-83f0c3ef9d38" OS-DCF:diskConfig="AUTO"&gt;
+    &lt;image id="70a599e0-31e7-49b7-b260-868f441e862b"&gt;
+      &lt;atom:link href="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="bookmark"/&gt;
+    &lt;/image&gt;
+    &lt;flavor id="1"&gt;
+      &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+    &lt;/flavor&gt;
+    &lt;metadata&gt;
+      &lt;meta key="My Server Name"&gt;Apache1&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;addresses&gt;
+      &lt;network id="private"&gt;
+        &lt;ip version="4" addr="192.168.0.3"/&gt;
+      &lt;/network&gt;
+    &lt;/addresses&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/servers/08266bed-2651-4b6c-9dc8-83f0c3ef9d38" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/servers/08266bed-2651-4b6c-9dc8-83f0c3ef9d38" rel="bookmark"/&gt;
+  &lt;/server&gt;
+&lt;/servers&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="OS-DCF:diskConfig" style="plain" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Valid value is AUTO or
+                            MANUAL.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                <resource path="/v2/{tenant_id}/images/{image_id}"
+                id="rax-v2-_tenant_id_-images-_image_id_-4">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="image_id" style="template">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The UUID for the image of
+                                   interest to you.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getImage">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get image information">
+               <para role="shortdesc">Gets information for a specified
+                image.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "image": {
+        "OS-DCF:diskConfig": "AUTO",
+        "created": "2011-01-01T01:02:03Z",
+        "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                "rel": "bookmark"
+            },
+            {
+                "href": "http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                "rel": "alternate",
+                "type": "application/vnd.openstack.image"
+            }
+        ],
+        "metadata": {
+            "architecture": "x86_64",
+            "auto_disk_config": "True",
+            "kernel_id": "nokernel",
+            "ramdisk_id": "nokernel"
+        },
+        "minDisk": 0,
+        "minRam": 0,
+        "name": "fakeimage7",
+        "progress": 100,
+        "status": "ACTIVE",
+        "updated": "2011-01-01T01:02:03Z"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;image xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage7" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="70a599e0-31e7-49b7-b260-868f441e862b" OS-DCF:diskConfig="AUTO"&gt;
+  &lt;metadata&gt;
+    &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+    &lt;meta key="auto_disk_config"&gt;True&lt;/meta&gt;
+    &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+    &lt;meta key="architecture"&gt;x86_64&lt;/meta&gt;
+  &lt;/metadata&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="bookmark"/&gt;
+  &lt;atom:link href="http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" type="application/vnd.openstack.image" rel="alternate"/&gt;
+&lt;/image&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="OS-DCF:diskConfig" style="plain" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Valid value is AUTO or
+                            MANUAL.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    <resource path="/v2/{tenant_id}/images/detail" id="image_detail">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <method name="GET" rax:id="getImagesDetailed">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List images">
+               <para role="shortdesc">Lists images.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "images": [
+        {
+            "OS-DCF:diskConfig": "AUTO",
+            "created": "2011-01-01T01:02:03Z",
+            "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "architecture": "x86_64",
+                "auto_disk_config": "True",
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage7",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "created": "2011-01-01T01:02:03Z",
+            "id": "155d900f-4e14-4e4c-a73d-069cbf4541e6",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "architecture": "x86_64",
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage123456",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "created": "2011-01-01T01:02:03Z",
+            "id": "a2459075-d96c-40d5-893e-577ff92e721c",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage123456",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "OS-DCF:diskConfig": "MANUAL",
+            "created": "2011-01-01T01:02:03Z",
+            "id": "a440c04b-79fa-479c-bed1-0b816eaec379",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "architecture": "x86_64",
+                "auto_disk_config": "False",
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage6",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "created": "2011-01-01T01:02:03Z",
+            "id": "c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "kernel_id": "155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                "ramdisk_id": null
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage123456",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "created": "2011-01-01T01:02:03Z",
+            "id": "cedef40a-ed67-4d10-800e-17455edce175",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/cedef40a-ed67-4d10-800e-17455edce175",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage123456",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "created": "2011-01-01T01:02:03Z",
+            "id": "76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage123456",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;images xmlns:OS-DCF="http://docs.openstack.org/compute/ext/disk_config/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage7" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="70a599e0-31e7-49b7-b260-868f441e862b" OS-DCF:diskConfig="AUTO"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="auto_disk_config"&gt;True&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="architecture"&gt;x86_64&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage123456" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="155d900f-4e14-4e4c-a73d-069cbf4541e6"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="architecture"&gt;x86_64&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage123456" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="a2459075-d96c-40d5-893e-577ff92e721c"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage6" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="a440c04b-79fa-479c-bed1-0b816eaec379" OS-DCF:diskConfig="MANUAL"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="auto_disk_config"&gt;False&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="architecture"&gt;x86_64&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage123456" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="c905cedb-7281-47e4-8a62-f26bc5fc4c77"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;155d900f-4e14-4e4c-a73d-069cbf4541e6&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;None&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage123456" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="cedef40a-ed67-4d10-800e-17455edce175"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/cedef40a-ed67-4d10-800e-17455edce175" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage123456" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="76fa36fc-c930-4bf3-8c8a-ea2a2420deb6"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+&lt;/images&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="OS-DCF:diskConfig" style="plain" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Valid value is AUTO or
+                            MANUAL.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+    </resources>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createServer">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            <param name="security_groups"
+                   style="plain"
+                   required="false"
+                   type="xsd:string">
+                
+            </param>
+            <param name="security_group"
+                   style="plain"
+                   required="false"
+                   type="xsd:string">
+                
+            </param>
+            <param name="user_data"
+                   style="plain"
+                   required="false"
+                   type="xsd:string">
+                
+            </param>
+            <param name="availability_zone"
+                   style="plain"
+                   required="false"
+                   type="xsd:string">
+                
+            </param>
+            <param name="server"
+                   style="plain"
+                   required="true"
+                   type="csapi:ServerForCreate"
+                   path="/csapi:server">
+                
+            </param>
+            <param name="imageRef"
+                   style="plain"
+                   required="true"
+                   type="csapi:string">
+                
+            </param>
+            <param name="flavorRef"
+                   style="plain"
+                   required="true"
+                   type="csapi:string">
+                
+            </param>
+            <param name="networks"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                
+            </param>
+            <param name="uuid" style="plain" type="xsd:string" required="false">
+                
+            </param>
+            <param name="port" style="plain" type="xsd:string" required="false">
+                
+            </param>
+            <param name="fixed_ip"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                
+            </param>
+            <param name="name" style="plain" required="true" type="csapi:string">
+                
+            </param>
+            <param name="metadata"
+                   style="plain"
+                   required="false"
+                   type="csapi:string">
+                
+            </param>
+            <param name="personality"
+                   style="plain"
+                   required="false"
+                   type="csapi:string">
+                
+            </param>
+            <param name="block_device_mapping_v2"
+                   style="plain"
+                   type="csapi:string"
+                   required="false">
+                    
+            </param>
+            <param name="device_name"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.device_name">
+                    
+            </param>
+            <param name="source_type"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.source_type">
+                    
+                    </param>
+            <param name="destination_type"
+                   style="plain"
+                   type="csapi:string"
+                   required="false"
+                   path="$.parameters.block_device_mapping_v2.destination_type">
+                    
+                    </param>
+            <param name="delete_on_termination"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.delete_on_termination">
+                    
+                    </param>
+           <param name="guest_format"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.guest_format">
+                    
+                    </param>
+           <param name="delete_on_termination"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.delete_on_termination">
+                    
+                    </param>
+           <param name="boot_index"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.boot_index">
+                    
+                    </param>
+            <param name="config_drive"
+                   style="plain"
+                   type="csapi:string"
+                   required="false">
+                    
+            </param> 
+            <param name="OS-DCF:diskConfig" style="plain">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                 
+            <param name="security_groups"
+                   style="plain"
+                   required="false"
+                   type="xsd:string">
+                
+            </param>
+            <param name="security_group"
+                   style="plain"
+                   required="false"
+                   type="xsd:string">
+                
+            </param>
+            <param name="user_data"
+                   style="plain"
+                   required="false"
+                   type="xsd:string">
+                
+            </param>
+            <param name="availability_zone"
+                   style="plain"
+                   required="false"
+                   type="xsd:string">
+                
+            </param>
+            <param name="server"
+                   style="plain"
+                   required="true"
+                   type="csapi:ServerForCreate"
+                   path="/csapi:server">
+                
+            </param>
+            <param name="imageRef"
+                   style="plain"
+                   required="true"
+                   type="csapi:string">
+                
+            </param>
+            <param name="flavorRef"
+                   style="plain"
+                   required="true"
+                   type="csapi:string">
+                
+            </param>
+            <param name="networks"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                
+            </param>
+            <param name="uuid" style="plain" type="xsd:string" required="false">
+                
+            </param>
+            <param name="port" style="plain" type="xsd:string" required="false">
+                
+            </param>
+            <param name="fixed_ip"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                
+            </param>
+            <param name="name" style="plain" required="true" type="csapi:string">
+                
+            </param>
+            <param name="metadata"
+                   style="plain"
+                   required="false"
+                   type="csapi:string">
+                
+            </param>
+            <param name="personality"
+                   style="plain"
+                   required="false"
+                   type="csapi:string">
+                
+            </param>
+            <param name="block_device_mapping_v2"
+                   style="plain"
+                   type="csapi:string"
+                   required="false">
+                    
+            </param>
+            <param name="device_name"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.device_name">
+                    
+            </param>
+            <param name="source_type"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.source_type">
+                    
+                    </param>
+            <param name="destination_type"
+                   style="plain"
+                   type="csapi:string"
+                   required="false"
+                   path="$.parameters.block_device_mapping_v2.destination_type">
+                    
+                    </param>
+            <param name="delete_on_termination"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.delete_on_termination">
+                    
+                    </param>
+           <param name="guest_format"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.guest_format">
+                    
+                    </param>
+           <param name="delete_on_termination"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.delete_on_termination">
+                    
+                    </param>
+           <param name="boot_index"
+                   style="plain"
+                   type="csapi:string"
+                   required="true"
+                   path="$.parameters.block_device_mapping_v2.boot_index">
+                    
+                    </param>
+            <param name="config_drive"
+                   style="plain"
+                   type="csapi:string"
+                   required="false">
+                    
+            </param> 
+         </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateServer">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="resize">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="rebuild">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="202">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getServersDetailed">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="OS-DCF:diskConfig" style="plain" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getServer">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="OS-DCF:diskConfig" style="plain" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getImage">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="OS-DCF:diskConfig" style="plain" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getImagesDetailed">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="OS-DCF:diskConfig" style="plain" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+</wadl:application>

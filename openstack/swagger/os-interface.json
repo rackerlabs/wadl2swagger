@@ -1,0 +1,117 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-interface",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/servers/{server_id}/os-interface": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createAttachInterface",
+                "summary": "Create interface",
+                "description": "Creates and uses a port interface to attach the port to a server instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"interfaceAttachment\": {\n        \"port_id\": \"ce531f90-199f-48c0-816c-13e38010b442\",\n        \"port_state\": \"ACTIVE\",\n        \"fixed_ips\": [\n            {\n                \"subnet_id\": \"f8a6e8f8-c2ec-497c-9f23-da9616de54ef\",\n                \"ip_address\": \"192.168.1.1\"\n            }\n        ],\n        \"mac_addr\": \"fa:16:3e:4c:2c:30\",\n        \"net_id\": \"3cb9bc59-5699-4588-a4b1-b87f96708bc6\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "listAttachedInterfaces",
+                "summary": "List interfaces",
+                "description": "Lists port interfaces.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"interfaceAttachments\": [\n        {\n            \"port_state\": \"ACTIVE\",\n            \"port_id\": \"ce531f90-199f-48c0-816c-13e38010b442\",\n            \"fixed_ips\": [\n                {\n                    \"subnet_id\": \"f8a6e8f8-c2ec-497c-9f23-da9616de54ef\",\n                    \"ip_address\": \"192.168.1.3\"\n                }\n            ],\n            \"net_id\": \"3cb9bc59-5699-4588-a4b1-b87f96708bc6\",\n            \"mac_addr\": \"fa:16:3e:4c:2c:30\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}/os-interface/{attachment_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                },
+                {
+                    "name": "attachment_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The interface ID.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showAttachedInterface",
+                "summary": "Show attached interface information",
+                "description": "Shows information about a specified port interface.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"interfaceAttachment\": {\n        \"port_state\": \"ACTIVE\",\n        \"port_id\": \"ce531f90-199f-48c0-816c-13e38010b442\",\n        \"fixed_ips\": [\n            {\n                \"subnet_id\": \"f8a6e8f8-c2ec-497c-9f23-da9616de54ef\",\n                \"ip_address\": \"192.168.1.3\"\n            }\n        ],\n        \"net_id\": \"3cb9bc59-5699-4588-a4b1-b87f96708bc6\",\n        \"mac_addr\": \"fa:16:3e:4c:2c:30\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteAttachedInterface",
+                "summary": "Detach interface",
+                "description": "Detaches a specified port interface.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        }
+    }
+}

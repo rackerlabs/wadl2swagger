@@ -1,0 +1,9 @@
+INFO:wadls/os-networks.wadl:Converting: wadls/os-networks.wadl to swagger/os-networks.json
+WARNING:wadls/os-networks.wadl:Autofix: path parameters must be required in Swagger (alias)
+WARNING:wadls/os-networks.wadl:Autofix: path parameters must be required in Swagger (network_id)
+INFO:root:Saving swagger to swagger/os-networks.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

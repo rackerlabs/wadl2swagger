@@ -1,0 +1,533 @@
+---
+swagger: '2.0'
+info:
+  title: cq-devguide
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v1":
+    get:
+      operationId: getHomeDocument
+      summary: Get home document
+      description: |
+        Gets the home document.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success.
+          examples:
+            application/json: |-
+              {
+                  "resources": {
+                      "rel/queue-stats": {
+                          "href-template": "/queues/{queue_name}/stats",
+                          "href-vars": {
+                              "queue_name": "param/queue_name"
+                          },
+                          "hints": {
+                              "allow": [
+                                  "GET"
+                              ],
+                              "formats": {
+                                  "application/json": {}
+                              }
+                          }
+                      },
+                      "rel/post-messages": {
+                          "href-template": "/v1/queues/{queue_name}/messages",
+                          "href-vars": {
+                              "queue_name": "param/queue_name"
+                          },
+                          "hints": {
+                              "accept-post": [
+                                  "application/json"
+                              ],
+                              "allow": [
+                                  "POST"
+                              ],
+                              "formats": {
+                                  "application/json": {}
+                              }
+                          }
+                      },
+                      "rel/queue": {
+                          "href-template": "/queues/{queue_name}",
+                          "href-vars": {
+                              "queue_name": "param/queue_name"
+                          },
+                          "hints": {
+                              "allow": [
+                                  "GET",
+                                  "HEAD",
+                                  "PUT",
+                                  "DELETE"
+                              ],
+                              "formats": {
+                                  "application/json": {}
+                              }
+                          }
+                      },
+                      "rel/queue-metadata": {
+                          "href-template": "/queues/{queue_name}/metadata",
+                          "href-vars": {
+                              "queue_name": "param/queue_name"
+                          },
+                          "hints": {
+                              "allow": [
+                                  "GET",
+                                  "PUT"
+                              ],
+                              "formats": {
+                                  "application/json": {}
+                              }
+                          }
+                      },
+                      "rel/queues": {
+                          "href-template": "/queues{?marker,limit,detailed}",
+                          "href-vars": {
+                              "marker": "param/marker",
+                              "detailed": "param/detailed",
+                              "limit": "param/queue_limit"
+                          },
+                          "hints": {
+                              "allow": [
+                                  "GET"
+                              ],
+                              "formats": {
+                                  "application/json": {}
+                              }
+                          }
+                      },
+                      "rel/messages": {
+                          "href-template": "/queues/{queue_name}/messages{?marker,limit,echo,include_claimed}",
+                          "href-vars": {
+                              "marker": "param/marker",
+                              "include_claimed": "param/include_claimed",
+                              "queue_name": "param/queue_name",
+                              "limit": "param/messages_limit",
+                              "echo": "param/echo"
+                          },
+                          "hints": {
+                              "allow": [
+                                  "GET"
+                              ],
+                              "formats": {
+                                  "application/json": {}
+                              }
+                          }
+                      },
+                      "rel/claim": {
+                          "href-template": "/v1/queues/{queue_name}/claims{?limit}",
+                          "href-vars": {
+                              "queue_name": "param/queue_name",
+                              "limit": "param/claim_limit"
+                          },
+                          "hints": {
+                              "accept-post": [
+                                  "application/json"
+                              ],
+                              "allow": [
+                                  "POST"
+                              ],
+                              "formats": {
+                                  "application/json": {}
+                              }
+                          }
+                      }
+                  }
+              }
+  "/v1/queues":
+    get:
+      operationId: listQueues
+      summary: List queues
+      description: |
+        Lists queues.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success. The URI might have an invalid parameter (something
+            other than limit, marker, or detailed), but the invalid parameter is ignored.
+          examples:
+            application/json: |-
+              {
+                  "queues": [
+                      {
+                          "href": "/v1/queues/036b184b28fcb548349af623079119c6a966cbc",
+                          "name": "036b184b28fcb548349af623079119c6a966cbc"
+                      },
+                      {
+                          "href": "/v1/queues/0441f28617afbdecf4887e635fd0777fb3cec38",
+                          "name": "0441f28617afbdecf4887e635fd0777fb3cec38"
+                      },
+                      {
+                          "href": "/v1/queues/0f8f0eff158922874536efa9cf8412b9e0fd07a",
+                          "name": "0f8f0eff158922874536efa9cf8412b9e0fd07a"
+                      },
+                      {
+                          "href": "/v1/queues/160f981379972a4a0afaee5f5394a5d960c410e",
+                          "name": "160f981379972a4a0afaee5f5394a5d960c410e"
+                      },
+                      {
+                          "href": "/v1/queues/2888a4527d0a11a3d82202d800f8e90eebd60ea",
+                          "name": "2888a4527d0a11a3d82202d800f8e90eebd60ea"
+                      },
+                      {
+                          "href": "/v1/queues/2ad8eeca7f53d480d8ca4885d620643bfc6a7f9",
+                          "name": "2ad8eeca7f53d480d8ca4885d620643bfc6a7f9"
+                      },
+                      {
+                          "href": "/v1/queues/3926ce2051db957d76a04cb2ea2d89fd49e6894",
+                          "name": "3926ce2051db957d76a04cb2ea2d89fd49e6894"
+                      },
+                      {
+                          "href": "/v1/queues/46b30ebd60186c30194039824e6405300dc0903",
+                          "name": "46b30ebd60186c30194039824e6405300dc0903"
+                      },
+                      {
+                          "href": "/v1/queues/486d5af3e057ee1a430eee3ee845aeb60c900d3",
+                          "name": "486d5af3e057ee1a430eee3ee845aeb60c900d3"
+                      },
+                      {
+                          "href": "/v1/queues/58e8622645f07c7673412acbed51abb97ddb25d",
+                          "name": "58e8622645f07c7673412acbed51abb97ddb25d"
+                      }
+                  ],
+                  "links": [
+                      {
+                          "href": "/v1/queues?marker=58e8622645f07c7673412acbed51abb9",
+                          "rel": "next"
+                      }
+                  ]
+              }
+  "/v1/queues/{queue_name}":
+    parameters:
+    - name: queue_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the queue. `queue_name` is the name that you give to the queue. The name must not exceed 64 bytes in length, and it is limited to US-ASCII letters, digits, underscores, and hyphens.
+    put:
+      operationId: createQueue
+      summary: Create queue
+      description: |
+        Creates a queue.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: The request has been fulfilled and the queue was created.
+          examples: {}
+    delete:
+      operationId: deleteQueue
+      summary: Delete queue
+      description: |
+        Deletes the specified queue.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The URI has invalid parameters. The invalid parameters are
+            ignored.
+          examples: {}
+    get:
+      operationId: checkQueueExists
+      summary: Check queue existence
+      description: |
+        Verifies whether the specified queue exists.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: The requested queue exists.
+          examples: {}
+  "/v1/queues/{queue_name}/metadata":
+    parameters:
+    - name: queue_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the queue. `queue_name` is the name that you give to the queue. The name must not exceed 64 bytes in length, and it is limited to US-ASCII letters, digits, underscores, and hyphens.
+    put:
+      operationId: setQueueMetadata
+      summary: Set queue metadata
+      description: |
+        Sets metadata for the specified queue.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Success.
+          examples: {}
+    get:
+      operationId: getQueueMetadata
+      summary: Show queue metadata
+      description: |
+        Shows metadata for the specified queue.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success, or no metadata exists for the queue, or the URI has
+            invalid parameters and the invalid parameters are ignored.
+          examples:
+            application/json: |-
+              {
+                  "new metadata": "Omega"
+              }
+  "/v1/queues/{queue_name}/stats":
+    parameters:
+    - name: queue_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the queue. `queue_name` is the name that you give to the queue. The name must not exceed 64 bytes in length, and it is limited to US-ASCII letters, digits, underscores, and hyphens.
+    get:
+      operationId: getQueueStats
+      summary: Show queue stats
+      description: |
+        Show statistics for the specified queue.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success, or the URI has invalid parameters, but the invalid
+            parameters are ignored.
+          examples:
+            application/json: |-
+              {
+                  "messages": {
+                      "claimed": 2409,
+                      "oldest": {
+                          "age": 63,
+                          "href": "/v1/queues/fizbit/messages/50b68a50d6f5b8c8a7c62b01",
+                          "created": "2013-08-12T20:44:55Z"
+                      },
+                      "total": 149338,
+                      "newest": {
+                          "age": 12,
+                          "href": "/v1/queues/fizbit/messages/50b68a50d6f5b8c8a7c62b01",
+                          "created": "2013-08-12T20:45:46Z"
+                      },
+                      "free": 146929
+                  }
+              }
+  "/v1/queues/{queue_name}/messages":
+    parameters:
+    - name: queue_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the queue. `queue_name` is the name that you give to the queue. The name must not exceed 64 bytes in length, and it is limited to US-ASCII letters, digits, underscores, and hyphens.
+    post:
+      operationId: postMessage
+      summary: Post message
+      description: |
+        Posts the message or messages for a specified queue.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The URI might have invalid parameters, but the invalid parameters
+            are ignored.
+          examples:
+            application/json: |-
+              {
+                  "partial": false,
+                  "resources": [
+                      "/v1/queues/demoqueue/messages/51db6f78c508f17ddc924357",
+                      "/v1/queues/demoqueue/messages/51db6f78c508f17ddc924358"
+                  ]
+              }
+    get:
+      operationId: getSetMessagesByID
+      summary: Get messages by ID
+      description: |
+        Gets the specified set of messages from the specified queue.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success. The URI might have invalid parameters, but invalid
+            parameters are ignored.
+          examples:
+            application/json: |-
+              [
+                  {
+                      "body": {
+                          "cmd": "EncodeVideo",
+                          "jobid": 58229
+                      },
+                      "age": 32,
+                      "href": "/v1/queues/fizbit/messages/50b68a50d6f5b8c8a7c62b01",
+                      "ttl": 800
+                  },
+                  {
+                      "body": {
+                          "cmd": "EncodeAudio",
+                          "jobid": 58201
+                      },
+                      "age": 790,
+                      "href": "/v1/queues/fizbit/messages/f5b8c8a7c62b0150b68a50d6",
+                      "ttl": 800
+                  }
+              ]
+    delete:
+      operationId: deleteMessages
+      summary: Bulk-delete messages by ID
+      description: |
+        Bulk-deletes for messages.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Success.
+          examples: {}
+  "/v1/queues/{queue_name}/messages/{messageId}":
+    parameters:
+    - name: queue_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the queue. `queue_name` is the name that you give to the queue. The name must not exceed 64 bytes in length, and it is limited to US-ASCII letters, digits, underscores, and hyphens.
+    - name: messageId
+      required: true
+      in: path
+      type: string
+      description: |
+        The message ID.
+    get:
+      operationId: getSpecificMessage
+      summary: Show message details
+      description: |
+        Shows details for the specified message from the specified queue.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success. The request found a matching message. The URI might
+            have invalid parameters, but the invalid parameters are ignored.
+          examples:
+            application/json: |-
+              {
+                  "body": {
+                      "event": "BackupStarted"
+                  },
+                  "age": 240,
+                  "href": "/v1/queues/demoqueue/messages/51db6ecac508f17ddc9242ad",
+                  "ttl": 300
+              }
+    delete:
+      operationId: deleteMessage
+      summary: Delete message
+      description: |
+        Deletes the specified message from the specified queue.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Success.
+          examples: {}
+  "/v1/queues/{queue_name}/claims":
+    parameters:
+    - name: queue_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the queue. `queue_name` is the name that you give to the queue. The name must not exceed 64 bytes in length, and it is limited to US-ASCII letters, digits, underscores, and hyphens.
+    post:
+      operationId: claimMessages
+      summary: Claim messages
+      description: |
+        Claims a set of messages from a specified queue.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: Success.
+          examples:
+            application/json: |-
+              [
+                  {
+                      "body": {
+                          "event": "BackupStarted"
+                      },
+                      "age": 239,
+                      "href": "/v1/queues/demoqueue/messages/51db6f78c508f17ddc924357?claim_id=51db7067821e727dc24df754",
+                      "ttl": 300
+                  }
+              ]
+  "/v1/queues/{queue_name}/claims/{claimId}":
+    parameters:
+    - name: queue_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the queue. `queue_name` is the name that you give to the queue. The name must not exceed 64 bytes in length, and it is limited to US-ASCII letters, digits, underscores, and hyphens.
+    - name: claimId
+      required: true
+      in: path
+      type: string
+      description: |
+        The claim ID.
+    get:
+      operationId: queryClaim
+      summary: Query claim
+      description: |
+        Queries the specified claim for a specified queue.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success. The request might have used invalid URI parameters,
+            but invalid parameters were ignored.
+          examples:
+            application/json: |-
+              {
+                  "age": 57,
+                  "href": "/v1/queues/demoqueue/claims/51db7067821e727dc24df754",
+                  "messages": [
+                      {
+                          "body": {
+                              "event": "BackupStarted"
+                          },
+                          "age": 296,
+                          "href": "/v1/queues/demoqueue/messages/51db6f78c508f17ddc924357?claim_id=51db7067821e727dc24df754",
+                          "ttl": 300
+                      }
+                  ],
+                  "ttl": 300
+              }
+    patch:
+      operationId: updateClaim
+      summary: Update claim
+      description: |
+        Updates the specified claim for a specified queue.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Success.
+          examples: {}
+    delete:
+      operationId: deleteClaim
+      summary: Release claim
+      description: |
+        Releases the specified claim for the specified queue.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: Success.
+          examples: {}

@@ -1,0 +1,49 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-quota-class-sets",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/os-quota-class-sets/{class_id}": {
+            "get": {
+                "operationId": "showquota",
+                "summary": "Show quota",
+                "description": "Shows the quota for a specified class.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota_class_set\": {\n        \"injected_file_content_bytes\": 10240,\n        \"metadata_items\": 128,\n        \"server_group_members\": 10,\n        \"server_groups\": 10,\n        \"ram\": 51200,\n        \"floating_ips\": 10,\n        \"key_pairs\": 100,\n        \"id\": \"test_class\",\n        \"instances\": 10,\n        \"security_group_rules\": 20,\n        \"injected_files\": 5,\n        \"cores\": 20,\n        \"fixed_ips\": -1,\n        \"injected_file_path_bytes\": 255,\n        \"security_groups\": 10\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updatequota",
+                "summary": "Update quota",
+                "description": "Updates quota for a specified class.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota_class_set\": {\n        \"injected_file_content_bytes\": 10240,\n        \"metadata_items\": 128,\n        \"server_group_members\": 10,\n        \"server_groups\": 10,\n        \"ram\": 51200,\n        \"floating_ips\": 10,\n        \"key_pairs\": 100,\n        \"instances\": 50,\n        \"security_group_rules\": 20,\n        \"injected_files\": 5,\n        \"cores\": 50,\n        \"fixed_ips\": -1,\n        \"injected_file_path_bytes\": 255,\n        \"security_groups\": 10\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,48 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-limits",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/limits": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or project in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showAbsoluteLimits",
+                "summary": "Show absolute limits",
+                "description": "Shows absolute limits for a tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"limits\": {\n        \"rate\": [],\n        \"absolute\": {\n            \"totalSnapshotsUsed\": 0,\n            \"maxTotalVolumeGigabytes\": 1000,\n            \"maxTotalSnapshots\": 10,\n            \"totalVolumesUsed\": 0,\n            \"maxTotalVolumes\": 10,\n            \"totalGigabytesUsed\": 0\n        }\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"limits\": {\n        \"rate\": [],\n        \"absolute\": {\n            \"totalSnapshotsUsed\": 0,\n            \"maxTotalVolumeGigabytes\": 1000,\n            \"maxTotalSnapshots\": 10,\n            \"totalVolumesUsed\": 0,\n            \"maxTotalVolumes\": 10,\n            \"totalGigabytesUsed\": 0\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

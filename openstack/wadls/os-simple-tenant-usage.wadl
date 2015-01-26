@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-simple-tenant-usage-v2">
+        <resource id="os-simple-tenant-usage"
+                path="/v2/{tenant_id}/os-simple-tenant-usage">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+               <para role="shortdesc">The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="ListUsage">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List usage information for all tenants">
+               <para role="shortdesc">Lists usage information for all
+                tenants.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/xml">
+                  <param name="start" style="plain" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para role="shortdesc">The start of a time
+                            range, in date time
+                        format.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="end" style="plain" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para role="shortdesc">The end of the time
+                            range, in date time
+                        format.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="detailed" style="plain" required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para role="shortdesc">Whether to return
+                            detailed usage information. Defaults to
+                            false.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "tenant_usages": [
+        {
+            "start": "2012-10-08T21:10:44.587336",
+            "stop": "2012-10-08T22:10:44.587336",
+            "tenant_id": "openstack",
+            "total_hours": 1.0,
+            "total_local_gb_usage": 1.0,
+            "total_memory_mb_usage": 512.0,
+            "total_vcpus_usage": 1.0
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;tenant_usages&gt;
+  &lt;tenant_usage&gt;
+    &lt;tenant_id&gt;openstack&lt;/tenant_id&gt;
+    &lt;total_local_gb_usage&gt;1.0&lt;/total_local_gb_usage&gt;
+    &lt;total_vcpus_usage&gt;1.0&lt;/total_vcpus_usage&gt;
+    &lt;total_memory_mb_usage&gt;512.0&lt;/total_memory_mb_usage&gt;
+    &lt;total_hours&gt;1.0&lt;/total_hours&gt;
+    &lt;start&gt;2012-10-08 21:10:51.902640&lt;/start&gt;
+    &lt;stop&gt;2012-10-08 22:10:51.902640&lt;/stop&gt;
+    &lt;server_usages/&gt;
+  &lt;/tenant_usage&gt;
+&lt;/tenant_usages&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    <resource path="/v2/{tenant_id}/os-simple-tenant-usage/{tenant_id}"
+                id="tenant_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+               <para role="shortdesc">The ID for the tenant or
+                            account in a multi-tenancy
+                        cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="tenant_id" style="template" required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant
+                                   ID.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="GetUsage">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get tenant usage information">
+               <para role="shortdesc">Gets usage information for a
+                tenant.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/xml">
+                  <param name="start" style="plain" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para role="shortdesc">The start of a time
+                            range, in date time
+                        format.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="end" style="plain" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para role="shortdesc">The end of the time
+                            range, in date time
+                        format.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="detailed" style="plain" required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para role="shortdesc">Whether to return
+                            detailed usage information. Defaults to
+                            false.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "tenant_usage": {
+        "server_usages": [
+            {
+                "ended_at": null,
+                "flavor": "m1.tiny",
+                "hours": 1.0,
+                "instance_id": "1f1deceb-17b5-4c04-84c7-e0d4499c8fe0",
+                "local_gb": 1,
+                "memory_mb": 512,
+                "name": "new-server-test",
+                "started_at": "2012-10-08T20:10:44.541277",
+                "state": "active",
+                "tenant_id": "openstack",
+                "uptime": 3600,
+                "vcpus": 1
+            }
+        ],
+        "start": "2012-10-08T20:10:44.587336",
+        "stop": "2012-10-08T21:10:44.587336",
+        "tenant_id": "openstack",
+        "total_hours": 1.0,
+        "total_local_gb_usage": 1.0,
+        "total_memory_mb_usage": 512.0,
+        "total_vcpus_usage": 1.0
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;tenant_usage&gt;
+  &lt;tenant_id&gt;openstack&lt;/tenant_id&gt;
+  &lt;total_local_gb_usage&gt;1.0&lt;/total_local_gb_usage&gt;
+  &lt;total_vcpus_usage&gt;1.0&lt;/total_vcpus_usage&gt;
+  &lt;total_memory_mb_usage&gt;512.0&lt;/total_memory_mb_usage&gt;
+  &lt;total_hours&gt;1.0&lt;/total_hours&gt;
+  &lt;start&gt;2012-10-08 20:10:51.902640&lt;/start&gt;
+  &lt;stop&gt;2012-10-08 21:10:51.902640&lt;/stop&gt;
+  &lt;server_usages&gt;
+    &lt;server_usage&gt;
+      &lt;instance_id&gt;e4521f3b-d9ad-4454-be8a-e2732f0630ef&lt;/instance_id&gt;
+      &lt;name&gt;new-server-test&lt;/name&gt;
+      &lt;hours&gt;1.0&lt;/hours&gt;
+      &lt;memory_mb&gt;512&lt;/memory_mb&gt;
+      &lt;local_gb&gt;1&lt;/local_gb&gt;
+      &lt;vcpus&gt;1&lt;/vcpus&gt;
+      &lt;tenant_id&gt;openstack&lt;/tenant_id&gt;
+      &lt;flavor&gt;m1.tiny&lt;/flavor&gt;
+      &lt;started_at&gt;2012-10-08 20:10:51.854331&lt;/started_at&gt;
+      &lt;ended_at&gt;None&lt;/ended_at&gt;
+      &lt;state&gt;active&lt;/state&gt;
+      &lt;uptime&gt;3600&lt;/uptime&gt;
+    &lt;/server_usage&gt;
+  &lt;/server_usages&gt;
+&lt;/tenant_usage&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="GetUsage">
+        
+        <request>
+            <representation mediaType="application/xml">
+                <param name="start" style="plain" required="true">
+                    
+                </param>
+                <param name="end" style="plain" required="true">
+                    
+                </param>
+                <param name="detailed" style="plain" required="false">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="ListUsage">
+        
+        <request>
+            <representation mediaType="application/xml">
+                <param name="start" style="plain" required="true">
+                    
+                </param>
+                <param name="end" style="plain" required="true">
+                    
+                </param>
+                <param name="detailed" style="plain" required="false">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

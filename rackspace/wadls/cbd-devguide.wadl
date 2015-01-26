@@ -1,0 +1,1982 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved  -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+	<!--*******************************************************-->
+	<!-- GRAMMARS                                              -->
+	<!--*******************************************************-->
+
+	<!-- What do I need here for Cloud Big Data Dev Guide? 
+	<grammars>
+		<include href="../common/xsd/api.xsd"/> (identity grammars)
+		<include href="../common/xsd/api-common.xsd"/> (identity grammars)
+		<include href="dbaas.xsd" /> (databases grammars)
+	</grammars>
+-->
+
+	<!--*******************************************************-->
+	<!-- ALL RESOURCES                                         -->
+	<!--*******************************************************-->
+
+	  <resources xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+              xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://dfw.bigdata.api.rackspacecloud.com/">
+		    <resource id="profiles" path="v1.0/{tenant_id}/profile">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <method name="POST" rax:id="postProfile">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create or update profile">
+			            <para role="shortdesc">Creates a profile or updates the
+				information in an existing profile.</para>
+			            <para>Cloud Big Data provisions each server in the cluster
+				with the <code>username</code> and
+					<code>password</code> that are part of the
+				profile. You can ssh into the nodes with those
+				credentials. These credentials are required in the
+				request (as shown in the example "Create or update
+				profile request:JSON").</para>
+			            <para>The <code>cloudCredentials.username</code> and
+					<code>cloudCredentials.apikey</code> are stored in
+				the cluster configuration so that Hadoop can read or
+				write objects stored in Cloud Files. These credentials
+				are optional. If they are not supplied, the cluster
+				does not have access to Cloud Files, but otherwise
+				operates normally.</para>
+			            <note>
+                  <para>You must create your profile before you create
+					a cluster.</para>
+               </note>
+			            <para>The 400 error code might indicate malformed data or
+				unacceptable parameters.</para>
+		          </wadl:doc>
+		          <request>
+			            <representation mediaType="application/json" element="clusters:cluster">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "profile":{
+      "username":"john.doe",
+      "password":"j0Hnd03",
+      "sshkeys":[
+         {
+            "name":"t@test",
+            "publicKey":"ssh-rsa ....."
+         }
+      ],
+      "cloudCredentials":{
+         "username":"jdoe",
+         "apikey":"df23gkh34h52gkdgfakgf"
+      }
+   }
+}</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </request>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "profile":{
+      "username":"john.doe",
+      "userId":"12346",
+      "tenantId":"123456",
+      "sshkeys":[
+         {
+            "name":"t@test",
+            "publicKey":"ssh-rsa ....."
+         }
+      ],
+      "cloudCredentials":{
+         "username":"jdoe"
+      },
+      "links":[
+         {
+            "rel":"self",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/123456/profile"
+         },
+         {
+            "rel":"bookmark",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/123456/profile"
+         }
+      ]
+   }
+}       </programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="clusters:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+         <method name="GET" rax:id="getProfile">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="View profile information">
+			            <para role="shortdesc">Returns profile details for the
+				current user.</para>
+		          </wadl:doc>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "profile":{
+      "username":"john.doe",
+      "user_id":"12346",
+      "tenant_id":"123456",
+      "sshkeys":[
+         {
+            "name":"t@test"
+         }
+      ],
+      "cloudCredentials":{
+
+      },
+      "links":[
+         {
+            "rel":"self",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/123456/profile"
+         },
+         {
+            "rel":"bookmark",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/123456/profile"
+         }
+      ]
+   }
+}
+</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response>
+	        </method>
+      </resource>
+					
+					
+				  <resource id="clusters" path="v1.0/{tenant_id}/clusters">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <method name="POST" rax:id="createCluster">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create cluster">
+			            <para role="shortdesc">Creates a cluster.</para>
+			            <note>
+                  <para>You must create your profile before you create
+					a cluster.</para>
+               </note>
+			            <para>The <code>postInitScript</code> request parameter
+				specifies a URL that downloads a script that runs
+				after the cluster is created. The status of the run is
+				shown in the <code>postInitScriptStatus</code>
+				response parameter.</para>
+			            <para>Possible values for
+					<code>postInitScriptStatus</code> are
+					<code>FAILED</code>, <code>PENDING</code>,
+					<code>DELIVERED</code>, <code>RUNNING</code>,
+					<code>SUCCEEDED</code>, and
+				<code>None</code>.</para>
+			            <para>The <code>progress</code> response parameter is
+				calculated based on the number of nodes in the cluster
+				and their progress through configuration. Currently,
+				the calculation is as follows but is subject to
+				change:</para>
+			            <itemizedlist spacing="compact">
+				              <listitem>
+                     <para>BUILDING: progress = 0.5 *
+						configuring_count /
+					len(self.nodes)</para>
+                  </listitem>
+				              <listitem>
+                     <para>CONFIGURING/RESIZING: progress = 0.5 +
+						(0.5 * active_count /
+					len(self.nodes))</para>
+                  </listitem>
+				              <listitem>
+                     <para>ACTIVE: progress =
+					1.0</para>
+                  </listitem>
+			            </itemizedlist>
+			            <para>The 400 error code might indicate any of the
+				following issues:</para>
+			            <itemizedlist spacing="compact">
+                  <listitem>
+                     <para>The
+						response body is
+						invalid.</para>
+                  </listitem>
+                  <listitem>
+                     <para>You
+						need to create a user
+					profile.</para>
+                  </listitem>
+                  <listitem>
+                     <para>The node
+						count is
+						invalid.</para>
+                  </listitem>
+                  <listitem>
+                     <para>The
+						flavor is
+						invalid.</para>
+                  </listitem>
+                  <listitem>
+                     <para>The
+						data is
+				malformed.</para>
+                  </listitem>
+               </itemizedlist>
+			            <para>The 413 error code might indicate that the resource
+				limit is exceeded.</para>
+		          </wadl:doc>
+		          <request>
+			            <representation mediaType="application/json" element="clusters:cluster">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "cluster":{
+      "name":"slice",
+      "clusterType":"HADOOP_HDP2_1",
+      "flavorId":"hadoop1-7",
+      "nodeCount":5,
+      "postInitScript":"http://example.com/configure_cluster.sh"
+   }
+}</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </request>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "cluster":{
+      "id":"db478fc1-2d86-4597-8010-cbe787bbbc41",
+      "created":"2012-12-27T10:10:10Z",
+      "updated":"",
+      "name":"slice",
+      "clusterType":"HADOOP_HDP2_1",
+      "flavorId":"hadoop1-7",
+      "nodeCount":5,
+      "postInitScriptStatus":"PENDING",
+      "progress":0.0,
+      "status":"BUILDING",
+      "links":[
+         {
+            "rel":"self",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41"
+         },
+         {
+            "rel":"bookmark",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41"
+         }
+      ]
+   }
+}</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="clusters:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            
+            <response status="413">
+               <representation mediaType="application/xml" element="clusters:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+         <method name="GET" rax:id="getClusters">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List all clusters">
+			            <para role="shortdesc">Lists all clusters for your
+				account.</para>
+		          </wadl:doc>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "clusters":[
+      {
+         "id":"db478fc1-2d86-4597-8010-cbe787bbbc41",
+         "name":"slice",
+         "created":"2012-12-27T10:10:10Z",
+         "updated":"2012-12-27T10:15:10Z",
+         "clusterType":"HADOOP_HDP2_1",
+         "flavorId":"hadoop1-7",
+         "nodeCount":5,
+         "postInitScriptStatus":"SUCCEEDED",
+         "progress":1.0,
+         "status":"ACTIVE",
+         "links":[
+            {
+               "rel":"self",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41"
+            },
+            {
+               "rel":"bookmark",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41"
+            }
+         ]
+      },
+      {
+         "id":"ac111111-2d86-4597-8010-cbe787bbbc41",
+         "name":"real",
+         "created":"2012-12-27T10:10:10Z",
+         "updated":"2012-12-27T10:15:10Z",
+         "clusterType":"HBASE_HDP2_1",
+         "flavorId":"hadoop1-60",
+         "nodeCount":20,
+         "postInitScriptStatus":null,
+         "progress":1.0,
+         "status":"ACTIVE",
+         "links":[
+            {
+               "rel":"self",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/ac111111-2d86-4597-8010-cbe787bbbc41"
+            },
+            {
+               "rel":"bookmark",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/ac111111-2d86-4597-8010-cbe787bbbc41"
+            }
+         ]
+      }
+   ]
+}</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response>
+	        </method>
+      </resource>
+					
+					
+
+					<resource id="cluster" path="v1.0/{tenant_id}/clusters/{clusterId}">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <param name="clusterId" style="template" type="xsd:string">
+							     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">Specifies the cluster ID.</wadl:doc>
+						   </param>
+         <method name="GET" rax:id="getClusterDetails">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show cluster details">
+			            <para role="shortdesc">Shows details for a specified
+				cluster.</para>
+		          </wadl:doc>
+		          <request>
+			            <representation mediaType="application/json" element="clusters:cluster">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">GET https://dfw.bigdata.api.rackspacecloud.com/v1.0/7654321/clusters/ac111111-2d86-4597-8010-cbe787bbbc41
+Accept: application/json 
+X-Auth-Token:ea85e6ac-baff-4a6c-bf43-848020ea3812
+Content-Type: application/json  </programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </request>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">Status: 200 OK
+Date: Mon, 06 Aug 2012 21:54:21 GMT
+Content-Type: application/json
+Content-Length: 110</programlisting>
+                     </xsdxt:code>
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "cluster":{
+      "id":"db478fc1-2d86-4597-8010-cbe787bbbc41",
+      "created":"2012-12-27T10:10:10Z",
+      "updated":"2012-12-27T10:20:10Z",
+      "name":"slice",
+      "clusterType":"HADOOP_HDP2_1",
+      "flavorId":"hadoop1-7",
+      "nodeCount":5,
+      "postInitScriptStatus":"SUCCEEDED",
+      "progress":1.0,
+      "status":"ACTIVE",
+      "links":[
+         {
+            "rel":"self",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41"
+         },
+         {
+            "rel":"bookmark",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41"
+         }
+      ]
+   }
+}</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+         <method name="DELETE" rax:id="deleteCluster">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete cluster">
+			            <para role="shortdesc">Deletes a specified cluster.</para>
+			            <para>The 400 error code might indicate missing or invalid
+				parameters.</para>
+			            <para>The 409 error code might indicate an invalid
+				state.</para>
+			            <para>This operation deletes the cluster that is specified
+				by <code>clusterId</code>.</para>
+		          </wadl:doc>
+		          <request>
+			            <representation mediaType="application/json" element="clusters:cluster">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">DELETE https://dfw.bigdata.api.rackspacecloud.com/v1.0/7654321/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41
+Accept: application/json 
+X-Auth-Token:ea85e6ac-baff-4a6c-bf43-848020ea3812
+Content-Type: application/json</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </request>
+		          <response status="204">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">Status: 202 Accepted
+Date: Mon, 06 Aug 2012 21:54:21 GMT
+Content-Type: application/json</programlisting>
+                     </xsdxt:code>
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "cluster":{
+      "id":"db478fc1-2d86-4597-8010-cbe787bbbc41",
+      "created":"2012-12-27T10:10:10Z",
+      "updated":"2012-12-27T20:14:10Z",
+      "name":"slice",
+      "clusterType":"HADOOP_HDP2_1",
+      "flavorId":"hadoop1-7",
+      "nodeCount":5,
+      "postInitScriptStatus":null,
+      "status":"DELETING",
+      "links":[
+         {
+            "rel":"self",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41"
+         },
+         {
+            "rel":"bookmark",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41"
+         }
+      ]
+   }
+}      </programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="clusters:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            
+            <response status="404">
+               <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            
+            <response status="409">
+               <representation mediaType="application/xml" element="clusters:conflict"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+						
+						
+						
+
+						<resource id="action" path="v1.0/{tenant_id}/clusters/{clusterId}/action">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <param name="clusterId" style="template" type="xsd:string">
+							     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">Specifies the cluster ID.</wadl:doc>
+						   </param>
+         <method name="POST" rax:id="postClusterAction">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Resize cluster">
+			            <para role="shortdesc">Resizes a specified cluster.</para>
+			            <para>The 400 error code might indicate the presence of
+				unacceptable parameters or malformed data.</para>
+			            <para>The 409 error code might indicate an invalid
+				state.</para>
+			            <para>This operation resizes the cluster specified by
+					<code>clusterId</code>.</para>
+		          </wadl:doc>
+		          <request>
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "resize":{
+      "nodeCount":10
+   }
+}      </programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </request>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "cluster":{
+      "id":"db478fc1-2d86-4597-8010-cbe787bbbc41",
+      "created":"2012-12-27T10:10:10Z",
+      "updated":"2012-12-27T16:20:10Z",
+      "name":"slice",
+      "clusterType":"HADOOP_HDP2_1",
+      "flavorId":"hadoop1-7",
+      "nodeCount":10,
+      "postInitScriptStatus":"PENDING",
+      "progress":0.5,
+      "status":"UPDATING",
+      "links":[
+         {
+            "rel":"self",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41"
+         },
+         {
+            "rel":"bookmark",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41"
+         }
+      ]
+   }
+}
+        </programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="clusters:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            
+            <response status="404">
+               <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            
+            <response status="409">
+               <representation mediaType="application/xml" element="clusters:conflict"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+							
+						
+						<resource id="nodes" path="v1.0/{tenant_id}/clusters/{clusterId}/nodes">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <param name="clusterId" style="template" type="xsd:string">
+							     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">Specifies the cluster ID.</wadl:doc>
+						   </param>
+         <method name="GET" rax:id="getClusterNodes">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List cluster nodes">
+			            <para role="shortdesc">Lists all nodes for a specified
+				cluster.</para>
+			            <para>Valid values for the request body parameter
+					<code>postInitScriptStatus</code> are
+					<code>FAILED</code>, <code>PENDING</code>,
+					<code>DELIVERED</code>, <code>RUNNING</code>,
+					<code>SUCCEEDED</code>, and
+				<code>None</code>.</para>
+			            <para>Valid values for the node status are in <xref linkend="node_status"/>.</para>
+		          </wadl:doc>
+		          <request>
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">GET https://dfw.bigdata.api.rackspacecloud.com/v1.0/7654321/clusters/ac111111-2d86-4597-8010-cbe787bbbc41/nodes
+Accept: application/json 
+X-Auth-Token:ea85e6ac-baff-4a6c-bf43-848020ea3812
+Content-Type: application/json              </programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </request>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "nodes":[
+      {
+         "id":"000",
+         "created":"2012-12-27T10:10:10Z",
+         "role":"NAMENODE",
+         "name":"NAMENODE-1",
+         "postInitScriptStatus":null,
+         "status":"ACTIVE",
+         "addresses":{
+            "public":[
+               {
+                  "addr":"168.x.x.3",
+                  "version":4
+               }
+            ],
+            "private":[
+               {
+                  "addr":"10.x.x.3",
+                  "version":4
+               }
+            ]
+         },
+         "services":[
+            {
+               "name":"namenode"
+            },
+            {
+               "name":"jobtracker"
+            },
+            {
+               "name":"ssh",
+               "uri":"ssh://user@168.x.x.3"
+            }
+         ],
+         "links":[
+            {
+               "rel":"self",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/000"
+            },
+            {
+               "rel":"bookmark",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/000"
+            }
+         ]
+      },
+      {
+         "id":"aaa",
+         "role":"GATEWAY",
+         "name":"GATEWAY-1",
+         "postInitScriptStatus":null,
+         "status":"ACTIVE",
+         "addresses":{
+            "public":[
+               {
+                  "addr":"168.x.x.4",
+                  "version":4
+               }
+            ],
+            "private":[
+               {
+                  "addr":"10.x.x.4",
+                  "version":4
+               }
+            ]
+         },
+         "services":[
+            {
+               "name":"pig"
+            },
+            {
+               "name":"hive"
+            },
+            {
+               "name":"ssh",
+               "uri":"ssh://user@168.x.x.4"
+            },
+            {
+               "name":"status",
+               "uri":"http://10.x.x.4"
+            },
+            {
+               "name":"hdfs-scp",
+               "uri":"scp://user@168.x.x.4:9022"
+            }
+         ],
+         "links":[
+            {
+               "rel":"self",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/aaa"
+            },
+            {
+               "rel":"bookmark",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/aaa"
+            }
+         ]
+      },
+      {
+         "id":"bbb",
+         "role":"DATANODE",
+         "name":"DATANODE-1",
+         "postInitScriptStatus":null,
+         "status":"ACTIVE",
+         "addresses":{
+            "public":[
+               {
+                  "addr":"168.x.x.5",
+                  "version":4
+               }
+            ],
+            "private":[
+               {
+                  "addr":"10.x.x.5",
+                  "version":4
+               }
+            ]
+         },
+         "services":[
+            {
+               "name":"datanode"
+            },
+            {
+               "name":"tasktracker"
+            },
+            {
+               "name":"ssh",
+               "uri":"ssh://user@168.x.x.5"
+            }
+         ],
+         "links":[
+            {
+               "rel":"self",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/bbb"
+            },
+            {
+               "rel":"bookmark",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/bbb"
+            }
+         ]
+      },
+      {
+         "id":"ccc",
+         "role":"DATANODE",
+         "name":"DATANODE-2",
+         "postInitScriptStatus":null,
+         "status":"ACTIVE",
+         "addresses":{
+            "public":[
+               {
+                  "addr":"168.x.x.6",
+                  "version":4
+               }
+            ],
+            "private":[
+               {
+                  "addr":"10.x.x.6",
+                  "version":4
+               }
+            ]
+         },
+         "services":[
+            {
+               "name":"datanode"
+            },
+            {
+               "name":"tasktracker"
+            },
+            {
+               "name":"ssh",
+               "uri":"ssh://user@168.x.x.6"
+            }
+         ],
+         "links":[
+            {
+               "rel":"self",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/ccc"
+            },
+            {
+               "rel":"bookmark",
+               "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/ccc"
+            }
+         ]
+      }
+   ]
+}</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+							
+
+							<resource id="node" path="v1.0/{tenant_id}/clusters/{clusterId}/nodes/{nodeId}">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <param name="clusterId" style="template" type="xsd:string">
+							     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">Specifies the cluster ID.</wadl:doc>
+						   </param>
+         <param name="nodeId" style="template" type="xsd:string">
+								    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">Specifies the node ID.</wadl:doc>
+								</param>
+         <method name="GET" rax:id="getNodeDetails">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show node details">
+			            <para role="shortdesc">Shows details for a specified node
+				in a specified cluster.</para>
+			            <para>Valid values for the request body parameter
+					<code>postInitScriptStatus</code> are
+					<code>FAILED</code>, <code>PENDING</code>,
+					<code>DELIVERED</code>, <code>RUNNING</code>,
+					<code>SUCCEEDED</code>, and
+				<code>None</code>.</para>
+			            <para>Valid values for the node status are in <xref linkend="node_status"/>.</para>
+		          </wadl:doc>
+		          <request>
+			            <representation mediaType="application/json" element="clusters:Cluster">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">GET https://dfw.bigdata.api.rackspacecloud.com/v1.0/7654321/clusters/ac111111-2d86-4597-8010-cbe787bbbc41/nodes/000
+Accept: application/json 
+X-Auth-Token:ea85e6ac-baff-4a6c-bf43-848020ea3812
+Content-Type: application/json               </programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </request>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "node":{
+      "id":"000",
+      "created":"2012-12-27T10:10:10Z",
+      "role":"NAMENODE",
+      "name":"NAMENODE-1",
+      "postInitScriptStatus":null,
+      "status":"ACTIVE",
+      "addresses":{
+         "public":[
+            {
+               "addr":"168.x.x.3",
+               "version":4
+            }
+         ],
+         "private":[
+            {
+               "addr":"10.x.x.3",
+               "version":4
+            }
+         ]
+      },
+      "services":[
+         {
+            "name":"datanode"
+         },
+         {
+            "name":"tasktracker"
+         },
+         {
+            "name":"ssh",
+            "uri":"ssh://user@168.x.x.3"
+         }
+      ],
+      "links":[
+         {
+            "rel":"self",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/000"
+         },
+         {
+            "rel":"bookmark",
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/clusters/db478fc1-2d86-4597-8010-cbe787bbbc41/nodes/000"
+         }
+      ]
+   }
+}
+
+        </programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+								
+								
+							
+						
+					
+				  <resource id="flavors" path="v1.0/{tenant_id}/flavors">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <method name="GET" rax:id="getFlavors">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List available flavors">
+			            <para role="shortdesc">Lists all available flavors,
+				including the drive size and amount of RAM.</para>
+		          </wadl:doc>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavors": [
+        {
+            "disk": 2500,
+            "id": "hadoop1-15",
+            "links": [
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-15",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-15",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "Medium Hadoop Instance",
+            "ram": 15360,
+            "vcpus": 4
+        },
+        {
+            "disk": 5000,
+            "id": "hadoop1-30",
+            "links": [
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-30",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-30",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "Large Hadoop Instance",
+            "ram": 30720,
+            "vcpus": 8
+        },
+        {
+            "disk": 10000,
+            "id": "hadoop1-60",
+            "links": [
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-60",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-60",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "XLarge Hadoop Instance",
+            "ram": 61440,
+            "vcpus": 16
+        },
+        {
+            "disk": 1250,
+            "id": "hadoop1-7",
+            "links": [
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-7",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-7",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "Small Hadoop Instance",
+            "ram": 7680,
+            "vcpus": 2
+        }
+        {
+            "disk": 3200,
+            "id": "onmetal-io1",
+            "links": [
+                {
+                    "href": "https://iad.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/onmetal-io1",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://iad.bigdata.api.rackspacecloud.com/1234/flavors/onmetal-io1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "OnMetal IO v1",
+            "ram": 131072,
+            "vcpus": 40
+        }
+    ]
+}
+</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response>
+	        </method>
+      </resource>
+					
+					<resource id="flavor" path="v1.0/{tenant_id}/flavors/{flavorId}">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <param name="flavorId" style="template" type="xsd:string">
+							     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">Specifies the flavor ID.</wadl:doc>
+						   </param>
+         <method name="GET" rax:id="getFlavorDetails">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show flavor details">
+			            <para role="shortdesc">Shows details for a specified
+				flavor.</para>
+		          </wadl:doc>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "flavor":{
+      "disk":1250,
+      "id":"hadoop1-7",
+      "links":[
+         {
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-7",
+            "rel":"self"
+         },
+         {
+            "href":"https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-7",
+            "rel":"bookmark"
+         }
+      ],
+      "name":"Small Hadoop Instance",
+      "ram":7680,
+      "vcpus":2
+   }
+}
+</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+						
+						
+						<resource id="flavorsSupportedType"
+                path="v1.0/{tenant_id}/flavors/{flavorId}/types">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <param name="flavorId" style="template" type="xsd:string">
+							     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">Specifies the flavor ID.</wadl:doc>
+						   </param>
+         <method name="GET" rax:id="getSupportedClusterTypesByFlavor">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List supported cluster types for a flavor">
+			            <para role="shortdesc">Lists the supported cluster types
+				for a specified flavor.</para>
+		          </wadl:doc>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "types": [
+        {
+            "id": "HADOOP_HDP1_3",
+            "links": [
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/HADOOP_HDP1_3",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/types/HADOOP_HDP1_3",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "Hadoop (HDP 1.3)",
+            "version": "1.3"
+        },
+        {
+            "id": "HADOOP_HDP2_1",
+            "links": [
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/HADOOP_HDP2_1",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/types/HADOOP_HDP2_1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "Hadoop (HDP 2.1)",
+            "version": "2.1"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+							
+						
+					
+				  <resource id="types" path="v1.0/{tenant_id}/types">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <method name="GET" rax:id="getClusterTypes">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List cluster types">
+			            <para role="shortdesc">Lists cluster types.</para>
+		          </wadl:doc>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "types": [
+        {
+            "id": "HADOOP_HDP1_3",
+            "links": [
+                {
+                    "href": "http://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/HADOOP_HDP1_3",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://dfw.bigdata.api.rackspacecloud.com/1234/types/HADOOP_HDP1_3",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "Hadoop (HDP 1.3)",
+            "version": "1.3"
+        },
+        {
+            "id": "HADOOP_HDP2_1",
+            "links": [
+                {
+                    "href": "http://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/HADOOP_HDP2_1",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://dfw.bigdata.api.rackspacecloud.com/1234/types/HADOOP_HDP2_1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "Hadoop (HDP 2.1)",
+            "version": "2.1"
+        },
+        {
+            "id": "SPARK_HDP2_1",
+            "links": [
+                {
+                    "href": "http://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/SPARK_HDP2_1",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://dfw.bigdata.api.rackspacecloud.com/1234/types/SPARK_HDP2_1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "Spark Technical Preview (HDP 2.1)",
+            "version": "2.1"
+        }
+    ]
+}
+    </programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response>
+	        </method>
+      </resource>
+					
+					<resource id="type" path="v1.0/{tenant_id}/types/{typeId}">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <param name="typeId" style="template" type="xsd:string">
+							     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">Specifies the type ID.</wadl:doc>
+						   </param>
+         <method name="GET" rax:id="getClusterTypeDetails">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show cluster type details">
+			            <para role="shortdesc">Shows details for a specified
+				cluster type.</para>
+		          </wadl:doc>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "type":{
+      "id":"HADOOP_HDP2_1",
+      "links":[
+         {
+            "href":"http://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/types/HADOOP_HDP2_1",
+            "rel":"self"
+         },
+         {
+            "href":"http://dfw.bigdata.api.rackspacecloud.com/1234/types/HADOOP_HDP2_1",
+            "rel":"bookmark"
+         }
+      ],
+      "name":"Hadoop (HDP 2.1)",
+      "services":[
+
+      ]
+   }
+}
+        </programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+						
+						
+						<resource id="flavorsType" path="v1.0/{tenant_id}/types/{typeId}/flavors">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <param name="typeId" style="template" type="xsd:string">
+							     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">Specifies the type ID.</wadl:doc>
+						   </param>
+         <method name="GET" rax:id="getSupportedFlavorsForType">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List supported flavors for a type">
+			            <para role="shortdesc">Lists the supported flavors for a
+				specified cluster type.</para>
+		          </wadl:doc>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavors": [
+        {
+            "disk": 2500,
+            "id": "hadoop1-15",
+            "links": [
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-15",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-15",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "Medium Hadoop Instance",
+            "ram": 15360,
+            "vcpus": 4
+        },
+        {
+            "disk": 5000,
+            "id": "hadoop1-30",
+            "links": [
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-30",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-30",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "Large Hadoop Instance",
+            "ram": 30720,
+            "vcpus": 8
+        },
+        {
+            "disk": 10000,
+            "id": "hadoop1-60",
+            "links": [
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-60",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-60",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "XLarge Hadoop Instance",
+            "ram": 61440,
+            "vcpus": 16
+        },
+        {
+            "disk": 1250,
+            "id": "hadoop1-7",
+            "links": [
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/flavors/hadoop1-7",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.bigdata.api.rackspacecloud.com/1234/flavors/hadoop1-7",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "Small Hadoop Instance",
+            "ram": 7680,
+            "vcpus": 2
+        }
+    ]
+}
+</programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+							
+						
+					
+				  <resource id="limits" path="v1.0/{tenant_id}/limits">
+         <param name="tenant_id" style="template" type="xsd:string">
+					       <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The tenant ID in a
+							multi-tenancy cloud.</para>
+					       </wadl:doc>
+				     </param>
+         <method name="GET" rax:id="viewResourceLimits">
+		          <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show resource limits">
+			            <para role="shortdesc">Shows the absolute resource limits,
+				such as remaining node count, available RAM, and
+				remaining disk space, for the user.</para>
+		          </wadl:doc>
+		          <response status="200">
+			            <representation mediaType="application/json">
+				              <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+					                <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "limits":{
+      "absolute":{
+         "disk":{
+            "limit":5120,
+            "remaining":5120
+         },
+         "nodeCount":{
+            "limit":5,
+            "remaining":5
+         },
+         "ram":{
+            "limit":40960,
+            "remaining":40960
+         },
+         "vcpus":{
+            "limit":10,
+            "remaining":10
+         }
+      },
+      "links":[
+         {
+            "href":"http://dfw.bigdata.api.rackspacecloud.com/v1.0/1234/limits",
+            "rel":"self"
+         },
+         {
+            "href":"http://dfw.bigdata.api.rackspacecloud.com/1234/limits",
+            "rel":"bookmark"
+         }
+      ]
+   }
+}
+        </programlisting>
+                     </xsdxt:code>
+				              </wadl:doc>
+			            </representation>
+		          </response>
+	        </method>
+      </resource>
+					
+				
+	  </resources>
+
+
+	  <!--*******************************************************-->
+	  <!-- ALL METHODS                                           -->
+	  <!--*******************************************************-->
+
+	  <!--*******************************************************-->
+	  <!-- PROFILE METHODS                                       -->
+	  <!--*******************************************************-->
+
+	  <!--*******************************************************-->
+	  <!-- Create/Update Profile: postProfile                    -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="postProfile">
+		
+		    <request>
+			      <representation mediaType="application/json" element="clusters:cluster">
+				
+			</representation>
+		    </request>
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="clusters:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+	  <!--*******************************************************-->
+	  <!-- View Profile Information: getProfile                         -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getProfile">
+		
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response>
+	  </method>
+
+
+	  <!--*******************************************************-->
+	  <!-- CLUSTER METHODS                                       -->
+	  <!--*******************************************************-->
+
+	  <!--*******************************************************-->
+	  <!-- Create Cluster: createCluster                         -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createCluster">
+		
+		    <request>
+			      <representation mediaType="application/json" element="clusters:cluster">
+				
+			</representation>
+		    </request>
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="clusters:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+            
+        <response status="413">
+            <representation mediaType="application/xml" element="clusters:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+	  <!--*******************************************************-->
+	  <!-- List All Clusters: listClusters                       -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getClusters">
+		
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response>
+	  </method>
+
+	  <!--*******************************************************-->
+	  <!-- Get Cluster Details: getClusterDetails                -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getClusterDetails">
+		
+		    <request>
+			      <representation mediaType="application/json" element="clusters:cluster">
+				
+			</representation>
+		    </request>
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response> 
+        <response status="404">
+            <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+	  <!--*******************************************************-->
+	  <!-- Delete Cluster: deleteCluster                         -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteCluster">
+		
+		    <request>
+			      <representation mediaType="application/json" element="clusters:cluster">
+				
+			</representation>
+		    </request>
+		    <response status="204">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="clusters:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+            
+        <response status="404">
+            <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            
+        <response status="409">
+            <representation mediaType="application/xml" element="clusters:conflict"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+	  <!--*******************************************************-->
+	  <!-- Resize Cluster: postClusterAction                      -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="postClusterAction">
+		
+		    <request>
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </request>
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="clusters:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+            
+        <response status="404">
+            <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            
+        <response status="409">
+            <representation mediaType="application/xml" element="clusters:conflict"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+	  <!--*******************************************************-->
+	  <!-- NODE METHODS                                          -->
+	  <!--*******************************************************-->
+
+	  <!--*******************************************************-->
+	  <!-- List Cluster Nodes: getClusterNodes                   -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getClusterNodes">
+		
+		    <request>
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </request>
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response> 
+        <response status="404">
+            <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+	  <!--*******************************************************-->
+	  <!-- Get Node Details: getNodeDetails                      -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getNodeDetails">
+		
+		    <request>
+			      <representation mediaType="application/json" element="clusters:Cluster">
+				
+			</representation>
+		    </request>
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response> 
+        <response status="404">
+            <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+	  <!--*******************************************************-->
+	  <!-- FLAVORS METHODS                                       -->
+	  <!--*******************************************************-->
+
+	  <!--*******************************************************-->
+	  <!-- List Available Flavors: getFlavors                    -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getFlavors">
+		
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response>
+	  </method>
+
+	  <!--*******************************************************-->
+	  <!-- List Flavor Details: getFlavorDetails                 -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getFlavorDetails">
+		
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response> 
+        <response status="404">
+            <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+	  <!--*********************************************************************************-->
+	  <!-- List Supported Cluster Types for a Flavor: getSupportedClusterTypesByFlavor     -->
+	  <!--*********************************************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getSupportedClusterTypesByFlavor">
+		
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response> 
+        <response status="404">
+            <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+	  <!--*******************************************************-->
+	  <!-- TYPE METHODS                                          -->
+	  <!--*******************************************************-->
+
+	  <!--*******************************************************-->
+	  <!-- List Cluster Types: getClusterTypes                          -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getClusterTypes">
+		
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response>
+	  </method>
+
+	  <!--*******************************************************-->
+	  <!-- List Cluster Type Details: getClusterTypeDetails                        -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getClusterTypeDetails">
+		
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response> 
+        <response status="404">
+            <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+	  <!--*******************************************************************-->
+	  <!-- List Supported Flavors for a Type: getSupportedFlavorsForType     -->
+	  <!--*******************************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getSupportedFlavorsForType">
+		
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response> 
+        <response status="404">
+            <representation mediaType="application/xml" element="clusters:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+	  <!--*******************************************************-->
+	  <!-- LIMITS METHODS                                        -->
+	  <!--*******************************************************-->
+
+	  <!--*******************************************************-->
+	  <!-- View Resource Limits: viewResourceLimits              -->
+	  <!--*******************************************************-->
+
+	  <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:raxapi="http://docs.rackspace.com/volume/api/v1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:cbd="http://docs.openstack.org/database/api/v1.0"
+           xmlns:clusters="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="viewResourceLimits">
+		
+		    <response status="200">
+			      <representation mediaType="application/json">
+				
+			</representation>
+		    </response>
+	  </method>
+</wadl:application>

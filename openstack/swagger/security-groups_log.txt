@@ -1,0 +1,13 @@
+INFO:wadls/security-groups.wadl:Converting: wadls/security-groups.wadl to swagger/security-groups.json
+WARNING:wadls/security-groups.wadl:Unknown type: csapi:uuid for param security_group_id
+WARNING:wadls/security-groups.wadl:Using string for csapi:uuid
+WARNING:wadls/security-groups.wadl:Autofix: path parameters must be required in Swagger (security_group_id)
+WARNING:wadls/security-groups.wadl:Unknown type: csapi:uuid for param rules-security-groups-id
+WARNING:wadls/security-groups.wadl:Using string for csapi:uuid
+WARNING:wadls/security-groups.wadl:Autofix: path parameters must be required in Swagger (rules-security-groups-id)
+INFO:root:Saving swagger to swagger/security-groups.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

@@ -1,0 +1,103 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-server-groups",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-server-groups": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listServerGroups",
+                "summary": "List server groups",
+                "description": "Lists server groups.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"server_groups\": [\n        {\n            \"members\": [],\n            \"metadata\": {},\n            \"id\": \"616fb98f-46ca-475e-917e-2563e5a8cd19\",\n            \"policies\": [\n                \"anti-affinity\"\n            ],\n            \"name\": \"test\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createServerGroup",
+                "summary": "Create server group",
+                "description": "Creates a server group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"server_group\": {\n        \"members\": [],\n        \"metadata\": {},\n        \"id\": \"5bbcc3c4-1da2-4437-a48a-66f15b1b13f9\",\n        \"policies\": [\n            \"anti-affinity\"\n        ],\n        \"name\": \"test\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-server-groups/{ServerGroup_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "ServerGroup_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The server group ID.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showServerGroup",
+                "summary": "Show server group details",
+                "description": "Shows details for a specified server group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"server_group\": {\n        \"members\": [],\n        \"metadata\": {},\n        \"id\": \"5bbcc3c4-1da2-4437-a48a-66f15b1b13f9\",\n        \"policies\": [\n            \"anti-affinity\"\n        ],\n        \"name\": \"test\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteServerGroup",
+                "summary": "Delete server group",
+                "description": "Deletes a specified server group.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        }
+    }
+}

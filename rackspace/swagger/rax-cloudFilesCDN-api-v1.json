@@ -1,0 +1,120 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "rax-cloudFilesCDN-api-v1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v1/{account}": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Your unique account identifier.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listCDNcontainers",
+                "summary": "List CDN-enabled containers",
+                "description": "Lists CDN-enabled containers sorted by name.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "The request succeeded. The information returned with the response is dependent on the method used in the request."
+                    }
+                }
+            }
+        },
+        "/v1/{account}/{container}": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Your unique account identifier.\n"
+                },
+                {
+                    "name": "container",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the container.\n"
+                }
+            ],
+            "put": {
+                "operationId": "enableDisableCDNcontainer",
+                "summary": "CDN-enable and CDN-disable a container",
+                "description": "Enables or disables a container for use with the CDN.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "The request has succeeded. The information returned with the response is dependent on the method used in the request."
+                    }
+                }
+            },
+            "head": {
+                "operationId": "retrieveCDNcontainermeta",
+                "summary": "List metadata for CDN-enabled container",
+                "description": "Gets a CDN-enabled container's metadata.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The request has succeeded. The information returned with the response is dependent on the method used in the request.",
+                        "examples": {}
+                    }
+                }
+            },
+            "post": {
+                "operationId": "updateCDNcontainermeta",
+                "summary": "Update CDN-enabled container metadata",
+                "description": "Updates the CDN-enabled container's metadata.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "The server fulfilled the request but does not need to return a body."
+                    }
+                }
+            }
+        },
+        "/v1/{account}/{object}": {
+            "parameters": [
+                {
+                    "name": "account",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Your unique account identifier.\n"
+                },
+                {
+                    "name": "object",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the object.\n"
+                }
+            ],
+            "delete": {
+                "operationId": "deleteCDNobject",
+                "summary": "Delete CDN-enabled object",
+                "description": "Deletes CDN-enabled objects.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "The server fulfilled the request but does not need to return a body."
+                    }
+                }
+            }
+        }
+    }
+}

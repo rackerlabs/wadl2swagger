@@ -1,0 +1,49 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-diagnostics",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/servers/{server_id}/diagnostics": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getDiagnostics",
+                "summary": "Get server diagnostics",
+                "description": "Gets basic usage data for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"vnet0_tx_errors\": 0,\n    \"vda_read\": 4447232,\n    \"vnet0_tx_packets\": 1259,\n    \"vda_write\": 4347904,\n    \"vda_write_req\": 3523,\n    \"memory-actual\": 524288,\n    \"memory\": 524288,\n    \"vnet0_tx\": 364840,\n    \"vnet0_rx_drop\": 0,\n    \"vnet0_tx_drop\": 0,\n    \"memory-rss\": 243188,\n    \"vnet0_rx_errors\": 0,\n    \"cpu0_time\": 195230000000,\n    \"vnet0_rx_packets\": 1423,\n    \"vda_read_req\": 291,\n    \"vnet0_rx\": 363725,\n    \"vda_errors\": -1\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

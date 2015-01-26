@@ -1,0 +1,191 @@
+---
+swagger: '2.0'
+info:
+  title: os-floating-ip-dns
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-floating-ip-dns":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    get:
+      operationId: ListDomains
+      summary: List DNS domains
+      description: |
+        Lists registered DNS domains published by the DNS drivers.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "domain_entries": [
+                      {
+                          "project": "project1",
+                          "scope": "public",
+                          "domain": "domain1.example.org",
+                          "availability_zone": null
+                      }
+                  ]
+              }
+  "/v2/{tenant_id}/os-floating-ip-dns/{domain}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: domain
+      required: true
+      in: path
+      type: string
+      description: |
+        Registered DNS domain published by the DNS drivers.
+    put:
+      operationId: CreateDomain
+      summary: Create or update DNS domain
+      description: |
+        Creates or updates a DNS domain.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "domain_entry": {
+                      "project": "project1",
+                      "scope": "public",
+                      "domain": "domain1.example.org",
+                      "availability_zone": null
+                  }
+              }
+    delete:
+      operationId: DeleteDomain
+      summary: Delete DNS domain
+      description: |
+        Deletes a DNS domain and all associated host entries.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+  "/v2/{tenant_id}/os-floating-ip-dns/{domain}/entries/{name}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: domain
+      required: true
+      in: path
+      type: string
+      description: |
+        Registered DNS domain published by the DNS drivers.
+    - name: name
+      required: true
+      in: path
+      type: string
+      description: |
+        DNS entry name assigned under a domain.
+    put:
+      operationId: CreateEntry
+      summary: Create or update DNS entry
+      description: |
+        Creates or updates a DNS entry.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "dns_entry": {
+                      "ip": "192.168.1.1",
+                      "domain": "domain1.example.org",
+                      "type": "A",
+                      "id": null,
+                      "name": "instance1"
+                  }
+              }
+    get:
+      operationId: FindUniqueEntry
+      summary: Find unique DNS entry
+      description: |
+        Finds a unique DNS entry for a specified domain and name.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "dns_entry": {
+                      "ip": "192.168.1.1",
+                      "domain": "domain1.example.org",
+                      "type": null,
+                      "id": null,
+                      "name": "instance1"
+                  }
+              }
+    delete:
+      operationId: DeleteEntry
+      summary: Delete DNS entry
+      description: |
+        Deletes a specified DNS entry.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+  "/v2/{tenant_id}/os-floating-ip-dns/{domain}/entries/{ip}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: domain
+      required: true
+      in: path
+      type: string
+      description: |
+        Registered DNS domain published by the DNS drivers.
+    get:
+      operationId: FindEntriesbyIP
+      summary: List DNS entries
+      description: |
+        Lists DNS entries for a specified domain and IP.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "dns_entries": [
+                      {
+                          "ip": "192.168.1.1",
+                          "domain": "domain1.example.org",
+                          "type": null,
+                          "id": null,
+                          "name": "instance1"
+                      }
+                  ]
+              }

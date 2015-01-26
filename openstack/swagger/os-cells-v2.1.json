@@ -1,0 +1,69 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-cells-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/os-cells": {
+            "get": {
+                "operationId": "returnallcell",
+                "summary": "Lists cells with details",
+                "description": "Lists cells with details.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"cells\": []\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-cells/cell3": {
+            "get": {
+                "operationId": "datacell",
+                "summary": "Shows cell data",
+                "description": "Shows data for a specified cell.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"cell\": {\n        \"username\": \"username3\",\n        \"rpc_host\": null,\n        \"type\": \"child\",\n        \"name\": \"cell3\",\n        \"rpc_port\": null\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-cells/nova/capacities": {
+            "get": {
+                "operationId": "cellcapacity",
+                "summary": "Shows cell capacities",
+                "description": "Shows capacities for a specified cell.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"cell\": {\n        \"capacities\": {\n            \"ram_free\": {\n                \"units_by_mb\": {\n                    \"8192\": 0,\n                    \"512\": 13,\n                    \"16384\": 0,\n                    \"2048\": 3,\n                    \"4096\": 1\n                },\n                \"total_mb\": 7680\n            },\n            \"disk_free\": {\n                \"units_by_mb\": {\n                    \"0\": 0,\n                    \"20480\": 46,\n                    \"40960\": 23,\n                    \"163840\": 5,\n                    \"81920\": 11\n                },\n                \"total_mb\": 1052672\n            }\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

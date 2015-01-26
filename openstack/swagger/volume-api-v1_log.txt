@@ -1,0 +1,35 @@
+INFO:wadls/volume-api-v1.wadl:Converting: wadls/volume-api-v1.wadl to swagger/volume-api-v1.json
+WARNING:wadls/volume-api-v1.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/volume-api-v1.wadl:Unknown type: csapi:string for param volume
+WARNING:wadls/volume-api-v1.wadl:Using string for csapi:string
+WARNING:wadls/volume-api-v1.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/volume-api-v1.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/volume-api-v1.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/volume-api-v1.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/volume-api-v1.wadl:Unknown type: csapi:string for param volume_type
+WARNING:wadls/volume-api-v1.wadl:Using string for csapi:string
+WARNING:wadls/volume-api-v1.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/volume-api-v1.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/volume-api-v1.wadl:Unknown type: csapi:string for param volume_type
+WARNING:wadls/volume-api-v1.wadl:Using string for csapi:string
+WARNING:wadls/volume-api-v1.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/volume-api-v1.wadl:Unknown type: csapi:string for param volume_type
+WARNING:wadls/volume-api-v1.wadl:Using string for csapi:string
+WARNING:wadls/volume-api-v1.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/volume-api-v1.wadl:Unknown type: csapi:string for param extra_specs
+WARNING:wadls/volume-api-v1.wadl:Using string for csapi:string
+WARNING:wadls/volume-api-v1.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/volume-api-v1.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/volume-api-v1.wadl:Unknown type: csapi:string for param snapshot
+WARNING:wadls/volume-api-v1.wadl:Using string for csapi:string
+WARNING:wadls/volume-api-v1.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/volume-api-v1.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/volume-api-v1.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/volume-api-v1.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/volume-api-v1.wadl:Ignoring body parameter, converting these is not yet supported...
+INFO:root:Saving swagger to swagger/volume-api-v1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

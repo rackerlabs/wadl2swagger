@@ -1,0 +1,154 @@
+---
+swagger: '2.0'
+info:
+  title: os-extended-server-attributes-v2.1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.1/servers":
+    get:
+      operationId: returnserverdetails
+      summary: Shows server details
+      description: |
+        Shows details for a specified server.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "server": {
+                      "os-extended-server-attributes:hypervisor_hostname": "fake-mini",
+                      "status": "ACTIVE",
+                      "os-extended-server-attributes:instance_name": "instance-00000001",
+                      "user_id": "fake",
+                      "addresses": {
+                          "private": [
+                              {
+                                  "version": 4,
+                                  "type": "fixed",
+                                  "addr": "192.168.0.3",
+                                  "mac_addr": "aa:bb:cc:dd:ee:ff"
+                              }
+                          ]
+                      },
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v3/servers/c278163e-36f9-4cf2-b1ac-80db4c63f7a8",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/servers/c278163e-36f9-4cf2-b1ac-80db4c63f7a8",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "created": "2013-09-16T02:55:07Z",
+                      "os-extended-server-attributes:host": "c5f474bf81474f9dbbc404d5b2e4e9b3",
+                      "key_name": null,
+                      "image": {
+                          "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                          "links": [
+                              {
+                                  "href": "http://glance.openstack.example.com/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "updated": "2013-09-16T02:55:08Z",
+                      "name": "new-server-test",
+                      "tenant_id": "openstack",
+                      "progress": 0,
+                      "host_id": "3bf189131c61d0e71b0a8686a897a0f50d1693b48c47b721fe77155b",
+                      "flavor": {
+                          "id": "1",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/flavors/1",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "id": "c278163e-36f9-4cf2-b1ac-80db4c63f7a8",
+                      "metadata": {
+                          "My Server Name": "Apache1"
+                      }
+                  }
+              }
+  "/v2.1/servers/details":
+    get:
+      operationId: returnlistdetails
+      summary: Lists server details for user
+      description: |
+        Lists server details for a specified user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "servers": [
+                      {
+                          "os-extended-server-attributes:hypervisor_hostname": "fake-mini",
+                          "status": "ACTIVE",
+                          "os-extended-server-attributes:instance_name": "instance-00000001",
+                          "user_id": "fake",
+                          "addresses": {
+                              "private": [
+                                  {
+                                      "version": 4,
+                                      "type": "fixed",
+                                      "addr": "192.168.0.3",
+                                      "mac_addr": "aa:bb:cc:dd:ee:ff"
+                                  }
+                              ]
+                          },
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v3/servers/a8c1c13d-ec7e-47c7-b4ff-077f72c1ca46",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/servers/a8c1c13d-ec7e-47c7-b4ff-077f72c1ca46",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "created": "2013-09-16T02:55:03Z",
+                          "os-extended-server-attributes:host": "bc8efe4fdb7148a4bb921a2b03d17de6",
+                          "key_name": null,
+                          "image": {
+                              "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                              "links": [
+                                  {
+                                      "href": "http://glance.openstack.example.com/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                      "rel": "bookmark"
+                                  }
+                              ]
+                          },
+                          "updated": "2013-09-16T02:55:05Z",
+                          "name": "new-server-test",
+                          "tenant_id": "openstack",
+                          "progress": 0,
+                          "host_id": "63cf07a9fd82e1d2294926ec5c0d2e1e0ca449224246df75e16f23dc",
+                          "flavor": {
+                              "id": "1",
+                              "links": [
+                                  {
+                                      "href": "http://openstack.example.com/flavors/1",
+                                      "rel": "bookmark"
+                                  }
+                              ]
+                          },
+                          "id": "a8c1c13d-ec7e-47c7-b4ff-077f72c1ca46",
+                          "metadata": {
+                              "My Server Name": "Apache1"
+                          }
+                      }
+                  ]
+              }

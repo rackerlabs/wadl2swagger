@@ -1,0 +1,1577 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entites with xmllint          -->
+<!--                                                       -->
+<!--        xmllint -noent os-networks.wadl               -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xsi:schemaLocation="http://docs.openstack.org/identity/api/v3.0      http://docs.openstack.org/common/api/v1.0      http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd     ">
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+    <resources xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://neutron.example.com/"
+              xml:id="layer3-ext-v2.0">
+        <resource id="Routers" path="v2.0/routers">
+         <method name="GET" rax:id="listRouters">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Routers">
+               <para role="shortdesc">Lists logical routers that are accessible to the tenant who submits the request.</para>
+               <para>This operation lists routers for the specified tenant. Default policy settings return only those routers
+                that are owned by the tenant who submits the request, unless an admin user submits the request. You can
+                control which attributes are returned by using the <parameter>fields</parameter> query parameter, and you can
+                specify how many results to return per page. For information, see
+                <link xlink:href="http://docs.rackspace.com/networks/api/v2/cn-devguide/content/section_filtering.html">Filtering 
+                    Requests</link>
+                or
+                <link xlink:href="http://docs.rackspace.com/networks/api/v2/cn-devguide/content/section_pagination.html">Pagination 
+                    of Requests</link>
+                in the <citetitle>Cloud Networks API Developer Guide</citetitle>.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json" element="csapi:router">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "routers": 
+    [
+        {
+            "status": "ACTIVE",
+            "external_gateway_info": null,
+            "name": "second_routers",
+            "admin_state_up": true,
+            "tenant_id": "6b96ff0cb17a4b859e1e575d221683d3",
+            "id": "7177abc4-5ae9-4bb7-b0d4-89e94a4abf3b"
+        },
+        {
+            "status": "ACTIVE",
+            "external_gateway_info": 
+            {
+                "network_id": "3c5bcddd-6af9-4e6b-9c3e-c153e521cab8"
+            },
+            "name": "router1",
+            "admin_state_up": true,
+            "tenant_id": "33a40233088643acb66ff6eb0ebea679",
+            "id": "a9254bdb-2613-4a13-ac4c-adc581fba50d"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true"
+                         name="status"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.status">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router status.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="external_gateway_info"
+                         style="plain"
+                         type="xsd:dict"
+                         path="$.external_gateway_information">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The <code>network_id</code>, for the external gateway.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the router. (<literal>True</literal> if up or
+                         <literal>False</literal> if down)</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router ID.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response> 
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+        </method>
+         <method name="POST" rax:id="createRouter">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create Router">
+               <para role="shortdesc">Creates a logical router.</para>
+               <para>This operation creates a new logical router. When it is created, a logical router does not have any
+                internal interface, and it is not associated to any subnet. You can optionally specify an external gateway
+                for a router at creation time. The external gateway for the router must be plugged into an external network,
+                which has its extended field <code>router:external</code> set to <literal>true</literal>. To specify an
+                external gateway, the identifier of the external network must be passed in the
+                    <parameter>external_gateway_info</parameter> parameter in the request body, as follows:</para>
+               <programlisting language="js">
+                "external_gateway_info" :
+                {
+                  "network_id": <replaceable>external_network_uuid</replaceable>
+                }
+            </programlisting>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="csapi:router">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "router":
+    {
+        "name": "another_router",
+        "admin_state_up": true
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true" name="router" style="plain" type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>router</code> object.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param required="true"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router name.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param required="true"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the router (<literal>True</literal> if up or
+                        <literal>False</literal> if down).</para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </request>
+            <response status="201">
+               <representation mediaType="application/json" element="csapi:router">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "router":
+    {
+        "status": "ACTIVE",
+        "external_gateway_info": null,
+        "name": "another_router",
+        "admin_state_up": true,
+        "tenant_id": "6b96ff0cb17a4b859e1e575d221683d3",
+        "id": "8604a0de-7f6b-409a-a47c-a1cc7bc77b2e"
+     }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true" name="router" style="plain" type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>router</code> object.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param required="true"
+                         name="status"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.status">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router status.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="external_gateway_info"
+                         style="plain"
+                         type="xsd:dict"
+                         path="$.external_gateway_information">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The <code>network_id</code>, for the external gateway.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the router. (<literal>True</literal> if up or
+                         <literal>False</literal> if down)</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router ID.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+         
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                
+                
+                <resource path="v2.0/routers/{router_id}" id="RouterID">
+         <param name="router_id" style="template" type="csapi:UUID">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Router ID">The UUID of the
+                            router.</wadl:doc>
+                    </param>
+         <method name="GET" rax:id="showRouter">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show Router Details">
+               <para role="shortdesc">Shows details for the specified router.</para>
+               <para>This operation shows details for the specified router. You can control which parameters are returned by
+                using the <parameter>fields</parameter> query parameter, and you can specify how many results to return per
+                page. For information, see
+                <link xlink:href="http://docs.rackspace.com/networks/api/v2/cn-devguide/content/section_filtering.html">Filtering 
+                    Requests</link>
+                or
+                <link xlink:href="http://docs.rackspace.com/networks/api/v2/cn-devguide/content/section_pagination.html">Pagination 
+                    of Requests</link>
+                in the <citetitle>Cloud Networks API Developer Guide</citetitle>.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json" element="csapi:router">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{"router": 
+    {
+        "status": "ACTIVE",
+        "external_gateway_info": 
+        {
+            "network_id": "3c5bcddd-6af9-4e6b-9c3e-c153e521cab8"
+        },
+        "name": "router1",
+        "admin_state_up": true,
+        "tenant_id": "33a40233088643acb66ff6eb0ebea679",
+        "id": "a9254bdb-2613-4a13-ac4c-adc581fba50d"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true" name="routers" style="plain" type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>routers</code> object.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param required="true"
+                         name="status"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.status">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router status.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="external_gateway_info"
+                         style="plain"
+                         type="xsd:dict"
+                         path="$.external_gateway_information">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The <code>network_id</code>, for the external gateway.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the router. (<literal>True</literal> if up or
+                         <literal>False</literal> if down)</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router ID.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response> 
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+               <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>  
+         
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          </method>
+         <method name="PUT" rax:id="updateRouter">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update Router">
+               <para role="shortdesc">Updates the specified router.</para>
+               <para>This operation updates any of the <parameter>name</parameter>, <parameter>admin_state_up</parameter>, and
+                    <parameter>external_gateway_info</parameter> parameters for the specified router. For more information
+                about how to set the <parameter>external_gateway_info</parameter> parameter for a router, see
+                <xref linkend="POST_createRouter_v2.0_routers_api_ext_layer3_router"/>.</para>
+               <note>
+                  <para>This operation does not allow you to update the router interfaces. To update a router, use
+                    <xref linkend="PUT_removeRouterInterface_v2.0_routers__router_id__remove_router_interface_api_ext_layer3_router"/>
+                    and
+                    <xref linkend="PUT_addRouterInterface_v2.0_routers__router_id__add_router_interface_api_ext_layer3_router"/>
+                    operations. </para>
+               </note>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="csapi:router">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "router":
+    {
+        "status": "ACTIVE",
+        "external_gateway_info": null,
+        "name": "another_router",
+        "admin_state_up": true,
+        "tenant_id": "6b96ff0cb17a4b859e1e575d221683d3",
+        "id": "8604a0de-7f6b-409a-a47c-a1cc7bc77b2e"
+     }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true" name="routers" style="plain" type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>routers</code> object.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param required="true"
+                         name="status"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.status">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router status.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="external_gateway_info"
+                         style="plain"
+                         type="xsd:dict"
+                         path="$.external_gateway_information">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The <code>network_id</code>, for the external gateway.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the router. (<literal>True</literal> if up or
+                         <literal>False</literal> if down)</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router ID.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="csapi:router">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "router":
+    {
+        "status": "ACTIVE",
+        "external_gateway_info":
+        {
+            "network_id": "8ca37218-28ff-41cb-9b10-039601ea7e6b"
+        },
+        "name": "another_router",
+        "admin_state_up": true,
+        "tenant_id": "6b96ff0cb17a4b859e1e575d221683d3",
+        "id": "8604a0de-7f6b-409a-a47c-a1cc7bc77b2e"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true" name="router" style="plain" type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>router</code> object.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param required="true"
+                         name="status"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.status">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router status.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="external_gateway_info"
+                         style="plain"
+                         type="xsd:dict"
+                         path="$.external_gateway_information">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The <code>network_id</code>, for the external gateway.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the router. (<literal>True</literal> if up or
+                         <literal>False</literal> if down)</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router ID.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+         
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          </method>
+         <method name="DELETE" rax:id="deleteRouter">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete Router">
+               <para role="shortdesc">Deletes the logical router and its external gateway interface.</para>
+               <para>This operation deletes the specified router and, if present, its external gateway interface.</para>
+               <warning>
+                  <para>The operation fails if the router has attached interfaces.</para>
+                  <para>Use the
+                    <xref linkend="PUT_removeRouterInterface_v2.0_routers__router_id__remove_router_interface_api_ext_layer3_router"/>
+                    operation to remove all router interfaces before you delete the router.</para>
+               </warning>
+            </wadl:doc>
+            <response status="204"/> 
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          
+            <response status="409">
+
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response>
+             </method>
+      </resource>
+                    
+                    
+                    
+                    
+                    <resource id="RouterID_add_interface"
+                path="v2.0/routers/{router_id}/add_router_interface">
+         <param name="router_id" style="template" type="csapi:UUID">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Router ID">The UUID of the
+                            router.</wadl:doc>
+                    </param>
+         <method name="PUT" rax:id="addRouterInterface">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Add Interface to Router">
+               <para role="shortdesc">Adds an internal interface to the specified logical router.</para>
+               <para>This operation attaches a subnet to an internal router interface. You must specify either a
+                    <parameter>subnet_id</parameter> or a <parameter>port_id</parameter> parameter in the request body. If you
+                specify both IDs, the operation returns a <errorcode>400 Bad Request</errorcode> error.</para>
+               <para>If you specify a <parameter>subnet_id</parameter> parameter in the request body, the gateway IP address for
+                the subnet is used to create the router interface.</para>
+               <para>If you specify a <parameter>port_id</parameter> parameter in the request body, the IP address associated with
+                the port is used to create the router interface.</para>
+               <warning>
+                  <para>If either multiple IP addresses are associated with the specified port, or if no IP address is
+                    associated with the specified port, the operation returns a <errorcode>400 Bad Request</errorcode>
+                    error.</para>
+                  <para>If the port is already used, the operation returns a <errorcode>409 Conflict</errorcode> error.</para>
+               </warning>
+               <para>The port <parameter>id</parameter> that is returned by this operation can either be the same ID passed in
+                the request body or the ID of a new port created by this operation to attach the specified subnet to the
+                router. After you run this operation, the <parameter>device_id</parameter> parameter of this port is set to
+                the ID of the router, and the <parameter>device_owner</parameter>parameter is set to
+                    <code>network:router_interface</code>, as shown in this example:</para>
+               <programlisting language="json">{
+   "port":{
+      "status":"ACTIVE",
+      "name":"",
+      "admin_state_up":true,
+      "network_id":"5307648b-e836-4658-8f1a-ff7536870c64",
+      "tenant_id":"6b96ff0cb17a4b859e1e575d221683d3",
+      "device_owner":"network:router_interface",
+      "mac_address":"fa:16:3e:f7:d1:9c",
+      "fixed_ips":[
+         {
+            "subnet_id":"a2f1f29d-571b-4533-907f-5803ab96ead1",
+            "ip_address":"10.1.1.1"
+         }
+      ],
+      "id":"3a44f4e5-1694-493a-a1fb-393881c673a4",
+      "device_id":"7177abc4-5ae9-4bb7-b0d4-89e94a4abf3b"
+   }</programlisting>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="csapi:router">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "subnet_id": "a2f1f29d-571b-4533-907f-5803ab96ead1"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="false"
+                         name="subnet_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.subnet_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The subnet ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="port_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.port_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The port ID.</para>
+                     </wadl:doc>
+                  </param>
+      
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="csapi:router">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "subnet_id": "a2f1f29d-571b-4533-907f-5803ab96ead1",
+    "port_id": "3a44f4e5-1694-493a-a1fb-393881c673a4"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true"
+                         name="subnet_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.subnet_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The subnet ID.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param required="true"
+                         name="port_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.port_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The port ID.</para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+         
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          
+            <response status="409">
+
+               <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+                        
+                    
+                    <resource id="RouterID_remove_interface"
+                path="v2.0/routers/{router_id}/remove_router_interface">
+         <param name="router_id" style="template" type="csapi:UUID">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Router ID">The UUID of the
+                            router.</wadl:doc>
+                    </param>
+         <method name="PUT" rax:id="removeRouterInterface">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Remove Interface from Router">
+               <para role="shortdesc">Removes an internal interface from the specified logical router.</para>
+               <para>This operation removes an internal router interface, which detaches a subnet from the router. It also
+                removes the port connecting the router with the subnet from that subnet.</para>
+               <para>You must specify a <parameter>subnet_id</parameter> parameter, a <parameter>port_id</parameter>, or both
+                    <parameter>subnet_id</parameter> and <parameter>port_id</parameter> parameters in the request body, which
+                will identify the router interface to remove.</para>
+               <para>If you specify both IDs, the <parameter>subnet_id</parameter> parameter must correspond to the
+                    <parameter>subnet_id</parameter> of the first IP address on the port specified by the
+                    <parameter>port_id</parameter> parameter. Otherwise, the operation returns a <errorcode>409
+                    Conflict</errorcode> error. The response contains information about the affected router and
+                interface.</para>
+               <para>If the router, subnet, or port either do not exist or are not visible to you, the operation returns a
+                    <errorcode>404 Not Found</errorcode>.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="csapi:router">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "subnet_id": "a2f1f29d-571b-4533-907f-5803ab96ead1"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="false"
+                         name="subnet_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.subnet_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The subnet ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="port_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.port_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The port ID.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="csapi:router">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "id": "8604a0de-7f6b-409a-a47c-a1cc7bc77b2e",
+    "tenant_id": "2f245a7b-796b-4f26-9cf9-9e82d248fda7",
+    "port_id": "3a44f4e5-1694-493a-a1fb-393881c673a4",
+    "subnet_id": "a2f1f29d-571b-4533-907f-5803ab96ead1"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true"
+                         name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The router ID.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param required="true"
+                         name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param required="true"
+                         name="port_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.port_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The port ID.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param required="true"
+                         name="subnet_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.subnet_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The subnet ID.</para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+         
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          
+            <response status="409">
+
+               <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+               <representation mediaType="application/json"/>
+            </response>
+             </method>
+      </resource>
+                        
+                    
+                
+            
+    </resources>
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+
+    <!-- List Routers -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listRouters">
+        
+        <response status="200">
+            <representation mediaType="application/json" element="csapi:router">
+                 
+           <param required="true"
+                   name="status"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.status">
+                
+            </param>
+            <param required="true"
+                   name="external_gateway_info"
+                   style="plain"
+                   type="xsd:dict"
+                   path="$.external_gateway_information">
+                
+            </param>
+            <param required="true"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.name">
+                
+            </param>
+            <param required="true"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.admin_state_up">
+                
+            </param>
+            <param name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.tenant_id">
+                
+            </param>
+            <param required="true"
+                   name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.id">
+                
+            </param>
+         </representation>
+        </response> 
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        </method>
+
+    <!-- Create Router -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createRouter">
+        
+        <request>
+            <representation mediaType="application/json" element="csapi:router">
+                 <param required="true" name="router" style="plain" type="xsd:string">
+        
+    </param> 
+            <param required="true"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.name">
+        
+    </param> 
+            <param required="true"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.admin_state_up">
+        
+    </param> 
+         </representation>
+        </request>
+        <response status="201">
+            <representation mediaType="application/json" element="csapi:router">
+                 <param required="true" name="router" style="plain" type="xsd:string">
+        
+    </param> 
+           <param required="true"
+                   name="status"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.status">
+                
+            </param>
+            <param required="true"
+                   name="external_gateway_info"
+                   style="plain"
+                   type="xsd:dict"
+                   path="$.external_gateway_information">
+                
+            </param>
+            <param required="true"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.name">
+                
+            </param>
+            <param required="true"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.admin_state_up">
+                
+            </param>
+            <param name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.tenant_id">
+                
+            </param>
+            <param required="true"
+                   name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.id">
+                
+            </param>
+         </representation>
+        </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+         
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         </method>
+
+    <!-- Show Router -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showRouter">
+        
+        <response status="200">
+            <representation mediaType="application/json" element="csapi:router">
+                 <param required="true" name="routers" style="plain" type="xsd:string">
+        
+    </param> 
+           <param required="true"
+                   name="status"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.status">
+                
+            </param>
+            <param required="true"
+                   name="external_gateway_info"
+                   style="plain"
+                   type="xsd:dict"
+                   path="$.external_gateway_information">
+                
+            </param>
+            <param required="true"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.name">
+                
+            </param>
+            <param required="true"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.admin_state_up">
+                
+            </param>
+            <param name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.tenant_id">
+                
+            </param>
+            <param required="true"
+                   name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.id">
+                
+            </param>
+         </representation>
+        </response> 
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+               <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>  
+         
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          </method>
+
+    <!-- Update Router -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateRouter">
+        
+        <request>
+            <representation mediaType="application/json" element="csapi:router">
+                 <param required="true" name="routers" style="plain" type="xsd:string">
+        
+    </param> 
+           <param required="true"
+                   name="status"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.status">
+                
+            </param>
+            <param required="true"
+                   name="external_gateway_info"
+                   style="plain"
+                   type="xsd:dict"
+                   path="$.external_gateway_information">
+                
+            </param>
+            <param required="true"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.name">
+                
+            </param>
+            <param required="true"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.admin_state_up">
+                
+            </param>
+            <param name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.tenant_id">
+                
+            </param>
+            <param required="true"
+                   name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.id">
+                
+            </param>
+         </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json" element="csapi:router">
+                 <param required="true" name="router" style="plain" type="xsd:string">
+        
+    </param> 
+           <param required="true"
+                   name="status"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.status">
+                
+            </param>
+            <param required="true"
+                   name="external_gateway_info"
+                   style="plain"
+                   type="xsd:dict"
+                   path="$.external_gateway_information">
+                
+            </param>
+            <param required="true"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.name">
+                
+            </param>
+            <param required="true"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.admin_state_up">
+                
+            </param>
+            <param name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.tenant_id">
+                
+            </param>
+            <param required="true"
+                   name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.id">
+                
+            </param>
+         </representation>
+        </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+         
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          </method>
+
+    <!-- Delete Router -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteRouter">
+        
+        <response status="204"/> 
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          
+        <response status="409">
+
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response>
+             </method>
+
+    <!-- Add Router Interface -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="addRouterInterface">
+        
+        <request>
+            <representation mediaType="application/json" element="csapi:router">
+                 
+           <param required="false"
+                   name="subnet_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.subnet_id">
+                
+            </param>
+            <param required="false"
+                   name="port_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.port_id">
+                
+            </param>
+      
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json" element="csapi:router">
+                 <param required="true"
+                   name="subnet_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.subnet_id">
+        
+    </param> 
+            <param required="true"
+                   name="port_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.port_id">
+        
+    </param> 
+         </representation>
+        </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+         
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          
+        <response status="409">
+
+            <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+    <!-- Remove Router Interface -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="removeRouterInterface">
+        
+        <request>
+            <representation mediaType="application/json" element="csapi:router">
+                 
+           <param required="false"
+                   name="subnet_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.subnet_id">
+                
+            </param>
+            <param required="false"
+                   name="port_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.port_id">
+                
+            </param>
+         </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json" element="csapi:router">
+                 <param required="true"
+                   name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.id">
+        
+    </param> 
+            <param required="true"
+                   name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.tenant_id">
+        
+    </param> 
+            <param required="true"
+                   name="port_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.port_id">
+        
+    </param> 
+            <param required="true"
+                   name="subnet_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.subnet_id">
+        
+    </param> 
+         </representation>
+        </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+         
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          
+        <response status="409">
+
+            <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+            <representation mediaType="application/json"/>
+        </response>
+             </method>
+
+    <!-- Floating IP methods -->
+    <!--    <method name="GET" id="listFloatingIps">
+        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List floating IPs">
+            <para role="shortdesc">Lists floating IPs that are accessible to the tenant who submits the request.</para>
+            <para>Default policy settings return only those floating IPs that are owned by the tenant who submits the
+                request, unless an admin user submits the request.</para>
+            <para>This example request lists floating IPs in JSON format:</para>
+            <programlisting>GET /v2.0/floatingips
+Accept: application/json</programlisting>
+            <para>Use the <code>fields</code> query parameter to control which fields are returned in the response body.
+                Additionally, you can filter results by using query string parameters. For information, see
+                <link xlink:href="http://docs.openstack.org/api/openstack-network/2.0/content/filtering.html">Filtering and Column Selection</link>
+                in the <citetitle>OpenStack Networking API v2.0 Reference</citetitle>.</para>
+        </wadl:doc>
+        <response status="200"> &floating-ipsParameter; &router-idParameter; &tenant-idParameter;
+            &floating-network-idParameter; &fixed-ip-addressParameter; &floating-ip-addressParameter; &port-idParameter;
+            &idParameter; <representation mediaType="application/json" element="csapi:floatingip">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code href="../common/samples/floating-ips-get-resp.json"/>
+                </wadl:doc>
+            </representation>
+        </response> &fault401; </method>
+    <method name="POST" id="createFloatingIp">
+        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Create floating IP">
+            <para role="shortdesc">Creates a floating IP, and, if you specify port information, associates the floating IP
+                with an internal port.</para>
+            <para>If you do not specify port information in the request, you can issue an &PUT; request.</para>
+            <para>You can create floating IPs on external networks only. If you specify a network that is not external, such
+                as <code>router:external=False</code>, the operation returns a <code>400</code> error.</para>
+            <para>If you do not specify a floating IP address in the request, the operation automatically allocates an
+                address for the floating IP. If the requested floating IP address does not fall in the subnet range for the
+                external network, the operation returns a <code>400</code> error. If the requested floating IP address is
+                already in use, the operation returns a <code>409</code> error code.</para>
+            <para>You can associate the floating IP with an internal port by using the port ID attribute in the request body.
+                If you specify a port ID that is not valid, the operation returns a <code>404</code> error code.</para>
+            <para>You must configure an IP address with the internal OpenStack Networking port associated with the floating
+                IP or the operation returns a <code>400</code> error code. Because an OpenStack Networking port might be
+                associated with multiple IP addresses, you can use the <code>fixed_ip_address</code> attribute in the request
+                body to associate a particular IP address with the floating IP.</para>
+            <para>By default, this operation associates the floating IP with a single IP address that is configured on a
+                port. Therefore, if a port has multiple IP addresses, you must specify the <code>fixed_ip_address</code>
+                attribute.</para>
+            <para>If you specify an IP address that is not valid in the <code>fixed_ip_address</code> attribute, the
+                operation returns a <code>400</code> error code. If the internal OpenStack Networking port and specified IP
+                address are already associated with another floating IP,the operation returns a <code>409</code> error
+                code.</para>
+        </wadl:doc>
+        <request> &floating-ipParameter; &router-idParameter; &tenant-idParameter; &floating-network-idParameter;
+            &fixed-ip-addressParameter; &floating-ip-addressParameter; &port-idParameter; &idParameter; <representation
+                mediaType="application/json" element="csapi:floatingip">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code href="../common/samples/floatingip-post-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>
+        <response status="200"> &floating-ipParameter; &router-idParameter; &tenant-idParameter;
+            &floating-network-idParameter; &fixed-ip-addressParameter; &floating-ip-addressParameter; &port-idParameter;
+            &idParameter; <representation mediaType="application/json" element="csapi:floatingip">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code href="../common/samples/floatingip-post-resp.json"/>
+                </wadl:doc>
+            </representation>
+        </response> &fault400; &fault401; &fault409; </method>
+    <method name="GET" id="showFloatingIp">
+        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Show floating IP details">
+            <para role="shortdesc">Shows details for a specified floating IP.</para>
+            <para>Use the <code>fields</code> query parameter to control which fields are returned in the response body. For
+                information, see
+                <link xlink:href="http://docs.openstack.org/api/openstack-network/2.0/content/filtering.html">Filtering and Column Selection</link>
+                in the <citetitle>OpenStack Networking API v2.0 Reference</citetitle>.</para>
+            <para>This example request shows details for a floating IP in JSON format. This example also filters the result
+                by the <code>fixed_ip_address</code> and <code>floating_ip_address</code> fields.</para>
+            <programlisting>GET /v2.0/floatingips/{floatingip_id}?fields=fixed_ip_address&amp;fields=floating_ip_address
+Accept: application/json</programlisting>
+        </wadl:doc>
+        <response status="200"> &floating-ipParameter; &router-idParameter; &tenant-idParameter;
+            &floating-network-idParameter; &fixed-ip-addressParameter; &floating-ip-addressParameter; &port-idParameter;
+            &idParameter; <representation mediaType="application/json" element="csapi:floatingip">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code href="../common/samples/floatingip-get-detail-resp.json"/>
+                </wadl:doc>
+            </representation>
+        </response> &fault401; &fault403; &fault404; </method>
+    <method name="PUT" id="updateFloatingIp">
+        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Update floating IP">
+            <para role="shortdesc">Updates a floating IP and its association with an internal port.</para>
+            <para>The association process is the same as the process for the create floating IP operation.</para>
+            <para>To disassociate a floating IP from a port, set the <code>port_id</code> attribute to null or omit it from
+                the request body.</para>
+            <para>This example updates a floating IP:</para>
+            <programlisting>PUT /v2.0/floatingips/{floatingip_id}
+Accept: application/json</programlisting>
+            <para>Depending on the request body that you submit, this request associates a port with or disassociates a port
+                from a floating IP.</para>
+        </wadl:doc>
+        <request> &port-idParameter; <representation mediaType="application/json" element="csapi:floatingip">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
+                    title="Update floating IP (associate port): JSON">
+                    <xsdxt:code href="../common/samples/floatingip-put-update.req.json"/>
+                </wadl:doc>
+            </representation>
+            <representation mediaType="application/json" element="csapi:floatingip">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
+                    title="Update floating IP (disassociate port): JSON">
+                    <xsdxt:code href="../common/samples/floatingip-put-disassociate-update.req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>
+        <response status="200"> &floating-ipParameter; &router-idParameter; &tenant-idParameter;
+            &floating-network-idParameter; &fixed-ip-addressParameter; &floating-ip-addressParameter; &port-idParameter;
+            &idParameter; <representation mediaType="application/json" element="csapi:floatingip">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
+                    title="Update floating IP (associate port): JSON">
+                    <xsdxt:code href="../common/samples/floatingip-put-update-resp.json"/>
+                </wadl:doc>
+            </representation>
+            <representation mediaType="application/json" element="csapi:floatingip">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"
+                    title="Update floating IP (disassociate port): JSON">
+                    <xsdxt:code href="../common/samples/floatingip-put-disassociate-update-resp.json"/>
+                </wadl:doc>
+            </representation>
+        </response> &fault400; &fault401; &fault404; &fault409; </method>
+    <method name="DELETE" id="deleteFloatingIp">
+        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Delete floating IP">
+            <para role="shortdesc">Deletes a floating IP and, if present, its associated port.</para>
+            <para>This example deletes a floating IP:</para>
+            <programlisting>DELETE /v2.0/floatingips/{floatingip_id}
+Accept: application/json</programlisting></wadl:doc>
+        <response status="204"/> &fault401; &fault404; </method>-->
+</wadl:application>

@@ -1,0 +1,14 @@
+INFO:wadls/os-floating-ips-bulk.wadl:Converting: wadls/os-floating-ips-bulk.wadl to swagger/os-floating-ips-bulk.json
+WARNING:wadls/os-floating-ips-bulk.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-floating-ips-bulk.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-floating-ips-bulk.wadl:No support for application/json for resource at /v2/{tenant_id}/os-floating-ips-bulk/delete
+WARNING:wadls/os-floating-ips-bulk.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-floating-ips-bulk.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-floating-ips-bulk.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-floating-ips-bulk.wadl:Autofix: path parameters must be required in Swagger (host_name)
+INFO:root:Saving swagger to swagger/os-floating-ips-bulk.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

@@ -1,0 +1,10 @@
+INFO:wadls/os-ext-img-size.wadl:Converting: wadls/os-ext-img-size.wadl to swagger/os-ext-img-size.json
+WARNING:wadls/os-ext-img-size.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-ext-img-size.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-ext-img-size.wadl:Autofix: path parameters must be required in Swagger (image_id)
+INFO:root:Saving swagger to swagger/os-ext-img-size.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

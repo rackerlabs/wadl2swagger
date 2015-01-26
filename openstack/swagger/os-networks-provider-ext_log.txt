@@ -1,0 +1,15 @@
+INFO:wadls/os-networks-provider-ext.wadl:Converting: wadls/os-networks-provider-ext.wadl to swagger/os-networks-provider-ext.json
+WARNING:wadls/os-networks-provider-ext.wadl:Autofix: path parameters must be required in Swagger (network_id)
+INFO:root:Saving swagger to swagger/os-networks-provider-ext.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v2.0~1networks~1{network_id}/delete/responses: Data matches schema from 'not'
+  #/paths/~1v2.0~1networks~1{network_id}/delete/responses: Too few properties defined (0), minimum 1
+
+2 errors and 0 warnings
+Invalid

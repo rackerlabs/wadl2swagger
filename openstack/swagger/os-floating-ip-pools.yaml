@@ -1,0 +1,40 @@
+---
+swagger: '2.0'
+info:
+  title: os-floating-ip-pools
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-floating-ip-pools":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    get:
+      operationId: listFloatingIpPools
+      summary: List floating IP pools
+      description: |
+        Lists floating IP pools.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "floating_ip_pools": [
+                      {
+                          "name": "pool1"
+                      },
+                      {
+                          "name": "pool2"
+                      }
+                  ]
+              }

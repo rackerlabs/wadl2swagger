@@ -1,0 +1,137 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-security-groups",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-security-groups": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listSecGroups",
+                "summary": "List security groups",
+                "description": "Lists security groups.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_groups\": [\n        {\n            \"rules\": [],\n            \"tenant_id\": \"openstack\",\n            \"description\": \"default\",\n            \"name\": \"default\",\n            \"id\": 1\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createSecGroup",
+                "summary": "Create security group",
+                "description": "Creates a security group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_group\": {\n        \"rules\": [],\n        \"tenant_id\": \"openstack\",\n        \"description\": \"description\",\n        \"name\": \"test\",\n        \"id\": 2\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-security-groups/servers/{server_id}/os-security-groups": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listSecGroupsByServer",
+                "summary": "List security groups by server",
+                "description": "Lists security groups for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_groups\": [\n        {\n            \"rules\": [],\n            \"tenant_id\": \"openstack\",\n            \"description\": \"default\",\n            \"name\": \"default\",\n            \"id\": 1\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-security-groups/{security_group_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "security_group_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the security group.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showSecGroup",
+                "summary": "Show security group information",
+                "description": "Shows information for a specified security group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_group\": {\n        \"rules\": [],\n        \"tenant_id\": \"openstack\",\n        \"description\": \"default\",\n        \"name\": \"default\",\n        \"id\": 1\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteSecGroup",
+                "summary": "Delete security group",
+                "description": "Deletes a specified security group.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        }
+    }
+}

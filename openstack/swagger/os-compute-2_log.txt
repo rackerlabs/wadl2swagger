@@ -1,0 +1,127 @@
+INFO:wadls/os-compute-2.wadl:Converting: wadls/os-compute-2.wadl to swagger/os-compute-2.json
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Unknown type: regexp for param name
+WARNING:wadls/os-compute-2.wadl:Using string for regexp
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:ServerStatus for param status
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:ServerStatus
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:ServerForCreate for param server
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:ServerForCreate
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param imageRef
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param flavorRef
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param name
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param metadata
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param personality
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param block_device_mapping_v2
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param device_name
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param source_type
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param destination_type
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param delete_on_termination
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param guest_format
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param delete_on_termination
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param boot_index
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:string for param config_drive
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:string
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Unknown type: regexp for param name
+WARNING:wadls/os-compute-2.wadl:Using string for regexp
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:ServerStatus for param status
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:ServerStatus
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:ServerForUpdate for param name
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:ServerForUpdate
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:ServerForUpdate for param accessIPv4
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:ServerForUpdate
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:ServerForUpdate for param accessIPv6
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:ServerForUpdate
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:MetadataKey for param key
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:MetadataKey
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (key)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (network_label)
+WARNING:wadls/os-compute-2.wadl:No support for application/json for resource at /v2/{tenant_id}/servers/{server_id}/action
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:ServerForCreate for param name
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:ServerForCreate
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:ServerForCreate for param createImage
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:ServerForCreate
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:ServerForCreate for param metadata
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:ServerForCreate
+WARNING:wadls/os-compute-2.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:ImageStatus for param status
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:ImageStatus
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:ImageStatus for param status
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:ImageStatus
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (image_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (image_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (image_id)
+WARNING:wadls/os-compute-2.wadl:Unknown type: csapi:imageMetadataKey for param key
+WARNING:wadls/os-compute-2.wadl:Using string for csapi:imageMetadataKey
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (key)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-compute-2.wadl:Autofix: path parameters must be required in Swagger (flavor_id)
+INFO:root:Saving swagger to swagger/os-compute-2.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

@@ -1,0 +1,110 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-createserverext",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/servers": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createServer",
+                "summary": "Create server with configuration drive",
+                "description": "Creates a server with the configuration drive extended attribute.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"id\": \"58da039c-dc81-4d8f-8688-a2f819e2f750\",\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/servers/58da039c-dc81-4d8f-8688-a2f819e2f750\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/servers/58da039c-dc81-4d8f-8688-a2f819e2f750\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"adminPass\": \"am5LKVsBVQ4s\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getServer",
+                "summary": "Get server information with configuration drive",
+                "description": "Shows information for a specified server including the configuration drive extended attribute.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": \"2013-02-04T13:17:51Z\",\n        \"hostId\": \"8725fb615b191d8249a40f3e90d1efde88d914412e4edb2719176afd\",\n        \"user_id\": \"fake\",\n        \"addresses\": {\n            \"private\": [\n                {\n                    \"version\": 4,\n                    \"addr\": \"192.168.0.3\"\n                }\n            ]\n        },\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/servers/dd3b0715-a3fc-43d8-bbd2-2720beb226fb\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/servers/dd3b0715-a3fc-43d8-bbd2-2720beb226fb\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"created\": \"2013-02-04T13:17:50Z\",\n        \"tenant_id\": \"openstack\",\n        \"image\": {\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"name\": \"new-server-test\",\n        \"accessIPv4\": \"\",\n        \"accessIPv6\": \"\",\n        \"progress\": 0,\n        \"flavor\": {\n            \"id\": \"1\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"metadata\": {\n            \"My Server Name\": \"Apache1\"\n        },\n        \"id\": \"dd3b0715-a3fc-43d8-bbd2-2720beb226fb\",\n        \"config_drive\": \"\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getServersDetailed",
+                "summary": "Get server details with configuration drive",
+                "description": "Lists details for all servers including the configuration drive extended attribute.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"servers\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2013-02-04T13:21:44Z\",\n            \"hostId\": \"76e154b0015e25fad65a7ab0c35a86dd79acfa8312075a6534ef6176\",\n            \"user_id\": \"fake\",\n            \"addresses\": {\n                \"private\": [\n                    {\n                        \"version\": 4,\n                        \"addr\": \"192.168.0.3\"\n                    }\n                ]\n            },\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/servers/720e688f-5ec8-4d4f-b585-dbd1a89ceeb0\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/servers/720e688f-5ec8-4d4f-b585-dbd1a89ceeb0\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"created\": \"2013-02-04T13:21:44Z\",\n            \"tenant_id\": \"openstack\",\n            \"image\": {\n                \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"name\": \"new-server-test\",\n            \"accessIPv4\": \"\",\n            \"accessIPv6\": \"\",\n            \"progress\": 0,\n            \"flavor\": {\n                \"id\": \"1\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"metadata\": {\n                \"My Server Name\": \"Apache1\"\n            },\n            \"id\": \"720e688f-5ec8-4d4f-b585-dbd1a89ceeb0\",\n            \"config_drive\": \"\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

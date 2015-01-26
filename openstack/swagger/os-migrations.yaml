@@ -1,0 +1,80 @@
+---
+swagger: '2.0'
+info:
+  title: os-migrations
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-migrations":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: host
+      required: false
+      in: query
+      type: string
+      description: |
+        Filters the response by host name. Include the host name in the URI as follows: `host={host}`.
+    - name: status
+      required: false
+      in: query
+      type: string
+      description: |
+        Filters the response by status. Include the status in the URI as follows: `status={status}`.
+    - name: cell_name
+      required: false
+      in: query
+      type: string
+      description: |
+        Filters the response by cell name. Include the cell name in the URI as follows: `cell_name={cell}`.
+    get:
+      operationId: getMigrations
+      summary: Get migrations
+      description: |
+        Enables an administrative user to fetch in-progress migrations for a region or specified cell in a region.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "migrations": [
+                      {
+                          "dest_host": "1.2.3.4",
+                          "instance_uuid": "instance_id_123",
+                          "created_at": "2012-10-29T13:42:02.000000",
+                          "source_node": "node1",
+                          "updated_at": "2012-10-29T13:42:02.000000",
+                          "dest_compute": "compute2",
+                          "status": "Done",
+                          "new_instance_type_id": 2,
+                          "old_instance_type_id": 1,
+                          "dest_node": "node2",
+                          "id": 1234,
+                          "source_compute": "compute1"
+                      },
+                      {
+                          "dest_host": "5.6.7.8",
+                          "instance_uuid": "instance_id_456",
+                          "created_at": "2013-10-22T13:42:02.000000",
+                          "source_node": "node10",
+                          "updated_at": "2013-10-22T13:42:02.000000",
+                          "dest_compute": "compute20",
+                          "status": "Done",
+                          "new_instance_type_id": 6,
+                          "old_instance_type_id": 5,
+                          "dest_node": "node20",
+                          "id": 5678,
+                          "source_compute": "compute10"
+                      }
+                  ]
+              }

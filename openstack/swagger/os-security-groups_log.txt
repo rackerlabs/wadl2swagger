@@ -1,0 +1,14 @@
+INFO:wadls/os-security-groups.wadl:Converting: wadls/os-security-groups.wadl to swagger/os-security-groups.json
+WARNING:wadls/os-security-groups.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-security-groups.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-security-groups.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-security-groups.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-security-groups.wadl:Unknown type: csapi:uuid for param security_group_id
+WARNING:wadls/os-security-groups.wadl:Using string for csapi:uuid
+WARNING:wadls/os-security-groups.wadl:Autofix: path parameters must be required in Swagger (security_group_id)
+INFO:root:Saving swagger to swagger/os-security-groups.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

@@ -1,0 +1,96 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-instance-actions",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/servers/{server_id}/os-instance-actions": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID of the server instance for which you want to list actions.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listActions",
+                "summary": "List server actions",
+                "description": "Lists history of successful actions for a specified server. Deployers set permissions for this request in the `policy.json` file. By default, all users can list actions.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"instanceActions\": [\n        {\n            \"instance_uuid\": \"b48316c5-71e8-45e4-9884-6c78055b9b13\",\n            \"user_id\": \"789\",\n            \"start_time\": \"2012-12-05 01:00:00.000000\",\n            \"request_id\": \"req-25517360-b757-47d3-be45-0e8d2a01b36a\",\n            \"action\": \"resize\",\n            \"message\": \"\",\n            \"project_id\": \"842\"\n        },\n        {\n            \"instance_uuid\": \"b48316c5-71e8-45e4-9884-6c78055b9b13\",\n            \"user_id\": \"789\",\n            \"start_time\": \"2012-12-05 00:00:00.000000\",\n            \"request_id\": \"req-3293a3f1-b44c-4609-b8d2-d81b105636b8\",\n            \"action\": \"reboot\",\n            \"message\": \"\",\n            \"project_id\": \"147\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}/os-instance-actions/{action_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID of the server instance for which you want to list actions.\n"
+                },
+                {
+                    "name": "action_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID of the action for which you want to get details.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getActionDetails",
+                "summary": "Get action details",
+                "description": "Gets details for a specified action for a specified server instance. Deployers set permissions for this request in the `policy.json` file. By default, only administrators can get details for an action.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"instanceAction\": {\n        \"instance_uuid\": \"b48316c5-71e8-45e4-9884-6c78055b9b13\",\n        \"user_id\": \"789\",\n        \"start_time\": \"2012-12-05 00:00:00.000000\",\n        \"request_id\": \"req-3293a3f1-b44c-4609-b8d2-d81b105636b8\",\n        \"action\": \"reboot\",\n        \"message\": \"\",\n        \"project_id\": \"147\",\n        \"events\": [\n            {\n                \"finish_time\": \"2012-12-05 01:02:00.000000\",\n                \"start_time\": \"2012-12-05 01:00:02.000000\",\n                \"traceback\": \"\",\n                \"event\": \"schedule\",\n                \"result\": \"Success\"\n            },\n            {\n                \"finish_time\": \"2012-12-05 01:04:00.000000\",\n                \"start_time\": \"2012-12-05 01:03:00.000000\",\n                \"traceback\": \"\",\n                \"event\": \"compute_create\",\n                \"result\": \"Success\"\n            }\n        ]\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"instanceAction\": {\n        \"instance_uuid\": \"b48316c5-71e8-45e4-9884-6c78055b9b13\",\n        \"user_id\": \"789\",\n        \"start_time\": \"2012-12-05 00:00:00.000000\",\n        \"request_id\": \"req-3293a3f1-b44c-4609-b8d2-d81b105636b8\",\n        \"action\": \"reboot\",\n        \"message\": \"\",\n        \"project_id\": \"147\",\n        \"events\": [\n            {\n                \"finish_time\": \"2012-12-05 01:02:00.000000\",\n                \"start_time\": \"2012-12-05 01:00:02.000000\",\n                \"traceback\": \"\",\n                \"event\": \"schedule\",\n                \"result\": \"Success\"\n            },\n            {\n                \"finish_time\": \"2012-12-05 01:04:00.000000\",\n                \"start_time\": \"2012-12-05 01:03:00.000000\",\n                \"traceback\": \"\",\n                \"event\": \"compute_create\",\n                \"result\": \"Success\"\n            }\n        ]\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

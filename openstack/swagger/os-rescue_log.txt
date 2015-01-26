@@ -1,0 +1,15 @@
+INFO:wadls/os-rescue.wadl:Converting: wadls/os-rescue.wadl to swagger/os-rescue.json
+WARNING:wadls/os-rescue.wadl:No support for application/json for resource at /v2/{tenant_id}/servers/{server_id}/action
+WARNING:wadls/os-rescue.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-rescue.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-rescue.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-rescue.wadl:Unknown type: csapi:string for param adminPass
+WARNING:wadls/os-rescue.wadl:Using string for csapi:string
+WARNING:wadls/os-rescue.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-rescue.wadl:Ignoring body parameter, converting these is not yet supported...
+INFO:root:Saving swagger to swagger/os-rescue.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

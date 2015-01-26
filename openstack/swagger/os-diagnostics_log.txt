@@ -1,0 +1,9 @@
+INFO:wadls/os-diagnostics.wadl:Converting: wadls/os-diagnostics.wadl to swagger/os-diagnostics.json
+WARNING:wadls/os-diagnostics.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-diagnostics.wadl:Autofix: path parameters must be required in Swagger (server_id)
+INFO:root:Saving swagger to swagger/os-diagnostics.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

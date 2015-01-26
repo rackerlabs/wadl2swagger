@@ -1,0 +1,16 @@
+INFO:wadls/os-flavor-extra-specs.wadl:Converting: wadls/os-flavor-extra-specs.wadl to swagger/os-flavor-extra-specs.json
+WARNING:wadls/os-flavor-extra-specs.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-flavor-extra-specs.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-flavor-extra-specs.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v2~1{tenant_id}~1flavors~1{flavor_id}~1os-extra_specs~1{key_id}/get: API requires path parameter but it is not defined: key_id
+  #/paths/~1v2~1{tenant_id}~1flavors~1{flavor_id}~1os-extra_specs~1{key_id}/delete: API requires path parameter but it is not defined: key_id
+
+2 errors and 0 warnings
+Invalid

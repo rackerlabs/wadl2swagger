@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com/"
+              xml:id="os-security-group-default-rules-v2">
+        <resource id="os-security-group-default-rules"
+                path="/v2/{tenant_id}/os-security-group-default-rules">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+                    </wadl:doc>
+                </param>
+         <method name="GET" rax:id="listSecGroupDefaultRules">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List default security group rules">
+               <para role="shortdesc">Lists default security group
+                rules.</para>
+            </wadl:doc>
+            <response status="200">
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="List default security group rules: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "security_group_default_rules": [
+        {
+            "from_port": 80,
+            "id": 1,
+            "ip_protocol": "TCP",
+            "ip_range": {
+                "cidr": "10.10.10.0/24"
+            },
+            "to_port": 80
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="List default security group rules: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;security_group_default_rules xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;security_group_default_rule id="1"&gt;
+    &lt;ip_protocol&gt;TCP&lt;/ip_protocol&gt;
+    &lt;from_port&gt;80&lt;/from_port&gt;
+    &lt;to_port&gt;80&lt;/to_port&gt;
+    &lt;ip_range&gt;
+      &lt;cidr&gt;10.10.10.0/24&lt;/cidr&gt;
+    &lt;/ip_range&gt;
+  &lt;/security_group_default_rule&gt;
+&lt;/security_group_default_rules&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="from_port" style="plain" type="xsd:int" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="From port">
+                        <para>Port at start of range.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" type="csapi:UUID" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Security group ID">
+                        <para>Security group ID.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="ip_protocol"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="IP protocol">
+                        <para>The IP protocol: ICMP, TCP, or
+                            UDP.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="ip_range" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="IP range">
+                        <para>An IP range object.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="cidr" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="CIDR">
+                        <para>The CIDR for address range.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="to_port" style="plain" type="xsd:int" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="To port">
+                        <para>Port at end of range.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="createSecGroupRule">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create default security group rule">
+               <para role="shortdesc">Creates a default security group
+                rule.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Create default security group rule: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "security_group_default_rule": {
+        "ip_protocol": "TCP",
+        "from_port": "80",
+        "to_port": "80",
+        "cidr": "10.10.12.0/24"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Create default security group rule: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;security_group_default_rule&gt;
+  &lt;ip_protocol&gt;TCP&lt;/ip_protocol&gt;
+  &lt;from_port&gt;80&lt;/from_port&gt;
+  &lt;to_port&gt;80&lt;/to_port&gt;
+  &lt;cidr&gt;10.10.12.0/24&lt;/cidr&gt;
+&lt;/security_group_default_rule&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="id" style="plain" type="csapi:UUID" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Security group name or ID">
+                        <para>Security group name or ID.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="ip_protocol"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="IP protocol">
+                        <para>The IP protocol: ICMP, TCP, or
+                            UDP.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="from_port" style="plain" type="xsd:int" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="From port">
+                        <para>Port at start of range.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="to_port" style="plain" type="xsd:int" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="To port">
+                        <para>Port at end of range.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="cidr" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="CIDR">
+                        <para>The CIDR for address range.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Create default security group rule: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "security_group_default_rule": {
+        "from_port": 80,
+        "id": 1,
+        "ip_protocol": "TCP",
+        "ip_range": {
+            "cidr": "10.10.10.0/24"
+        },
+        "to_port": 80
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Create default security group rule: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;security_group_default_rule xmlns="http://docs.openstack.org/compute/api/v1.1"  id="1"&gt;
+  &lt;ip_protocol&gt;TCP&lt;/ip_protocol&gt;
+  &lt;from_port&gt;80&lt;/from_port&gt;
+  &lt;to_port&gt;80&lt;/to_port&gt;
+  &lt;ip_range&gt;
+    &lt;cidr&gt;10.10.10.0/24&lt;/cidr&gt;
+  &lt;/ip_range&gt;
+&lt;/security_group_default_rule&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="from_port" style="plain" type="xsd:int" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="From port">
+                        <para>Port at start of range.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" type="csapi:UUID" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Security group ID">
+                        <para>Security group ID.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="ip_protocol"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="IP protocol">
+                        <para>The IP protocol: ICMP, TCP, or
+                            UDP.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="ip_range" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="IP range">
+                        <para>An IP range object.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="cidr" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="CIDR">
+                        <para>The CIDR for address range.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="to_port" style="plain" type="xsd:int" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="To port">
+                        <para>Port at end of range.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource path="/v2/{tenant_id}/os-security-group-default-rules/{security_group_default_rule_id}"
+                id="security_group_default_rule_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para>The unique identifier of the tenant or
+                            account.</para>
+                    </wadl:doc>
+                </param>
+         <param name="security_group_default_rule_id"
+                style="template"
+                type="csapi:uuid">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Security group rule ID">
+               <para>The unique identifier of the
+                                   security group
+                                rule.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="showSecGroupDefaultRule">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show default security group rule information">
+               <para role="shortdesc">Shows information for a specified
+                security group rule.</para>
+            </wadl:doc>
+            <response status="200">
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Show default security group rule: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "security_group_default_rule": {
+        "id": 1,
+        "from_port": 80,
+        "to_port": 80,
+        "ip_protocol": "TCP",
+        "ip_range": {
+            "cidr": "10.10.10.0/24"
+        }
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Show default security group rule: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;security_group_default_rule xmlns="http://docs.openstack.org/compute/api/v1.1" id="1"&gt;
+  &lt;from_port&gt;80&lt;/from_port&gt;
+  &lt;to_port&gt;80&lt;/to_port&gt;
+  &lt;ip_protocol&gt;TCP&lt;/ip_protocol&gt;
+  &lt;ip_range&gt;
+    &lt;cidr&gt;10.10.10.0/24&lt;/cidr&gt;
+  &lt;/ip_range&gt;
+&lt;/security_group_default_rule&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="from_port" style="plain" type="xsd:int" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="From port">
+                        <para>Port at start of range.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" type="csapi:UUID" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Security group ID">
+                        <para>Security group ID.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="ip_protocol"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="IP protocol">
+                        <para>The IP protocol: ICMP, TCP, or
+                            UDP.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="ip_range" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="IP range">
+                        <para>An IP range object.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="cidr" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="CIDR">
+                        <para>The CIDR for address range.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="to_port" style="plain" type="xsd:int" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="To port">
+                        <para>Port at end of range.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+         <method name="DELETE" rax:id="deleteSecGroupDefaultRule">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete default security group rule">
+               <para role="shortdesc">Deletes a specified security group
+                rule.</para>
+            </wadl:doc>
+            <response status="204"/>
+         </method>
+      </resource>
+                        
+                        
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listSecGroupDefaultRules">
+        
+        <response status="200">
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="from_port" style="plain" type="xsd:int" required="true">
+                    
+                </param>
+                <param name="id" style="plain" type="csapi:UUID" required="true">
+                    
+                </param>
+                <param name="ip_protocol"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="ip_range" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="cidr" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="to_port" style="plain" type="xsd:int" required="true">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showSecGroupDefaultRule">
+        
+        <response status="200">
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="from_port" style="plain" type="xsd:int" required="true">
+                    
+                </param>
+                <param name="id" style="plain" type="csapi:UUID" required="true">
+                    
+                </param>
+                <param name="ip_protocol"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="ip_range" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="cidr" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="to_port" style="plain" type="xsd:int" required="true">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createSecGroupRule">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="id" style="plain" type="csapi:UUID" required="true">
+                    
+                </param>
+                <param name="ip_protocol"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="from_port" style="plain" type="xsd:int" required="true">
+                    
+                </param>
+                <param name="to_port" style="plain" type="xsd:int" required="true">
+                    
+                </param>
+                <param name="cidr" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="from_port" style="plain" type="xsd:int" required="true">
+                    
+                </param>
+                <param name="id" style="plain" type="csapi:UUID" required="true">
+                    
+                </param>
+                <param name="ip_protocol"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="ip_range" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="cidr" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="to_port" style="plain" type="xsd:int" required="true">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteSecGroupDefaultRule">
+        
+        <response status="204"/>
+    </method>
+</wadl:application>

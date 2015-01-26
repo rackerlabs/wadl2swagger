@@ -1,0 +1,1439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entites with xmllint          -->
+<!--                                                       -->
+<!--        xmllint -noent os-networks.wadl               -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xsi:schemaLocation="http://docs.openstack.org/identity/api/v3.0      http://docs.openstack.org/common/api/v1.0      http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd     ">
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+    <resources xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://neutron.example.com/"
+              xml:id="networks-v2.0">
+        <resource id="Networks" path="v2.0/networks">
+         <method name="POST" rax:id="createNetwork">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create network">
+               <para role="shortdesc">Creates a network.</para>
+               <para>The tenant ID that you specify in the URI is the tenant who creates the network.</para>
+               <note>
+                  <para>Only one <literal>IPv4</literal> and one <literal>IPv6</literal> subnet can be specified per
+                    network.</para>
+               </note>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="csapi:network">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "network": 
+    {
+        "admin_state_up": true,
+        "id": "4d4e772a-98e7-4409-8a3c-4fed4324da26",
+        "name": "testnet-3",
+        "shared": false,
+        "status": "ACTIVE",
+        "subnets": [],
+        "tenant_id": "123456"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true"
+                         name="network"
+                         style="plain"
+                         type="object"
+                         path="$.parameters.network">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The container for the network details.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.network.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the network. The default value is <literal>true</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.network.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network name.  Currently, network names should be 40 characters or fewer.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="shared"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.network.shared">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Admin only. Indicates whether this network is shared across all tenants. The default value is <literal>false</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="tenant_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.network.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID of the tenant who owns the network.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="201">
+               <representation mediaType="application/json" element="csapi:network">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">
+{
+"network": 
+    {
+        "admin_state_up": true,
+        "id": "4d4e772a-98e7-4409-8a3c-4fed4324da26",
+        "name": "testnet-3",
+        "shared": false,
+        "status": "ACTIVE",
+        "subnets": [],
+        "tenant_id": "123456"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true"
+                         name="network"
+                         style="plain"
+                         type="object"
+                         path="$.parameters.network">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The container for the network details.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="status"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.network.status">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network status. The default value is <literal>ACTIVE</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="subnets"
+                         style="plain"
+                         type="xsd:dict"
+                         path="$.parameters.network.subnets">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The associated subnets.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.network.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.network.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the network. The default value is <literal>true</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="tenant_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.network.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.network.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="shared"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.network.shared">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Indicates whether this network is shared across all tenants. The default value is <literal>false</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+         
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="GET" rax:id="listNetworks">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Retrieve list of networks">
+               <para role="shortdesc">Retrieves list of networks to which the specified tenant has access.</para>
+               <para>You can control which attributes are returned by using the <parameter>fields</parameter> query
+                parameter.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json" element="csapi:network">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "networks": [
+        {
+            "admin_state_up": true,
+            "id": "00000000-0000-0000-0000-000000000000",
+            "name": "public",
+            "shared": true,
+            "status": "ACTIVE",
+            "subnets": [],
+            "tenant_id": "rackspace"
+        },
+        {
+            "admin_state_up": true,
+            "id": "11111111-1111-1111-1111-111111111111",
+            "name": "private",
+            "shared": true,
+            "status": "ACTIVE",
+            "subnets": [],
+            "tenant_id": "rackspace"
+        },
+        {
+            "admin_state_up": true,
+            "id": "2993e407-5531-4ca8-9d2a-0d13b5cac904",
+            "name": "RackNet",
+            "shared": false,
+            "status": "ACTIVE",
+            "subnets": [
+                "017d8997-70ec-4448-91d9-a8097d6d60f3"
+            ],
+            "tenant_id": "123456"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param required="true"
+                         name="networks"
+                         style="plain"
+                         type="array"
+                         path="$.parameters.networks">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The array of networks.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="status"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.networks.status">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network status. The default value is <literal>ACTIVE</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="subnets"
+                         style="plain"
+                         type="xsd:dict"
+                         path="$.parameters.networks.subnets">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The associated subnets.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.networks.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.networks.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the network. The default value is <literal>true</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="tenant_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.networks.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.networks.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="shared"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.networks.shared">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Indicates whether this network is shared across all tenants. The default value is <literal>false</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response> 
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+        </method>
+         <method name="POST" rax:id="bulkCreateNetwork">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Bulk create networks">
+               <para role="shortdesc">Creates multiple networks in a single request.</para>
+               <para>In the request body, specify a list of networks.</para>
+               <note>
+                  <para>Bulk create operations are always atomic, meaning that either all or no networks in the request body
+                    are created.</para>
+               </note>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="csapi:network">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "networks":[
+      {
+         "name":"sample_network_1",
+         "admin_state_up":false
+      },
+      {
+         "name":"sample_network_2",
+         "admin_state_up":false
+      }
+   ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true"
+                         name="network"
+                         style="plain"
+                         type="object"
+                         path="$.parameters.network">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The container for the network details.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.network.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the network. The default value is <literal>true</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.network.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network name.  Currently, network names should be 40 characters or fewer.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="shared"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.network.shared">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Admin only. Indicates whether this network is shared across all tenants. The default value is <literal>false</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="tenant_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.network.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID of the tenant who owns the network.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+               <!--<representation mediaType="application/xml" element="csapi:network">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code href="../common/samples/networks-post-create-bulk-req.xml"/>
+                </wadl:doc>
+            </representation>-->
+            </request>
+            <response status="201">
+               <representation mediaType="application/json" element="csapi:network">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "networks":[
+      {
+         "status":"ACTIVE",
+         "subnets":[
+
+         ],
+         "name":"sample_network3",
+         "provider:physical_network":null,
+         "admin_state_up":true,
+         "tenant_id":"4fd44f30292945e481c7b8a0c8908869",
+         "provider:network_type":"local",
+         "shared":false,
+         "id":"bc1a76cb-8767-4c3a-bb95-018b822f2130",
+         "provider:segmentation_id":null
+      },
+      {
+         "status":"ACTIVE",
+         "subnets":[
+
+         ],
+         "name":"sample_network4",
+         "provider:physical_network":null,
+         "admin_state_up":true,
+         "tenant_id":"4fd44f30292945e481c7b8a0c8908869",
+         "provider:network_type":"local",
+         "shared":false,
+         "id":"af374017-c9ae-4a1d-b799-ab73111476e2",
+         "provider:segmentation_id":null
+      }
+   ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param required="true"
+                         name="networks"
+                         style="plain"
+                         type="array"
+                         path="$.parameters.networks">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The array of networks.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="status"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.networks.status">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network status. The default value is <literal>ACTIVE</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="subnets"
+                         style="plain"
+                         type="xsd:dict"
+                         path="$.parameters.networks.subnets">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The associated subnets.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.networks.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.networks.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the network. The default value is <literal>true</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="tenant_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.networks.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.networks.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="shared"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.networks.shared">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Indicates whether this network is shared across all tenants. The default value is <literal>false</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+               <!--<representation mediaType="application/xml" element="csapi:network">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code href="../common/samples/networks-create-bulk-resp.xml"/>
+                </wadl:doc>
+            </representation>-->
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+         
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                
+                
+                
+                <resource id="networkID" path="v2.0/networks/{network_id}">
+         <param name="network_id" style="template" type="csapi:UUID">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Network ID">The UUID for the
+                            network.</wadl:doc>
+                    </param>
+         <method name="GET" rax:id="showNetwork">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show network">
+               <para role="shortdesc">Retrieves information for a specified network.</para>
+               <para>You can control which attributes are returned by using the <parameter>fields</parameter> query parameter.
+                For information, see
+                <link xlink:href="http://docs.rackspace.com/networks/api/v2/cn-devguide/content/section_filtering.html">Filtering 
+                    Requests</link>.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json" element="csapi:network">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "network": 
+    {
+        "admin_state_up": true,
+        "id": "4d4e772a-98e7-4409-8a3c-4fed4324da26",
+        "name": "sameer-3",
+        "shared": false,
+        "status": "ACTIVE",
+        "subnets": [],
+        "tenant_id": "546428"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param required="true"
+                         name="networks"
+                         style="plain"
+                         type="array"
+                         path="$.parameters.networks">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The array of networks.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="status"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.networks.status">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network status. The default value is <literal>ACTIVE</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="subnets"
+                         style="plain"
+                         type="xsd:dict"
+                         path="$.parameters.networks.subnets">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The associated subnets.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.networks.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.networks.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the network. The default value is <literal>true</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="tenant_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.networks.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.networks.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="shared"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.networks.shared">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Indicates whether this network is shared across all tenants. The default value is <literal>false</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response> 
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          </method>
+         <method name="PUT" rax:id="updateNetwork">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update network">
+               <para role="shortdesc">Updates a specified network.</para>
+               <warning>
+                  <para>Network IDs "00000000-0000-0000-0000-000000000000" and "11111111-1111-1111-1111-111111111111"
+                    correspond to the PublicNet and ServiceNet networks of Rackspace. Changes to these networks are not
+                    supported.</para>
+               </warning>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="csapi:network">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+ "network":
+  {
+    "name": "sample_network_5_updated"
+  }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param required="true"
+                         name="network"
+                         style="plain"
+                         type="object"
+                         path="$.parameters.network">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The container for the network details.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.networks.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network name.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="csapi:network">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+     "network":{
+      "status":"ACTIVE",
+      "subnets":[
+
+      ],
+      "name":"sample_network_5_updated",
+      "admin_state_up":true,
+      "tenant_id":"4fd44f30292945e481c7b8a0c8908869",
+      "shared":false,
+      "id":"1f370095-98f6-4079-be64-6d3d4a6adcc6",
+   }
+
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param required="true"
+                         name="networks"
+                         style="plain"
+                         type="array"
+                         path="$.parameters.networks">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The array of networks.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="status"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.networks.status">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network status. The default value is <literal>ACTIVE</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="subnets"
+                         style="plain"
+                         type="xsd:dict"
+                         path="$.parameters.networks.subnets">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The associated subnets.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="name"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.parameters.networks.name">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="admin_state_up"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.networks.admin_state_up">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The administrative state of the network. The default value is <literal>true</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="tenant_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.networks.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.parameters.networks.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network ID.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="shared"
+                         style="plain"
+                         type="xsd:bool"
+                         path="$.parameters.networks.shared">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Indicates whether this network is shared across all tenants. The default value is <literal>false</literal> 
+              and cannot be changed by the user.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+         
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+               <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>  
+         
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          </method>
+         <method name="DELETE" rax:id="deleteNetwork">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete network">
+               <para role="shortdesc">Deletes a specified network and its associated resources.</para>
+            </wadl:doc>
+            <response status="204">
+               <representation mediaType="application/json"/>
+            </response> 
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          
+            <response status="409">
+
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response>
+             </method>
+      </resource>
+                    
+                    
+                    
+                    
+                
+            
+    </resources>
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+
+    <!-- List Networks -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listNetworks">
+        
+        <response status="200">
+            <representation mediaType="application/json" element="csapi:network">
+                
+            <param required="true"
+                   name="networks"
+                   style="plain"
+                   type="array"
+                   path="$.parameters.networks">
+          
+      </param>
+            <param required="true"
+                   name="status"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.networks.status">
+          
+      </param>
+            <param required="true"
+                   name="subnets"
+                   style="plain"
+                   type="xsd:dict"
+                   path="$.parameters.networks.subnets">
+          
+      </param>
+            <param required="true"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.networks.name">
+          
+      </param>
+            <param required="true"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.networks.admin_state_up">
+          
+      </param>
+            <param required="false"
+                   name="tenant_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.networks.tenant_id">
+          
+      </param>
+            <param required="true"
+                   name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.networks.id">
+          
+      </param>
+            <param required="true"
+                   name="shared"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.networks.shared">
+          
+      </param>
+         </representation>
+        </response> 
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        </method>
+
+    <!-- Create Network -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createNetwork">
+        
+        <request>
+            <representation mediaType="application/json" element="csapi:network">
+                 
+            <param required="true"
+                   name="network"
+                   style="plain"
+                   type="object"
+                   path="$.parameters.network">
+            
+     </param>
+            <param required="false"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.network.admin_state_up">
+         
+     </param>
+            <param required="false"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.network.name">
+         
+      </param>
+            <param required="false"
+                   name="shared"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.network.shared">
+         
+     </param>
+            <param required="false"
+                   name="tenant_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.network.tenant_id">
+         
+     </param>
+         </representation>
+        </request>
+        <response status="201">
+            <representation mediaType="application/json" element="csapi:network">
+                 
+            <param required="true"
+                   name="network"
+                   style="plain"
+                   type="object"
+                   path="$.parameters.network">
+          
+      </param>
+            <param required="true"
+                   name="status"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.network.status">
+          
+      </param>
+            <param required="true"
+                   name="subnets"
+                   style="plain"
+                   type="xsd:dict"
+                   path="$.parameters.network.subnets">
+          
+      </param>
+            <param required="true"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.network.name">
+          
+      </param>
+            <param required="true"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.network.admin_state_up">
+          
+      </param>
+            <param required="false"
+                   name="tenant_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.network.tenant_id">
+          
+      </param>
+            <param required="true"
+                   name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.network.id">
+          
+      </param>
+            <param required="true"
+                   name="shared"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.network.shared">
+          
+      </param>
+         </representation>
+        </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+         
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         </method>
+
+    <!-- Bulk Create Networks -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="bulkCreateNetwork">
+        
+        <request>
+            <representation mediaType="application/json" element="csapi:network">
+                 
+            <param required="true"
+                   name="network"
+                   style="plain"
+                   type="object"
+                   path="$.parameters.network">
+            
+     </param>
+            <param required="false"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.network.admin_state_up">
+         
+     </param>
+            <param required="false"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.network.name">
+         
+      </param>
+            <param required="false"
+                   name="shared"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.network.shared">
+         
+     </param>
+            <param required="false"
+                   name="tenant_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.network.tenant_id">
+         
+     </param>
+         </representation>
+            <!--<representation mediaType="application/xml" element="csapi:network">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code href="../common/samples/networks-post-create-bulk-req.xml"/>
+                </wadl:doc>
+            </representation>-->
+        </request>
+        <response status="201">
+            <representation mediaType="application/json" element="csapi:network">
+                
+            <param required="true"
+                   name="networks"
+                   style="plain"
+                   type="array"
+                   path="$.parameters.networks">
+          
+      </param>
+            <param required="true"
+                   name="status"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.networks.status">
+          
+      </param>
+            <param required="true"
+                   name="subnets"
+                   style="plain"
+                   type="xsd:dict"
+                   path="$.parameters.networks.subnets">
+          
+      </param>
+            <param required="true"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.networks.name">
+          
+      </param>
+            <param required="true"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.networks.admin_state_up">
+          
+      </param>
+            <param required="false"
+                   name="tenant_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.networks.tenant_id">
+          
+      </param>
+            <param required="true"
+                   name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.networks.id">
+          
+      </param>
+            <param required="true"
+                   name="shared"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.networks.shared">
+          
+      </param>
+         </representation>
+            <!--<representation mediaType="application/xml" element="csapi:network">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code href="../common/samples/networks-create-bulk-resp.xml"/>
+                </wadl:doc>
+            </representation>-->
+        </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+         
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         </method>
+
+    <!-- Show Networks -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showNetwork">
+        
+        <response status="200">
+            <representation mediaType="application/json" element="csapi:network">
+                
+            <param required="true"
+                   name="networks"
+                   style="plain"
+                   type="array"
+                   path="$.parameters.networks">
+          
+      </param>
+            <param required="true"
+                   name="status"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.networks.status">
+          
+      </param>
+            <param required="true"
+                   name="subnets"
+                   style="plain"
+                   type="xsd:dict"
+                   path="$.parameters.networks.subnets">
+          
+      </param>
+            <param required="true"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.networks.name">
+          
+      </param>
+            <param required="true"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.networks.admin_state_up">
+          
+      </param>
+            <param required="false"
+                   name="tenant_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.networks.tenant_id">
+          
+      </param>
+            <param required="true"
+                   name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.networks.id">
+          
+      </param>
+            <param required="true"
+                   name="shared"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.networks.shared">
+          
+      </param>
+         </representation>
+        </response> 
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          </method>
+
+    <!-- Update Network -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateNetwork">
+        
+        <request>
+            <representation mediaType="application/json" element="csapi:network">
+                 
+            <param required="true"
+                   name="network"
+                   style="plain"
+                   type="object"
+                   path="$.parameters.network">
+            
+     </param>
+            <param required="false"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.networks.name">
+         
+      </param>
+         </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json" element="csapi:network">
+                
+            <param required="true"
+                   name="networks"
+                   style="plain"
+                   type="array"
+                   path="$.parameters.networks">
+          
+      </param>
+            <param required="true"
+                   name="status"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.networks.status">
+          
+      </param>
+            <param required="true"
+                   name="subnets"
+                   style="plain"
+                   type="xsd:dict"
+                   path="$.parameters.networks.subnets">
+          
+      </param>
+            <param required="true"
+                   name="name"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.parameters.networks.name">
+          
+      </param>
+            <param required="true"
+                   name="admin_state_up"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.networks.admin_state_up">
+          
+      </param>
+            <param required="false"
+                   name="tenant_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.networks.tenant_id">
+          
+      </param>
+            <param required="true"
+                   name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.parameters.networks.id">
+          
+      </param>
+            <param required="true"
+                   name="shared"
+                   style="plain"
+                   type="xsd:bool"
+                   path="$.parameters.networks.shared">
+          
+      </param>
+         </representation>
+        </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+         
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+               <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>  
+         
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          </method>
+
+    <!-- Delete Network -->
+    <method xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteNetwork">
+        
+        <response status="204">
+            <representation mediaType="application/json"/>
+        </response> 
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          
+        <response status="409">
+
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response>
+             </method>
+</wadl:application>

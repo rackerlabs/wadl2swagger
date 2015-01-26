@@ -1,0 +1,132 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-floating-ips",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-floating-ips": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "ListFloatingIPs",
+                "summary": "List floating IPs",
+                "description": "Lists floating IP addresses associated with the tenant or account.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"floating_ips\": [\n        {\n            \"instance_id\": null,\n            \"ip\": \"10.10.10.1\",\n            \"fixed_ip\": null,\n            \"id\": 1,\n            \"pool\": \"nova\"\n        },\n        {\n            \"instance_id\": null,\n            \"ip\": \"10.10.10.2\",\n            \"fixed_ip\": null,\n            \"id\": 2,\n            \"pool\": \"nova\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "AllocateFloatingIP",
+                "summary": "Allocate floating IP",
+                "description": "Allocates a new floating IP address to a tenant or account.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"floating_ip\": {\n        \"instance_id\": null,\n        \"ip\": \"10.10.10.1\",\n        \"fixed_ip\": null,\n        \"id\": 1,\n        \"pool\": \"nova\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-floating-ips/{id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier associated with allocated floating IP address.\n"
+                }
+            ],
+            "get": {
+                "operationId": "DetailFloatingIP",
+                "summary": "Show floating IP information",
+                "description": "Shows information for a specified floating IP address.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"floating_ip\": {\n        \"instance_id\": null,\n        \"ip\": \"10.10.10.1\",\n        \"fixed_ip\": null,\n        \"id\": 1,\n        \"pool\": \"nova\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DeallocateFloatingIP",
+                "summary": "Deallocate floating IP",
+                "description": "Deallocates the floating IP address associated with floating\\_IP\\_address\\_ID.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}/action": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                }
+            ],
+            "post": {
+                "operationId": "RemoveFloatingIP",
+                "summary": "Remove floating IP",
+                "description": "Removes a floating IP from an instance.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,237 @@
+---
+swagger: '2.0'
+info:
+  title: networksnova
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/os-networksv2":
+    get:
+      operationId: listNetworks
+      summary: List Networks
+      description: |
+        Lists the networks configured for the specified tenant ID.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "networks": [
+                      {
+                          "cidr": "192.168.0.0/24",
+                          "id": "1f84c238-b05a-4374-a0cb-aa6140032cd1",
+                          "label": "new_network"
+                      },
+                      {
+                          "id": "00000000-0000-0000-0000-000000000000",
+                          "label": "public"
+                      },
+                      {
+                          "id": "11111111-1111-1111-1111-111111111111",
+                          "label": "private"
+                      }
+                  ]
+              }
+    post:
+      operationId: createNetworks
+      summary: Create Networks
+      description: |
+        Creates a network for the specified tenant ID.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "network": {
+                      "cidr": "192.168.0.0/24",
+                      "id": "1ff4489e-db0e-45a6-8c9f-4616c6ef5db1",
+                      "label": "superprivate"
+                  }
+              }
+  "/os-networksv2/{id}":
+    parameters:
+    - name: id
+      required: true
+      in: path
+      type: string
+      description: |
+        The network ID.
+    get:
+      operationId: showNetwork
+      summary: Show Network
+      description: |
+        Shows information for the specified network.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "network": {
+                      "cidr": "192.168.0.0/24",
+                      "id": "f212726e-6321-4210-9bae-a13f5a33f83f",
+                      "label": "superprivate_xml"
+                  }
+              }
+    delete:
+      operationId: deleteNetwork
+      summary: Delete Network
+      description: |
+        Deletes the specified network.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+  "/servers":
+    post:
+      operationId: attachNetworks
+      summary: Provision Servers and Attach Networks
+      description: |
+        Provisions a new server with specified networks.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "server": {
+                      "OS-DCF:diskConfig": "AUTO",
+                      "id": "ef08aa7a-b5e4-4bb8-86df-5ac56230f841",
+                      "links": [
+                          {
+                              "href": "https://dfw.servers.api.rackspacecloud.com/v2/010101/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "https://dfw.servers.api.rackspacecloud.com/010101/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "adminPass": "LMoheHauXt8w"
+                  }
+              }
+  "/servers/{instance_id}/os-virtual-interfacesv2":
+    parameters:
+    - name: instance_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The instance ID.
+    get:
+      operationId: listInterfaces
+      summary: List Virtual Interfaces
+      description: |
+        Lists the virtual interfaces configured for a server instance.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "virtual_interfaces": [
+                      {
+                          "ip_addresses": [
+                              {
+                                  "network_id": "ba122b32-dbcc-4c21-836e-b701996baeb3",
+                                  "network_label": "public",
+                                  "address": "2001:4800:7810:0512:d87b:9cbc:ff04:850c"
+                              },
+                              {
+                                  "network_id": "ba122b32-dbcc-4c21-836e-b701996baeb3",
+                                  "network_label": "public",
+                                  "address": "64.49.226.149"
+                              }
+                          ],
+                          "id": "a589b11b-cd51-4274-8ec0-832ce799d156",
+                          "mac_address": "BC:76:4E:04:85:0C"
+                      },
+                      {
+                          "ip_addresses": [
+                              {
+                                  "network_id": "f212726e-6321-4210-9bae-a13f5a33f83f",
+                                  "network_label": "superprivate_xml",
+                                  "address": "192.168.0.2"
+                              }
+                          ],
+                          "id": "de7c6d53-b895-4b4a-963c-517ccb0f0775",
+                          "mac_address": "BC:76:4E:04:85:20"
+                      },
+                      {
+                          "ip_addresses": [
+                              {
+                                  "network_id": "3b324a1b-31b8-4db5-9fe5-4a2067f60297",
+                                  "network_label": "private",
+                                  "address": "10.181.1.30"
+                              }
+                          ],
+                          "id": "e14e789d-3b98-44a6-9c2d-c23eb1d1465c",
+                          "mac_address": "BC:76:4E:04:81:55"
+                      }
+                  ]
+              }
+    post:
+      operationId: createInterface
+      summary: Create Virtual Interface
+      description: |
+        Creates a virtual interface for a network and attaches the network to a server instance.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "virtual_interfaces": [
+                      {
+                          "ip_addresses": [
+                              {
+                                  "network_id": "196a0246-86cc-46fa-9ecf-850f67c2cb7c",
+                                  "network_label": "added_network",
+                                  "address": "192.168.0.1"
+                              }
+                          ],
+                          "id": "045f195f-3347-487b-8e80-8ee3390eda56",
+                          "mac_address": "FE:ED:FA:00:08:93"
+                      }
+                  ]
+              }
+  "/servers/{instance_id}/os-virtual-interfacesv2/{interface_id}":
+    parameters:
+    - name: instance_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The instance ID.
+    - name: interface_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The interface ID.
+    delete:
+      operationId: deleteInterface
+      summary: Delete Virtual Interface
+      description: |
+        Deletes a virtual interface from a server instance.
+      produces: []
+      responses:
+        '200':
+          description: 200 response

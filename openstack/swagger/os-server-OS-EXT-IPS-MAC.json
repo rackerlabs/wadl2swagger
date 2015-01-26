@@ -1,0 +1,225 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-server-OS-EXT-IPS-MAC",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/servers": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createServer",
+                "summary": "Create server with OS-EXT-IPS-MAC:mac_addr             extended attribute",
+                "description": "Creates a server with the OS-EXT-IPS-MAC:mac\\_addr extended attribute.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"id\": \"b44e5008-42f7-4048-b4c8-f40a29da88ba\",\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/servers/b44e5008-42f7-4048-b4c8-f40a29da88ba\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/servers/b44e5008-42f7-4048-b4c8-f40a29da88ba\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"adminPass\": \"zD7wDKTXiHsp\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getServer",
+                "summary": "Show server information",
+                "description": "Shows information for a specified server. Includes the OS-EXT-IPS-MAC:mac\\_addr extended attribute.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": \"2013-02-07T18:46:29Z\",\n        \"hostId\": \"4e2003eddbfdb1280c2618d04090bcdd6773203b8da8347af0b2723d\",\n        \"user_id\": \"fake\",\n        \"addresses\": {\n            \"private\": [\n                {\n                    \"OS-EXT-IPS-MAC:mac_addr\": \"00:0c:29:e1:42:90\",\n                    \"version\": 4,\n                    \"addr\": \"192.168.0.3\"\n                }\n            ]\n        },\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/servers/dc7281f9-ee47-40b9-9950-9f73e7961caa\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/servers/dc7281f9-ee47-40b9-9950-9f73e7961caa\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"created\": \"2013-02-07T18:46:28Z\",\n        \"tenant_id\": \"openstack\",\n        \"image\": {\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"name\": \"new-server-test\",\n        \"accessIPv4\": \"\",\n        \"accessIPv6\": \"\",\n        \"progress\": 0,\n        \"flavor\": {\n            \"id\": \"1\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"id\": \"dc7281f9-ee47-40b9-9950-9f73e7961caa\",\n        \"metadata\": {\n            \"My Server Name\": \"Apache1\"\n        }\n    }\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "changes-since",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "A time/date stamp for when the server last changed status.\n"
+                    },
+                    {
+                        "name": "image",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the image in URL format.\n"
+                    },
+                    {
+                        "name": "flavor",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the flavor in URL format.\n"
+                    },
+                    {
+                        "name": "name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the server as a string; can be queried with regular expressions. Realize that ?name=bob returns both bob and bobb. If you need to match bob only, you can use a regular expression matching the syntax of the underlying database server implemented for Compute (such as MySQL or PostgreSQL).\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "UUID of the server at which you want to set a marker.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the limit of values to return.\n"
+                    },
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Value of the status of the server so that you can filter on \"ACTIVE\" for example.\n"
+                    },
+                    {
+                        "name": "host",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the host as a string.\n"
+                    }
+                ]
+            }
+        },
+        "/v2/{tenant_id}/servers/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getServersDetailed",
+                "summary": "Get server details",
+                "description": "Lists details for all servers. Includes the OS-EXT-IPS-MAC:mac\\_addr extended attribute.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"servers\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2013-02-07T18:40:59Z\",\n            \"hostId\": \"fe866a4962fe3bdb6c2db9c8f7dcdb9555aca73387e72b5cb9c45bd3\",\n            \"user_id\": \"fake\",\n            \"addresses\": {\n                \"private\": [\n                    {\n                        \"OS-EXT-IPS-MAC:mac_addr\": \"00:0c:29:e1:42:90\",\n                        \"version\": 4,\n                        \"addr\": \"192.168.0.3\"\n                    }\n                ]\n            },\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/servers/76908712-653a-4d16-807e-d89d41435d24\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/servers/76908712-653a-4d16-807e-d89d41435d24\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"created\": \"2013-02-07T18:40:59Z\",\n            \"tenant_id\": \"openstack\",\n            \"image\": {\n                \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"name\": \"new-server-test\",\n            \"accessIPv4\": \"\",\n            \"accessIPv6\": \"\",\n            \"progress\": 0,\n            \"flavor\": {\n                \"id\": \"1\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"id\": \"76908712-653a-4d16-807e-d89d41435d24\",\n            \"metadata\": {\n                \"My Server Name\": \"Apache1\"\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "changes-since",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "A time/date stamp for when the server last changed status.\n"
+                    },
+                    {
+                        "name": "image",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the image in URL format.\n"
+                    },
+                    {
+                        "name": "flavor",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the flavor in URL format.\n"
+                    },
+                    {
+                        "name": "name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the server as a string; can be queried with regular expressions. Realize that ?name=bob returns both bob and bobb. If you need to match bob only, you can use a regular expression matching the syntax of the underlying database server implemented for Compute (such as MySQL or PostgreSQL).\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "UUID of the server at which you want to set a marker.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the limit of values to return.\n"
+                    },
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Value of the status of the server so that you can filter on \"ACTIVE\" for example.\n"
+                    },
+                    {
+                        "name": "host",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the host as a string.\n"
+                    }
+                ]
+            }
+        }
+    }
+}

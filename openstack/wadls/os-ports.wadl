@@ -1,0 +1,2583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entites with xmllint          -->
+<!--                                                       -->
+<!--        xmllint -noent os-ports.wadl                   -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+    <resources xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:linkend="http://www.w3.org/1999/linkend"
+              xmlns:xref="http://www.w3.org/1999/xref"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://neutron.example.com/"
+              xml:id="os-ports-v2.0">
+        <resource id="Ports" path="/v2.0/ports">
+         <method name="GET" rax:id="listPorts">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List ports">
+               <para role="shortdesc">Lists ports to which the tenant has
+                access.</para>
+               <para>Default policy settings return only those ports
+                that are owned by the tenant who submits the request,
+                unless the request is submitted by an user with
+                administrative rights. Users can control which
+                attributes are returned by using the fields query
+                parameter. Additionally, you can filter results by
+                using query string parameters. For information, see
+                    <link xlink:href="http://docs.openstack.org/api/openstack-network/2.0/content/filtering.html">Filtering and Column Selection</link> in the
+                    <citetitle>OpenStack Networking API v2.0
+                    Reference</citetitle>.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The port status. Value is ACTIVE or DOWN.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The port name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="allowed_address_pairs"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Allowed address pairs.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The administrative state of the port, which is up (<code>true</code>) or
+                        down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the tenant who owns the network. Only administrative users can
+                        specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="extra_dhcp_opts"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Extra DHCP options.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="device_owner"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the entity that uses this port. For example, a dhcp
+                        agent.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="mac_address"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The MAC address of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="fixed_ips" style="plain" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>IP addresses for the port. Includes the IP address and subnet
+                    ID.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="security_groups"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The IDs of any attached security groups.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="device_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the device that uses this port. For example, a virtual
+                        server.</para>
+                  </wadl:doc>
+               </param>
+                
+               <param required="false"
+                      name="binding:host_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the host where the port is allocated. In some
+            cases, different implementations can run on different
+            hosts.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vif_details"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Read-only. A dictionary that enables the application to
+            pass information about functions that the Networking API
+            provides. To enable or disable port filtering features such as
+            security group and anti-MAC/IP spoofing, specify <code>port_filter:
+            True</code> or <code>port_filter:
+            False</code>.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vif_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Read-only. The vif type for the specified
+            port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:profile"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A dictionary the enables the application running on the
+            specified host to pass and receive vif port-specific
+            information to the plug-in.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vnic_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The vnic type that is bound to the neutron port.</para>
+                     <para>In <command>POST</command> and <command>PUT</command> operations, specify a value of
+                <code>normal</code> (virtual nic), <code>direct</code>
+            (pci passthrough), or <code>macvtap</code> (virtual
+            interface with a tap-like software interface). These
+            values support SR-IOV PCI passthrough networking. The ML2
+            plug-in supports the <code>vnic_type</code>.</para>
+                     <para>In <command>GET</command> operations, the
+                <parameter>binding:vnic_type</parameter> extended
+            attribute is visible to only port owners and
+            administrative users.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "ports": [
+        {
+            "status": "ACTIVE",
+            "binding:host_id": "devstack",
+            "name": "",
+            "allowed_address_pairs": [],
+            "admin_state_up": true,
+            "network_id": "70c1db1f-b701-45bd-96e0-a313ee3430b3",
+            "tenant_id": "",
+            "extra_dhcp_opts": [],
+            "binding:vif_details": {
+                "port_filter": true,
+                "ovs_hybrid_plug": true
+            },
+            "binding:vif_type": "ovs",
+            "device_owner": "network:router_gateway",
+            "mac_address": "fa:16:3e:58:42:ed",
+            "binding:profile": {},
+            "binding:vnic_type": "normal",
+            "fixed_ips": [
+                {
+                    "subnet_id": "008ba151-0b8c-4a67-98b5-0d2b87666062",
+                    "ip_address": "172.24.4.2"
+                }
+            ],
+            "id": "d80b1a3b-4fc1-49f3-952e-1e2ab7081d8b",
+            "security_groups": [],
+            "device_id": "9ae135f4-b6e0-4dad-9e91-3c223e385824"
+        },
+        {
+            "status": "ACTIVE",
+            "binding:host_id": "devstack",
+            "name": "",
+            "allowed_address_pairs": [],
+            "admin_state_up": true,
+            "network_id": "f27aa545-cbdd-4907-b0c6-c9e8b039dcc2",
+            "tenant_id": "d397de8a63f341818f198abb0966f6f3",
+            "extra_dhcp_opts": [],
+            "binding:vif_details": {
+                "port_filter": true,
+                "ovs_hybrid_plug": true
+            },
+            "binding:vif_type": "ovs",
+            "device_owner": "network:router_interface",
+            "mac_address": "fa:16:3e:bb:3c:e4",
+            "binding:profile": {},
+            "binding:vnic_type": "normal",
+            "fixed_ips": [
+                {
+                    "subnet_id": "288bf4a1-51ba-43b6-9d0a-520e9005db17",
+                    "ip_address": "10.0.0.1"
+                }
+            ],
+            "id": "f71a6703-d6de-4be1-a91a-a570ede1d159",
+            "security_groups": [],
+            "device_id": "9ae135f4-b6e0-4dad-9e91-3c223e385824"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;ports xmlns="http://openstack.org/quantum/api/v2.0"
+    xmlns:binding="http://docs.openstack.org/ext/binding/api/v1.0"
+    xmlns:quantum="http://openstack.org/quantum/api/v2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+    &lt;port&gt;
+        &lt;status&gt;ACTIVE&lt;/status&gt;
+        &lt;binding:host_id&gt;devstack&lt;/binding:host_id&gt;
+        &lt;name/&gt;
+        &lt;allowed_address_pairs quantum:type="list"/&gt;
+        &lt;admin_state_up quantum:type="bool"&gt;True&lt;/admin_state_up&gt;
+        &lt;network_id&gt;70c1db1f-b701-45bd-96e0-a313ee3430b3&lt;/network_id&gt;
+        &lt;tenant_id/&gt;
+        &lt;extra_dhcp_opts quantum:type="list"/&gt;
+        &lt;binding:vif_details&gt;
+            &lt;port_filter quantum:type="bool"&gt;True&lt;/port_filter&gt;
+            &lt;ovs_hybrid_plug quantum:type="bool"
+                &gt;True&lt;/ovs_hybrid_plug&gt;
+        &lt;/binding:vif_details&gt;
+        &lt;binding:vif_type&gt;ovs&lt;/binding:vif_type&gt;
+        &lt;device_owner&gt;network:router_gateway&lt;/device_owner&gt;
+        &lt;mac_address&gt;fa:16:3e:58:42:ed&lt;/mac_address&gt;
+        &lt;binding:profile quantum:type="dict"/&gt;
+        &lt;binding:vnic_type&gt;normal&lt;/binding:vnic_type&gt;
+        &lt;fixed_ips&gt;
+            &lt;fixed_ip&gt;
+                &lt;subnet_id&gt;008ba151-0b8c-4a67-98b5-0d2b87666062&lt;/subnet_id&gt;
+                &lt;ip_address&gt;172.24.4.2&lt;/ip_address&gt;
+            &lt;/fixed_ip&gt;
+        &lt;/fixed_ips&gt;
+        &lt;id&gt;d80b1a3b-4fc1-49f3-952e-1e2ab7081d8b&lt;/id&gt;
+        &lt;security_groups quantum:type="list"/&gt;
+        &lt;device_id&gt;9ae135f4-b6e0-4dad-9e91-3c223e385824&lt;/device_id&gt;
+    &lt;/port&gt;
+    &lt;port&gt;
+        &lt;status&gt;ACTIVE&lt;/status&gt;
+        &lt;binding:host_id&gt;devstack&lt;/binding:host_id&gt;
+        &lt;name/&gt;
+        &lt;allowed_address_pairs quantum:type="list"/&gt;
+        &lt;admin_state_up quantum:type="bool"&gt;True&lt;/admin_state_up&gt;
+        &lt;network_id&gt;f27aa545-cbdd-4907-b0c6-c9e8b039dcc2&lt;/network_id&gt;
+        &lt;tenant_id&gt;d397de8a63f341818f198abb0966f6f3&lt;/tenant_id&gt;
+        &lt;extra_dhcp_opts quantum:type="list"/&gt;
+        &lt;binding:vif_details&gt;
+            &lt;port_filter quantum:type="bool"&gt;True&lt;/port_filter&gt;
+            &lt;ovs_hybrid_plug quantum:type="bool"
+                &gt;True&lt;/ovs_hybrid_plug&gt;
+        &lt;/binding:vif_details&gt;
+        &lt;binding:vif_type&gt;ovs&lt;/binding:vif_type&gt;
+        &lt;device_owner&gt;network:router_interface&lt;/device_owner&gt;
+        &lt;mac_address&gt;fa:16:3e:bb:3c:e4&lt;/mac_address&gt;
+        &lt;binding:profile quantum:type="dict"/&gt;
+        &lt;binding:vnic_type&gt;normal&lt;/binding:vnic_type&gt;
+        &lt;fixed_ips&gt;
+            &lt;fixed_ip&gt;
+                &lt;subnet_id&gt;288bf4a1-51ba-43b6-9d0a-520e9005db17&lt;/subnet_id&gt;
+                &lt;ip_address&gt;10.0.0.1&lt;/ip_address&gt;
+            &lt;/fixed_ip&gt;
+        &lt;/fixed_ips&gt;
+        &lt;id&gt;f71a6703-d6de-4be1-a91a-a570ede1d159&lt;/id&gt;
+        &lt;security_groups quantum:type="list"/&gt;
+        &lt;device_id&gt;9ae135f4-b6e0-4dad-9e91-3c223e385824&lt;/device_id&gt;
+    &lt;/port&gt;
+&lt;/ports&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="POST" rax:id="createPort">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Create port">
+               <para role="shortdesc">Creates a port on a specified
+                network.</para>
+               <para>You must specify the network where the port is to
+                created in the <code>network_id</code> attribute in
+                the request body.</para>
+            </wadl:doc>
+            <request> 
+               <param required="false" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A symbolic name for the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative status of the port, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the tenant who owns the network. Only administrative users can specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="mac_address"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The MAC address. If you specify an address that is not valid, a 400 Bad Request error is returned. If you do not specify a MAC address, OpenStack Networking tries to allocate one. If a failure occurs, a 503 Service Unavailable error is returned.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="fixed_ips" style="plain" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>If you specify only a subnet ID, OpenStack Networking allocates an available IP from that subnet to the port. If you specify both a subnet ID and an IP address, OpenStack Networking tries to allocate the specified address to the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="security_groups"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Security groups. Specify one or more security group IDs.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the network.</para>
+                  </wadl:doc>
+               </param>  
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "port": {
+        "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
+        "name": "private-port",
+        "admin_state_up": true
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;port&gt;
+    &lt;name&gt;test_port_1&lt;/name&gt;
+    &lt;network_id&gt;a87cc70a-3e15-4acf-8205-9b711a3531b7&lt;/network_id&gt;
+&lt;/port&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="201"> 
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The port status. Value is ACTIVE or DOWN.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The port name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="allowed_address_pairs"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Allowed address pairs.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The administrative state of the port, which is up (<code>true</code>) or
+                        down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the tenant who owns the network. Only administrative users can
+                        specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="extra_dhcp_opts"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Extra DHCP options.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="device_owner"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the entity that uses this port. For example, a dhcp
+                        agent.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="mac_address"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The MAC address of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="fixed_ips" style="plain" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>IP addresses for the port. Includes the IP address and subnet
+                    ID.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="security_groups"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The IDs of any attached security groups.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="device_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the device that uses this port. For example, a virtual
+                        server.</para>
+                  </wadl:doc>
+               </param>
+            
+               <param required="false"
+                      name="binding:host_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the host where the port is allocated. In some
+            cases, different implementations can run on different
+            hosts.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vif_details"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Read-only. A dictionary that enables the application to
+            pass information about functions that the Networking API
+            provides. To enable or disable port filtering features such as
+            security group and anti-MAC/IP spoofing, specify <code>port_filter:
+            True</code> or <code>port_filter:
+            False</code>.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vif_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Read-only. The vif type for the specified
+            port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:profile"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A dictionary the enables the application running on the
+            specified host to pass and receive vif port-specific
+            information to the plug-in.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vnic_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The vnic type that is bound to the neutron port.</para>
+                     <para>In <command>POST</command> and <command>PUT</command> operations, specify a value of
+                <code>normal</code> (virtual nic), <code>direct</code>
+            (pci passthrough), or <code>macvtap</code> (virtual
+            interface with a tap-like software interface). These
+            values support SR-IOV PCI passthrough networking. The ML2
+            plug-in supports the <code>vnic_type</code>.</para>
+                     <para>In <command>GET</command> operations, the
+                <parameter>binding:vnic_type</parameter> extended
+            attribute is visible to only port owners and
+            administrative users.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "port": {
+        "status": "DOWN",
+        "binding:host_id": "",
+        "name": "private-port",
+        "allowed_address_pairs": [],
+        "admin_state_up": true,
+        "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
+        "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+        "binding:vif_details": {},
+        "binding:vnic_type": "normal",
+        "binding:vif_type": "unbound",
+        "device_owner": "",
+        "mac_address": "fa:16:3e:c9:cb:f0",
+        "binding:profile": {},
+        "fixed_ips": [
+            {
+                "subnet_id": "a0304c3a-4f08-4c43-88af-d796509c97d2",
+                "ip_address": "10.0.0.2"
+            }
+        ],
+        "id": "65c0ee9f-d634-4522-8954-51021b570b0d",
+        "security_groups": [
+            "f0ac4394-7e4a-4409-9701-ba8be283dbc3"
+        ],
+        "device_id": ""
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;port xmlns="http://openstack.org/quantum/api/v2.0"
+    xmlns:binding="http://docs.openstack.org/ext/binding/api/v1.0"
+    xmlns:quantum="http://openstack.org/quantum/api/v2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+    &lt;status&gt;DOWN&lt;/status&gt;
+    &lt;binding:host_id/&gt;
+    &lt;name&gt;test_port_1&lt;/name&gt;
+    &lt;allowed_address_pairs quantum:type="list"/&gt;
+    &lt;admin_state_up quantum:type="bool"&gt;True&lt;/admin_state_up&gt;
+    &lt;network_id&gt;a87cc70a-3e15-4acf-8205-9b711a3531b7&lt;/network_id&gt;
+    &lt;tenant_id&gt;d6700c0c9ffa4f1cb322cd4a1f3906fa&lt;/tenant_id&gt;
+    &lt;binding:vif_details quantum:type="dict"/&gt;
+    &lt;binding:vnic_type&gt;normal&lt;/binding:vnic_type&gt;
+    &lt;binding:vif_type&gt;unbound&lt;/binding:vif_type&gt;
+    &lt;device_owner/&gt;
+    &lt;mac_address&gt;fa:16:3e:09:e3:47&lt;/mac_address&gt;
+    &lt;binding:profile quantum:type="dict"/&gt;
+    &lt;fixed_ips&gt;
+        &lt;fixed_ip&gt;
+            &lt;subnet_id&gt;a0304c3a-4f08-4c43-88af-d796509c97d2&lt;/subnet_id&gt;
+            &lt;ip_address&gt;10.0.0.4&lt;/ip_address&gt;
+        &lt;/fixed_ip&gt;
+    &lt;/fixed_ips&gt;
+    &lt;id&gt;8021790b-4bfd-46ab-bcc7-0ef2f73bff43&lt;/id&gt;
+    &lt;security_groups&gt;
+        &lt;security_group&gt;f0ac4394-7e4a-4409-9701-ba8be283dbc3&lt;/security_group&gt;
+    &lt;/security_groups&gt;
+    &lt;device_id/&gt;
+&lt;/port&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+        
+            <response status="503">
+               <representation mediaType="application/xml" element="csapi:macGenerationFailure"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="503">
+               <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="POST" rax:id="bulkCreatePorts">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Bulk create ports">
+               <para role="shortdesc">Creates multiple ports in a single
+                request. Specify a list of ports in the request
+                body.</para>
+               <para>Guarantees the atomic completion of the bulk
+                operation.</para>
+            </wadl:doc>
+            <request> 
+               <param required="false" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A symbolic name for the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative status of the port, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the tenant who owns the network. Only administrative users can specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="mac_address"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The MAC address. If you specify an address that is not valid, a 400 Bad Request error is returned. If you do not specify a MAC address, OpenStack Networking tries to allocate one. If a failure occurs, a 503 Service Unavailable error is returned.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="fixed_ips" style="plain" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>If you specify only a subnet ID, OpenStack Networking allocates an available IP from that subnet to the port. If you specify both a subnet ID and an IP address, OpenStack Networking tries to allocate the specified address to the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="security_groups"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Security groups. Specify one or more security group IDs.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the network.</para>
+                  </wadl:doc>
+               </param>  
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "ports": [
+        {
+            "name": "sample_port_1",
+            "admin_state_up": false,
+            "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7"
+        },
+        {
+            "name": "sample_port_2",
+            "admin_state_up": false,
+            "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;ports&gt;
+    &lt;port&gt;
+        &lt;name&gt;test_port_1-xml&lt;/name&gt;
+        &lt;network_id&gt;a87cc70a-3e15-4acf-8205-9b711a3531b7&lt;/network_id&gt;
+    &lt;/port&gt;
+    &lt;port&gt;
+        &lt;name&gt;test_port_2-xml&lt;/name&gt;
+        &lt;network_id&gt;a87cc70a-3e15-4acf-8205-9b711a3531b7&lt;/network_id&gt;
+    &lt;/port&gt;
+&lt;/ports&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="201"> 
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The port status. Value is ACTIVE or DOWN.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The port name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="allowed_address_pairs"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Allowed address pairs.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The administrative state of the port, which is up (<code>true</code>) or
+                        down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the tenant who owns the network. Only administrative users can
+                        specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="extra_dhcp_opts"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Extra DHCP options.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="device_owner"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the entity that uses this port. For example, a dhcp
+                        agent.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="mac_address"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The MAC address of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="fixed_ips" style="plain" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>IP addresses for the port. Includes the IP address and subnet
+                    ID.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="security_groups"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The IDs of any attached security groups.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="device_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the device that uses this port. For example, a virtual
+                        server.</para>
+                  </wadl:doc>
+               </param>
+            
+               <param required="false"
+                      name="binding:host_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the host where the port is allocated. In some
+            cases, different implementations can run on different
+            hosts.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vif_details"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Read-only. A dictionary that enables the application to
+            pass information about functions that the Networking API
+            provides. To enable or disable port filtering features such as
+            security group and anti-MAC/IP spoofing, specify <code>port_filter:
+            True</code> or <code>port_filter:
+            False</code>.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vif_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Read-only. The vif type for the specified
+            port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:profile"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A dictionary the enables the application running on the
+            specified host to pass and receive vif port-specific
+            information to the plug-in.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vnic_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The vnic type that is bound to the neutron port.</para>
+                     <para>In <command>POST</command> and <command>PUT</command> operations, specify a value of
+                <code>normal</code> (virtual nic), <code>direct</code>
+            (pci passthrough), or <code>macvtap</code> (virtual
+            interface with a tap-like software interface). These
+            values support SR-IOV PCI passthrough networking. The ML2
+            plug-in supports the <code>vnic_type</code>.</para>
+                     <para>In <command>GET</command> operations, the
+                <parameter>binding:vnic_type</parameter> extended
+            attribute is visible to only port owners and
+            administrative users.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "ports": [
+        {
+            "status": "DOWN",
+            "binding:host_id": "",
+            "name": "sample_port_1",
+            "allowed_address_pairs": [],
+            "admin_state_up": false,
+            "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
+            "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+            "binding:vif_details": {},
+            "binding:vnic_type": "normal",
+            "binding:vif_type": "unbound",
+            "device_owner": "",
+            "mac_address": "fa:16:3e:48:b8:9f",
+            "binding:profile": {},
+            "fixed_ips": [
+                {
+                    "subnet_id": "a0304c3a-4f08-4c43-88af-d796509c97d2",
+                    "ip_address": "10.0.0.5"
+                }
+            ],
+            "id": "94225baa-9d3f-4b93-bf12-b41e7ce49cdb",
+            "security_groups": [
+                "f0ac4394-7e4a-4409-9701-ba8be283dbc3"
+            ],
+            "device_id": ""
+        },
+        {
+            "status": "DOWN",
+            "binding:host_id": "",
+            "name": "sample_port_2",
+            "allowed_address_pairs": [],
+            "admin_state_up": false,
+            "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
+            "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+            "binding:vif_details": {},
+            "binding:vnic_type": "normal",
+            "binding:vif_type": "unbound",
+            "device_owner": "",
+            "mac_address": "fa:16:3e:f4:73:df",
+            "binding:profile": {},
+            "fixed_ips": [
+                {
+                    "subnet_id": "a0304c3a-4f08-4c43-88af-d796509c97d2",
+                    "ip_address": "10.0.0.6"
+                }
+            ],
+            "id": "235b09e0-63c4-47f1-b221-66ba54c21760",
+            "security_groups": [
+                "f0ac4394-7e4a-4409-9701-ba8be283dbc3"
+            ],
+            "device_id": ""
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;ports xmlns="http://openstack.org/quantum/api/v2.0"
+    xmlns:binding="http://docs.openstack.org/ext/binding/api/v1.0"
+    xmlns:quantum="http://openstack.org/quantum/api/v2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+    &lt;port&gt;
+        &lt;status&gt;DOWN&lt;/status&gt;
+        &lt;binding:host_id/&gt;
+        &lt;name&gt;test_port_1-xml&lt;/name&gt;
+        &lt;allowed_address_pairs quantum:type="list"/&gt;
+        &lt;admin_state_up quantum:type="bool"&gt;True&lt;/admin_state_up&gt;
+        &lt;network_id&gt;a87cc70a-3e15-4acf-8205-9b711a3531b7&lt;/network_id&gt;
+        &lt;tenant_id&gt;d6700c0c9ffa4f1cb322cd4a1f3906fa&lt;/tenant_id&gt;
+        &lt;binding:vif_details quantum:type="dict"/&gt;
+        &lt;binding:vnic_type&gt;normal&lt;/binding:vnic_type&gt;
+        &lt;binding:vif_type&gt;unbound&lt;/binding:vif_type&gt;
+        &lt;device_owner/&gt;
+        &lt;mac_address&gt;fa:16:3e:fa:e2:34&lt;/mac_address&gt;
+        &lt;binding:profile quantum:type="dict"/&gt;
+        &lt;fixed_ips&gt;
+            &lt;fixed_ip&gt;
+                &lt;subnet_id&gt;a0304c3a-4f08-4c43-88af-d796509c97d2&lt;/subnet_id&gt;
+                &lt;ip_address&gt;10.0.0.7&lt;/ip_address&gt;
+            &lt;/fixed_ip&gt;
+        &lt;/fixed_ips&gt;
+        &lt;id&gt;054e8f14-4082-400e-afcc-5d6e5b3bcc0c&lt;/id&gt;
+        &lt;security_groups&gt;
+            &lt;security_group&gt;f0ac4394-7e4a-4409-9701-ba8be283dbc3&lt;/security_group&gt;
+        &lt;/security_groups&gt;
+        &lt;device_id/&gt;
+    &lt;/port&gt;
+    &lt;port&gt;
+        &lt;status&gt;DOWN&lt;/status&gt;
+        &lt;binding:host_id/&gt;
+        &lt;name&gt;test_port_2-xml&lt;/name&gt;
+        &lt;allowed_address_pairs quantum:type="list"/&gt;
+        &lt;admin_state_up quantum:type="bool"&gt;True&lt;/admin_state_up&gt;
+        &lt;network_id&gt;a87cc70a-3e15-4acf-8205-9b711a3531b7&lt;/network_id&gt;
+        &lt;tenant_id&gt;d6700c0c9ffa4f1cb322cd4a1f3906fa&lt;/tenant_id&gt;
+        &lt;binding:vif_details quantum:type="dict"/&gt;
+        &lt;binding:vnic_type&gt;normal&lt;/binding:vnic_type&gt;
+        &lt;binding:vif_type&gt;unbound&lt;/binding:vif_type&gt;
+        &lt;device_owner/&gt;
+        &lt;mac_address&gt;fa:16:3e:e6:cf:d9&lt;/mac_address&gt;
+        &lt;binding:profile quantum:type="dict"/&gt;
+        &lt;fixed_ips&gt;
+            &lt;fixed_ip&gt;
+                &lt;subnet_id&gt;a0304c3a-4f08-4c43-88af-d796509c97d2&lt;/subnet_id&gt;
+                &lt;ip_address&gt;10.0.0.8&lt;/ip_address&gt;
+            &lt;/fixed_ip&gt;
+        &lt;/fixed_ips&gt;
+        &lt;id&gt;879e96f9-6dd5-4232-bd19-3f39d0ae463b&lt;/id&gt;
+        &lt;security_groups&gt;
+            &lt;security_group&gt;f0ac4394-7e4a-4409-9701-ba8be283dbc3&lt;/security_group&gt;
+        &lt;/security_groups&gt;
+        &lt;device_id/&gt;
+    &lt;/port&gt;
+&lt;/ports&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="503">
+               <representation mediaType="application/xml" element="csapi:macGenerationFailure"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                    
+                    
+                    
+                    <resource path="/v2.0/ports/{port_id}" id="port_id">
+         <param name="port_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Port ID">The UUID
+                                for the port of interest to
+                                you.</wadl:doc>
+                        </param>
+         <method name="GET" rax:id="showPort">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Show port">
+               <para role="shortdesc">Shows information for a specified
+                port.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The port status. Value is ACTIVE or DOWN.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The port name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="allowed_address_pairs"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Allowed address pairs.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The administrative state of the port, which is up (<code>true</code>) or
+                        down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the tenant who owns the network. Only administrative users can
+                        specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="extra_dhcp_opts"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Extra DHCP options.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="device_owner"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the entity that uses this port. For example, a dhcp
+                        agent.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="mac_address"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The MAC address of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="fixed_ips" style="plain" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>IP addresses for the port. Includes the IP address and subnet
+                    ID.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="security_groups"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The IDs of any attached security groups.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="device_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the device that uses this port. For example, a virtual
+                        server.</para>
+                  </wadl:doc>
+               </param>
+            
+               <param required="false"
+                      name="binding:host_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the host where the port is allocated. In some
+            cases, different implementations can run on different
+            hosts.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vif_details"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Read-only. A dictionary that enables the application to
+            pass information about functions that the Networking API
+            provides. To enable or disable port filtering features such as
+            security group and anti-MAC/IP spoofing, specify <code>port_filter:
+            True</code> or <code>port_filter:
+            False</code>.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vif_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Read-only. The vif type for the specified
+            port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:profile"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A dictionary the enables the application running on the
+            specified host to pass and receive vif port-specific
+            information to the plug-in.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vnic_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The vnic type that is bound to the neutron port.</para>
+                     <para>In <command>POST</command> and <command>PUT</command> operations, specify a value of
+                <code>normal</code> (virtual nic), <code>direct</code>
+            (pci passthrough), or <code>macvtap</code> (virtual
+            interface with a tap-like software interface). These
+            values support SR-IOV PCI passthrough networking. The ML2
+            plug-in supports the <code>vnic_type</code>.</para>
+                     <para>In <command>GET</command> operations, the
+                <parameter>binding:vnic_type</parameter> extended
+            attribute is visible to only port owners and
+            administrative users.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "port": {
+        "status": "ACTIVE",
+        "binding:host_id": "devstack",
+        "name": "",
+        "allowed_address_pairs": [],
+        "admin_state_up": true,
+        "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
+        "tenant_id": "7e02058126cc4950b75f9970368ba177",
+        "extra_dhcp_opts": [],
+        "binding:vif_details": {
+            "port_filter": true,
+            "ovs_hybrid_plug": true
+        },
+        "binding:vif_type": "ovs",
+        "device_owner": "network:router_interface",
+        "mac_address": "fa:16:3e:23:fd:d7",
+        "binding:profile": {},
+        "binding:vnic_type": "normal",
+        "fixed_ips": [
+            {
+                "subnet_id": "a0304c3a-4f08-4c43-88af-d796509c97d2",
+                "ip_address": "10.0.0.1"
+            }
+        ],
+        "id": "46d4bfb9-b26e-41f3-bd2e-e6dcc1ccedb2",
+        "security_groups": [],
+        "device_id": "5e3898d7-11be-483e-9732-b2f5eccd2b2e"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;port xmlns="http://openstack.org/quantum/api/v2.0"
+    xmlns:binding="http://docs.openstack.org/ext/binding/api/v1.0"
+    xmlns:quantum="http://openstack.org/quantum/api/v2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+    &lt;status&gt;ACTIVE&lt;/status&gt;
+    &lt;binding:host_id&gt;devstack&lt;/binding:host_id&gt;
+    &lt;name/&gt;
+    &lt;allowed_address_pairs quantum:type="list"/&gt;
+    &lt;admin_state_up quantum:type="bool"&gt;True&lt;/admin_state_up&gt;
+    &lt;network_id&gt;a87cc70a-3e15-4acf-8205-9b711a3531b7&lt;/network_id&gt;
+    &lt;tenant_id&gt;7e02058126cc4950b75f9970368ba177&lt;/tenant_id&gt;
+    &lt;extra_dhcp_opts quantum:type="list"/&gt;
+    &lt;binding:vif_details&gt;
+        &lt;port_filter quantum:type="bool"&gt;True&lt;/port_filter&gt;
+        &lt;ovs_hybrid_plug quantum:type="bool"&gt;True&lt;/ovs_hybrid_plug&gt;
+    &lt;/binding:vif_details&gt;
+    &lt;binding:vif_type&gt;ovs&lt;/binding:vif_type&gt;
+    &lt;device_owner&gt;network:router_interface&lt;/device_owner&gt;
+    &lt;mac_address&gt;fa:16:3e:23:fd:d7&lt;/mac_address&gt;
+    &lt;binding:profile quantum:type="dict"/&gt;
+    &lt;binding:vnic_type&gt;normal&lt;/binding:vnic_type&gt;
+    &lt;fixed_ips&gt;
+        &lt;fixed_ip&gt;
+            &lt;subnet_id&gt;a0304c3a-4f08-4c43-88af-d796509c97d2&lt;/subnet_id&gt;
+            &lt;ip_address&gt;10.0.0.1&lt;/ip_address&gt;
+        &lt;/fixed_ip&gt;
+    &lt;/fixed_ips&gt;
+    &lt;id&gt;46d4bfb9-b26e-41f3-bd2e-e6dcc1ccedb2&lt;/id&gt;
+    &lt;security_groups quantum:type="list"/&gt;
+    &lt;device_id&gt;5e3898d7-11be-483e-9732-b2f5eccd2b2e&lt;/device_id&gt;
+&lt;/port&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="PUT" rax:id="updatePort">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Update port">
+               <para role="shortdesc">Updates a specified port.</para>
+               <para>You can update information for a port, such as its
+                symbolic name and associated IPs. When you update IPs
+                for a port, any previously associated IPs are removed,
+                returned to the respective subnets allocation pools,
+                and replaced by the IPs specified in the body for the
+                update request. Therefore, this operation replaces the
+                    <code>fixed_ip</code> attribute when it is
+                specified in the request body. If the updated IP
+                addresses are not valid or are already in use, the
+                operation fails and the existing IP addresses are not
+                removed from the port.</para>
+               <para>When you update security groups for a port and the
+                operation succeeds, any associated security groups are
+                removed and replaced by the security groups specified
+                in the body for the update request. Therefore, this
+                operation replaces the <code>security_groups</code>
+                attribute when you specify it in the request body.
+                However, if the specified security groups are not
+                valid, the operation fails and the existing security
+                groups are not removed from the port.</para>
+            </wadl:doc>
+            <request> 
+               <param required="false" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A symbolic name for the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative status of the port, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the tenant who owns the network. Only administrative users can specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="mac_address"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The MAC address. If you specify an address that is not valid, a 400 Bad Request error is returned. If you do not specify a MAC address, OpenStack Networking tries to allocate one. If a failure occurs, a 503 Service Unavailable error is returned.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="fixed_ips" style="plain" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>If you specify only a subnet ID, OpenStack Networking allocates an available IP from that subnet to the port. If you specify both a subnet ID and an IP address, OpenStack Networking tries to allocate the specified address to the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="security_groups"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Security groups. Specify one or more security group IDs.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the network.</para>
+                  </wadl:doc>
+               </param>  
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "port": {
+        "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
+        "name": "private-port",
+        "admin_state_up": true
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;port&gt;
+    &lt;name&gt;test_port_1&lt;/name&gt;
+    &lt;network_id&gt;a87cc70a-3e15-4acf-8205-9b711a3531b7&lt;/network_id&gt;
+&lt;/port&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200"> 
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The port status. Value is ACTIVE or DOWN.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The port name.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="allowed_address_pairs"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Allowed address pairs.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:bool">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The administrative state of the port, which is up (<code>true</code>) or
+                        down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="network_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the attached network.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the tenant who owns the network. Only administrative users can
+                        specify a tenant ID other than their own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="extra_dhcp_opts"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Extra DHCP options.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="device_owner"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the entity that uses this port. For example, a dhcp
+                        agent.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="mac_address"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The MAC address of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="fixed_ips" style="plain" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>IP addresses for the port. Includes the IP address and subnet
+                    ID.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="security_groups"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The IDs of any attached security groups.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="device_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the device that uses this port. For example, a virtual
+                        server.</para>
+                  </wadl:doc>
+               </param>
+            
+               <param required="false"
+                      name="binding:host_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the host where the port is allocated. In some
+            cases, different implementations can run on different
+            hosts.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vif_details"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Read-only. A dictionary that enables the application to
+            pass information about functions that the Networking API
+            provides. To enable or disable port filtering features such as
+            security group and anti-MAC/IP spoofing, specify <code>port_filter:
+            True</code> or <code>port_filter:
+            False</code>.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vif_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Read-only. The vif type for the specified
+            port.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:profile"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>A dictionary the enables the application running on the
+            specified host to pass and receive vif port-specific
+            information to the plug-in.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="binding:vnic_type"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The vnic type that is bound to the neutron port.</para>
+                     <para>In <command>POST</command> and <command>PUT</command> operations, specify a value of
+                <code>normal</code> (virtual nic), <code>direct</code>
+            (pci passthrough), or <code>macvtap</code> (virtual
+            interface with a tap-like software interface). These
+            values support SR-IOV PCI passthrough networking. The ML2
+            plug-in supports the <code>vnic_type</code>.</para>
+                     <para>In <command>GET</command> operations, the
+                <parameter>binding:vnic_type</parameter> extended
+            attribute is visible to only port owners and
+            administrative users.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "port": {
+        "status": "DOWN",
+        "binding:host_id": "",
+        "name": "private-port",
+        "allowed_address_pairs": [],
+        "admin_state_up": true,
+        "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
+        "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+        "binding:vif_details": {},
+        "binding:vnic_type": "normal",
+        "binding:vif_type": "unbound",
+        "device_owner": "",
+        "mac_address": "fa:16:3e:c9:cb:f0",
+        "binding:profile": {},
+        "fixed_ips": [
+            {
+                "subnet_id": "a0304c3a-4f08-4c43-88af-d796509c97d2",
+                "ip_address": "10.0.0.2"
+            }
+        ],
+        "id": "65c0ee9f-d634-4522-8954-51021b570b0d",
+        "security_groups": [
+            "f0ac4394-7e4a-4409-9701-ba8be283dbc3"
+        ],
+        "device_id": ""
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;port xmlns="http://openstack.org/quantum/api/v2.0"
+    xmlns:binding="http://docs.openstack.org/ext/binding/api/v1.0"
+    xmlns:quantum="http://openstack.org/quantum/api/v2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+    &lt;status&gt;DOWN&lt;/status&gt;
+    &lt;binding:host_id/&gt;
+    &lt;name&gt;test_port_1&lt;/name&gt;
+    &lt;allowed_address_pairs quantum:type="list"/&gt;
+    &lt;admin_state_up quantum:type="bool"&gt;True&lt;/admin_state_up&gt;
+    &lt;network_id&gt;a87cc70a-3e15-4acf-8205-9b711a3531b7&lt;/network_id&gt;
+    &lt;tenant_id&gt;d6700c0c9ffa4f1cb322cd4a1f3906fa&lt;/tenant_id&gt;
+    &lt;binding:vif_details quantum:type="dict"/&gt;
+    &lt;binding:vnic_type&gt;normal&lt;/binding:vnic_type&gt;
+    &lt;binding:vif_type&gt;unbound&lt;/binding:vif_type&gt;
+    &lt;device_owner/&gt;
+    &lt;mac_address&gt;fa:16:3e:09:e3:47&lt;/mac_address&gt;
+    &lt;binding:profile quantum:type="dict"/&gt;
+    &lt;fixed_ips&gt;
+        &lt;fixed_ip&gt;
+            &lt;subnet_id&gt;a0304c3a-4f08-4c43-88af-d796509c97d2&lt;/subnet_id&gt;
+            &lt;ip_address&gt;10.0.0.4&lt;/ip_address&gt;
+        &lt;/fixed_ip&gt;
+    &lt;/fixed_ips&gt;
+    &lt;id&gt;8021790b-4bfd-46ab-bcc7-0ef2f73bff43&lt;/id&gt;
+    &lt;security_groups&gt;
+        &lt;security_group&gt;f0ac4394-7e4a-4409-9701-ba8be283dbc3&lt;/security_group&gt;
+    &lt;/security_groups&gt;
+    &lt;device_id/&gt;
+&lt;/port&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="DELETE" rax:id="removePort">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Delete port">
+               <para role="shortdesc">Deletes a specified port.</para>
+               <para>Any IP addresses that are associated with the port
+                are returned to the respective subnets allocation
+                pools.</para>
+            </wadl:doc>
+            <response status="204"/> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                        
+                        
+                    
+                
+    </resources>
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xref="http://www.w3.org/1999/xref"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listPorts">
+        
+        <response status="200"> 
+         <param required="true" name="status" style="plain" type="xsd:string">
+                
+            </param>
+            <param required="true" name="name" style="plain" type="xsd:string">
+                
+            </param>
+            <param required="true"
+                name="allowed_address_pairs"
+                style="plain"
+                type="xsd:dict">
+                
+            </param>
+            <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+                
+            </param>
+            <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="extra_dhcp_opts"
+                style="plain"
+                type="xsd:dict">
+                
+            </param>
+            <param required="true"
+                name="device_owner"
+                style="plain"
+                type="xsd:string">
+                
+            </param>
+            <param required="true"
+                name="mac_address"
+                style="plain"
+                type="xsd:string">
+                
+            </param>
+            <param required="true" name="fixed_ips" style="plain" type="xsd:dict">
+                
+            </param>
+            <param required="true" name="id" style="plain" type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="security_groups"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="device_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+                
+         <param required="false"
+                name="binding:host_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="false"
+                name="binding:vif_details"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="binding:vif_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="binding:profile"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="binding:vnic_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xref="http://www.w3.org/1999/xref"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createPort">
+        
+        <request> 
+         <param required="false" name="status" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="false" name="name" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="false"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+         
+     </param>
+         <param required="false"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="mac_address"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="false" name="fixed_ips" style="plain" type="xsd:dict">
+         
+     </param>
+         <param required="false"
+                name="security_groups"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>  
+         <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="201"> 
+         <param required="true" name="status" style="plain" type="xsd:string">
+                
+            </param>
+            <param required="true" name="name" style="plain" type="xsd:string">
+                
+            </param>
+            <param required="true"
+                name="allowed_address_pairs"
+                style="plain"
+                type="xsd:dict">
+                
+            </param>
+            <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+                
+            </param>
+            <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="extra_dhcp_opts"
+                style="plain"
+                type="xsd:dict">
+                
+            </param>
+            <param required="true"
+                name="device_owner"
+                style="plain"
+                type="xsd:string">
+                
+            </param>
+            <param required="true"
+                name="mac_address"
+                style="plain"
+                type="xsd:string">
+                
+            </param>
+            <param required="true" name="fixed_ips" style="plain" type="xsd:dict">
+                
+            </param>
+            <param required="true" name="id" style="plain" type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="security_groups"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="device_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            
+         <param required="false"
+                name="binding:host_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="false"
+                name="binding:vif_details"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="binding:vif_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="binding:profile"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="binding:vnic_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        
+      <response status="503">
+         <representation mediaType="application/xml" element="csapi:macGenerationFailure"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="503">
+         <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xref="http://www.w3.org/1999/xref"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="bulkCreatePorts">
+        
+        <request> 
+         <param required="false" name="status" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="false" name="name" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="false"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+         
+     </param>
+         <param required="false"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="mac_address"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="false" name="fixed_ips" style="plain" type="xsd:dict">
+         
+     </param>
+         <param required="false"
+                name="security_groups"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>  
+         <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="201"> 
+         <param required="true" name="status" style="plain" type="xsd:string">
+                
+            </param>
+            <param required="true" name="name" style="plain" type="xsd:string">
+                
+            </param>
+            <param required="true"
+                name="allowed_address_pairs"
+                style="plain"
+                type="xsd:dict">
+                
+            </param>
+            <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+                
+            </param>
+            <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="extra_dhcp_opts"
+                style="plain"
+                type="xsd:dict">
+                
+            </param>
+            <param required="true"
+                name="device_owner"
+                style="plain"
+                type="xsd:string">
+                
+            </param>
+            <param required="true"
+                name="mac_address"
+                style="plain"
+                type="xsd:string">
+                
+            </param>
+            <param required="true" name="fixed_ips" style="plain" type="xsd:dict">
+                
+            </param>
+            <param required="true" name="id" style="plain" type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="security_groups"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="device_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            
+         <param required="false"
+                name="binding:host_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="false"
+                name="binding:vif_details"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="binding:vif_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="binding:profile"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="binding:vnic_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response> 
+      <response status="503">
+         <representation mediaType="application/xml" element="csapi:macGenerationFailure"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xref="http://www.w3.org/1999/xref"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showPort">
+        
+        <response status="200"> 
+         <param required="true" name="status" style="plain" type="xsd:string">
+                
+            </param>
+            <param required="true" name="name" style="plain" type="xsd:string">
+                
+            </param>
+            <param required="true"
+                name="allowed_address_pairs"
+                style="plain"
+                type="xsd:dict">
+                
+            </param>
+            <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+                
+            </param>
+            <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="extra_dhcp_opts"
+                style="plain"
+                type="xsd:dict">
+                
+            </param>
+            <param required="true"
+                name="device_owner"
+                style="plain"
+                type="xsd:string">
+                
+            </param>
+            <param required="true"
+                name="mac_address"
+                style="plain"
+                type="xsd:string">
+                
+            </param>
+            <param required="true" name="fixed_ips" style="plain" type="xsd:dict">
+                
+            </param>
+            <param required="true" name="id" style="plain" type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="security_groups"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="device_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            
+         <param required="false"
+                name="binding:host_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="false"
+                name="binding:vif_details"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="binding:vif_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="binding:profile"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="binding:vnic_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xref="http://www.w3.org/1999/xref"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updatePort">
+        
+        <request> 
+         <param required="false" name="status" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="false" name="name" style="plain" type="xsd:string">
+         
+     </param>
+         <param required="false"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+         
+     </param>
+         <param required="false"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="false"
+                name="mac_address"
+                style="plain"
+                type="xsd:string">
+         
+     </param>
+         <param required="false" name="fixed_ips" style="plain" type="xsd:dict">
+         
+     </param>
+         <param required="false"
+                name="security_groups"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>
+         <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+         
+     </param>  
+         <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200"> 
+         <param required="true" name="status" style="plain" type="xsd:string">
+                
+            </param>
+            <param required="true" name="name" style="plain" type="xsd:string">
+                
+            </param>
+            <param required="true"
+                name="allowed_address_pairs"
+                style="plain"
+                type="xsd:dict">
+                
+            </param>
+            <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:bool">
+                
+            </param>
+            <param required="true"
+                name="network_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="extra_dhcp_opts"
+                style="plain"
+                type="xsd:dict">
+                
+            </param>
+            <param required="true"
+                name="device_owner"
+                style="plain"
+                type="xsd:string">
+                
+            </param>
+            <param required="true"
+                name="mac_address"
+                style="plain"
+                type="xsd:string">
+                
+            </param>
+            <param required="true" name="fixed_ips" style="plain" type="xsd:dict">
+                
+            </param>
+            <param required="true" name="id" style="plain" type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="security_groups"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            <param required="true"
+                name="device_id"
+                style="plain"
+                type="csapi:uuid">
+                
+            </param>
+            
+         <param required="false"
+                name="binding:host_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="false"
+                name="binding:vif_details"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="binding:vif_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="binding:profile"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="binding:vnic_type"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xref="http://www.w3.org/1999/xref"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="removePort">
+        
+        <response status="204"/> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+    </method>
+</wadl:application>

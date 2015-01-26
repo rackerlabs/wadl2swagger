@@ -1,0 +1,33 @@
+INFO:wadls/os-telemetry-api-2.0.wadl:Converting: wadls/os-telemetry-api-2.0.wadl to swagger/os-telemetry-api-2.0.json
+WARNING:wadls/os-telemetry-api-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/os-telemetry-api-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/os-telemetry-api-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/os-telemetry-api-2.0.wadl:No support for application/json for resource at /v2/alarms/{alarm_id}/state
+WARNING:wadls/os-telemetry-api-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/os-telemetry-api-2.0.wadl:No support for application/json for resource at /v2/alarms/{alarm_id}/history
+WARNING:wadls/os-telemetry-api-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/os-telemetry-api-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/os-telemetry-api-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/os-telemetry-api-2.0.wadl:Autofix: Adding leading / to path
+WARNING:wadls/os-telemetry-api-2.0.wadl:Autofix: Adding leading / to path
+INFO:root:Saving swagger to swagger/os-telemetry-api-2.0.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v2~1alarms~1{alarm_id}/get: API requires path parameter but it is not defined: alarm_id
+  #/paths/~1v2~1alarms~1{alarm_id}/put: API requires path parameter but it is not defined: alarm_id
+  #/paths/~1v2~1alarms~1{alarm_id}/delete: API requires path parameter but it is not defined: alarm_id
+  #/paths/~1v2~1alarms~1{alarm_id}~1state/put: API requires path parameter but it is not defined: alarm_id
+  #/paths/~1v2~1alarms~1{alarm_id}~1state/get: API requires path parameter but it is not defined: alarm_id
+  #/paths/~1v2~1alarms~1{alarm_id}~1history/get: API requires path parameter but it is not defined: alarm_id
+  #/paths/~1v2~1meters~1{meter_name}/get: API requires path parameter but it is not defined: meter_name
+  #/paths/~1v2~1meters~1{meter_name}/post: API requires path parameter but it is not defined: meter_name
+  #/paths/~1v2~1meters~1{meter_name}~1statistics/get: API requires path parameter but it is not defined: meter_name
+  #/paths/~1v2~1resources~1{resource_id}/get: API requires path parameter but it is not defined: resource_id
+
+10 errors and 0 warnings
+Invalid

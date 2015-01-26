@@ -1,0 +1,164 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-hypervisors",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-hypervisors": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listHypervisors",
+                "summary": "List hypervisors",
+                "description": "Lists hypervisors information for each server obtained through the hypervisor-specific API, such as libvirt or XenAPI.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hypervisors\": [\n        {\n            \"id\": 1,\n            \"hypervisor_hostname\": \"fake-mini\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-hypervisors/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showHypervisor",
+                "summary": "Show hypervisor information",
+                "description": "Shows information for a specified hypervisor. Typically configured as an admin-only extension by using `policy.json` settings.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hypervisors\": [\n        {\n            \"service\": {\n                \"host\": \"1e0d7892083548cfb347e782d3b20342\",\n                \"id\": 2\n            },\n            \"current_workload\": 0,\n            \"hypervisor_type\": \"fake\",\n            \"vcpus_used\": 0,\n            \"local_gb_used\": 0,\n            \"hypervisor_hostname\": \"fake-mini\",\n            \"memory_mb_used\": 512,\n            \"memory_mb\": 8192,\n            \"cpu_info\": \"?\",\n            \"vcpus\": 1,\n            \"running_vms\": 0,\n            \"free_disk_gb\": 1028,\n            \"hypervisor_version\": 1,\n            \"disk_available_least\": null,\n            \"local_gb\": 1028,\n            \"free_ram_mb\": 7680,\n            \"id\": 1\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-hypervisors/statistics": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getHypervisorStats",
+                "summary": "Show statistics for hypervisors",
+                "description": "Shows hypervisor statistics over all compute nodes.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hypervisor_statistics\": {\n        \"count\": 1,\n        \"vcpus_used\": 0,\n        \"local_gb_used\": 0,\n        \"memory_mb\": 8192,\n        \"current_workload\": 0,\n        \"vcpus\": 1,\n        \"running_vms\": 0,\n        \"free_disk_gb\": 1028,\n        \"disk_available_least\": 0,\n        \"local_gb\": 1028,\n        \"free_ram_mb\": 7680,\n        \"memory_mb_used\": 512\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-hypervisors/{hypervisor_hostname}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "hypervisor_hostname",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of the host that runs the hypervisor.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getHypervisorUptime",
+                "summary": "Show hypervisor up time",
+                "description": "Shows the up time for a specified hypervisor.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hypervisor\": {\n        \"uptime\": \" 08:32:11 up 93 days, 18:25, 12 users,  load average: 0.20, 0.12, 0.14\",\n        \"id\": 1,\n        \"hypervisor_hostname\": \"fake-mini\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-hypervisors/{hypervisor_hostname}/servers": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "hypervisor_hostname",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name of the host that runs the hypervisor.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listHypervisorInstances",
+                "summary": "List instances for hypervisors",
+                "description": "Lists instances that belong to specific hypervisors.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hypervisors\": [\n        {\n            \"id\": 1,\n            \"hypervisor_hostname\": \"fake-mini\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

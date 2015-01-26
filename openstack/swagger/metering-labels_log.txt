@@ -1,0 +1,13 @@
+INFO:wadls/metering-labels.wadl:Converting: wadls/metering-labels.wadl to swagger/metering-labels.json
+WARNING:wadls/metering-labels.wadl:Unknown type: csapi:uuid for param metering_label_id
+WARNING:wadls/metering-labels.wadl:Using string for csapi:uuid
+WARNING:wadls/metering-labels.wadl:Autofix: path parameters must be required in Swagger (metering_label_id)
+WARNING:wadls/metering-labels.wadl:Unknown type: csapi:uuid for param metering-label-rule-id
+WARNING:wadls/metering-labels.wadl:Using string for csapi:uuid
+WARNING:wadls/metering-labels.wadl:Autofix: path parameters must be required in Swagger (metering-label-rule-id)
+INFO:root:Saving swagger to swagger/metering-labels.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

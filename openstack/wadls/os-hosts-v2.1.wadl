@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-hosts-v2.1">
+        <resource id="os-hosts" path="/v2.1/os-hosts">
+         <method name="GET" rax:id="listallhosts">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List hosts">
+               <para role="shortdesc">Lists hosts.</para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "hosts": [
+        {
+            "host_name": "b6e4adbc193d428ea923899d07fb001e",
+            "service": "conductor",
+            "zone": "internal"
+        },
+        {
+            "host_name": "09c025b0efc64211bd23fc50fa974cdf",
+            "service": "compute",
+            "zone": "nova"
+        },
+        {
+            "host_name": "a942ebfa00064d9d89a9e5a175cb9ba8",
+            "service": "cert",
+            "zone": "internal"
+        },
+        {
+            "host_name": "e73ec0bd35c64de4a1adfa8b8969a1f6",
+            "service": "consoleauth",
+            "zone": "internal"
+        },
+        {
+            "host_name": "396a8a0a234f476eb05fb9fbc5802ba7",
+            "service": "network",
+            "zone": "internal"
+        },
+        {
+            "host_name": "abffda96592c4eacaf4111c28fddee17",
+            "service": "scheduler",
+            "zone": "internal"
+        },
+        {
+            "host_name": "a8820f04962a4b4ba9fe2e9540c24094",
+            "service": "cells",
+            "zone": "internal"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                
+                <resource id="host_name" path="/v2.1/os-hosts/{host_name}">
+         <method name="PUT" rax:id="enablehost">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Enables host">
+               <para role="shortdesc">Enables or puts a host in
+                maintenance mode.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": {
+        "status": "enable",
+        "maintenance_mode": "disable"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": {
+        "host": "65c5d5b7e3bd44308e67fc50f362aee6",
+        "maintenance_mode": "off_maintenance",
+        "status": "enabled"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="GET" rax:id="showinfo">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show host details">
+               <para role="shortdesc">Shows details for a specified
+                host.</para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": [
+        {
+            "resource": {
+                "cpu": 1,
+                "disk_gb": 1028,
+                "host": "c1a7de0ac9d94e4baceae031d05caae3",
+                "memory_mb": 8192,
+                "project": "(total)"
+            }
+        },
+        {
+            "resource": {
+                "cpu": 0,
+                "disk_gb": 0,
+                "host": "c1a7de0ac9d94e4baceae031d05caae3",
+                "memory_mb": 512,
+                "project": "(used_now)"
+            }
+        },
+        {
+            "resource": {
+                "cpu": 0,
+                "disk_gb": 0,
+                "host": "c1a7de0ac9d94e4baceae031d05caae3",
+                "memory_mb": 0,
+                "project": "(used_max)"
+            }
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource id="reboot" path="/v2.1/os-hosts/{host_name}/reboot">
+         <method name="GET" rax:id="reboothost">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Reboot host">
+               <para role="shortdesc">Reboots a host.</para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": {
+        "host": "9557750dbc464741a89c907921c1cb31",
+        "power_action": "reboot"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                    <resource id="shutdown" path="/v2.1/os-hosts/{host_name}/shutdown">
+         <method name="GET" rax:id="shutdownhost">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Shut down host">
+               <para role="shortdesc">Shuts down a host.</para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": {
+        "host": "77cfa0002e4d45fe97f185968111b27b",
+        "power_action": "shutdown"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                    <resource id="startup" path="/v2.1/os-hosts/{host_name}/startup">
+         <method name="GET" rax:id="startshost">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Start host">
+               <para role="shortdesc">Starts a host.</para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": {
+        "host": "4b392b27930343bbaa27fd5d8328a564",
+        "power_action": "startup"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                
+            
+    </resources>
+    <!--*******************************************************-->
+    <!--           OS Hosts                        -->
+    <!--*******************************************************-->
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="reboothost">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showinfo">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="shutdownhost">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="startshost">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="enablehost">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listallhosts">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+</wadl:application>

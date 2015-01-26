@@ -1,0 +1,112 @@
+---
+swagger: '2.0'
+info:
+  title: os-server-groups
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-server-groups":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: listServerGroups
+      summary: List server groups
+      description: |
+        Lists server groups.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "server_groups": [
+                      {
+                          "members": [],
+                          "metadata": {},
+                          "id": "616fb98f-46ca-475e-917e-2563e5a8cd19",
+                          "policies": [
+                              "anti-affinity"
+                          ],
+                          "name": "test"
+                      }
+                  ]
+              }
+    post:
+      operationId: createServerGroup
+      summary: Create server group
+      description: |
+        Creates a server group.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "server_group": {
+                      "members": [],
+                      "metadata": {},
+                      "id": "5bbcc3c4-1da2-4437-a48a-66f15b1b13f9",
+                      "policies": [
+                          "anti-affinity"
+                      ],
+                      "name": "test"
+                  }
+              }
+  "/v2/{tenant_id}/os-server-groups/{ServerGroup_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: ServerGroup_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The server group ID.
+    get:
+      operationId: showServerGroup
+      summary: Show server group details
+      description: |
+        Shows details for a specified server group.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "server_group": {
+                      "members": [],
+                      "metadata": {},
+                      "id": "5bbcc3c4-1da2-4437-a48a-66f15b1b13f9",
+                      "policies": [
+                          "anti-affinity"
+                      ],
+                      "name": "test"
+                  }
+              }
+    delete:
+      operationId: deleteServerGroup
+      summary: Delete server group
+      description: |
+        Deletes a specified server group.
+      produces: []
+      responses:
+        '204':
+          description: 204 response

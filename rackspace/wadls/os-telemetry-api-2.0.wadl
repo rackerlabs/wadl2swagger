@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entites with xmllint          -->
+<!--                                                       -->
+<!--        xmllint -noent os-compute-2.wadl               -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="http://www.example.com"
+              xml:id="os-telemetry-api-v2.0">
+        <resource path="v2/alarms" id="alarms">
+         <method name="GET" rax:id="listAlarms">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" title="List alarms" xml:lang="EN">
+               <para role="shortdesc">Lists alarms, based on the
+                specified query.</para>
+            </wadl:doc>
+            <request>
+               <param name="q" required="false" style="query" type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Filter rules for the alarms to be
+                        returned.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">[
+  {
+      "alarm_actions": [
+          "http://site:8000/alarm"
+      ],
+      "alarm_id": null,
+      "combination_rule": null,
+      "description": "An alarm",
+      "enabled": true,
+      "insufficient_data_actions": [
+          "http://site:8000/nodata"
+      ],
+      "name": "SwiftObjectAlarm",
+      "ok_actions": [
+          "http://site:8000/ok"
+      ],
+      "project_id": "c96c887c216949acbdfbd8b494863567",
+      "repeat_actions": false,
+      "state": "ok",
+      "state_timestamp": "2013-11-21T12:33:08.486228",
+      "threshold_rule": null,
+      "timestamp": "2013-11-21T12:33:08.486221",
+      "type": "threshold",
+      "user_id": "c96c887c216949acbdfbd8b494863567"
+  }
+]</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;values&gt;
+  &lt;value&gt;
+    &lt;alarm_actions&gt;
+      &lt;item&gt;http://site:8000/alarm&lt;/item&gt;
+    &lt;/alarm_actions&gt;
+    &lt;alarm_id nil="true" /&gt;
+    &lt;combination_rule nil="true" /&gt;
+    &lt;description&gt;An alarm&lt;/description&gt;
+    &lt;enabled&gt;true&lt;/enabled&gt;
+    &lt;insufficient_data_actions&gt;
+      &lt;item&gt;http://site:8000/nodata&lt;/item&gt;
+    &lt;/insufficient_data_actions&gt;
+    &lt;name&gt;SwiftObjectAlarm&lt;/name&gt;
+    &lt;ok_actions&gt;
+      &lt;item&gt;http://site:8000/ok&lt;/item&gt;
+    &lt;/ok_actions&gt;
+    &lt;project_id&gt;c96c887c216949acbdfbd8b494863567&lt;/project_id&gt;
+    &lt;repeat_actions&gt;false&lt;/repeat_actions&gt;
+    &lt;state&gt;ok&lt;/state&gt;
+    &lt;state_timestamp&gt;2013-11-21T12:33:08.486228&lt;/state_timestamp&gt;
+    &lt;threshold_rule nil="true" /&gt;
+    &lt;timestamp&gt;2013-11-21T12:33:08.486221&lt;/timestamp&gt;
+    &lt;type&gt;threshold&lt;/type&gt;
+    &lt;user_id&gt;c96c887c216949acbdfbd8b494863567&lt;/user_id&gt;
+  &lt;/value&gt;
+&lt;/values&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="createAlarm">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Create alarm"
+                      xml:lang="EN">
+               <para role="shortdesc">Creates an alarm.</para>
+            </wadl:doc>
+            <request>
+               <param name="data" required="false" style="query" type="Alarm">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>a alarm within the request body.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "alarm_actions": [
+        "http://site:8000/alarm"
+    ],
+    "alarm_id": null,
+    "combination_rule": null,
+    "description": "An alarm",
+    "enabled": true,
+    "insufficient_data_actions": [
+        "http://site:8000/nodata"
+    ],
+    "name": "SwiftObjectAlarm",
+    "ok_actions": [
+        "http://site:8000/ok"
+    ],
+    "project_id": "c96c887c216949acbdfbd8b494863567",
+    "repeat_actions": false,
+    "state": "ok",
+    "state_timestamp": "2013-11-21T12:33:08.486228",
+    "threshold_rule": null,
+    "timestamp": "2013-11-21T12:33:08.486221",
+    "type": "threshold",
+    "user_id": "c96c887c216949acbdfbd8b494863567"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;value&gt;
+  &lt;alarm_actions&gt;
+    &lt;item&gt;http://site:8000/alarm&lt;/item&gt;
+  &lt;/alarm_actions&gt;
+  &lt;alarm_id nil="true" /&gt;
+  &lt;combination_rule nil="true" /&gt;
+  &lt;description&gt;An alarm&lt;/description&gt;
+  &lt;enabled&gt;true&lt;/enabled&gt;
+  &lt;insufficient_data_actions&gt;
+    &lt;item&gt;http://site:8000/nodata&lt;/item&gt;
+  &lt;/insufficient_data_actions&gt;
+  &lt;name&gt;SwiftObjectAlarm&lt;/name&gt;
+  &lt;ok_actions&gt;
+    &lt;item&gt;http://site:8000/ok&lt;/item&gt;
+  &lt;/ok_actions&gt;
+  &lt;project_id&gt;c96c887c216949acbdfbd8b494863567&lt;/project_id&gt;
+  &lt;repeat_actions&gt;false&lt;/repeat_actions&gt;
+  &lt;state&gt;ok&lt;/state&gt;
+  &lt;state_timestamp&gt;2013-11-21T12:33:08.486228&lt;/state_timestamp&gt;
+  &lt;threshold_rule nil="true" /&gt;
+  &lt;timestamp&gt;2013-11-21T12:33:08.486221&lt;/timestamp&gt;
+  &lt;type&gt;threshold&lt;/type&gt;
+  &lt;user_id&gt;c96c887c216949acbdfbd8b494863567&lt;/user_id&gt;
+&lt;/value&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                
+                
+                <resource path="v2/alarms/{alarm_id}" id="alarm_id">
+         <method name="GET" rax:id="showAlarm">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" title="Show alarm" xml:lang="EN">
+               <para role="shortdesc">Shows information for a specified
+                alarm.</para>
+            </wadl:doc>
+            <request/>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "alarm_actions": [
+        "http://site:8000/alarm"
+    ],
+    "alarm_id": null,
+    "combination_rule": null,
+    "description": "An alarm",
+    "enabled": true,
+    "insufficient_data_actions": [
+        "http://site:8000/nodata"
+    ],
+    "name": "SwiftObjectAlarm",
+    "ok_actions": [
+        "http://site:8000/ok"
+    ],
+    "project_id": "c96c887c216949acbdfbd8b494863567",
+    "repeat_actions": false,
+    "state": "ok",
+    "state_timestamp": "2013-11-21T12:33:08.486228",
+    "threshold_rule": null,
+    "timestamp": "2013-11-21T12:33:08.486221",
+    "type": "threshold",
+    "user_id": "c96c887c216949acbdfbd8b494863567"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;value&gt;
+  &lt;alarm_actions&gt;
+    &lt;item&gt;http://site:8000/alarm&lt;/item&gt;
+  &lt;/alarm_actions&gt;
+  &lt;alarm_id nil="true" /&gt;
+  &lt;combination_rule nil="true" /&gt;
+  &lt;description&gt;An alarm&lt;/description&gt;
+  &lt;enabled&gt;true&lt;/enabled&gt;
+  &lt;insufficient_data_actions&gt;
+    &lt;item&gt;http://site:8000/nodata&lt;/item&gt;
+  &lt;/insufficient_data_actions&gt;
+  &lt;name&gt;SwiftObjectAlarm&lt;/name&gt;
+  &lt;ok_actions&gt;
+    &lt;item&gt;http://site:8000/ok&lt;/item&gt;
+  &lt;/ok_actions&gt;
+  &lt;project_id&gt;c96c887c216949acbdfbd8b494863567&lt;/project_id&gt;
+  &lt;repeat_actions&gt;false&lt;/repeat_actions&gt;
+  &lt;state&gt;ok&lt;/state&gt;
+  &lt;state_timestamp&gt;2013-11-21T12:33:08.486228&lt;/state_timestamp&gt;
+  &lt;threshold_rule nil="true" /&gt;
+  &lt;timestamp&gt;2013-11-21T12:33:08.486221&lt;/timestamp&gt;
+  &lt;type&gt;threshold&lt;/type&gt;
+  &lt;user_id&gt;c96c887c216949acbdfbd8b494863567&lt;/user_id&gt;
+&lt;/value&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="PUT" rax:id="updateAlarm">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Update alarm"
+                      xml:lang="EN">
+               <para role="shortdesc">Updates a specified alarm.</para>
+            </wadl:doc>
+            <request>
+               <param name="data" required="false" style="query" type="Alarm">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>a alarm within the request body.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "alarm_actions": [
+        "http://site:8000/alarm"
+    ],
+    "alarm_id": null,
+    "combination_rule": null,
+    "description": "An alarm",
+    "enabled": true,
+    "insufficient_data_actions": [
+        "http://site:8000/nodata"
+    ],
+    "name": "SwiftObjectAlarm",
+    "ok_actions": [
+        "http://site:8000/ok"
+    ],
+    "project_id": "c96c887c216949acbdfbd8b494863567",
+    "repeat_actions": false,
+    "state": "ok",
+    "state_timestamp": "2013-11-21T12:33:08.486228",
+    "threshold_rule": null,
+    "timestamp": "2013-11-21T12:33:08.486221",
+    "type": "threshold",
+    "user_id": "c96c887c216949acbdfbd8b494863567"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;value&gt;
+  &lt;alarm_actions&gt;
+    &lt;item&gt;http://site:8000/alarm&lt;/item&gt;
+  &lt;/alarm_actions&gt;
+  &lt;alarm_id nil="true" /&gt;
+  &lt;combination_rule nil="true" /&gt;
+  &lt;description&gt;An alarm&lt;/description&gt;
+  &lt;enabled&gt;true&lt;/enabled&gt;
+  &lt;insufficient_data_actions&gt;
+    &lt;item&gt;http://site:8000/nodata&lt;/item&gt;
+  &lt;/insufficient_data_actions&gt;
+  &lt;name&gt;SwiftObjectAlarm&lt;/name&gt;
+  &lt;ok_actions&gt;
+    &lt;item&gt;http://site:8000/ok&lt;/item&gt;
+  &lt;/ok_actions&gt;
+  &lt;project_id&gt;c96c887c216949acbdfbd8b494863567&lt;/project_id&gt;
+  &lt;repeat_actions&gt;false&lt;/repeat_actions&gt;
+  &lt;state&gt;ok&lt;/state&gt;
+  &lt;state_timestamp&gt;2013-11-21T12:33:08.486228&lt;/state_timestamp&gt;
+  &lt;threshold_rule nil="true" /&gt;
+  &lt;timestamp&gt;2013-11-21T12:33:08.486221&lt;/timestamp&gt;
+  &lt;type&gt;threshold&lt;/type&gt;
+  &lt;user_id&gt;c96c887c216949acbdfbd8b494863567&lt;/user_id&gt;
+&lt;/value&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="DELETE" rax:id="deleteAlarm">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Delete alarm"
+                      xml:lang="EN">
+               <para role="shortdesc">Deletes a specified alarm.</para>
+            </wadl:doc>
+            <request/>
+            <response status="204"/>
+         </method>
+      </resource>
+                    
+                    
+                    
+                    <resource path="v2/alarms/{alarm_id}/state" id="state">
+         <method name="PUT" rax:id="updateAlarmState">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Update alarm state"
+                      xml:lang="EN">
+               <para role="shortdesc">Sets the state of a specified
+                alarm.</para>
+            </wadl:doc>
+            <request>
+               <param name="state" required="false" style="query" type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>An alarm state within the request body.
+                        Valid values are <code>ok</code>,
+                            <code>alarm</code>, or <code>insufficient
+                            data</code>.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200"/>
+         </method>
+         <method name="GET" rax:id="showAlarmState">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Show alarm state"
+                      xml:lang="EN">
+               <para role="shortdesc">Gets the state of a specified
+                alarm.</para>
+            </wadl:doc>
+            <request/>
+            <response status="200"/>
+         </method>
+      </resource>
+                        
+                        
+                    
+                    <resource path="v2/alarms/{alarm_id}/history" id="history">
+         <method name="GET" rax:id="showAlarmHistory">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Show alarm history"
+                      xml:lang="EN">
+               <para role="shortdesc">Assembles the history for a
+                specified alarm.</para>
+            </wadl:doc>
+            <request>
+               <param name="q" required="false" style="query" type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Filter rules for the changes to be
+                        described.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200"/>
+         </method>
+      </resource>
+                        
+                    
+                
+            <resource path="v2/meters" id="meters">
+         <method name="GET" rax:id="listMeters">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" title="List meters" xml:lang="EN">
+               <para role="shortdesc">Lists meters, based on the data
+                recorded so far.</para>
+            </wadl:doc>
+            <request>
+               <param name="q" required="false" style="query" type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Filter rules for the meters to be
+                        returned.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">[
+  {
+      "meter_id": "YmQ5NDMxYzEtOGQ2OS00YWQzLTgwM2EtOGQ0YTZiODlmZDM2K2luc3RhbmNl\n",
+      "name": "instance",
+      "project_id": "35b17138-b364-4e6a-a131-8f3099c5be68",
+      "resource_id": "bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+      "source": "openstack",
+      "type": "gauge",
+      "unit": "instance",
+      "user_id": "efd87807-12d2-4b38-9c70-5f5c2ac427ff"
+  }
+]</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;values&gt;
+  &lt;value&gt;
+    &lt;meter_id&gt;YmQ5NDMxYzEtOGQ2OS00YWQzLTgwM2EtOGQ0YTZiODlmZDM2K2luc3RhbmNl
+  &lt;/meter_id&gt;
+    &lt;name&gt;instance&lt;/name&gt;
+    &lt;project_id&gt;35b17138-b364-4e6a-a131-8f3099c5be68&lt;/project_id&gt;
+    &lt;resource_id&gt;bd9431c1-8d69-4ad3-803a-8d4a6b89fd36&lt;/resource_id&gt;
+    &lt;source&gt;openstack&lt;/source&gt;
+    &lt;type&gt;gauge&lt;/type&gt;
+    &lt;unit&gt;instance&lt;/unit&gt;
+    &lt;user_id&gt;efd87807-12d2-4b38-9c70-5f5c2ac427ff&lt;/user_id&gt;
+  &lt;/value&gt;
+&lt;/values&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                
+                <resource path="v2/meters/{meter_name}" id="meter_name">
+         <method name="GET" rax:id="showMeter">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" title="Show meter" xml:lang="EN">
+               <para role="shortdesc">Gets samples for a specified
+                meter.</para>
+            </wadl:doc>
+            <request>
+               <param name="q" required="false" style="query" type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Filter rules for the data to be
+                        returned.</para>
+                  </wadl:doc>
+               </param>
+               <param name="limit" required="false" style="query" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Maximum number of samples to return.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">[
+  {
+      "counter_name": "instance",
+      "counter_type": "gauge",
+      "counter_unit": "instance",
+      "counter_volume": 1.0,
+      "message_id": "5460acce-4fd6-480d-ab18-9735ec7b1996",
+      "project_id": "35b17138-b364-4e6a-a131-8f3099c5be68",
+      "resource_id": "bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+      "resource_metadata": {
+          "name1": "value1",
+          "name2": "value2"
+      },
+      "source": "openstack",
+      "timestamp": "2013-11-21T12:33:08.323533",
+      "user_id": "efd87807-12d2-4b38-9c70-5f5c2ac427ff"
+  }
+]</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;values&gt;
+  &lt;value&gt;
+    &lt;counter_name&gt;instance&lt;/counter_name&gt;
+    &lt;counter_type&gt;gauge&lt;/counter_type&gt;
+    &lt;counter_unit&gt;instance&lt;/counter_unit&gt;
+    &lt;counter_volume&gt;1.0&lt;/counter_volume&gt;
+    &lt;message_id&gt;5460acce-4fd6-480d-ab18-9735ec7b1996&lt;/message_id&gt;
+    &lt;project_id&gt;35b17138-b364-4e6a-a131-8f3099c5be68&lt;/project_id&gt;
+    &lt;resource_id&gt;bd9431c1-8d69-4ad3-803a-8d4a6b89fd36&lt;/resource_id&gt;
+    &lt;resource_metadata&gt;
+      &lt;item&gt;
+        &lt;key&gt;name2&lt;/key&gt;
+        &lt;value&gt;value2&lt;/value&gt;
+      &lt;/item&gt;
+      &lt;item&gt;
+        &lt;key&gt;name1&lt;/key&gt;
+        &lt;value&gt;value1&lt;/value&gt;
+      &lt;/item&gt;
+    &lt;/resource_metadata&gt;
+    &lt;source&gt;openstack&lt;/source&gt;
+    &lt;timestamp&gt;2013-11-21T12:33:08.323533&lt;/timestamp&gt;
+    &lt;user_id&gt;efd87807-12d2-4b38-9c70-5f5c2ac427ff&lt;/user_id&gt;
+  &lt;/value&gt;
+&lt;/values&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="createMeter">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Create meter"
+                      xml:lang="EN">
+               <para role="shortdesc">Posts list of samples to
+                Telemetry.</para>
+            </wadl:doc>
+            <request>
+               <param name="samples" required="false" style="query" type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>A list of samples within the request
+                        body.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">[
+  {
+      "counter_name": "instance",
+      "counter_type": "gauge",
+      "counter_unit": "instance",
+      "counter_volume": 1.0,
+      "message_id": "5460acce-4fd6-480d-ab18-9735ec7b1996",
+      "project_id": "35b17138-b364-4e6a-a131-8f3099c5be68",
+      "resource_id": "bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+      "resource_metadata": {
+          "name1": "value1",
+          "name2": "value2"
+      },
+      "source": "openstack",
+      "timestamp": "2013-11-21T12:33:08.323533",
+      "user_id": "efd87807-12d2-4b38-9c70-5f5c2ac427ff"
+  }
+]</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;values&gt;
+  &lt;value&gt;
+    &lt;counter_name&gt;instance&lt;/counter_name&gt;
+    &lt;counter_type&gt;gauge&lt;/counter_type&gt;
+    &lt;counter_unit&gt;instance&lt;/counter_unit&gt;
+    &lt;counter_volume&gt;1.0&lt;/counter_volume&gt;
+    &lt;message_id&gt;5460acce-4fd6-480d-ab18-9735ec7b1996&lt;/message_id&gt;
+    &lt;project_id&gt;35b17138-b364-4e6a-a131-8f3099c5be68&lt;/project_id&gt;
+    &lt;resource_id&gt;bd9431c1-8d69-4ad3-803a-8d4a6b89fd36&lt;/resource_id&gt;
+    &lt;resource_metadata&gt;
+      &lt;item&gt;
+        &lt;key&gt;name2&lt;/key&gt;
+        &lt;value&gt;value2&lt;/value&gt;
+      &lt;/item&gt;
+      &lt;item&gt;
+        &lt;key&gt;name1&lt;/key&gt;
+        &lt;value&gt;value1&lt;/value&gt;
+      &lt;/item&gt;
+    &lt;/resource_metadata&gt;
+    &lt;source&gt;openstack&lt;/source&gt;
+    &lt;timestamp&gt;2013-11-21T12:33:08.323533&lt;/timestamp&gt;
+    &lt;user_id&gt;efd87807-12d2-4b38-9c70-5f5c2ac427ff&lt;/user_id&gt;
+  &lt;/value&gt;
+&lt;/values&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource path="v2/meters/{meter_name}/statistics" id="statistics">
+         <method name="GET" rax:id="showMeterStatistics">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Show meter statistics"
+                      xml:lang="EN">
+               <para role="shortdesc">Computes the statistics of the
+                samples in a specified time range.</para>
+            </wadl:doc>
+            <request>
+               <param name="q" required="false" style="query" type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Filter rules for the data to be
+                        returned.</para>
+                  </wadl:doc>
+               </param>
+               <param name="groupby" required="false" style="query" type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Fields for group by aggregation</para>
+                  </wadl:doc>
+               </param>
+               <param name="period" required="false" style="query" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Returned result will be an array of
+                        statistics for a period long of that number of
+                        seconds.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">[
+  {
+      "avg": 4.5,
+      "count": 10,
+      "duration": 300.0,
+      "duration_end": "2013-01-04T16:47:00",
+      "duration_start": "2013-01-04T16:42:00",
+      "max": 9.0,
+      "min": 1.0,
+      "period": 7200,
+      "period_end": "2013-01-04T18:00:00",
+      "period_start": "2013-01-04T16:00:00",
+      "sum": 45.0,
+      "unit": "GiB"
+  }
+]</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;values&gt;
+  &lt;value&gt;
+    &lt;avg&gt;4.5&lt;/avg&gt;
+    &lt;count&gt;10&lt;/count&gt;
+    &lt;duration&gt;300.0&lt;/duration&gt;
+    &lt;duration_end&gt;2013-01-04T16:47:00&lt;/duration_end&gt;
+    &lt;duration_start&gt;2013-01-04T16:42:00&lt;/duration_start&gt;
+    &lt;max&gt;9.0&lt;/max&gt;
+    &lt;min&gt;1.0&lt;/min&gt;
+    &lt;period&gt;7200&lt;/period&gt;
+    &lt;period_end&gt;2013-01-04T18:00:00&lt;/period_end&gt;
+    &lt;period_start&gt;2013-01-04T16:00:00&lt;/period_start&gt;
+    &lt;sum&gt;45.0&lt;/sum&gt;
+    &lt;unit&gt;GiB&lt;/unit&gt;
+  &lt;/value&gt;
+&lt;/values&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                
+            <resource path="v2/resources" id="resources">
+         <method name="GET" rax:id="listResources">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="List resources"
+                      xml:lang="EN">
+               <para role="shortdesc">Lists definitions for all
+                resources.</para>
+            </wadl:doc>
+            <request>
+               <param name="q" required="false" style="query" type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Filter rules for the resources to be
+                        returned.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">[
+  {
+      "links": [
+          {
+              "href": "http://localhost:8777/v2/resources/bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+              "rel": "self"
+          },
+          {
+              "href": "http://localhost:8777/v2/meters/volume?q.field=resource_id&amp;q.value=bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+              "rel": "volume"
+          }
+      ],
+      "metadata": {
+          "name1": "value1",
+          "name2": "value2"
+      },
+      "project_id": "35b17138-b364-4e6a-a131-8f3099c5be68",
+      "resource_id": "bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+      "source": "openstack",
+      "timestamp": "2013-11-21T12:33:08.189843",
+      "user_id": "efd87807-12d2-4b38-9c70-5f5c2ac427ff"
+  }
+]</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;values&gt;
+  &lt;value&gt;
+    &lt;links&gt;
+      &lt;item&gt;
+        &lt;href&gt;http://localhost:8777/v2/resources/bd9431c1-8d69-4ad3-803a-8d4a6b89fd36&lt;/href&gt;
+        &lt;rel&gt;self&lt;/rel&gt;
+      &lt;/item&gt;
+      &lt;item&gt;
+        &lt;href&gt;http://localhost:8777/v2/meters/volume?q.field=resource_id&amp;amp;q.value=bd9431c1-8d69-4ad3-803a-8d4a6b89fd36&lt;/href&gt;
+        &lt;rel&gt;volume&lt;/rel&gt;
+      &lt;/item&gt;
+    &lt;/links&gt;
+    &lt;metadata&gt;
+      &lt;item&gt;
+        &lt;key&gt;name2&lt;/key&gt;
+        &lt;value&gt;value2&lt;/value&gt;
+      &lt;/item&gt;
+      &lt;item&gt;
+        &lt;key&gt;name1&lt;/key&gt;
+        &lt;value&gt;value1&lt;/value&gt;
+      &lt;/item&gt;
+    &lt;/metadata&gt;
+    &lt;project_id&gt;35b17138-b364-4e6a-a131-8f3099c5be68&lt;/project_id&gt;
+    &lt;resource_id&gt;bd9431c1-8d69-4ad3-803a-8d4a6b89fd36&lt;/resource_id&gt;
+    &lt;source&gt;openstack&lt;/source&gt;
+    &lt;timestamp&gt;2013-11-21T12:33:08.189843&lt;/timestamp&gt;
+    &lt;user_id&gt;efd87807-12d2-4b38-9c70-5f5c2ac427ff&lt;/user_id&gt;
+  &lt;/value&gt;
+&lt;/values&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                
+                <resource path="v2/resources/{resource_id}" id="resource_id">
+         <method name="GET" rax:id="showResource">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Show resource information"
+                      xml:lang="EN">
+               <para role="shortdesc">Gets details for a specified
+                resource.</para>
+            </wadl:doc>
+            <request>
+               <param name="resource_id"
+                      required="false"
+                      style="query"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The UUID of the resource.</para>
+                  </wadl:doc>
+               </param>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "links": [
+        {
+            "href": "http://localhost:8777/v2/resources/bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+            "rel": "self"
+        },
+        {
+            "href": "http://localhost:8777/v2/meters/volume?q.field=resource_id&amp;q.value=bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+            "rel": "volume"
+        }
+    ],
+    "metadata": {
+        "name1": "value1",
+        "name2": "value2"
+    },
+    "project_id": "35b17138-b364-4e6a-a131-8f3099c5be68",
+    "resource_id": "bd9431c1-8d69-4ad3-803a-8d4a6b89fd36",
+    "source": "openstack",
+    "timestamp": "2013-11-21T12:33:08.189843",
+    "user_id": "efd87807-12d2-4b38-9c70-5f5c2ac427ff"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;value&gt;
+  &lt;links&gt;
+    &lt;item&gt;
+      &lt;href&gt;http://localhost:8777/v2/resources/bd9431c1-8d69-4ad3-803a-8d4a6b89fd36&lt;/href&gt;
+      &lt;rel&gt;self&lt;/rel&gt;
+    &lt;/item&gt;
+    &lt;item&gt;
+      &lt;href&gt;http://localhost:8777/v2/meters/volume?q.field=resource_id&amp;amp;q.value=bd9431c1-8d69-4ad3-803a-8d4a6b89fd36&lt;/href&gt;
+      &lt;rel&gt;volume&lt;/rel&gt;
+    &lt;/item&gt;
+  &lt;/links&gt;
+  &lt;metadata&gt;
+    &lt;item&gt;
+      &lt;key&gt;name2&lt;/key&gt;
+      &lt;value&gt;value2&lt;/value&gt;
+    &lt;/item&gt;
+    &lt;item&gt;
+      &lt;key&gt;name1&lt;/key&gt;
+      &lt;value&gt;value1&lt;/value&gt;
+    &lt;/item&gt;
+  &lt;/metadata&gt;
+  &lt;project_id&gt;35b17138-b364-4e6a-a131-8f3099c5be68&lt;/project_id&gt;
+  &lt;resource_id&gt;bd9431c1-8d69-4ad3-803a-8d4a6b89fd36&lt;/resource_id&gt;
+  &lt;source&gt;openstack&lt;/source&gt;
+  &lt;timestamp&gt;2013-11-21T12:33:08.189843&lt;/timestamp&gt;
+  &lt;user_id&gt;efd87807-12d2-4b38-9c70-5f5c2ac427ff&lt;/user_id&gt;
+&lt;/value&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                
+            
+    </resources>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="listResources"
+           name="GET">
+        
+        <request>
+            <param name="q" required="false" style="query" type="xsd:list">
+                
+            </param>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="showResource"
+           name="GET">
+        
+        <request>
+            <param name="resource_id"
+                required="false"
+                style="query"
+                type="xsd:string">
+                
+            </param>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="listMeters"
+           name="GET">
+        
+        <request>
+            <param name="q" required="false" style="query" type="xsd:list">
+                
+            </param>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="showMeter"
+           name="GET">
+        
+        <request>
+            <param name="q" required="false" style="query" type="xsd:list">
+                
+            </param>
+            <param name="limit" required="false" style="query" type="xsd:int">
+                
+            </param>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="createMeter"
+           name="POST">
+        
+        <request>
+            <param name="samples" required="false" style="query" type="xsd:list">
+                
+            </param>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="showMeterStatistics"
+           name="GET">
+        
+        <request>
+            <param name="q" required="false" style="query" type="xsd:list">
+                
+            </param>
+            <param name="groupby" required="false" style="query" type="xsd:list">
+                
+            </param>
+            <param name="period" required="false" style="query" type="xsd:int">
+                
+            </param>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="listAlarms"
+           name="GET">
+        
+        <request>
+            <param name="q" required="false" style="query" type="xsd:list">
+                
+            </param>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="createAlarm"
+           name="POST">
+        
+        <request>
+            <param name="data" required="false" style="query" type="Alarm">
+                
+            </param>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="showAlarm"
+           name="GET">
+        
+        <request/>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="updateAlarm"
+           name="PUT">
+        
+        <request>
+            <param name="data" required="false" style="query" type="Alarm">
+                
+            </param>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="showAlarmHistory"
+           name="GET">
+        
+        <request>
+            <param name="q" required="false" style="query" type="xsd:list">
+                
+            </param>
+        </request>
+        <response status="200"/>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="updateAlarmState"
+           name="PUT">
+        
+        <request>
+            <param name="state" required="false" style="query" type="xsd:dict">
+                
+            </param>
+        </request>
+        <response status="200"/>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="showAlarmState"
+           name="GET">
+        
+        <request/>
+        <response status="200"/>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:Enum="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           id="deleteAlarm"
+           name="DELETE">
+        
+        <request/>
+        <response status="204"/>
+    </method>
+</wadl:application>

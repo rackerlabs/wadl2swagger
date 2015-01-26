@@ -1,0 +1,147 @@
+---
+swagger: '2.0'
+info:
+  title: os-networks-provider-ext
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.0/networks":
+    get:
+      operationId: listNetworks
+      summary: List networks
+      description: |
+        Lists networks that are accessible to the tenant who submits the request.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "network": {
+                      "status": "ACTIVE",
+                      "subnets": [
+                          "54d6f61d-db07-451c-9ab3-b9609b6b6f0b"
+                      ],
+                      "name": "private-network",
+                      "provider:physical_network": null,
+                      "admin_state_up": true,
+                      "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+                      "provider:network_type": "local",
+                      "router:external": true,
+                      "shared": true,
+                      "id": "d32019d3-bc6e-4319-9c1d-6722fc136a22",
+                      "provider:segmentation_id": null
+                  }
+              }
+    post:
+      operationId: createNetwork
+      summary: Create network
+      description: |
+        Creates a network.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "network": {
+                      "status": "ACTIVE",
+                      "subnets": [],
+                      "name": "net1",
+                      "admin_state_up": true,
+                      "tenant_id": "9bacb3c5d39d41a79512987f338cf177",
+                      "segments": [
+                          {
+                              "provider:network_type": "vlan",
+                              "provider:physical_network": "8bab8453-1bc9-45af-8c70-f83aa9b50453",
+                              "provider:segmentation_id": 2
+                          },
+                          {
+                              "provider:network_type": "stt",
+                              "provider:physical_network": "8bab8453-1bc9-45af-8c70-f83aa9b50453",
+                              "provider:segmentation_id": null
+                          }
+                      ],
+                      "port_security_enabled": true,
+                      "shared": false,
+                      "id": "4e8e5957-649f-477b-9e5b-f1f75b21c03c"
+                  }
+              }
+  "/v2.0/networks/{network_id}":
+    parameters:
+    - name: network_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the network of interest to you.
+    get:
+      operationId: showNetwork
+      summary: Show network details
+      description: |
+        Shows details for a specified network.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "network": {
+                      "status": "ACTIVE",
+                      "subnets": [
+                          "54d6f61d-db07-451c-9ab3-b9609b6b6f0b"
+                      ],
+                      "name": "private-network",
+                      "provider:physical_network": null,
+                      "admin_state_up": true,
+                      "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+                      "provider:network_type": "local",
+                      "router:external": true,
+                      "shared": true,
+                      "id": "d32019d3-bc6e-4319-9c1d-6722fc136a22",
+                      "provider:segmentation_id": null
+                  }
+              }
+    put:
+      operationId: updateNetwork
+      summary: Update network
+      description: |
+        Updates a specified network.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "network": {
+                      "status": "ACTIVE",
+                      "subnets": [],
+                      "name": "sample_network_5_updated",
+                      "provider:physical_network": null,
+                      "admin_state_up": true,
+                      "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+                      "provider:network_type": "local",
+                      "router:external": false,
+                      "shared": false,
+                      "id": "1f370095-98f6-4079-be64-6d3d4a6adcc6",
+                      "provider:segmentation_id": null
+                  }
+              }
+    delete:
+      operationId: deleteNetwork
+      summary: Delete network
+      description: |
+        Deletes a specified network.
+      produces: []
+      responses: {}

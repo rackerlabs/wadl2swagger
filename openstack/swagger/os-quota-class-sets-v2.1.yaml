@@ -1,0 +1,67 @@
+---
+swagger: '2.0'
+info:
+  title: os-quota-class-sets-v2.1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.1/os-quota-class-sets/{class_id}":
+    get:
+      operationId: showquota
+      summary: Show quota
+      description: |
+        Shows the quota for a specified class.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_class_set": {
+                      "metadata_items": 128,
+                      "server_groups": 10,
+                      "server_group_members": 10,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "instances": 10,
+                      "security_group_rules": 20,
+                      "cores": 20,
+                      "fixed_ips": -1,
+                      "id": "test_class",
+                      "security_groups": 10
+                  }
+              }
+    put:
+      operationId: updatequota
+      summary: Update quota
+      description: |
+        Updates quota for a specified class.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_class_set": {
+                      "metadata_items": 128,
+                      "server_groups": 10,
+                      "server_group_members": 10,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "instances": 50,
+                      "security_group_rules": 20,
+                      "cores": 50,
+                      "fixed_ips": -1,
+                      "id": "test_class",
+                      "security_groups": 10
+                  }
+              }

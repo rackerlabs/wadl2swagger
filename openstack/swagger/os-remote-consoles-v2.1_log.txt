@@ -1,0 +1,14 @@
+INFO:wadls/os-remote-consoles-v2.1.wadl:Converting: wadls/os-remote-consoles-v2.1.wadl to swagger/os-remote-consoles-v2.1.json
+WARNING:wadls/os-remote-consoles-v2.1.wadl:No support for application/json for resource at /v2.1/servers/{server_id}/actions
+INFO:root:Saving swagger to swagger/os-remote-consoles-v2.1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v2.1~1servers~1{server_id}~1actions/post: API requires path parameter but it is not defined: server_id
+
+1 error and 0 warnings
+Invalid

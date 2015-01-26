@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-instance-actions-v2.1">
+        <resource id="os-instance-actions"
+                path="/v2.1/servers/{server_id}/os-instance-actions">
+         <method name="GET" rax:id="returnactionlist">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List actions for an instance">
+               <para role="shortdesc">Lists actions for a specified
+                instance.</para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "instance_actions": [
+        {
+            "action": "resize",
+            "instance_uuid": "b48316c5-71e8-45e4-9884-6c78055b9b13",
+            "message": "",
+            "project_id": "842",
+            "request_id": "req-25517360-b757-47d3-be45-0e8d2a01b36a",
+            "start_time": "2012-12-05T01:00:00.000000",
+            "user_id": "789"
+        },
+        {
+            "action": "reboot",
+            "instance_uuid": "b48316c5-71e8-45e4-9884-6c78055b9b13",
+            "message": "",
+            "project_id": "147",
+            "request_id": "req-3293a3f1-b44c-4609-b8d2-d81b105636b8",
+            "start_time": "2012-12-05T00:00:00.000000",
+            "user_id": "789"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        <resource id="request_id"
+                path="/v2.1/servers/{server_id}/os-instance-actions/{request_id}">
+         <method name="GET" rax:id="returninstancedata">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Shows instance action">
+               <para role="shortdesc">Shows information about a specified
+                instance action.</para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "instance_action": {
+        "action": "reboot",
+        "events": [
+            {
+                "event": "schedule",
+                "finish_time": "2012-12-05T01:02:00.000000",
+                "result": "Success",
+                "start_time": "2012-12-05T01:00:02.000000",
+                "traceback": ""
+            },
+            {
+                "event": "compute_create",
+                "finish_time": "2012-12-05T01:04:00.000000",
+                "result": "Success",
+                "start_time": "2012-12-05T01:03:00.000000",
+                "traceback": ""
+            }
+        ],
+        "instance_uuid": "b48316c5-71e8-45e4-9884-6c78055b9b13",
+        "message": "",
+        "project_id": "147",
+        "request_id": "req-3293a3f1-b44c-4609-b8d2-d81b105636b8",
+        "start_time": "2012-12-05T00:00:00.000000",
+        "user_id": "789"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                        
+                    
+    </resources>
+    <!-- *******************************************************-->
+    <!--             OS Instance actions                    -->
+    <!--*******************************************************-->
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="returninstancedata">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="returnactionlist">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+</wadl:application>

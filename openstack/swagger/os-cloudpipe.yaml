@@ -1,0 +1,82 @@
+---
+swagger: '2.0'
+info:
+  title: os-cloudpipe
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-cloudpipe":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: listCloudpipes
+      summary: List cloudpipes
+      description: |
+        Lists cloudpipes.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "cloudpipes": [
+                      {
+                          "public_ip": "127.0.0.1",
+                          "created_at": "2012-11-27T17:18:01Z",
+                          "public_port": 22,
+                          "state": "down",
+                          "instance_id": "27deecdb-baa3-4a26-9c82-32994b815b01",
+                          "internal_ip": "192.168.0.3",
+                          "project_id": "cloudpipe-fa1765bd-a352-49c7-a6b7-8ee108a3cb0c"
+                      }
+                  ]
+              }
+    post:
+      operationId: createCloudpipe
+      summary: Create cloudpipe
+      description: |
+        Creates a cloudpipe.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "instance_id": "1e9b8425-34af-488e-b969-4d46f4a6382e"
+              }
+      parameters:
+      - name: project_id
+        required: false
+        in: query
+        type: string
+        description: |
+          Creates the cloudpipe for the specified project ID. If omitted, the project ID defaults to the calling tenant.
+  "/v2/{tenant_id}/os-cloudpipe/configure-project":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    post:
+      operationId: updateCloudpipe
+      summary: Update cloudpipe
+      description: |
+        Updates the virtual private network (VPN) IP address and port for a specified cloudpipe instance.
+      produces: []
+      responses:
+        '202':
+          description: 202 response

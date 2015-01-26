@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entites with xmllint          -->
+<!--                                                       -->
+<!--        xmllint -noent OS-KSVALIDATE-admin.wadl             -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <wadl:grammars xmlns:db="http://docbook.org/ns/docbook"
+                  xmlns="http://wadl.dev.java.net/2009/02">
+      <wadl:include href="7936-OS-KSVALIDATE-admin-xsd-1.xsd"/>
+      <wadl:include href="7936-OS-KSVALIDATE-admin-xsd-2.xsd"/>
+   </wadl:grammars>
+
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+
+    <!-- We should use SSL in production -->
+    <resources xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+              xmlns:HP-IDM="http://docs.openstack.org/identity/api/ext/HP-IDM/v1.0"
+              xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="http://localhost:35357"
+              xml:id="OS-KSVALIDATE-admin-v2.0">
+        <resource id="validate" path="/v2.0/OS-KSVALIDATE/token/validate">
+         <param name="X-Auth-Token"
+                style="header"
+                type="xsd:string"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>A valid
+                                   authentication token for an
+                                   administrative
+                                user.</para>
+            </wadl:doc>
+                        </param>
+         <param name="X-Subject-Token"
+                style="header"
+                type="xsd:string"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>A valid
+                                   authentication
+                                token.</para>
+            </wadl:doc>
+                        </param>
+         <param name="belongsTo"
+                style="query"
+                required="false"
+                type="xsd:string">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>Validates that a
+                                   token has the specified tenant in
+                                   scope, for performance. Valid
+                                   tokens are in the
+                                   <code>/tokens/{tokenId}</code>
+                                   path. An itemNotFound
+                                   (<code>404</code>) fault is
+                                   returned for a token that is not
+                                   valid.</para>
+            </wadl:doc>
+                        </param>
+         <param name="HP-IDM-serviceId"
+                style="query"
+                type="xsd:string"
+                required="false"/>
+         <method name="GET" rax:id="validateToken">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Validate token">
+               <para role="shortdesc">Checks that a token is valid and
+                that it belongs to a specified tenant and service IDs.
+                Returns the permissions for a particular
+                client.</para>
+               <para>Behavior is similar to
+                    <code>/tokens/{tokenId}</code>. An itemNotFound
+                    (<code>404</code>) fault is returned for a token
+                that is not valid.</para>
+               <para>This extension might decrypt
+                    <code>X-Subject-Token</code> header and internally
+                call the normal validation for Identity, passing in
+                all headers and query parameters. It should therefore
+                support all existing calls on
+                    <code>/tokens/{tokenId}</code>, including
+                extensions such as HP-IDM.</para>
+            </wadl:doc>
+            <response status="200 203">
+               <representation mediaType="application/xml" element="identity:access">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;access xmlns="http://docs.openstack.org/identity/api/v2.0"&gt;
+    &lt;token id="ab48a9efdfedb23ty3494" expires="2010-11-01T03:32:15-05:00"&gt;
+        &lt;tenant id="456" name="My Project" /&gt;
+    &lt;/token&gt;
+    &lt;user id="123" name="jqsmith"&gt;
+        &lt;roles xmlns="http://docs.openstack.org/identity/api/v2.0"&gt;
+            &lt;role id="123" name="Admin" tenantId="one"/&gt;
+            &lt;role id="234" name="object-store:admin" tenantId="1"/&gt;
+        &lt;/roles&gt;
+    &lt;/user&gt;
+&lt;/access&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "access": {
+        "token": {
+            "id": "ab48a9efdfedb23ty3494",
+            "expires": "2010-11-01T03:32:15-05:00",
+            "tenant": {
+                "id": "345",
+                "name": "My Project"
+            }
+        },
+        "user": {
+            "id": "123",
+            "name": "jqsmith",
+            "roles": [
+                {
+                    "id": "234",
+                    "name": "compute:admin"
+                },
+                {
+                    "id": "234",
+                    "name": "object-store:admin",
+                    "tenantId": "1"
+                }
+            ],
+            "roles_links": []
+        }
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response>
+               <representation mediaType="application/xml" element="identity:identityFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            
+            <response status="404">
+               <representation mediaType="application/xml" element="identity:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+         <method name="HEAD" rax:id="checkToken">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Check token">
+               <para role="shortdesc">Checks that a token is valid and
+                that it belongs to a specified tenant and service IDs,
+                for performance.</para>
+               <para>Behavior is similar to
+                    <code>/tokens/{tokenId}</code>. An itemNotFound
+                    (<code>404</code>) fault is returned for a token
+                that is not valid.</para>
+               <para>This extension might decrypt
+                    <code>X-Subject-Token</code> header and internally
+                call the normal validation for Identity, passing in
+                all headers and query parameters. It should therefore
+                support all existing calls on
+                    <code>/tokens/{tokenId}</code>, including
+                extensions such as HP-IDM.</para>
+            </wadl:doc>
+            <response status="200 203"/> 
+            <response>
+               <representation mediaType="application/xml" element="identity:identityFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            
+            <response status="404">
+               <representation mediaType="application/xml" element="identity:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+                        
+                        
+                        
+                        
+                        
+                        
+                    <resource id="endpointsForToken" path="/v2.0/OS-KSVALIDATE/token/endpoints">
+         <param name="X-Auth-Token"
+                style="header"
+                type="xsd:string"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>A valid
+                                   authentication token for an
+                                   administrative
+                                user.</para>
+            </wadl:doc>
+                        </param>
+         <param name="X-Subject-Token"
+                style="header"
+                type="xsd:string"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>A valid
+                                   authentication
+                                token.</para>
+            </wadl:doc>
+                        </param>
+         <param name="HP-IDM-serviceId"
+                style="query"
+                type="xsd:string"
+                required="false">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>A comma-separated
+                                   string of service IDs. Checks the
+                                   roles against the specified service
+                                   IDs. If a service ID is not valid
+                                   or if no roles are associated with
+                                   a service ID, a 401 fault is
+                                   returned.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="listEndpointsForToken">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List endpoints for a token">
+               <para role="shortdesc">Lists endpoints associated with a
+                specific token.</para>
+            </wadl:doc>
+            <response status="200 203">
+               <representation mediaType="application/xml" element="identity:endpoints">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;endpoints
+    xmlns="http://docs.openstack.org/identity/api/v2.0"&gt;
+  &lt;endpoint
+      id="1"
+      tenantId="1"
+      type="compute"
+      name="Compute"
+      region="North"
+      publicURL="https://compute.north.public.com/v1"
+      internalURL="https://compute.north.internal.com/v1"
+      adminURL="https://compute.north.internal.com/v1"&gt;
+      &lt;version
+          id="1"
+          info="https://compute.north.public.com/v1/"
+          list="https://compute.north.public.com/"
+      /&gt;
+  &lt;/endpoint&gt;
+  &lt;endpoint
+      id="2"
+      tenantId="2"
+      type="compute"
+      name="Compute"
+      region="South"
+      publicURL="https://compute.north.public.com/v1"
+      internalURL="https://compute.north.internal.com/v1"
+      adminURL="https://compute.north.internal.com/v1"&gt;
+      &lt;version
+          id="1"
+          info="https://compute.north.public.com/v1/"
+          list="https://compute.north.public.com/"
+      /&gt;
+  &lt;/endpoint&gt;
+  &lt;endpoint
+      id="3"
+      tenantId="1"
+      type="compute"
+      name="Compute"
+      region="East"
+      publicURL="https://compute.north.public.com/v1"
+      internalURL="https://compute.north.internal.com/v1"
+      adminURL="https://compute.north.internal.com/v1"
+  /&gt;
+  &lt;endpoint
+      id="4"
+      tenantId="1"
+      type="compute"
+      name="Compute"
+      region="West"
+      publicURL="https://compute.north.public.com/v1"
+      internalURL="https://compute.north.internal.com/v1"
+      adminURL="https://compute.north.internal.com/v1"&gt;
+      &lt;version
+          id="1"
+          info="https://compute.north.public.com/v1/"
+          list="https://compute.north.public.com/"
+      /&gt;
+  &lt;/endpoint&gt;
+  &lt;endpoint
+      id="5"
+      tenantId="1"
+      type="compute"
+      name="Compute"
+      region="Global"
+      publicURL="https://compute.north.public.com/v1"
+      internalURL="https://compute.north.internal.com/v1"
+      adminURL="https://compute.north.internal.com/v1"&gt;
+      &lt;version
+          id="1"
+          info="https://compute.north.public.com/v1/"
+          list="https://compute.north.public.com/"
+      /&gt;
+  &lt;/endpoint&gt;
+&lt;/endpoints&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "endpoints": [
+        {
+            "id": 1,
+            "tenantId": "1",
+            "region": "North",
+            "type": "compute",
+            "publicURL": "https://compute.north.public.com/v1",
+            "internalURL": "https://compute.north.internal.com/v1",
+            "adminURL": "https://compute.north.internal.com/v1",
+            "versionId": "1",
+            "versionInfo": "https://compute.north.public.com/v1/",
+            "versionList": "https://compute.north.public.com/"
+        },
+        {
+            "id": 2,
+            "tenantId": "1",
+            "region": "South",
+            "type": "compute",
+            "publicURL": "https://compute.north.public.com/v1",
+            "internalURL": "https://compute.north.internal.com/v1",
+            "adminURL": "https://compute.north.internal.com/v1",
+            "versionId": "1",
+            "versionInfo": "https://compute.north.public.com/v1/",
+            "versionList": "https://compute.north.public.com/"
+        },
+        {
+            "id": 3,
+            "tenantId": "1",
+            "region": "East",
+            "type": "compute",
+            "publicURL": "https://compute.north.public.com/v1",
+            "internalURL": "https://compute.north.internal.com/v1",
+            "adminURL": "https://compute.north.internal.com/v1",
+            "versionId": "1",
+            "versionInfo": "https://compute.north.public.com/v1/",
+            "versionList": "https://compute.north.public.com/"
+        },
+        {
+            "id": 4,
+            "tenantId": "1",
+            "region": "West",
+            "type": "compute",
+            "publicURL": "https://compute.north.public.com/v1",
+            "internalURL": "https://compute.north.internal.com/v1",
+            "adminURL": "https://compute.north.internal.com/v1",
+            "versionId": "1",
+            "versionInfo": "https://compute.north.public.com/v1/",
+            "versionList": "https://compute.north.public.com/"
+        },
+        {
+            "id": 5,
+            "tenantId": "1",
+            "region": "Global",
+            "type": "compute",
+            "publicURL": "https://compute.north.public.com/v1",
+            "internalURL": "https://compute.north.internal.com/v1",
+            "adminURL": "https://compute.north.internal.com/v1",
+            "versionId": "1",
+            "versionInfo": "https://compute.north.public.com/v1/",
+            "versionList": "https://compute.north.public.com/"
+        }
+    ],
+    "endpoints_links": []
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response>
+               <representation mediaType="application/xml" element="identity:identityFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            
+            <response status="404">
+               <representation mediaType="application/xml" element="identity:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+                        
+                        
+                        
+                        
+                    
+    </resources>
+
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+
+    <!-- token Operations -->
+    <method xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:HP-IDM="http://docs.openstack.org/identity/api/ext/HP-IDM/v1.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="validateToken">
+        
+        <response status="200 203">
+            <representation mediaType="application/xml" element="identity:access">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+        <response>
+            <representation mediaType="application/xml" element="identity:identityFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="identity:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="identity:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="identity:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="identity:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="identity:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+            
+        <response status="404">
+            <representation mediaType="application/xml" element="identity:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+    <method xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:HP-IDM="http://docs.openstack.org/identity/api/ext/HP-IDM/v1.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="HEAD"
+           id="checkToken">
+        
+        <response status="200 203"/> 
+        <response>
+            <representation mediaType="application/xml" element="identity:identityFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="identity:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="identity:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="identity:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="identity:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="identity:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+            
+        <response status="404">
+            <representation mediaType="application/xml" element="identity:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+    <method xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:HP-IDM="http://docs.openstack.org/identity/api/ext/HP-IDM/v1.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listEndpointsForToken">
+        
+        <response status="200 203">
+            <representation mediaType="application/xml" element="identity:endpoints">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+        <response>
+            <representation mediaType="application/xml" element="identity:identityFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="identity:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="identity:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="identity:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="identity:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="identity:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+            
+        <response status="404">
+            <representation mediaType="application/xml" element="identity:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+</wadl:application>

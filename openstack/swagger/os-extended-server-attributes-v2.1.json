@@ -1,0 +1,51 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-extended-server-attributes-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/servers": {
+            "get": {
+                "operationId": "returnserverdetails",
+                "summary": "Shows server details",
+                "description": "Shows details for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"os-extended-server-attributes:hypervisor_hostname\": \"fake-mini\",\n        \"status\": \"ACTIVE\",\n        \"os-extended-server-attributes:instance_name\": \"instance-00000001\",\n        \"user_id\": \"fake\",\n        \"addresses\": {\n            \"private\": [\n                {\n                    \"version\": 4,\n                    \"type\": \"fixed\",\n                    \"addr\": \"192.168.0.3\",\n                    \"mac_addr\": \"aa:bb:cc:dd:ee:ff\"\n                }\n            ]\n        },\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v3/servers/c278163e-36f9-4cf2-b1ac-80db4c63f7a8\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/servers/c278163e-36f9-4cf2-b1ac-80db4c63f7a8\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"created\": \"2013-09-16T02:55:07Z\",\n        \"os-extended-server-attributes:host\": \"c5f474bf81474f9dbbc404d5b2e4e9b3\",\n        \"key_name\": null,\n        \"image\": {\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"links\": [\n                {\n                    \"href\": \"http://glance.openstack.example.com/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"updated\": \"2013-09-16T02:55:08Z\",\n        \"name\": \"new-server-test\",\n        \"tenant_id\": \"openstack\",\n        \"progress\": 0,\n        \"host_id\": \"3bf189131c61d0e71b0a8686a897a0f50d1693b48c47b721fe77155b\",\n        \"flavor\": {\n            \"id\": \"1\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"id\": \"c278163e-36f9-4cf2-b1ac-80db4c63f7a8\",\n        \"metadata\": {\n            \"My Server Name\": \"Apache1\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/servers/details": {
+            "get": {
+                "operationId": "returnlistdetails",
+                "summary": "Lists server details for user",
+                "description": "Lists server details for a specified user.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"servers\": [\n        {\n            \"os-extended-server-attributes:hypervisor_hostname\": \"fake-mini\",\n            \"status\": \"ACTIVE\",\n            \"os-extended-server-attributes:instance_name\": \"instance-00000001\",\n            \"user_id\": \"fake\",\n            \"addresses\": {\n                \"private\": [\n                    {\n                        \"version\": 4,\n                        \"type\": \"fixed\",\n                        \"addr\": \"192.168.0.3\",\n                        \"mac_addr\": \"aa:bb:cc:dd:ee:ff\"\n                    }\n                ]\n            },\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v3/servers/a8c1c13d-ec7e-47c7-b4ff-077f72c1ca46\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/servers/a8c1c13d-ec7e-47c7-b4ff-077f72c1ca46\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"created\": \"2013-09-16T02:55:03Z\",\n            \"os-extended-server-attributes:host\": \"bc8efe4fdb7148a4bb921a2b03d17de6\",\n            \"key_name\": null,\n            \"image\": {\n                \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"links\": [\n                    {\n                        \"href\": \"http://glance.openstack.example.com/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"updated\": \"2013-09-16T02:55:05Z\",\n            \"name\": \"new-server-test\",\n            \"tenant_id\": \"openstack\",\n            \"progress\": 0,\n            \"host_id\": \"63cf07a9fd82e1d2294926ec5c0d2e1e0ca449224246df75e16f23dc\",\n            \"flavor\": {\n                \"id\": \"1\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/flavors/1\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"id\": \"a8c1c13d-ec7e-47c7-b4ff-077f72c1ca46\",\n            \"metadata\": {\n                \"My Server Name\": \"Apache1\"\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

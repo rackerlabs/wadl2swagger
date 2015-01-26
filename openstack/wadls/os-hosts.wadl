@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-hosts-v2">
+        <resource path="/v2/{tenant_id}/os-hosts" id="os-hosts">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <method name="GET" rax:id="listHosts">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List hosts">
+               <para role="shortdesc">Lists hosts.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/xml">
+                  <param name="service" style="query" required="false" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Service name">
+                        <para>The service name. To filter the returned
+                            list by service name, specify
+                                <code>?service={service}</code> in the
+                            URI.</para>
+                    </wadl:doc>
+                  </param>
+                  <param path="?zone={zone}"
+                         name="zone"
+                         style="query"
+                         required="false"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Zone">
+                        <para>The zone. To filter the returned list by
+                            zone, specify <code>?zone={zone}</code> in
+                            the URI.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="List hosts: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "hosts": [
+        {
+            "host_name": "787f4f6dda1b409bb8b2f9082349690e",
+            "service": "compute",
+            "zone": "nova"
+        },
+        {
+            "host_name": "a98b433151084aee8b1a986e28823b36",
+            "service": "cert",
+            "zone": "internal"
+        },
+        {
+            "host_name": "c56158d13a884a87abf9171efb7de9d8",
+            "service": "network",
+            "zone": "internal"
+        },
+        {
+            "host_name": "81d5cdcda0014918b3ebd3503a2e5c9a",
+            "service": "scheduler",
+            "zone": "internal"
+        },
+        {
+            "host_name": "6e48bfe1a3304b7b86154326328750ae",
+            "service": "conductor",
+            "zone": "internal"
+        },
+        {
+            "host_name": "39f55087a1024d1380755951c945ca69",
+            "service": "cells",
+            "zone": "internal"
+        },
+        {
+            "host_name": "7a9a6cb4701f4dee9048fe0bc25d0ee5",
+            "service": "consoleauth",
+            "zone": "internal"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="List hosts: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;hosts&gt;
+  &lt;host zone="internal" host_name="02ff30050a0d4ce486e60e946a97d28f" service="conductor"/&gt;
+  &lt;host zone="nova" host_name="69dd365b9eae459883a50d1fe7b3c40b" service="compute"/&gt;
+  &lt;host zone="internal" host_name="059ca4da76cf49e8a3d08d2303542157" service="cert"/&gt;
+  &lt;host zone="internal" host_name="ea70b9f0c530497fba8571deb4835ab0" service="network"/&gt;
+  &lt;host zone="internal" host_name="7d52ad3988504fb18b0cdfd94dbd267b" service="scheduler"/&gt;
+  &lt;host zone="internal" host_name="dc36bce962cc49c2ab916287bcf6c9d3" service="cells"/&gt;
+  &lt;host zone="internal" host_name="4bd7bbcc80064d21a5fd0bd53318c6fa" service="consoleauth"/&gt;
+&lt;/hosts&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    <resource path="/v2/{tenant_id}/os-hosts/{host_name}" id="host_name">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="host_name" style="template" type="xsd:string">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Host name">
+                                <para role="shortdesc">The name of the
+                                   host of interest to you.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="showHost">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show host information">
+               <para role="shortdesc">Shows information for a specified
+                host.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Show host information: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": [
+        {
+            "resource": {
+                "cpu": 1,
+                "disk_gb": 1028,
+                "host": "5ca60c6792a1442f9471ff575443f94d",
+                "memory_mb": 8192,
+                "project": "(total)"
+            }
+        },
+        {
+            "resource": {
+                "cpu": 0,
+                "disk_gb": 0,
+                "host": "5ca60c6792a1442f9471ff575443f94d",
+                "memory_mb": 512,
+                "project": "(used_now)"
+            }
+        },
+        {
+            "resource": {
+                "cpu": 0,
+                "disk_gb": 0,
+                "host": "5ca60c6792a1442f9471ff575443f94d",
+                "memory_mb": 0,
+                "project": "(used_max)"
+            }
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Show host information: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;host&gt;
+  &lt;resource&gt;
+    &lt;project&gt;(total)&lt;/project&gt;
+    &lt;memory_mb&gt;8192&lt;/memory_mb&gt;
+    &lt;host&gt;ecf3458ac6bf4a299cc2e0efa740f426&lt;/host&gt;
+    &lt;cpu&gt;1&lt;/cpu&gt;
+    &lt;disk_gb&gt;1028&lt;/disk_gb&gt;
+  &lt;/resource&gt;
+  &lt;resource&gt;
+    &lt;project&gt;(used_now)&lt;/project&gt;
+    &lt;memory_mb&gt;512&lt;/memory_mb&gt;
+    &lt;host&gt;ecf3458ac6bf4a299cc2e0efa740f426&lt;/host&gt;
+    &lt;cpu&gt;0&lt;/cpu&gt;
+    &lt;disk_gb&gt;0&lt;/disk_gb&gt;
+  &lt;/resource&gt;
+  &lt;resource&gt;
+    &lt;project&gt;(used_max)&lt;/project&gt;
+    &lt;memory_mb&gt;0&lt;/memory_mb&gt;
+    &lt;host&gt;ecf3458ac6bf4a299cc2e0efa740f426&lt;/host&gt;
+    &lt;cpu&gt;0&lt;/cpu&gt;
+    &lt;disk_gb&gt;0&lt;/disk_gb&gt;
+  &lt;/resource&gt;
+&lt;/host&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="PUT" rax:id="updateHost">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Update host">
+               <para role="shortdesc">Enables a host or puts it in
+                maintenance mode.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Update host: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "status": "enable",
+    "maintenance_mode": "disable"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Update host: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;updates&gt;
+    &lt;status&gt;enable&lt;/status&gt;
+    &lt;maintenance_mode&gt;disable&lt;/maintenance_mode&gt;
+&lt;/updates&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="status" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Status">
+                        <para>Valid values are enable or
+                            disable.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="maintenance_mode"
+                         style="plain"
+                         required="true"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Maintenance mode">
+                        <para>Valid values are enable or
+                            disable.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Update host: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": "0738dca90a8c43fdadd0be28715520e2",
+    "maintenance_mode": "off_maintenance",
+    "status": "enabled"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Update host: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;host status="enabled" maintenance_mode="off_maintenance" host="d85f05519b57457c83da18c39fa8e00d"/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                        
+                        <resource path="/v2/{tenant_id}/os-hosts/{host_name}/startup" id="startup">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="host_name" style="template" type="xsd:string">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Host name">
+                                <para role="shortdesc">The name of the
+                                   host of interest to you.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="startupHost">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Start host">
+               <para role="shortdesc">Starts a host.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Start host: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": "57f5de2fa5b44f14974a4f50b9ffcbf8",
+    "power_action": "startup"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Start host: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;host host="7fae168ed18140d5a785ade2ac1bd420" power_action="startup"/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                        
+                        <resource path="/v2/{tenant_id}/os-hosts/{host_name}/shutdown" id="shutdown">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="host_name" style="template" type="xsd:string">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Host name">
+                                <para role="shortdesc">The name of the
+                                   host of interest to you.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="shutdownHost">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Shut down host">
+               <para role="shortdesc">Shuts down a host.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Shut down host: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": "d2576862a2144ee6ad37d9e1938460a2",
+    "power_action": "shutdown"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Shut down host: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;host host="c82ca6da579440ac930ddee0e6530176" power_action="shutdown"/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                        
+                        <resource path="/v2/{tenant_id}/os-hosts/{host_name}/reboot" id="reboot">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="host_name" style="template" type="xsd:string">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Host name">
+                                <para role="shortdesc">The name of the
+                                   host of interest to you.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="rebootHost">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Reboot host">
+               <para role="shortdesc">Reboots a host.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Reboot host: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "host": "066bf157ab50481d8c607cfe584b2230",
+    "power_action": "reboot"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Reboot host: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;host host="ce8c5f8cde4a46ffb01dec0788ad4dfc" power_action="reboot"/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listHosts">
+        
+        <request>
+            <representation mediaType="application/xml">
+                <param name="service" style="query" required="false" type="xsd:string">
+                    
+                </param>
+                <param path="?zone={zone}"
+                   name="zone"
+                   style="query"
+                   required="false"
+                   type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateHost">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="status" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="maintenance_mode"
+                   style="plain"
+                   required="true"
+                   type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showHost">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="startupHost">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="shutdownHost">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="rebootHost">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

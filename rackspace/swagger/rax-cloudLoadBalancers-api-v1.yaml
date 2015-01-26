@@ -1,0 +1,1985 @@
+---
+swagger: '2.0'
+info:
+  title: rax-cloudLoadBalancers-api-v1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v1.0/{account}/loadbalancers":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: listLoadBalancers
+      summary: List load balancers
+      description: |
+        Lists load balancers that are configured for the account.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "loadBalancers": [
+                      {
+                          "status": "ACTIVE",
+                          "updated": {
+                              "time": "2010-11-30T03:23:44Z"
+                          },
+                          "protocol": "HTTP",
+                          "name": "lb-site1",
+                          "algorithm": "RANDOM",
+                          "created": {
+                              "time": "2010-11-30T03:23:42Z"
+                          },
+                          "virtualIps": [
+                              {
+                                  "ipVersion": "IPV4",
+                                  "type": "PUBLIC",
+                                  "id": 403,
+                                  "address": "206.55.130.1"
+                              }
+                          ],
+                          "id": 71,
+                          "nodeCount": 3,
+                          "port": 80
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "updated": {
+                              "time": "2010-11-30T03:23:44Z"
+                          },
+                          "protocol": "HTTP",
+                          "name": "lb-site2",
+                          "algorithm": "RANDOM",
+                          "created": {
+                              "time": "2010-11-30T03:23:42Z"
+                          },
+                          "virtualIps": [
+                              {
+                                  "ipVersion": "IPV4",
+                                  "type": "PUBLIC",
+                                  "id": 401,
+                                  "address": "206.55.130.2"
+                              }
+                          ],
+                          "id": 166,
+                          "nodeCount": 4,
+                          "port": 80
+                      }
+                  ]
+              }
+    post:
+      operationId: createLoadBalancer
+      summary: Create load balancer
+      description: |
+        Creates a load balancer with the configuration defined by the request.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "loadBalancer": {
+                      "status": "BUILD",
+                      "updated": {
+                          "time": "2011-04-13T14:18:07Z"
+                      },
+                      "protocol": "HTTP",
+                      "name": "a-new-loadbalancer",
+                      "algorithm": "RANDOM",
+                      "created": {
+                          "time": "2011-04-13T14:18:07Z"
+                      },
+                      "connectionLogging": {
+                          "enabled": false
+                      },
+                      "virtualIps": [
+                          {
+                              "ipVersion": "IPV4",
+                              "type": "PUBLIC",
+                              "id": 39,
+                              "address": "206.10.10.210"
+                          },
+                          {
+                              "ipVersion": "IPV6",
+                              "type": "PUBLIC",
+                              "id": 900001,
+                              "address": "2001:4801:79f1:0002:711b:be4c:0000:0021"
+                          }
+                      ],
+                      "id": 144,
+                      "cluster": {
+                          "name": "ztm-n01.staging1.lbaas.rackspace.net"
+                      },
+                      "timeout": 30,
+                      "halfClosed": "false",
+                      "nodes": [
+                          {
+                              "status": "ONLINE",
+                              "weight": 1,
+                              "id": 653,
+                              "address": "10.1.1.1",
+                              "port": 80,
+                              "condition": "ENABLED"
+                          }
+                      ],
+                      "port": 83
+                  }
+              }
+    delete:
+      operationId: bulkDeleteLoadBalancer
+      summary: Bulk-delete load balancers
+      description: |
+        Bulk-deletes load balancers.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+      parameters:
+      - name: id
+        required: false
+        in: query
+        type: string
+        description: |
+          One to ten load balancer IDs. For example: `?id={loadBalancerId}`. The default limit is ten IDs per request.
+  "/v1.0/{account}/loadbalancers/alloweddomains":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: listAllowedDomains
+      summary: List allowed domains
+      description: |
+        Lists allowed domains.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "allowedDomains": [
+                      {
+                          "allowedDomain": {
+                              "name": "rackspace.com"
+                          }
+                      },
+                      {
+                          "allowedDomain": {
+                              "name": "randomsite.org"
+                          }
+                      },
+                      {
+                          "allowedDomain": {
+                              "name": "org"
+                          }
+                      }
+                  ]
+              }
+  "/v1.0/{account}/loadbalancers/protocols":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: listProtocols
+      summary: List load balancing protocols
+      description: |
+        Lists supported load balancing protocols.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "protocols": [
+                      {
+                          "name": "DNS_TCP",
+                          "port": 53
+                      },
+                      {
+                          "name": "DNS_UDP",
+                          "port": 53
+                      },
+                      {
+                          "name": "FTP",
+                          "port": 21
+                      },
+                      {
+                          "name": "HTTP",
+                          "port": 80
+                      },
+                      {
+                          "name": "HTTPS",
+                          "port": 443
+                      },
+                      {
+                          "name": "IMAPS",
+                          "port": 993
+                      },
+                      {
+                          "name": "IMAPv4",
+                          "port": 143
+                      },
+                      {
+                          "name": "LDAP",
+                          "port": 389
+                      },
+                      {
+                          "name": "LDAPS",
+                          "port": 636
+                      },
+                      {
+                          "name": "MYSQL",
+                          "port": 3306
+                      },
+                      {
+                          "name": "POP3",
+                          "port": 110
+                      },
+                      {
+                          "name": "POP3S",
+                          "port": 995
+                      },
+                      {
+                          "name": "SMTP",
+                          "port": 25
+                      },
+                      {
+                          "name": "TCP",
+                          "port": 0
+                      },
+                      {
+                          "name": "TCP_CLIENT_FIRST",
+                          "port": 0
+                      },
+                      {
+                          "name": "UDP",
+                          "port": 0
+                      },
+                      {
+                          "name": "UDP_STREAM",
+                          "port": 0
+                      },
+                      {
+                          "name": "SFTP",
+                          "port": 22
+                      },
+                      {
+                          "name": "TCP_STREAM",
+                          "port": 0
+                      }
+                  ]
+              }
+  "/v1.0/{account}/loadbalancers/algorithms":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: listAlgorithms
+      summary: List load balancing algorithms
+      description: |
+        Lists all supported load balancing algorithms.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "algorithms": [
+                      {
+                          "name": "LEAST_CONNECTIONS"
+                      },
+                      {
+                          "name": "RANDOM"
+                      },
+                      {
+                          "name": "ROUND_ROBIN"
+                      },
+                      {
+                          "name": "WEIGHTED_LEAST_CONNECTIONS"
+                      },
+                      {
+                          "name": "WEIGHTED_ROUND_ROBIN"
+                      }
+                  ]
+              }
+  "/v1.0/{account}/loadbalancers/billable":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: listBillableLoadBalancers
+      summary: List billable load balancers
+      description: |
+        Lists billable load balancers for a specified date range.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "loadBalancers": [
+                      {
+                          "status": "DELETED",
+                          "updated": {
+                              "time": "2012-01-27T15:15:58-06:00"
+                          },
+                          "protocol": "HTTP",
+                          "name": "lb01",
+                          "algorithm": "RANDOM",
+                          "created": {
+                              "time": "2012-01-23T17:09:08-06:00"
+                          },
+                          "id": 761,
+                          "port": 80
+                      },
+                      {
+                          "status": "DELETED",
+                          "updated": {
+                              "time": "2012-01-27T15:26:47-06:00"
+                          },
+                          "protocol": "HTTP",
+                          "name": "lb02",
+                          "algorithm": "RANDOM",
+                          "created": {
+                              "time": "2012-01-23T17:10:30-06:00"
+                          },
+                          "id": 762,
+                          "port": 80
+                      }
+                  ],
+                  "links": [
+                      {
+                          "otherAttributes": {},
+                          "href": "http://localhost:8080/lb-mgmt-rest-service/528830/loadbalancers/billable?startTime=2012-01-27&endTime=2012-02-26&offset=4&limit=2",
+                          "rel": "next"
+                      },
+                      {
+                          "otherAttributes": {},
+                          "href": "http://localhost:8080/lb-mgmt-rest-service/528830/loadbalancers/billable?startTime=2012-01-27&endTime=2012-02-26&offset=0&limit=2",
+                          "rel": "previous"
+                      }
+                  ]
+              }
+      parameters:
+      - name: startTime
+        required: false
+        in: query
+        type: string
+        description: |
+          If the startTime parameter is supplied but the endTime parameter is not, all usage beginning with the startTime is returned.
+      - name: endTime
+        required: false
+        in: query
+        type: string
+        description: |
+          If the endTime parameter is supplied but the startTime parameter is not, all usage up to the endTime is returned.
+      - name: offset
+        required: false
+        in: query
+        type: string
+        description: |
+          The pagination offset.
+      - name: limit
+        required: false
+        in: query
+        type: string
+        description: |
+          The pagination limit. The response is paginated with a default limit of 500 and a maximum limit of 1000.
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showLoadBalancer
+      summary: Show load balancer details
+      description: |
+        Shows details for a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "loadBalancer": {
+                      "status": "ACTIVE",
+                      "updated": {
+                          "time": "2010-11-30T03:23:44Z"
+                      },
+                      "protocol": "HTTP",
+                      "name": "sample-loadbalancer",
+                      "algorithm": "RANDOM",
+                      "created": {
+                          "time": "2010-11-30T03:23:42Z"
+                      },
+                      "virtualIps": [
+                          {
+                              "ipVersion": "IPV4",
+                              "type": "PUBLIC",
+                              "id": 1000,
+                              "address": "206.10.10.210"
+                          }
+                      ],
+                      "id": 2000,
+                      "cluster": {
+                          "name": "c1.dfw1"
+                      },
+                      "nodes": [
+                          {
+                              "port": 80,
+                              "status": "ONLINE",
+                              "id": 1041,
+                              "condition": "ENABLED",
+                              "address": "10.1.1.1"
+                          },
+                          {
+                              "port": 80,
+                              "status": "ONLINE",
+                              "id": 1411,
+                              "condition": "ENABLED",
+                              "address": "10.1.1.2"
+                          }
+                      ],
+                      "timeout": 30,
+                      "connectionThrottle": {
+                          "maxConnectionRate": 50,
+                          "minConnections": 10,
+                          "rateInterval": 60,
+                          "maxConnections": 100
+                      },
+                      "connectionLogging": {
+                          "enabled": true
+                      },
+                      "sessionPersistence": {
+                          "persistenceType": "HTTP_COOKIE"
+                      },
+                      "port": 80,
+                      "sourceAddresses": {
+                          "ipv4Public": "10.12.99.28",
+                          "ipv4Servicenet": "10.0.0.0",
+                          "ipv6Public": "2001:4801:79f1:1::1/64"
+                      }
+                  }
+              }
+    put:
+      operationId: updateLoadBalancer
+      summary: Update load balancer properties
+      description: |
+        Updates the properties for a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+    delete:
+      operationId: deleteLoadBalancer
+      summary: Delete load balancer
+      description: |
+        Deletes a load balancer from the account.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/stats":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showStats
+      summary: Show load balancer statistics
+      description: |
+        Shows statistics for a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "connectTimeOut": 10,
+                  "dataTimedOut": 40,
+                  "connectFailure": 30,
+                  "currentConnSsl": 40,
+                  "dataTimedOutSsl": 40,
+                  "connectErrorSsl": 20,
+                  "currentConn": 40,
+                  "keepAliveTimedOutSsl": 50,
+                  "connectTimeOutSsl": 10,
+                  "keepAliveTimedOut": 50,
+                  "connectFailureSsl": 30,
+                  "maxConnSsl": 60,
+                  "maxConn": 60,
+                  "connectError": 20
+              }
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/errorpage":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showErrorPage
+      summary: Show custom error page
+      description: |
+        Shows the custom error page that is configured for a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "errorpage": {
+                      "content": "<html> DEFAULT ERROR PAGE</html>"
+                  }
+              }
+    put:
+      operationId: setErrorPage
+      summary: Set custom error page
+      description: |
+        Sets a custom error page for a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "errorpage": {
+                      "content": "<html> DEFAULT ERROR PAGE</html>"
+                  }
+              }
+    delete:
+      operationId: deleteErrorPage
+      summary: Delete custom error page
+      description: |
+        Deletes the custom error page for a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/nodes":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: listNodes
+      summary: List nodes
+      description: |
+        Lists nodes that are configured for a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "nodes": [
+                      {
+                          "status": "ONLINE",
+                          "weight": 3,
+                          "id": 410,
+                          "address": "10.1.1.1",
+                          "type": "PRIMARY",
+                          "port": 80,
+                          "condition": "ENABLED"
+                      },
+                      {
+                          "status": "ONLINE",
+                          "weight": 8,
+                          "id": 411,
+                          "address": "10.1.1.2",
+                          "type": "SECONDARY",
+                          "port": 80,
+                          "condition": "ENABLED"
+                      },
+                      {
+                          "status": "ONLINE",
+                          "weight": 12,
+                          "id": 412,
+                          "address": "10.1.1.3",
+                          "type": "SECONDARY",
+                          "port": 80,
+                          "condition": "DISABLED"
+                      }
+                  ]
+              }
+    post:
+      operationId: addNode
+      summary: Add node
+      description: |
+        Adds a node to a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "nodes": [
+                      {
+                          "status": "ONLINE",
+                          "weight": 1,
+                          "id": 185,
+                          "address": "10.2.2.3",
+                          "type": "PRIMARY",
+                          "port": 80,
+                          "condition": "ENABLED"
+                      },
+                      {
+                          "status": "ONLINE",
+                          "weight": 1,
+                          "id": 186,
+                          "address": "10.2.2.4",
+                          "type": "SECONDARY",
+                          "port": 81,
+                          "condition": "ENABLED"
+                      },
+                      {
+                          "status": "ONLINE",
+                          "weight": 10,
+                          "id": 186,
+                          "address": "www.myrackspace.com",
+                          "type": "SECONDARY",
+                          "port": 88,
+                          "condition": "ENABLED"
+                      }
+                  ]
+              }
+    delete:
+      operationId: bulkDeleteNodes
+      summary: Bulk-delete nodes
+      description: |
+        Bulk-deletes the specified nodes from a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+      parameters:
+      - name: nodeId
+        required: false
+        in: query
+        type: string
+        description: |
+          The ID for the specified node.
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/nodes/{nodeId}":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    - name: nodeId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the node.
+    get:
+      operationId: showNode
+      summary: Show node details
+      description: |
+        Show details for a specified node.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "node": {
+                      "status": "ONLINE",
+                      "weight": 12,
+                      "id": 410,
+                      "address": "10.1.1.1",
+                      "type": "PRIMARY",
+                      "port": 80,
+                      "condition": "ENABLED"
+                  }
+              }
+    put:
+      operationId: updateNode
+      summary: Update node
+      description: |
+        Updates the configuration for a specified node on a specified load balancer.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+    delete:
+      operationId: deleteNode
+      summary: Delete node
+      description: |
+        Deletes a node from a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/nodes/{nodeId}/metadata":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    - name: nodeId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the node.
+    get:
+      operationId: showNodeMetadata
+      summary: Show load balancer node metadata
+      description: |
+        Shows all metadata associated with a specified node and load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "metadata": [
+                      {
+                          "value": "red",
+                          "id": "1",
+                          "key": "color"
+                      },
+                      {
+                          "value": "web-load-balancer",
+                          "id": "2",
+                          "key": "label"
+                      }
+                  ]
+              }
+    post:
+      operationId: addNodeMetadataItem
+      summary: Add load balancer node metadata item
+      description: |
+        Adds a metadata item to a specified node and load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+    delete:
+      operationId: bulkDeleteNodeMetadataItems
+      summary: Bulk-delete load balancer node metadata items
+      description: |
+        Bulk-deletes the metadata items given specified id list.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+      parameters:
+      - name: metaId
+        required: false
+        in: query
+        type: string
+        description: |
+          The ID for the metadata item.
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/nodes/{nodeId}/metadata/{metaId}":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    - name: nodeId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the node.
+    - name: metaId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the metadata item.
+    get:
+      operationId: showNodeMetadataItem
+      summary: Show load balancer node metadata item
+      description: |
+        Shows details for a specified metadata item for a specified node and load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "meta": {
+                      "value": "red",
+                      "id": 4,
+                      "key": "color"
+                  }
+              }
+    put:
+      operationId: updateNodeMetadataItem
+      summary: Update load balancer node metadata item
+      description: |
+        Updates the configuration of a metadata item on the node.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+    delete:
+      operationId: deleteNodeMetadataItem
+      summary: Delete load balancer node metadata item
+      description: |
+        Deletes a metadata item from the node.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/nodes/events":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: listNodeEvents
+      summary: List node service events
+      description: |
+        Lists node service events.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "nodeServiceEvents": [
+                      {
+                          "category": "UPDATE",
+                          "description": "Node '373' status changed to 'ONLINE' for load balancer '323'",
+                          "title": "Node Status Updated",
+                          "detailedMessage": "Node is ok",
+                          "author": "Rackspace Cloud",
+                          "nodeId": 373,
+                          "relativeUri": "/406271/loadbalancers/323/nodes/373/events",
+                          "created": "10-30-2012 10:18:23",
+                          "loadbalancerId": 323,
+                          "accountId": 406271,
+                          "type": "UPDATE_NODE",
+                          "id": 7,
+                          "severity": "INFO"
+                      },
+                      {
+                          "category": "UPDATE",
+                          "description": "Node '373' status changed to 'OFFLINE' for load balancer '323'",
+                          "title": "Node Status Updated",
+                          "detailedMessage": "Invalid HTTP response received; premature end of headers",
+                          "author": "Rackspace Cloud",
+                          "nodeId": 373,
+                          "relativeUri": "/406271/loadbalancers/323/nodes/373/events",
+                          "created": "10-30-2012 11:22:25",
+                          "loadbalancerId": 323,
+                          "accountId": 406271,
+                          "type": "UPDATE_NODE",
+                          "id": 8,
+                          "severity": "INFO"
+                      }
+                  ]
+              }
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/virtualips":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: listVirtualIps
+      summary: List virtual IPs
+      description: |
+        Lists virtual IPs that are associated with a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "virtualIps": [
+                      {
+                          "type": "PUBLIC",
+                          "id": 1000,
+                          "address": "206.10.10.210"
+                      }
+                  ]
+              }
+    post:
+      operationId: addVirtualIpv6
+      summary: Add virtual IP version 6
+      description: |
+        Adds virtual IP version 6.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "ipVersion": "IPV6",
+                  "type": "PUBLIC",
+                  "id": 9000137,
+                  "address": "fd24:f480:ce44:91bc:1af2:15ff:0000:0002"
+              }
+    delete:
+      operationId: bulkDeleteVirtualIps
+      summary: Bulk-delete virtual IPs
+      description: |
+        Bulk-deletes specified virtual IPs.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+      parameters:
+      - name: virtualIpId
+        required: false
+        in: query
+        type: string
+        description: |
+          The ID for the virtual IP.
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/virtualips/{virtualIpId}":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    - name: virtualIpId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the virtual IP.
+    delete:
+      operationId: deleteVirtualIp
+      summary: Delete virtual IP
+      description: |
+        Deletes a specified virtual IP.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/usage":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showHistoricalUsage
+      summary: Show historical usage
+      description: |
+        Shows historical usage.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "loadBalancerUsageRecords": [
+                      {
+                          "incomingTransferSsl": 0,
+                          "startTime": "2010-12-21T12:32:07-06:00",
+                          "averageNumConnectionsSsl": 0.0,
+                          "eventType": "CREATE_LOADBALANCER",
+                          "numVips": 1,
+                          "incomingTransfer": 0,
+                          "numPolls": 32,
+                          "outgoingTransfer": 0,
+                          "sslMode": "OFF",
+                          "endTime": "2010-12-21T16:23:54-06:00",
+                          "outgoingTransferSsl": 0,
+                          "id": 394,
+                          "vipType": "PUBLIC",
+                          "averageNumConnections": 0.0
+                      },
+                      {
+                          "incomingTransferSsl": 0,
+                          "startTime": "2010-12-21T12:32:07-06:00",
+                          "averageNumConnectionsSsl": 0.0,
+                          "eventType": "SSL_MIXED_ON",
+                          "numVips": 2,
+                          "incomingTransfer": 0,
+                          "numPolls": 5,
+                          "outgoingTransfer": 0,
+                          "sslMode": "MIXED",
+                          "endTime": "2010-12-21T12:36:30-06:00",
+                          "outgoingTransferSsl": 0,
+                          "id": 473,
+                          "vipType": "PUBLIC",
+                          "averageNumConnections": 0.0
+                      }
+                  ]
+              }
+      parameters:
+      - name: startTime
+        required: false
+        in: query
+        type: string
+        description: |
+          If the startTime parameter is supplied but the endTime parameter is not, all usage beginning with the startTime is returned.
+      - name: endTime
+        required: false
+        in: query
+        type: string
+        description: |
+          If the endTime parameter is supplied but the startTime parameter is not, all usage up to the endTime is returned.
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/usage/current":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showCurrentUsage
+      summary: Show current usage
+      description: |
+        Shows current usage.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "loadBalancerUsageRecords": [
+                      {
+                          "incomingTransferSsl": 0,
+                          "numPolls": 0,
+                          "averageNumConnectionsSsl": 0,
+                          "numVips": 1,
+                          "incomingTransfer": 0,
+                          "startTime": "2014-06-25T15:00:00-05:00",
+                          "outgoingTransfer": 0,
+                          "sslMode": "OFF",
+                          "endTime": "2014-06-25T16:00:00-05:00",
+                          "outgoingTransferSsl": 0,
+                          "id": 42030,
+                          "vipType": "PUBLIC",
+                          "averageNumConnections": 0
+                      }
+                  ],
+                  "links": []
+              }
+      parameters:
+      - name: startTime
+        required: false
+        in: query
+        type: string
+        description: |
+          If the startTime parameter is supplied but the endTime parameter is not, all usage beginning with the startTime is returned.
+      - name: endTime
+        required: false
+        in: query
+        type: string
+        description: |
+          If the endTime parameter is supplied but the startTime parameter is not, all usage up to the endTime is returned.
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/accesslist":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showAccessList
+      summary: Show access list
+      description: |
+        Shows the access list.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "accessList": [
+                      {
+                          "type": "DENY",
+                          "id": 23,
+                          "address": "206.160.163.21"
+                      },
+                      {
+                          "type": "DENY",
+                          "id": 24,
+                          "address": "206.160.165.11"
+                      },
+                      {
+                          "type": "DENY",
+                          "id": 25,
+                          "address": "206.160.163.21"
+                      },
+                      {
+                          "type": "DENY",
+                          "id": 26,
+                          "address": "206.160.165.11"
+                      },
+                      {
+                          "type": "DENY",
+                          "id": 27,
+                          "address": "206.160.123.11"
+                      },
+                      {
+                          "type": "DENY",
+                          "id": 28,
+                          "address": "206.160.122.21"
+                      },
+                      {
+                          "type": "DENY",
+                          "id": 29,
+                          "address": "206.140.123.11"
+                      },
+                      {
+                          "type": "DENY",
+                          "id": 30,
+                          "address": "206.140.122.21"
+                      }
+                  ]
+              }
+    post:
+      operationId: createAccessList
+      summary: Create or update access list
+      description: |
+        Creates or appends to an access list.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+    delete:
+      operationId: bulkDeleteNetworks
+      summary: Bulk-delete networks from access list
+      description: |
+        Bulk-deletes the specified networks from an access list.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+      parameters:
+      - name: networkItemId
+        required: false
+        in: query
+        type: string
+        description: |
+          The ID for the network item.
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/accesslist/{networkItemId}":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    - name: networkItemId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the network item.
+    delete:
+      operationId: deleteNetwork
+      summary: Delete network from access list
+      description: |
+        Deletes a network item from a specified access list.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/healthmonitor":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showHealthMonitor
+      summary: Show health monitor configuration
+      description: |
+        Shows the health monitor configuration, if one exists.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "healthMonitor": {
+                      "attemptsBeforeDeactivation": 3,
+                      "bodyRegex": "^[234][0-9][0-9]$",
+                      "statusRegex": "^[234][0-9][0-9]$",
+                      "delay": 10,
+                      "hostHeader": "myrack.com",
+                      "timeout": 10,
+                      "path": "/",
+                      "type": "HTTPS"
+                  }
+              }
+    put:
+      operationId: updateHealthMonitor
+      summary: Update health monitor
+      description: |
+        Updates the settings for a health monitor.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+    delete:
+      operationId: deleteHealthMonitor
+      summary: Delete health monitor
+      description: |
+        Deletes a health monitor.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/sessionpersistence":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showSessionPersistence
+      summary: Show session persistence configuration
+      description: |
+        Shows the session persistence configuration.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "sessionPersistence": {
+                      "persistenceType": "HTTP_COOKIE"
+                  }
+              }
+    put:
+      operationId: enableSessionPersistence
+      summary: Enable session persistence
+      description: |
+        Enables session persistence.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+    delete:
+      operationId: disableSessionPersistence
+      summary: Disable session persistence
+      description: |
+        Disables session persistence.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/connectionlogging":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showConnectionLogging
+      summary: Show connection logging configuration
+      description: |
+        Shows the connection logging configuration.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "connectionLogging": {
+                      "enabled": true
+                  }
+              }
+    put:
+      operationId: enableConnectionLogging
+      summary: Enable or disable connection logging
+      description: |
+        Enables or disables connection logging.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/connectionthrottle":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showConnectionThrottle
+      summary: Show connection throttling configuration
+      description: |
+        Show the connection throttling configuration.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "connectionThrottle": {
+                      "maxConnectionRate": 50,
+                      "minConnections": 10,
+                      "rateInterval": 60,
+                      "maxConnections": 100
+                  }
+              }
+    put:
+      operationId: createOrUpdateConnectionThrottle
+      summary: Create or update connection throttling configuration
+      description: |
+        Creates or updates the throttling configuration.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+    delete:
+      operationId: deleteConnectionThrottle
+      summary: Delete connection throttling configuration
+      description: |
+        Deletes the connection throttling configuration.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/contentcaching":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showContentCaching
+      summary: Show content caching configuration
+      description: |
+        Shows the current configuration of content caching.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "contentCaching": {
+                      "enabled": true
+                  }
+              }
+    put:
+      operationId: enableContentCaching
+      summary: Enable content caching
+      description: |
+        Enables or disables content caching.
+      produces: []
+      responses:
+        '202':
+          description: 202 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/ssltermination":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showSSLTermination
+      summary: Show SSL termination configuration
+      description: |
+        Shows the load balancer's SSL termination configuration.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "sslTermination": {
+                      "securePort": 443,
+                      "enabled": true,
+                      "secureTrafficOnly": false,
+                      "certificate": "-----BEGIN CERTIFICATE-----\nMIIEXTCCA0WgAwIBAgIGATTEAjK3MA0GCSqGSIb3DQEBBQUAMIGDMRkwFwYDVQQD\nExBUZXN0IENBIFNUdWIgS2V5MRcwFQYDVQQLEw5QbGF0Zm9ybSBMYmFhczEaMBgG\nA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFDASBgNVBAcTC1NhbiBBbnRvbmlvMQ4w\nDAYDVQQIEwVUZXhhczELMAkGA1UEBhMCVVMwHhcNMTIwMTA5MTk0NjQ1WhcNMTQw\nMTA4MTk0NjQ1WjCBgjELMAkGA1UEBhMCVVMxDjAMBgNVBAgTBVRleGFzMRQwEgYD\nVQQHEwtTYW4gQW50b25pbzEaMBgGA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFzAV\nBgNVBAsTDlBsYXRmb3JtIExiYWFzMRgwFgYDVQQDEw9UZXN0IENsaWVudCBLZXkw\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAi51IylFnHtNLT8C0NVfc\nOBfAsP2D5es1qhrOWHCGlgAuDMksBsCc7FPo5PSBOmQ+6z8HtCFbrLoC5/Zx0F5b\nfVegjA+xKjI2HGASsYHHM0BFEH2UjUcJrWiMWtxQuW6Phbqulo7JwjmygMEmIkeK\nf+FtkE9mrq+E8K40/thrjxl3/ZcJD1+3dcp+ZuzVJ2t1E4iGKCx79IZFsysKiuf+\n+E0i6iGvvI6UcbcZxVxQj2TplJkFuoX5kDgClIX9Dr9y6aJ4SCh+GRhvHl+DTaz0\nnCvghachHZtIeztRDqxWApjOOzs93dSelrviMXDr8fqyEAGg7YIhgui0aZBsWCen\nAgMBAAGjgdUwgdIwgbAGA1UdIwSBqDCBpYAUNpx1Pc6cGA7KqEwHMmHBTZMA7lSh\ngYmkgYYwgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVU4IBATAd\nBgNVHQ4EFgQULueOfsjZZOHwJHZwBy6u0swnpccwDQYJKoZIhvcNAQEFBQADggEB\nAFNuqSVUaotUJoWDv4z7Kbi6JFpTjDht5ORw4BdVYlRD4h9DACAFzPrPV2ym/Osp\nhNMdZq6msZku7MdOSQVhdeGWrSNk3M8O9Hg7cVzPNXOF3iNoo3irQ5tURut44xs4\nWw5YWQqS9WyUY5snD8tm7Y1rQTPfhg+678xIq/zWCv/u+FSnfVv1nlhLVQkEeG/Y\ngh1uMaTIpUKTGEjIAGtpGP7wwIcXptR/HyfzhTUSTaWc1Ef7zoKT9LL5z3IV1hC2\njVWz+RwYs98LjMuksJFoHqRfWyYhCIym0jb6GTwaEmpxAjc+d7OLNQdnoEGoUYGP\nYjtfkRYg265ESMA+Kww4Xy8=\n-----END CERTIFICATE-----\n",
+                      "intermediateCertificate": "-----BEGIN CERTIFICATE-----\nMIIDtTCCAp2gAwIBAgIBATANBgkqhkiG9w0BAQUFADCBgzEZMBcGA1UEAxMQVGVz\ndCBDQSBTVHViIEtleTEXMBUGA1UECxMOUGxhdGZvcm0gTGJhYXMxGjAYBgNVBAoT\nEVJhY2tzcGFjZSBIb3N0aW5nMRQwEgYDVQQHEwtTYW4gQW50b25pbzEOMAwGA1UE\nCBMFVGV4YXMxCzAJBgNVBAYTAlVTMB4XDTEyMDEwOTE5NDU0OVoXDTE0MDEwODE5\nNDU0OVowgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVUzCCASIw\nDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANNh55lwTVwQvNoEZjq1zGdYz9jA\nXXdjizn8AJhjHLOAallfPtvCfTEgKanhdoyz5FnhQE8HbDAop/KNS1lN2UMvdl5f\nZNLTSjJrNtedqxQwxN/i3bpyBxNVejUH2NjV1mmyj+5CJYwCzWalvI/gLPq/A3as\nO2EQqtf3U8unRgn0zXLRdYxV9MrUzNAmdipPNvNrsVdrCgA42rgF/8KsyRVQfJCX\nfN7PGCfrsC3YaUvhymraWxNnXIzMYTNa9wEeBZLUw8SlEtpa1Zsvui+TPXu3USNZ\nVnWH8Lb6ENlnoX0VBwo62fjOG3JzhNKoJawi3bRqyDdINOvafr7iPrrs/T8CAwEA\nAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUNpx1Pc6cGA7KqEwHMmHB\nTZMA7lQwDQYJKoZIhvcNAQEFBQADggEBAMoRgH3iTG3t317viLKoY+lNMHUgHuR7\nb3mn9MidJKyYVewe6hCDIN6WY4fUojmMW9wFJWJIo0hRMNHL3n3tq8HP2j20Mxy8\nacPdfGZJa+jiBw72CrIGdobKaFduIlIEDBA1pNdZIJ+EulrtqrMesnIt92WaypIS\n8JycbIgDMCiyC0ENHEk8UWlC6429c7OZAsplMTbHME/1R4btxjkdfrYZJjdJ2yL2\n8cjZDUDMCPTdW/ycP07Gkq30RB5tACB5aZdaCn2YaKC8FsEdhff4X7xEOfOEHWEq\nSRxADDj8Lx1MT6QpR07hCiDyHfTCtbqzI0iGjX63Oh7xXSa0f+JVTa8=\n-----END CERTIFICATE-----\n"
+                  }
+              }
+    put:
+      operationId: updateSSLTermination
+      summary: Update SSL termination configuration
+      description: |
+        Updates the SSL termination configuration.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+    delete:
+      operationId: deleteSSLTermination
+      summary: Delete SSL termination
+      description: |
+        Deletes SSL termination.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/ssltermination/certificatemappings":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: listCertificateMappings
+      summary: List certificate mappings
+      description: |
+        Lists certificate mappings that are configured for a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "certificateMappings": [
+                      {
+                          "certificateMapping": {
+                              "hostName": "rackspace.com",
+                              "id": 123
+                          }
+                      },
+                      {
+                          "certificateMapping": {
+                              "hostName": "*.rackspace.com",
+                              "id": 124
+                          }
+                      }
+                  ]
+              }
+    post:
+      operationId: addCertificateMapping
+      summary: Add certificate mapping
+      description: |
+        Adds a certificate mapping to a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "certificateMapping": {
+                      "hostName": "rackspace.com",
+                      "id": 123,
+                      "certificate": "-----BEGIN CERTIFICATE-----\nMIIEXTCCA0WgAwIBAgIGATTEAjK3MA0GCSqGSIb3DQEBBQUAMIGDMRkwFwYDVQQD\nExBUZXN0IENBIFNUdWIgS2V5MRcwFQYDVQQLEw5QbGF0Zm9ybSBMYmFhczEaMBgG\nA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFDASBgNVBAcTC1NhbiBBbnRvbmlvMQ4w\nDAYDVQQIEwVUZXhhczELMAkGA1UEBhMCVVMwHhcNMTIwMTA5MTk0NjQ1WhcNMTQw\nMTA4MTk0NjQ1WjCBgjELMAkGA1UEBhMCVVMxDjAMBgNVBAgTBVRleGFzMRQwEgYD\nVQQHEwtTYW4gQW50b25pbzEaMBgGA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFzAV\nBgNVBAsTDlBsYXRmb3JtIExiYWFzMRgwFgYDVQQDEw9UZXN0IENsaWVudCBLZXkw\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAi51IylFnHtNLT8C0NVfc\nOBfAsP2D5es1qhrOWHCGlgAuDMksBsCc7FPo5PSBOmQ+6z8HtCFbrLoC5/Zx0F5b\nfVegjA+xKjI2HGASsYHHM0BFEH2UjUcJrWiMWtxQuW6Phbqulo7JwjmygMEmIkeK\nf+FtkE9mrq+E8K40/thrjxl3/ZcJD1+3dcp+ZuzVJ2t1E4iGKCx79IZFsysKiuf+\n+E0i6iGvvI6UcbcZxVxQj2TplJkFuoX5kDgClIX9Dr9y6aJ4SCh+GRhvHl+DTaz0\nnCvghachHZtIeztRDqxWApjOOzs93dSelrviMXDr8fqyEAGg7YIhgui0aZBsWCen\nAgMBAAGjgdUwgdIwgbAGA1UdIwSBqDCBpYAUNpx1Pc6cGA7KqEwHMmHBTZMA7lSh\ngYmkgYYwgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVU4IBATAd\nBgNVHQ4EFgQULueOfsjZZOHwJHZwBy6u0swnpccwDQYJKoZIhvcNAQEFBQADggEB\nAFNuqSVUaotUJoWDv4z7Kbi6JFpTjDht5ORw4BdVYlRD4h9DACAFzPrPV2ym/Osp\nhNMdZq6msZku7MdOSQVhdeGWrSNk3M8O9Hg7cVzPNXOF3iNoo3irQ5tURut44xs4\nWw5YWQqS9WyUY5snD8tm7Y1rQTPfhg+678xIq/zWCv/u+FSnfVv1nlhLVQkEeG/Y\ngh1uMaTIpUKTGEjIAGtpGP7wwIcXptR/HyfzhTUSTaWc1Ef7zoKT9LL5z3IV1hC2\njVWz+RwYs98LjMuksJFoHqRfWyYhCIym0jb6GTwaEmpxAjc+d7OLNQdnoEGoUYGP\nYjtfkRYg265ESMA+Kww4Xy8=\n-----END CERTIFICATE-----\n",
+                      "intermediateCertificate": "-----BEGIN CERTIFICATE-----\nMIIDtTCCAp2gAwIBAgIBATANBgkqhkiG9w0BAQUFADCBgzEZMBcGA1UEAxMQVGVz\ndCBDQSBTVHViIEtleTEXMBUGA1UECxMOUGxhdGZvcm0gTGJhYXMxGjAYBgNVBAoT\nEVJhY2tzcGFjZSBIb3N0aW5nMRQwEgYDVQQHEwtTYW4gQW50b25pbzEOMAwGA1UE\nCBMFVGV4YXMxCzAJBgNVBAYTAlVTMB4XDTEyMDEwOTE5NDU0OVoXDTE0MDEwODE5\nNDU0OVowgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVUzCCASIw\nDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANNh55lwTVwQvNoEZjq1zGdYz9jA\nXXdjizn8AJhjHLOAallfPtvCfTEgKanhdoyz5FnhQE8HbDAop/KNS1lN2UMvdl5f\nZNLTSjJrNtedqxQwxN/i3bpyBxNVejUH2NjV1mmyj+5CJYwCzWalvI/gLPq/A3as\nO2EQqtf3U8unRgn0zXLRdYxV9MrUzNAmdipPNvNrsVdrCgA42rgF/8KsyRVQfJCX\nfN7PGCfrsC3YaUvhymraWxNnXIzMYTNa9wEeBZLUw8SlEtpa1Zsvui+TPXu3USNZ\nVnWH8Lb6ENlnoX0VBwo62fjOG3JzhNKoJawi3bRqyDdINOvafr7iPrrs/T8CAwEA\nAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUNpx1Pc6cGA7KqEwHMmHB\nTZMA7lQwDQYJKoZIhvcNAQEFBQADggEBAMoRgH3iTG3t317viLKoY+lNMHUgHuR7\nb3mn9MidJKyYVewe6hCDIN6WY4fUojmMW9wFJWJIo0hRMNHL3n3tq8HP2j20Mxy8\nacPdfGZJa+jiBw72CrIGdobKaFduIlIEDBA1pNdZIJ+EulrtqrMesnIt92WaypIS\n8JycbIgDMCiyC0ENHEk8UWlC6429c7OZAsplMTbHME/1R4btxjkdfrYZJjdJ2yL2\n8cjZDUDMCPTdW/ycP07Gkq30RB5tACB5aZdaCn2YaKC8FsEdhff4X7xEOfOEHWEq\nSRxADDj8Lx1MT6QpR07hCiDyHfTCtbqzI0iGjX63Oh7xXSa0f+JVTa8=\n-----END CERTIFICATE-----\n"
+                  }
+              }
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/ssltermination/certificatemappings/{certificateMappingId}":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    - name: certificateMappingId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the certificate mapping.
+    get:
+      operationId: showCertificateMapping
+      summary: Show certificate mappings details
+      description: |
+        Shows details for a specified certificate mapping.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "certificateMapping": {
+                      "hostName": "rackspace.com",
+                      "id": 123,
+                      "certificate": "-----BEGIN CERTIFICATE-----\nMIIEXTCCA0WgAwIBAgIGATTEAjK3MA0GCSqGSIb3DQEBBQUAMIGDMRkwFwYDVQQD\nExBUZXN0IENBIFNUdWIgS2V5MRcwFQYDVQQLEw5QbGF0Zm9ybSBMYmFhczEaMBgG\nA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFDASBgNVBAcTC1NhbiBBbnRvbmlvMQ4w\nDAYDVQQIEwVUZXhhczELMAkGA1UEBhMCVVMwHhcNMTIwMTA5MTk0NjQ1WhcNMTQw\nMTA4MTk0NjQ1WjCBgjELMAkGA1UEBhMCVVMxDjAMBgNVBAgTBVRleGFzMRQwEgYD\nVQQHEwtTYW4gQW50b25pbzEaMBgGA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFzAV\nBgNVBAsTDlBsYXRmb3JtIExiYWFzMRgwFgYDVQQDEw9UZXN0IENsaWVudCBLZXkw\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAi51IylFnHtNLT8C0NVfc\nOBfAsP2D5es1qhrOWHCGlgAuDMksBsCc7FPo5PSBOmQ+6z8HtCFbrLoC5/Zx0F5b\nfVegjA+xKjI2HGASsYHHM0BFEH2UjUcJrWiMWtxQuW6Phbqulo7JwjmygMEmIkeK\nf+FtkE9mrq+E8K40/thrjxl3/ZcJD1+3dcp+ZuzVJ2t1E4iGKCx79IZFsysKiuf+\n+E0i6iGvvI6UcbcZxVxQj2TplJkFuoX5kDgClIX9Dr9y6aJ4SCh+GRhvHl+DTaz0\nnCvghachHZtIeztRDqxWApjOOzs93dSelrviMXDr8fqyEAGg7YIhgui0aZBsWCen\nAgMBAAGjgdUwgdIwgbAGA1UdIwSBqDCBpYAUNpx1Pc6cGA7KqEwHMmHBTZMA7lSh\ngYmkgYYwgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVU4IBATAd\nBgNVHQ4EFgQULueOfsjZZOHwJHZwBy6u0swnpccwDQYJKoZIhvcNAQEFBQADggEB\nAFNuqSVUaotUJoWDv4z7Kbi6JFpTjDht5ORw4BdVYlRD4h9DACAFzPrPV2ym/Osp\nhNMdZq6msZku7MdOSQVhdeGWrSNk3M8O9Hg7cVzPNXOF3iNoo3irQ5tURut44xs4\nWw5YWQqS9WyUY5snD8tm7Y1rQTPfhg+678xIq/zWCv/u+FSnfVv1nlhLVQkEeG/Y\ngh1uMaTIpUKTGEjIAGtpGP7wwIcXptR/HyfzhTUSTaWc1Ef7zoKT9LL5z3IV1hC2\njVWz+RwYs98LjMuksJFoHqRfWyYhCIym0jb6GTwaEmpxAjc+d7OLNQdnoEGoUYGP\nYjtfkRYg265ESMA+Kww4Xy8=\n-----END CERTIFICATE-----\n",
+                      "intermediateCertificate": "-----BEGIN CERTIFICATE-----\nMIIDtTCCAp2gAwIBAgIBATANBgkqhkiG9w0BAQUFADCBgzEZMBcGA1UEAxMQVGVz\ndCBDQSBTVHViIEtleTEXMBUGA1UECxMOUGxhdGZvcm0gTGJhYXMxGjAYBgNVBAoT\nEVJhY2tzcGFjZSBIb3N0aW5nMRQwEgYDVQQHEwtTYW4gQW50b25pbzEOMAwGA1UE\nCBMFVGV4YXMxCzAJBgNVBAYTAlVTMB4XDTEyMDEwOTE5NDU0OVoXDTE0MDEwODE5\nNDU0OVowgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVUzCCASIw\nDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANNh55lwTVwQvNoEZjq1zGdYz9jA\nXXdjizn8AJhjHLOAallfPtvCfTEgKanhdoyz5FnhQE8HbDAop/KNS1lN2UMvdl5f\nZNLTSjJrNtedqxQwxN/i3bpyBxNVejUH2NjV1mmyj+5CJYwCzWalvI/gLPq/A3as\nO2EQqtf3U8unRgn0zXLRdYxV9MrUzNAmdipPNvNrsVdrCgA42rgF/8KsyRVQfJCX\nfN7PGCfrsC3YaUvhymraWxNnXIzMYTNa9wEeBZLUw8SlEtpa1Zsvui+TPXu3USNZ\nVnWH8Lb6ENlnoX0VBwo62fjOG3JzhNKoJawi3bRqyDdINOvafr7iPrrs/T8CAwEA\nAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUNpx1Pc6cGA7KqEwHMmHB\nTZMA7lQwDQYJKoZIhvcNAQEFBQADggEBAMoRgH3iTG3t317viLKoY+lNMHUgHuR7\nb3mn9MidJKyYVewe6hCDIN6WY4fUojmMW9wFJWJIo0hRMNHL3n3tq8HP2j20Mxy8\nacPdfGZJa+jiBw72CrIGdobKaFduIlIEDBA1pNdZIJ+EulrtqrMesnIt92WaypIS\n8JycbIgDMCiyC0ENHEk8UWlC6429c7OZAsplMTbHME/1R4btxjkdfrYZJjdJ2yL2\n8cjZDUDMCPTdW/ycP07Gkq30RB5tACB5aZdaCn2YaKC8FsEdhff4X7xEOfOEHWEq\nSRxADDj8Lx1MT6QpR07hCiDyHfTCtbqzI0iGjX63Oh7xXSa0f+JVTa8=\n-----END CERTIFICATE-----\n"
+                  }
+              }
+    put:
+      operationId: updateCertificateMapping
+      summary: Update certificate mapping
+      description: |
+        Updates the configuration for a specified certificate mapping on a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "certificateMapping": {
+                      "hostName": "rackspace.com",
+                      "id": 123,
+                      "certificate": "-----BEGIN CERTIFICATE-----\nMIIEXTCCA0WgAwIBAgIGATTEAjK3MA0GCSqGSIb3DQEBBQUAMIGDMRkwFwYDVQQD\nExBUZXN0IENBIFNUdWIgS2V5MRcwFQYDVQQLEw5QbGF0Zm9ybSBMYmFhczEaMBgG\nA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFDASBgNVBAcTC1NhbiBBbnRvbmlvMQ4w\nDAYDVQQIEwVUZXhhczELMAkGA1UEBhMCVVMwHhcNMTIwMTA5MTk0NjQ1WhcNMTQw\nMTA4MTk0NjQ1WjCBgjELMAkGA1UEBhMCVVMxDjAMBgNVBAgTBVRleGFzMRQwEgYD\nVQQHEwtTYW4gQW50b25pbzEaMBgGA1UEChMRUmFja3NwYWNlIEhvc3RpbmcxFzAV\nBgNVBAsTDlBsYXRmb3JtIExiYWFzMRgwFgYDVQQDEw9UZXN0IENsaWVudCBLZXkw\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAi51IylFnHtNLT8C0NVfc\nOBfAsP2D5es1qhrOWHCGlgAuDMksBsCc7FPo5PSBOmQ+6z8HtCFbrLoC5/Zx0F5b\nfVegjA+xKjI2HGASsYHHM0BFEH2UjUcJrWiMWtxQuW6Phbqulo7JwjmygMEmIkeK\nf+FtkE9mrq+E8K40/thrjxl3/ZcJD1+3dcp+ZuzVJ2t1E4iGKCx79IZFsysKiuf+\n+E0i6iGvvI6UcbcZxVxQj2TplJkFuoX5kDgClIX9Dr9y6aJ4SCh+GRhvHl+DTaz0\nnCvghachHZtIeztRDqxWApjOOzs93dSelrviMXDr8fqyEAGg7YIhgui0aZBsWCen\nAgMBAAGjgdUwgdIwgbAGA1UdIwSBqDCBpYAUNpx1Pc6cGA7KqEwHMmHBTZMA7lSh\ngYmkgYYwgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVU4IBATAd\nBgNVHQ4EFgQULueOfsjZZOHwJHZwBy6u0swnpccwDQYJKoZIhvcNAQEFBQADggEB\nAFNuqSVUaotUJoWDv4z7Kbi6JFpTjDht5ORw4BdVYlRD4h9DACAFzPrPV2ym/Osp\nhNMdZq6msZku7MdOSQVhdeGWrSNk3M8O9Hg7cVzPNXOF3iNoo3irQ5tURut44xs4\nWw5YWQqS9WyUY5snD8tm7Y1rQTPfhg+678xIq/zWCv/u+FSnfVv1nlhLVQkEeG/Y\ngh1uMaTIpUKTGEjIAGtpGP7wwIcXptR/HyfzhTUSTaWc1Ef7zoKT9LL5z3IV1hC2\njVWz+RwYs98LjMuksJFoHqRfWyYhCIym0jb6GTwaEmpxAjc+d7OLNQdnoEGoUYGP\nYjtfkRYg265ESMA+Kww4Xy8=\n-----END CERTIFICATE-----\n",
+                      "intermediateCertificate": "-----BEGIN CERTIFICATE-----\nMIIDtTCCAp2gAwIBAgIBATANBgkqhkiG9w0BAQUFADCBgzEZMBcGA1UEAxMQVGVz\ndCBDQSBTVHViIEtleTEXMBUGA1UECxMOUGxhdGZvcm0gTGJhYXMxGjAYBgNVBAoT\nEVJhY2tzcGFjZSBIb3N0aW5nMRQwEgYDVQQHEwtTYW4gQW50b25pbzEOMAwGA1UE\nCBMFVGV4YXMxCzAJBgNVBAYTAlVTMB4XDTEyMDEwOTE5NDU0OVoXDTE0MDEwODE5\nNDU0OVowgYMxGTAXBgNVBAMTEFRlc3QgQ0EgU1R1YiBLZXkxFzAVBgNVBAsTDlBs\nYXRmb3JtIExiYWFzMRowGAYDVQQKExFSYWNrc3BhY2UgSG9zdGluZzEUMBIGA1UE\nBxMLU2FuIEFudG9uaW8xDjAMBgNVBAgTBVRleGFzMQswCQYDVQQGEwJVUzCCASIw\nDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANNh55lwTVwQvNoEZjq1zGdYz9jA\nXXdjizn8AJhjHLOAallfPtvCfTEgKanhdoyz5FnhQE8HbDAop/KNS1lN2UMvdl5f\nZNLTSjJrNtedqxQwxN/i3bpyBxNVejUH2NjV1mmyj+5CJYwCzWalvI/gLPq/A3as\nO2EQqtf3U8unRgn0zXLRdYxV9MrUzNAmdipPNvNrsVdrCgA42rgF/8KsyRVQfJCX\nfN7PGCfrsC3YaUvhymraWxNnXIzMYTNa9wEeBZLUw8SlEtpa1Zsvui+TPXu3USNZ\nVnWH8Lb6ENlnoX0VBwo62fjOG3JzhNKoJawi3bRqyDdINOvafr7iPrrs/T8CAwEA\nAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUNpx1Pc6cGA7KqEwHMmHB\nTZMA7lQwDQYJKoZIhvcNAQEFBQADggEBAMoRgH3iTG3t317viLKoY+lNMHUgHuR7\nb3mn9MidJKyYVewe6hCDIN6WY4fUojmMW9wFJWJIo0hRMNHL3n3tq8HP2j20Mxy8\nacPdfGZJa+jiBw72CrIGdobKaFduIlIEDBA1pNdZIJ+EulrtqrMesnIt92WaypIS\n8JycbIgDMCiyC0ENHEk8UWlC6429c7OZAsplMTbHME/1R4btxjkdfrYZJjdJ2yL2\n8cjZDUDMCPTdW/ycP07Gkq30RB5tACB5aZdaCn2YaKC8FsEdhff4X7xEOfOEHWEq\nSRxADDj8Lx1MT6QpR07hCiDyHfTCtbqzI0iGjX63Oh7xXSa0f+JVTa8=\n-----END CERTIFICATE-----\n"
+                  }
+              }
+    delete:
+      operationId: deleteCertificateMapping
+      summary: Delete certificate mapping
+      description: |
+        Deletes a certificate mapping from a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/metadata":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    post:
+      operationId: addLoadBalancerMetadata
+      summary: Add load balancer metadata
+      description: |
+        Adds a metadata item to the load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+    get:
+      operationId: showLoadBalancerMetadata
+      summary: Show load balancer metadata
+      description: |
+        Shows all metadata associated with the specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "metadata": [
+                      {
+                          "value": "red",
+                          "id": "1",
+                          "key": "color"
+                      },
+                      {
+                          "value": "web-load-balancer",
+                          "id": "2",
+                          "key": "label"
+                      }
+                  ]
+              }
+    delete:
+      operationId: bulkDeleteLoadBalancerMetadataItems
+      summary: Bulk-delete load balancer metadata items
+      description: |
+        Bulk-deletes the metadata items given specified id list.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+      parameters:
+      - name: metaId
+        required: false
+        in: query
+        type: string
+        description: |
+          The ID for the metadata item.
+  "/v1.0/{account}/loadbalancers/{loadBalancerId}/metadata/{metaId}":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: loadBalancerId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the load balancer.
+    get:
+      operationId: showLoadBalancerMetadataItem
+      summary: Show load balancer metadata item
+      description: |
+        Shows details for a specified metadata item for a specified load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "meta": {
+                      "value": "red",
+                      "id": 4,
+                      "key": "color"
+                  }
+              }
+    put:
+      operationId: updateLoadBalancerMetadataItem
+      summary: Update load balancer metadata item
+      description: |
+        Updates the configuration of a metadata item on the load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+    delete:
+      operationId: deleteLoadBalancerMetadataItem
+      summary: Delete load balancer metadata item
+      description: |
+        Deletes a metadata item from the load balancer.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+  "/v1.0/{account}/loadbalancers/usage":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: showAccountLevelUsage
+      summary: Show account-level usage
+      description: |
+        Shows account-level usage.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "loadBalancerUsages": [
+                      {
+                          "loadBalancerName": "dev-testing",
+                          "loadBalancerUsageRecords": [
+                              {
+                                  "incomingTransferSsl": 0,
+                                  "numPolls": 1,
+                                  "averageNumConnectionsSsl": 0,
+                                  "numVips": 1,
+                                  "incomingTransfer": 0,
+                                  "startTime": "2014-04-08T10:00:00-05:00",
+                                  "outgoingTransfer": 0,
+                                  "sslMode": "OFF",
+                                  "endTime": "2014-04-08T10:37:39-05:00",
+                                  "outgoingTransferSsl": 0,
+                                  "id": 22591,
+                                  "vipType": "PUBLIC",
+                                  "averageNumConnections": 0
+                              }
+                          ],
+                          "links": [],
+                          "loadBalancerId": 2000
+                      }
+                  ],
+                  "accountUsage": {
+                      "accountUsageRecords": [
+                          {
+                              "numPublicVips": 4,
+                              "numServicenetVips": 0,
+                              "numLoadBalancers": 4,
+                              "startTime": "2014-03-13T12:03:51-05:00"
+                          }
+                      ],
+                      "links": []
+                  },
+                  "accountId": 548939
+              }
+      parameters:
+      - name: startTime
+        required: false
+        in: query
+        type: string
+        description: |
+          If the startTime parameter is supplied but the endTime parameter is not, all usage beginning with the startTime is returned.
+      - name: endTime
+        required: false
+        in: query
+        type: string
+        description: |
+          If the endTime parameter is supplied but the startTime parameter is not, all usage up to the endTime is returned.

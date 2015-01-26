@@ -1,0 +1,72 @@
+---
+swagger: '2.0'
+info:
+  title: os-flavormanage
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/flavors":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique ID of the tenant or account.
+    post:
+      operationId: createFlavor
+      summary: Create flavor
+      description: |
+        Creates a flavor.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor": {
+                      "name": "test_flavor",
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/flavors/10",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/flavors/10",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "ram": 1024,
+                      "vcpus": 2,
+                      "disk": 10,
+                      "id": "10"
+                  }
+              }
+  "/v2/{tenant_id}/flavors/{flavor_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique ID of the tenant or account.
+    - name: flavor_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The flavor ID.
+    delete:
+      operationId: deleteFlavor
+      summary: Delete flavor
+      description: |
+        Deletes a flavor.
+      produces: []
+      responses:
+        '204':
+          description: 204 response

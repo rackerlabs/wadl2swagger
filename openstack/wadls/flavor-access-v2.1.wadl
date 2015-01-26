@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="flavor-access-v2.1">
+        <resource id="flavors" path="/v2.1/flavors">
+         <method name="POST" rax:id="extendflavor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Add access attribute to flavor create">
+               <para role="shortdesc">Adds access
+                attribute to the flavor create response.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavor": {
+        "name": "test_flavor",
+        "ram": 1024,
+        "vcpus": 2,
+        "disk": 10,
+        "id": "10",
+        "flavor-access:is_public": false
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavor": {
+        "disabled": false,
+        "disk": 10,
+        "ephemeral": 0,
+        "flavor-access:is_public": false,
+        "id": "10",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v3/flavors/10",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/flavors/10",
+                "rel": "bookmark"
+            }
+        ],
+        "name": "test_flavor",
+        "ram": 1024,
+        "swap": 0,
+        "vcpus": 2
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                
+                <resource id="detail" path="/v2.1/flavors/detail">
+         <method name="GET" rax:id="addaccessresponse">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Add access attribute to flavor detail">
+               <para role="shortdesc">Extends flavor detail to add
+                access attribute to the response of flavor detail.
+           </para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavors": [
+        {
+            "disabled": false,
+            "disk": 1,
+            "ephemeral": 0,
+            "flavor-access:is_public": true,
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/1",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.tiny",
+            "ram": 512,
+            "swap": 0,
+            "vcpus": 1
+        },
+        {
+            "disabled": false,
+            "disk": 20,
+            "ephemeral": 0,
+            "flavor-access:is_public": true,
+            "id": "2",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/2",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/2",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.small",
+            "ram": 2048,
+            "swap": 0,
+            "vcpus": 1
+        },
+        {
+            "disabled": false,
+            "disk": 40,
+            "ephemeral": 0,
+            "flavor-access:is_public": true,
+            "id": "3",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/3",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/3",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.medium",
+            "ram": 4096,
+            "swap": 0,
+            "vcpus": 2
+        },
+        {
+            "disabled": false,
+            "disk": 80,
+            "ephemeral": 0,
+            "flavor-access:is_public": true,
+            "id": "4",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/4",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/4",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.large",
+            "ram": 8192,
+            "swap": 0,
+            "vcpus": 4
+        },
+        {
+            "disabled": false,
+            "disk": 160,
+            "ephemeral": 0,
+            "flavor-access:is_public": true,
+            "id": "5",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/5",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/5",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.xlarge",
+            "ram": 16384,
+            "swap": 0,
+            "vcpus": 8
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                
+                <resource id="one" path="/v2.1/flavors/1">
+         <method name="GET" rax:id="extendflavorshow">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Add access attribute to flavor show">
+               <para role="shortdesc">Extends flavor show to add access
+                attribute to the flavor show response.</para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavor": {
+        "disabled": false,
+        "disk": 1,
+        "ephemeral": 0,
+        "flavor-access:is_public": true,
+        "id": "1",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v3/flavors/1",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/flavors/1",
+                "rel": "bookmark"
+            }
+        ],
+        "name": "m1.tiny",
+        "ram": 512,
+        "swap": 0,
+        "vcpus": 1
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                
+                <resource id="action" path="/v2.1/flavors/10/action">
+         <method name="POST" rax:id="addflavoraccess">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Add flavor access">
+               <para role="shortdesc">Adds flavor access for
+                tenant.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "add_tenant_access": {
+        "tenant_id": "fake_tenant"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavor_access": [
+        {
+            "flavor_id": "10",
+            "tenant_id": "openstack"
+        },
+        {
+            "flavor_id": "10",
+            "tenant_id": "fake_tenant"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="removeflavoraccess">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Remove flavor access">
+               <para role="shortdesc">Removes flavor access for tenant.
+           </para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "remove_tenant_access": {
+        "tenant_id": "fake_tenant"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavor_access": [
+        {
+            "flavor_id": "10",
+            "tenant_id": "openstack"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    <resource id="flavor-access" path="/v2.1/flavors/10/flavor-access">
+         <method name="GET" rax:id="returnaccesslist">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Return access list">
+               <para role="shortdesc">Returns access list by flavor
+                id.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "add_tenant_access": {
+        "tenant_id": "fake_tenant"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavor_access": [
+        {
+            "flavor_id": "10",
+            "tenant_id": "openstack"
+        },
+        {
+            "flavor_id": "10",
+            "tenant_id": "fake_tenant"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+            
+    </resources>
+    <!--*******************************************************-->
+    <!--             flavor-access                 -->
+    <!--*******************************************************-->
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="addflavoraccess">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="extendflavor">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="addaccessresponse">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="returnaccesslist">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="removeflavoraccess">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="extendflavorshow">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+</wadl:application>

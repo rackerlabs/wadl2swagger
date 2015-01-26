@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <!-- <meta name='viewport' content='width=1000' /> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="javascripts/all.js" type="text/javascript" relative="true"></script>
+
+    <title></title>
+  </head>
+
+  <body class="index">
+    <h1 id="wadl2swagger">wadl2swagger</h1>
+
+<p><a href="https://pypi.python.org/pypi/wadl2swagger/"><img alt="Latest Version" src="https://pypip.in/version/wadl2swagger/badge.svg" /></a></p>
+
+<p>wadl2swagger is a command line tool for converting <a href="http://www.w3.org/Submission/wadl/">WADL</a> description of an API into <a href="http://swagger.io">Swagger</a>. It's intended to work with generic WADL documents as much as possible, but some of the conversion is mapped to conventions used in OpenStack WADL rather concepts defined in the WADL standard itself.</p>
+
+<h2 id="example-results">Example Results</h2>
+
+<ul>
+  <li><a href="http://rackerlabs.github.io/wadl2swagger/rackspace.html">Converted WADLs for Rackspace</a></li>
+  <li><a href="http://rackerlabs.github.io/wadl2swagger/openstack.html">Converted WADLs for OpenStack</a></li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+
+<p>wadl2swagger can be installed (and updated) from PyPI using <a href="http://www.pip-installer.org/en/latest/index.html">pip</a>:</p>
+
+<p><code>bash
+$ pip install --upgrade wadl2swagger
+</code></p>
+
+<p>Conversely, it can be uninstalled using <a href="http://www.pip-installer.org/en/latest/index.html">pip</a> as well.</p>
+
+<p><code>bash
+$ pip uninstall wadl2swagger
+</code></p>
+
+<h2 id="usage">Usage</h2>
+
+<p>wadl2swagger provides two utilities. The <code>wadlcrawler</code> utility can be used to fetch WADL files off a website. For example:</p>
+
+<p><code>bash
+$ wadlcrawler http://api.rackspace.com/wadls/
+INFO:root:Downloading http://api.rackspace.com/wadls/ to wadls/OS-KSADM-admin.wadl
+INFO:root:Downloading http://api.rackspace.com/wadls/ to wadls/RAX-AUTH.wadl
+INFO:root:Downloading http://api.rackspace.com/wadls/ to wadls/RAX-KSKEY-admin.wadl
+INFO:root:Downloading http://api.rackspace.com/wadls/ to wadls/autoscale.wadl
+INFO:root:Downloading http://api.rackspace.com/wadls/ to wadls/cbd-devguide.wadl
+INFO:root:Downloading http://api.rackspace.com/wadls/ to wadls/cloud_monitoring.wadl
+INFO:root:Downloading http://api.rackspace.com/wadls/ to wadls/cq-devguide.wadl
+...
+</code></p>
+
+<p>Now that you have a set of WADL files, you can use wadl2swagger to convert them:</p>
+
+<p><code>bash
+$ wadl2swagger --autofix wadls/*.wadl --swagger-dir swagger/
+Saving swagger to swagger/OS-KSADM-admin.yaml
+Saving swagger to swagger/RAX-AUTH.yaml
+Saving swagger to swagger/RAX-KSKEY-admin.yaml
+Saving swagger to swagger/autoscale.yaml
+Saving swagger to swagger/cbd-devguide.yaml
+Saving swagger to swagger/cq-devguide.yaml
+...
+</code></p>
+
+<h1 id="options">Options</h1>
+
+<p>See <code>wadlcrawler -h</code> and <code>wadl2swagger -h</code> for a full list of options. Some important options are below.</p>
+
+<h2 id="autofix"><code>--autofix</code></h2>
+
+<p>Tells wadl2swagger to detect and attempt to fix common problems, like inferring a default value for a required Swagger concept that is optional and not specified in one of the WADLs. If you don't use this option than wadl2swagger may fail until you clean up your WADL files.</p>
+
+<h2 id="wadl-dir-wadldir"><code>--wadl-dir WADL_DIR</code></h2>
+
+<p>The directory to save WADL files to when downloading via wadlcrawler.</p>
+
+<h2 id="swagger-dir-swaggerdir"><code>--swagger-dir SWAGGER_DIR</code></h2>
+<p>The directory to save Swagger files to when converting via wadl2swagger.</p>
+
+  </body>
+</html>

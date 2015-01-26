@@ -1,0 +1,244 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-qos-v2",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/qos-specs": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique ID of the tenant or account.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createQoSSpec",
+                "summary": "Create QoS specification",
+                "description": "Creates a QoS specification.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"qos_specs\": {\n        \"id\": \"0388d6c6-d5d4-42a3-b289-95205c50dd15\",\n        \"consumer\": \"back-end\",\n        \"specs\": {\n            \"availability\": \"100\",\n            \"numberOfFailures\": \"0\"\n        },\n        \"name\": \"reliability-spec\"\n    },\n    \"links\": [\n        {\n            \"href\": \"http://23.253.228.211:8776/v2/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15\",\n            \"rel\": \"self\"\n        },\n        {\n            \"href\": \"http://23.253.228.211:8776/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15\",\n            \"rel\": \"bookmark\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "listQoSSpecs",
+                "summary": "List QoS specs",
+                "description": "Lists quality of service (QoS) specifications.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": "{\n    \"qos_specs\": [\n        {\n            \"id\": \"0388d6c6-d5d4-42a3-b289-95205c50dd15\",\n            \"consumer\": \"back-end\",\n            \"specs\": {\n                \"availability\": \"100\",\n                \"numberOfFailures\": \"0\"\n            },\n            \"name\": \"reliability-spec\"\n        },\n        {\n            \"id\": \"ecfc6e2e-7117-44a4-8eec-f84d04f531a8\",\n            \"consumer\": \"back-end\",\n            \"specs\": {\n                \"delay\": \"0\",\n                \"throughput\": \"100\"\n            },\n            \"name\": \"performance-spec\"\n        }\n    ]\n}"
+                        }
+                    },
+                    "300": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": "{\n    \"qos_specs\": [\n        {\n            \"id\": \"0388d6c6-d5d4-42a3-b289-95205c50dd15\",\n            \"consumer\": \"back-end\",\n            \"specs\": {\n                \"availability\": \"100\",\n                \"numberOfFailures\": \"0\"\n            },\n            \"name\": \"reliability-spec\"\n        },\n        {\n            \"id\": \"ecfc6e2e-7117-44a4-8eec-f84d04f531a8\",\n            \"consumer\": \"back-end\",\n            \"specs\": {\n                \"delay\": \"0\",\n                \"throughput\": \"100\"\n            },\n            \"name\": \"performance-spec\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/qos-specs/{qos_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique ID of the tenant or account.\n"
+                },
+                {
+                    "name": "qos_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the QoS specification.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showQoSDetails",
+                "summary": "Show QoS specification details",
+                "description": "Shows details for a specified QoS specification.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"qos_specs\": {\n        \"id\": \"0388d6c6-d5d4-42a3-b289-95205c50dd15\",\n        \"consumer\": \"back-end\",\n        \"specs\": {\n            \"availability\": \"100\",\n            \"numberOfFailures\": \"0\"\n        },\n        \"name\": \"reliability-spec\"\n    },\n    \"links\": [\n        {\n            \"href\": \"http://23.253.228.211:8776/v2/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15\",\n            \"rel\": \"self\"\n        },\n        {\n            \"href\": \"http://23.253.228.211:8776/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15\",\n            \"rel\": \"bookmark\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteQoSSpec",
+                "summary": "Delete QoS specification",
+                "description": "Deletes a specified QoS specification.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/qos-specs/{qos_id}/associate": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique ID of the tenant or account.\n"
+                },
+                {
+                    "name": "qos_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the QoS specification.\n"
+                },
+                {
+                    "name": "vol_type_id",
+                    "required": false,
+                    "in": "query",
+                    "type": "string",
+                    "description": "The unique ID of the volume type.\n"
+                }
+            ],
+            "get": {
+                "operationId": "associateQoSSpec",
+                "summary": "Associate QoS specification with volume type",
+                "description": "Associates a QoS specification with a specified volume type.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/qos-specs/{qos_id}/disassociate": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique ID of the tenant or account.\n"
+                },
+                {
+                    "name": "qos_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the QoS specification.\n"
+                },
+                {
+                    "name": "vol_type_id",
+                    "required": false,
+                    "in": "query",
+                    "type": "string",
+                    "description": "The unique ID of the volume type.\n"
+                }
+            ],
+            "get": {
+                "operationId": "disassociateQoSSpec",
+                "summary": "Disassociate QoS specification from volume type",
+                "description": "Disassociates a QoS specification from a specified volume type.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/qos-specs/{qos_id}/disassociate_all": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique ID of the tenant or account.\n"
+                },
+                {
+                    "name": "qos_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the QoS specification.\n"
+                }
+            ],
+            "get": {
+                "operationId": "disassociateQoSSpecAll",
+                "summary": "Disassociate QoS specification from all associations",
+                "description": "Disassociates a specified QoS specification from all associations.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/qos-specs/{qos_id}/associations": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique ID of the tenant or account.\n"
+                },
+                {
+                    "name": "qos_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the QoS specification.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getQoSAssociations",
+                "summary": "Get all associations for QoS specification",
+                "description": "Gets all associations for a specified QoS specification.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"qos_associations\": [\n        {\n            \"association_type\": \"volume_type\",\n            \"name\": \"reliability-type\",\n            \"id\": \"a12983c2-83bd-4afa-be9f-ad796573ead6\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

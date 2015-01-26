@@ -1,0 +1,9 @@
+INFO:wadls/os-virtual-interfaces.wadl:Converting: wadls/os-virtual-interfaces.wadl to swagger/os-virtual-interfaces.json
+WARNING:wadls/os-virtual-interfaces.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-virtual-interfaces.wadl:Autofix: path parameters must be required in Swagger (server_id)
+INFO:root:Saving swagger to swagger/os-virtual-interfaces.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="limits-v2.1">
+        <resource id="limits" path="/v2.1/limits">
+         <method name="GET" rax:id="getlimits">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Show limits">
+               <para role="shortdesc">Show global and rate limit
+                information.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "limits": {
+        "rate": [
+            {
+                "limit": [
+                    {
+                        "next-available": "2013-09-09T13:37:32Z",
+                        "remaining": 10,
+                        "unit": "MINUTE",
+                        "value": 10,
+                        "verb": "POST"
+                    },
+                    {
+                        "next-available": "2013-09-09T13:37:32Z",
+                        "remaining": 10,
+                        "unit": "MINUTE",
+                        "value": 10,
+                        "verb": "PUT"
+                    },
+                    {
+                        "next-available": "2013-09-09T13:37:32Z",
+                        "remaining": 100,
+                        "unit": "MINUTE",
+                        "value": 100,
+                        "verb": "DELETE"
+                    }
+                ],
+                "regex": ".*",
+                "uri": "*"
+            },
+            {
+                "limit": [
+                    {
+                        "next-available": "2013-09-09T13:37:32Z",
+                        "remaining": 50,
+                        "unit": "DAY",
+                        "value": 50,
+                        "verb": "POST"
+                    }
+                ],
+                "regex": "^/servers",
+                "uri": "*/servers"
+            },
+            {
+                "limit": [
+                    {
+                        "next-available": "2013-09-09T13:37:32Z",
+                        "remaining": 3,
+                        "unit": "MINUTE",
+                        "value": 3,
+                        "verb": "GET"
+                    }
+                ],
+                "regex": ".*changes_since.*",
+                "uri": "*changes_since*"
+            }
+        ]
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200"> 
+               <param name="X-OpenStack-Request-ID"
+                      style="header"
+                      required="false"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                  </wadl:doc>
+               </param>
+            </response>
+         </method>
+      </resource>
+                
+            
+    </resources>
+    <!-- *******************************************************-->
+    <!--             Limit                           -->
+    <!--*******************************************************-->
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getlimits">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200"> 
+         <param name="X-OpenStack-Request-ID"
+                style="header"
+                required="false"
+                type="xsd:string">
+    
+</param>
+      </response>
+    </method>
+</wadl:application>

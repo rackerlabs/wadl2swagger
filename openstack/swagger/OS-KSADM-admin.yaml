@@ -1,0 +1,777 @@
+---
+swagger: '2.0'
+info:
+  title: OS-KSADM-admin
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.0/users":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    get:
+      operationId: listUsers
+      summary: List Users
+      description: |
+        Lists users.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "users_links": [],
+                  "users": [
+                      {
+                          "email": "john.smith@example.org",
+                          "enabled": true,
+                          "id": "u1000",
+                          "name": "jqsmith"
+                      },
+                      {
+                          "email": "john.smith@example.org",
+                          "enabled": true,
+                          "id": "u1001",
+                          "name": "jqsmith"
+                      }
+                  ]
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "users_links": [],
+                  "users": [
+                      {
+                          "email": "john.smith@example.org",
+                          "enabled": true,
+                          "id": "u1000",
+                          "name": "jqsmith"
+                      },
+                      {
+                          "email": "john.smith@example.org",
+                          "enabled": true,
+                          "id": "u1001",
+                          "name": "jqsmith"
+                      }
+                  ]
+              }
+    post:
+      operationId: addUser
+      summary: Add User
+      description: |
+        Adds a user.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "user": {
+                      "email": "john.smith@example.org",
+                      "enabled": true,
+                      "id": "u1000",
+                      "name": "jqsmith"
+                  }
+              }
+  "/v2.0/users/{userId}":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    - name: userId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the user for which you want to perform the request.
+    put:
+      operationId: updateUser
+      summary: Update User
+      description: |
+        Updates a user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "user": {
+                      "email": "john.smith@example.org",
+                      "enabled": true,
+                      "id": "u1000",
+                      "name": "jqsmith"
+                  }
+              }
+    delete:
+      operationId: deleteUser
+      summary: Delete User
+      description: |
+        Deletes a user.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v2.0/users/{userId}/roles":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    - name: userId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the user for which you want to perform the request.
+    - name: serviceId
+      required: false
+      in: query
+      type: string
+      description: |
+        The service ID.
+    - name: marker
+      required: false
+      in: query
+      type: string
+      description: |
+        The ID of the last item in the previous list.
+    - name: limit
+      required: false
+      in: query
+      type: integer
+      description: |
+        The page size.
+    get:
+      operationId: listUserRoles
+      summary: List global roles for user
+      description: |
+        Lists global roles for a specified user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "roles": [
+                      {
+                          "id": "8341d3603a1d4d5985bff09f10704d4d",
+                          "name": "service"
+                      },
+                      {
+                          "id": "2e66d57df76946fdbe034bc4da6fdec0",
+                          "name": "admin"
+                      }
+                  ]
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "roles": [
+                      {
+                          "id": "8341d3603a1d4d5985bff09f10704d4d",
+                          "name": "service"
+                      },
+                      {
+                          "id": "2e66d57df76946fdbe034bc4da6fdec0",
+                          "name": "admin"
+                      }
+                  ]
+              }
+  "/v2.0/users/{userId}/roles/OS-KSADM/{roleId}":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    - name: userId
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID of the user for which you want to perform the request.
+    - name: roleId
+      required: true
+      in: path
+      type: integer
+      description: |
+        The ID of the role that you want to add or delete.
+    put:
+      operationId: addUserRole
+      summary: Add global role to user
+      description: |
+        Adds a specific global role to a user.
+      produces: []
+      responses:
+        '201':
+          description: 201 response
+    delete:
+      operationId: deleteUserRole
+      summary: Delete Global Role from User
+      description: |
+        Deletes a specific global role from a user.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v2.0/tenants":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    post:
+      operationId: addTenant
+      summary: Add Tenant
+      description: |
+        Creates a tenant.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "tenant": {
+                      "description": "A description ...",
+                      "enabled": true,
+                      "id": "1234",
+                      "name": "ACME corp"
+                  }
+              }
+  "/v2.0/tenants/{tenantId}":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    - name: tenantId
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID.
+    post:
+      operationId: updateTenant
+      summary: Update Tenant
+      description: |
+        Updates a tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "tenant": {
+                      "description": "A description ...",
+                      "enabled": true,
+                      "id": "1234",
+                      "name": "ACME corp"
+                  }
+              }
+    delete:
+      operationId: deleteTenant
+      summary: Delete Tenant
+      description: |
+        Deletes a tenant.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v2.0/tenants/{tenantId}/users":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    - name: tenantId
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID.
+    - name: marker
+      required: false
+      in: query
+      type: string
+      description: |
+        The ID of the last item in the previous list.
+    - name: limit
+      required: false
+      in: query
+      type: integer
+      description: |
+        The page size.
+    get:
+      operationId: listUsersForTenant
+      summary: List Users for a Tenant
+      description: |
+        Lists all users for a tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "users_links": [],
+                  "users": [
+                      {
+                          "email": "john.smith@example.org",
+                          "enabled": true,
+                          "id": "u1000",
+                          "name": "jqsmith"
+                      },
+                      {
+                          "email": "john.smith@example.org",
+                          "enabled": true,
+                          "id": "u1001",
+                          "name": "jqsmith"
+                      }
+                  ]
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "users_links": [],
+                  "users": [
+                      {
+                          "email": "john.smith@example.org",
+                          "enabled": true,
+                          "id": "u1000",
+                          "name": "jqsmith"
+                      },
+                      {
+                          "email": "john.smith@example.org",
+                          "enabled": true,
+                          "id": "u1001",
+                          "name": "jqsmith"
+                      }
+                  ]
+              }
+  "/v2.0/tenants/{tenantId}/users/{userId}/roles/OS-KSADM/{roleId}":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    - name: tenantId
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID.
+    - name: userId
+      required: true
+      in: path
+      type: string
+      description: |
+        The user ID.
+    - name: roleId
+      required: true
+      in: path
+      type: string
+      description: |
+        The role ID.
+    put:
+      operationId: addRolesToUserOnTenant
+      summary: Add Roles to User on Tenant
+      description: |
+        Adds a specified role to a user for a tenant.
+      produces: []
+      responses:
+        '201':
+          description: 201 response
+    delete:
+      operationId: deleteRoleFromUserOnTenant
+      summary: Delete Roles from User on Tenant
+      description: |
+        Deletes a specified role from a user on a tenant.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v2.0/OS-KSADM/roles":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    get:
+      operationId: getRoleByName
+      summary: Get role information by name
+      description: |
+        Gets a role by name.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "role": {
+                      "description": "Guest Access",
+                      "id": "123",
+                      "name": "Guest"
+                  }
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "role": {
+                      "description": "Guest Access",
+                      "id": "123",
+                      "name": "Guest"
+                  }
+              }
+    post:
+      operationId: addRole
+      summary: Add Role
+      description: |
+        Adds a role.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "role": {
+                      "description": "Guest Access",
+                      "id": "123",
+                      "name": "Guest"
+                  }
+              }
+  "/v2.0/OS-KSADM/roles/":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    get:
+      operationId: listRoles
+      summary: List Roles
+      description: |
+        Lists roles.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "roles_links": [],
+                  "roles": [
+                      {
+                          "description": "Nova Administrator",
+                          "id": "123",
+                          "name": "compute:admin"
+                      }
+                  ]
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "roles_links": [],
+                  "roles": [
+                      {
+                          "description": "Nova Administrator",
+                          "id": "123",
+                          "name": "compute:admin"
+                      }
+                  ]
+              }
+  "/v2.0/OS-KSADM/roles/{roleId}":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    - name: roleId
+      required: true
+      in: path
+      type: string
+      description: |
+        The role ID.
+    get:
+      operationId: getRole
+      summary: Get role information
+      description: |
+        Gets information for a specified role.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "role": {
+                      "description": "Guest Access",
+                      "id": "123",
+                      "name": "Guest"
+                  }
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "role": {
+                      "description": "Guest Access",
+                      "id": "123",
+                      "name": "Guest"
+                  }
+              }
+    delete:
+      operationId: deleteRole
+      summary: Delete Role
+      description: |
+        Deletes a role.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v2.0/OS-KSADM/services":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    - name: marker
+      required: false
+      in: query
+      type: string
+      description: |
+        The ID of the last item in the previous list.
+    - name: limit
+      required: false
+      in: query
+      type: integer
+      description: |
+        The page size.
+    get:
+      operationId: listServices
+      summary: List Services
+      description: |
+        Lists services.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "OS-KSADM:services": [
+                      {
+                          "description": "OpenStack Compute Service",
+                          "type": "compute",
+                          "id": "123",
+                          "name": "nova"
+                      },
+                      {
+                          "description": "OpenStack Image Service",
+                          "type": "image",
+                          "id": "234",
+                          "name": "glance"
+                      }
+                  ],
+                  "OS-KSADM:services_links": []
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "OS-KSADM:services": [
+                      {
+                          "description": "OpenStack Compute Service",
+                          "type": "compute",
+                          "id": "123",
+                          "name": "nova"
+                      },
+                      {
+                          "description": "OpenStack Image Service",
+                          "type": "image",
+                          "id": "234",
+                          "name": "glance"
+                      }
+                  ],
+                  "OS-KSADM:services_links": []
+              }
+    post:
+      operationId: addService
+      summary: Add Service
+      description: |
+        Adds a service.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "OS-KSADM:service": {
+                      "description": "OpenStack Compute Service",
+                      "type": "compute",
+                      "id": "123",
+                      "name": "nova"
+                  }
+              }
+  "/v2.0/OS-KSADM/services/":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    - name: name
+      required: true
+      in: query
+      type: string
+      description: |
+        The service name.
+    get:
+      operationId: getServiceByName
+      summary: Get Service by Name
+      description: |
+        Gets a service by name.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "OS-KSADM:service": {
+                      "description": "OpenStack Compute Service",
+                      "type": "compute",
+                      "id": "123",
+                      "name": "nova"
+                  }
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "OS-KSADM:service": {
+                      "description": "OpenStack Compute Service",
+                      "type": "compute",
+                      "id": "123",
+                      "name": "nova"
+                  }
+              }
+  "/v2.0/OS-KSADM/services/{serviceId}":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token for an administrative user.
+    - name: serviceId
+      required: true
+      in: path
+      type: string
+      description: |
+        The service ID.
+    get:
+      operationId: getService
+      summary: Get Service
+      description: |
+        Gets a service.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "OS-KSADM:service": {
+                      "description": "OpenStack Compute Service",
+                      "type": "compute",
+                      "id": "123",
+                      "name": "nova"
+                  }
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "OS-KSADM:service": {
+                      "description": "OpenStack Compute Service",
+                      "type": "compute",
+                      "id": "123",
+                      "name": "nova"
+                  }
+              }
+    delete:
+      operationId: deleteService
+      summary: Delete Service
+      description: |
+        Deletes a service.
+      produces: []
+      responses:
+        '204':
+          description: 204 response

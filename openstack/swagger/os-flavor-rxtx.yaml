@@ -1,0 +1,210 @@
+---
+swagger: '2.0'
+info:
+  title: os-flavor-rxtx
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/flavors":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    post:
+      operationId: createFlavor
+      summary: Create flavor with rxtx_factor
+      description: |
+        Creates a flavor. Includes the rxtx\_factor extended attribute.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor": {
+                      "name": "flavortest",
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/flavors/100",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/flavors/100",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "ram": 1024,
+                      "vcpus": 2,
+                      "rxtx_factor": 2.0,
+                      "disk": 10,
+                      "id": "100"
+                  }
+              }
+  "/v2/{tenant_id}/flavors/{flavor_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: flavor_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The flavor ID.
+    get:
+      operationId: getFlavor
+      summary: Get flavor with rxtx_factor
+      description: |
+        Gets details for a specified flavor. Includes the rxtx\_factor extended attribute.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavor": {
+                      "name": "m1.tiny",
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/flavors/1",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "ram": 512,
+                      "vcpus": 1,
+                      "rxtx_factor": 1.0,
+                      "disk": 1,
+                      "id": "1"
+                  }
+              }
+  "/v2/{tenant_id}/flavors/detail":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: getFlavorDetails
+      summary: Get flavor Details with rxtx_factor
+      description: |
+        Lists details for available flavors and includes the rxtx\_factor extended attribute.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "flavors": [
+                      {
+                          "name": "m1.tiny",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/1",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 512,
+                          "vcpus": 1,
+                          "rxtx_factor": 1.0,
+                          "disk": 1,
+                          "id": "1"
+                      },
+                      {
+                          "name": "m1.small",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/2",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/2",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 2048,
+                          "vcpus": 1,
+                          "rxtx_factor": 1.0,
+                          "disk": 20,
+                          "id": "2"
+                      },
+                      {
+                          "name": "m1.medium",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/3",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/3",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 4096,
+                          "vcpus": 2,
+                          "rxtx_factor": 1.0,
+                          "disk": 40,
+                          "id": "3"
+                      },
+                      {
+                          "name": "m1.large",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/4",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/4",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 8192,
+                          "vcpus": 4,
+                          "rxtx_factor": 1.0,
+                          "disk": 80,
+                          "id": "4"
+                      },
+                      {
+                          "name": "m1.xlarge",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/flavors/5",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/5",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "ram": 16384,
+                          "vcpus": 8,
+                          "rxtx_factor": 1.0,
+                          "disk": 160,
+                          "id": "5"
+                      }
+                  ]
+              }

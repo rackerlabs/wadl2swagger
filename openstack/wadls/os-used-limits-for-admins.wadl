@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-used-limits-for-admins-v2">
+        <resource id="tenant_id" path="/v2/{tenant_id}/limits/{tenant_id}">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+               <para>The ID
+                            for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="tenant_id" style="template" type="csapi:uuid">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+               <para>The ID for the tenant for
+                                   which an administrator wants to get
+                                   quota information. Specify the
+                                   customer tenant ID in the URI as
+                                   <code>tenant_id={tenant_id}</code>.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getCustomerLimits">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      title="Get customer limits"
+                      xml:lang="EN">
+               <para role="shortdesc">Enables administrators to get
+                absolute and rate limit information, including
+                information about currently used absolute limits, for
+                a specified customer tenant ID.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Used limits for admins: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "limits": {
+        "absolute": {
+            "maxImageMeta": 128,
+            "maxPersonality": 5,
+            "maxPersonalitySize": 10240,
+            "maxSecurityGroupRules": 20,
+            "maxSecurityGroups": 10,
+            "maxServerMeta": 128,
+            "maxTotalCores": 20,
+            "maxTotalFloatingIps": 10,
+            "maxTotalInstances": 10,
+            "maxTotalKeypairs": 100,
+            "maxTotalRAMSize": 51200,
+            "totalCoresUsed": 0,
+            "totalInstancesUsed": 0,
+            "totalRAMUsed": 0,
+            "totalSecurityGroupsUsed": 0,
+            "totalFloatingIpsUsed": 0
+        },
+        "rate": [
+            {
+                "limit": [
+                    {
+                        "next-available": "2012-11-27T17:24:52Z",
+                        "remaining": 120,
+                        "unit": "MINUTE",
+                        "value": 120,
+                        "verb": "POST"
+                    },
+                    {
+                        "next-available": "2012-11-27T17:24:52Z",
+                        "remaining": 120,
+                        "unit": "MINUTE",
+                        "value": 120,
+                        "verb": "PUT"
+                    },
+                    {
+                        "next-available": "2012-11-27T17:24:52Z",
+                        "remaining": 120,
+                        "unit": "MINUTE",
+                        "value": 120,
+                        "verb": "DELETE"
+                    }
+                ],
+                "regex": ".*",
+                "uri": "*"
+            },
+            {
+                "limit": [
+                    {
+                        "next-available": "2012-11-27T17:24:52Z",
+                        "remaining": 120,
+                        "unit": "MINUTE",
+                        "value": 120,
+                        "verb": "POST"
+                    }
+                ],
+                "regex": "^/servers",
+                "uri": "*/servers"
+            },
+            {
+                "limit": [
+                    {
+                        "next-available": "2012-11-27T17:24:52Z",
+                        "remaining": 120,
+                        "unit": "MINUTE",
+                        "value": 120,
+                        "verb": "GET"
+                    }
+                ],
+                "regex": ".*changes-since.*",
+                "uri": "*changes-since*"
+            },
+            {
+                "limit": [
+                    {
+                        "next-available": "2012-11-27T17:24:52Z",
+                        "remaining": 12,
+                        "unit": "MINUTE",
+                        "value": 12,
+                        "verb": "GET"
+                    }
+                ],
+                "regex": "^/os-fping",
+                "uri": "*/os-fping"
+            }
+        ]
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Used limits for admins: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;limits xmlns:os-used-limits="http://docs.openstack.org/compute/ext/used_limits/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/common/api/v1.0"&gt;
+  &lt;rates&gt;
+    &lt;rate regex=".*" uri="*"&gt;
+      &lt;limit next-available="2012-11-27T17:24:53Z" unit="MINUTE" verb="POST" remaining="120" value="120"/&gt;
+      &lt;limit next-available="2012-11-27T17:24:53Z" unit="MINUTE" verb="PUT" remaining="120" value="120"/&gt;
+      &lt;limit next-available="2012-11-27T17:24:53Z" unit="MINUTE" verb="DELETE" remaining="120" value="120"/&gt;
+    &lt;/rate&gt;
+    &lt;rate regex="^/servers" uri="*/servers"&gt;
+      &lt;limit next-available="2012-11-27T17:24:53Z" unit="MINUTE" verb="POST" remaining="120" value="120"/&gt;
+    &lt;/rate&gt;
+    &lt;rate regex=".*changes-since.*" uri="*changes-since*"&gt;
+      &lt;limit next-available="2012-11-27T17:24:53Z" unit="MINUTE" verb="GET" remaining="120" value="120"/&gt;
+    &lt;/rate&gt;
+    &lt;rate regex="^/os-fping" uri="*/os-fping"&gt;
+      &lt;limit next-available="2012-11-27T17:24:53Z" unit="MINUTE" verb="GET" remaining="12" value="12"/&gt;
+    &lt;/rate&gt;
+  &lt;/rates&gt;
+  &lt;absolute&gt;
+    &lt;limit name="maxServerMeta" value="128"/&gt;
+    &lt;limit name="maxPersonality" value="5"/&gt;
+    &lt;limit name="maxImageMeta" value="128"/&gt;
+    &lt;limit name="maxPersonalitySize" value="10240"/&gt;
+    &lt;limit name="maxSecurityGroupRules" value="20"/&gt;
+    &lt;limit name="maxTotalKeypairs" value="100"/&gt;
+    &lt;limit name="totalRAMUsed" value="0"/&gt;
+    &lt;limit name="totalInstancesUsed" value="0"/&gt;
+    &lt;limit name="maxSecurityGroups" value="10"/&gt;
+    &lt;limit name="totalFloatingIpsUsed" value="0"/&gt;
+    &lt;limit name="maxTotalCores" value="20"/&gt;
+    &lt;limit name="totalSecurityGroupsUsed" value="0"/&gt;
+    &lt;limit name="maxTotalFloatingIps" value="10"/&gt;
+    &lt;limit name="maxTotalInstances" value="10"/&gt;
+    &lt;limit name="totalCoresUsed" value="0"/&gt;
+    &lt;limit name="maxTotalRAMSize" value="51200"/&gt;
+  &lt;/absolute&gt;
+&lt;/limits&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getCustomerLimits">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

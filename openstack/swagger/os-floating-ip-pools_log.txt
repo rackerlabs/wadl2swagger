@@ -1,0 +1,8 @@
+INFO:wadls/os-floating-ip-pools.wadl:Converting: wadls/os-floating-ip-pools.wadl to swagger/os-floating-ip-pools.json
+WARNING:wadls/os-floating-ip-pools.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-floating-ip-pools.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

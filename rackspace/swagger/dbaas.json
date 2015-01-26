@@ -1,0 +1,1232 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "dbaas",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "getVersions",
+                "summary": "List versions",
+                "description": "Lists information about all versions of the API.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"versions\": [\n        {\n            \"status\": \"CURRENT\",\n            \"updated\": \"2012-01-01T00:00:00Z\",\n            \"id\": \"v1.0\",\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}": {
+            "get": {
+                "operationId": "getVersionInfo",
+                "summary": "List version details",
+                "description": "Returns detailed information about the specified version of the API.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"version\": {\n        \"status\": \"CURRENT\",\n        \"updated\": \"2012-01-01T00:00:00Z\",\n        \"id\": \"v1.0\",\n        \"links\": [\n            {\n                \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/\",\n                \"rel\": \"self\"\n            }\n        ]\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createReplica",
+                "summary": "Create replica",
+                "description": "Creates a replica of the source instance, as specified by the value of the `replica_of` attribute.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"instance\": {\n        \"status\": \"BUILD\",\n        \"updated\": \"2014-10-14T18:42:15\",\n        \"name\": \"t2s1_ALT_GUEST\",\n        \"links\": [\n            {\n                \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/5919009/instances/8367c312-7c40-4a66-aab1-5767478914fc\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"https://ord.databases.api.rackspacecloud.com/instances/8367c312-7c40-4a66-aab1-5767478914fc\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"created\": \"2014-10-14T18:42:15\",\n        \"volume\": {\n            \"size\": 1\n        },\n        \"replica_of\": {\n            \"id\": \"6bdca2fc-418e-40bd-a595-62abda61862d\",\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/5919009/instances/6bdca2fc-418e-40bd-a595-62abda61862d\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/instances/6bdca2fc-418e-40bd-a595-62abda61862d\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"flavor\": {\n            \"id\": \"9\",\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/5919009/flavors/9\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/9\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"id\": \"8367c312-7c40-4a66-aab1-5767478914fc\",\n        \"datastore\": {\n            \"version\": \"5.6\",\n            \"type\": \"mysql\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getReplicasOrReplicaSources",
+                "summary": "List all replicas and replica source database instances",
+                "description": "Lists the status and information for all replicas and replica sources.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances/{instanceId}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "put": {
+                "operationId": "updateInstance",
+                "summary": "Update database instance",
+                "description": "Associates a specified database instance with a configuration group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {}
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getReplica",
+                "summary": "List replica details",
+                "description": "Lists status and details for a specified replica.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"instance\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": \"2014-10-21T19:54:55\",\n        \"name\": \"t1s1_ALT_GUEST\",\n        \"links\": [\n            {\n                \"href\": \" https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances /1131f914-571c-4cd1-a5e5-0c2235eaa66f\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \" https://ord.databases.api.rackspacecloud.com/instances /1131f914-571c-4cd1-a5e5-0c2235eaa66f\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"created\": \"2014-10-21T19:54:00\",\n        \"ip\": [\n            \"10.0.0.3\"\n        ],\n        \"volume\": {\n            \"used\": 0.06,\n            \"size\": 1\n        },\n        \"replica_of\": {\n            \"id\": \"8215d522-d66a-479b-83c0-fbacc5dd05fc\",\n            \"links\": [\n                {\n                    \"href\": \"https https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances /8215d522-d66a-479b-83c0-fbacc5dd05fc\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \" https://ord.databases.api.rackspacecloud.com/instances /8215d522-d66a-479b-83c0-fbacc5dd05fc\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"flavor\": {\n            \"id\": \"9\",\n            \"links\": [\n                {\n                    \"href\": \" https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors /9\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \" https://ord.databases.api.rackspacecloud.com/flavors /9\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"id\": \"1131f914-571c-4cd1-a5e5-0c2235eaa66f\",\n        \"datastore\": {\n            \"version\": \"5.6\",\n            \"type\": \"mysql\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteInstance",
+                "summary": "Delete database instance",
+                "description": "Deletes the specified database instance.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "detachReplica",
+                "summary": "Detach replica",
+                "description": "Detaches the specified replica instance from its replication source instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances/{instanceId}/action": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "post": {
+                "operationId": "restartInstance",
+                "summary": "Restart instance",
+                "description": "Restarts the database service on the instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances/{instanceId}/databases": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createDatabase",
+                "summary": "Create database",
+                "description": "Creates a new database within the specified instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getDatabases",
+                "summary": "List databases for instance",
+                "description": "Lists databases for the specified instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"links\": [\n        {\n            \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances/d4603f69-ec7e-4e9b-803f-600b9205576f/databases?marker=anotherdb&limit=1\",\n            \"rel\": \"next\"\n        }\n    ],\n    \"databases\": [\n        {\n            \"name\": \"anotherdb\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances/{instanceId}/databases/{databaseName}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                },
+                {
+                    "name": "databaseName",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name for the specified database.\n"
+                }
+            ],
+            "delete": {
+                "operationId": "deleteDatabase",
+                "summary": "Delete database",
+                "description": "Deletes the specified database.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances/{instanceId}/users": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createUser",
+                "summary": "Create user",
+                "description": "Creates a user for the specified database instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getUsers",
+                "summary": "List users in database instance",
+                "description": "Lists the users in the specified database instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"users\": [\n        {\n            \"host\": \"%\",\n            \"name\": \"dbuser1\",\n            \"databases\": [\n                {\n                    \"name\": \"databaseA\"\n                }\n            ]\n        },\n        {\n            \"host\": \"%\",\n            \"name\": \"dbuser2\",\n            \"databases\": [\n                {\n                    \"name\": \"databaseB\"\n                },\n                {\n                    \"name\": \"databaseC\"\n                }\n            ]\n        }\n    ],\n    \"links\": [\n        {\n            \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances/d4603f69-ec7e-4e9b-803f-600b9205576f/users?marker=dbuser2%2540%2525&limit=2\",\n            \"rel\": \"next\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "changePass",
+                "summary": "Change user(s) password",
+                "description": "Changes the database password of one or more users.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances/{instanceId}/users/{name}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                },
+                {
+                    "name": "name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name for the specified user. Refer to\nhttp://docs.rackspace.com/cdb/api/v1.0/cdb-devguide/content/user\\_access\\_restrict\\_by\\_host-dle387.html\nfor details about restricting the name to a particular host. Examples: testuser, testuser@192.168.1.12 (to restrict the user to connecting from a particular host IP)\n"
+                }
+            ],
+            "delete": {
+                "operationId": "deleteUser",
+                "summary": "Delete user",
+                "description": "Deletes the user identified by {name} for the specified database instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            },
+            "get": {
+                "operationId": "listUser",
+                "summary": "List user",
+                "description": "Lists the specified user's name and a list of databases that the user can access.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"user\": {\n        \"host\": \"%\",\n        \"name\": \"dbuser1\",\n        \"databases\": []\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "modifyUser",
+                "summary": "Modify user attributes",
+                "description": "Modifies one or more of the following for the specified user: name, password, and host from which the user is allowed to connect to the database.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances/{instanceId}/users/{name}/databases": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                },
+                {
+                    "name": "name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name for the specified user. Refer to\nhttp://docs.rackspace.com/cdb/api/v1.0/cdb-devguide/content/user\\_access\\_restrict\\_by\\_host-dle387.html\nfor details about restricting the name to a particular host. Examples: testuser, testuser@192.168.1.12 (to restrict the user to connecting from a particular host IP)\n"
+                }
+            ],
+            "get": {
+                "operationId": "getUserAccess",
+                "summary": "List user access",
+                "description": "Shows a list of all databases a user has access to.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"databases\": [\n        {\n            \"name\": \"databaseB\"\n        },\n        {\n            \"name\": \"databaseC\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "grantUserAccess",
+                "summary": "Grant user access",
+                "description": "Grants access for the specified user to one or more databases for the specified instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances/{instanceId}/users/{name}/databases/{databaseName}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                },
+                {
+                    "name": "name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name for the specified user. Refer to\nhttp://docs.rackspace.com/cdb/api/v1.0/cdb-devguide/content/user\\_access\\_restrict\\_by\\_host-dle387.html\nfor details about restricting the name to a particular host. Examples: testuser, testuser@192.168.1.12 (to restrict the user to connecting from a particular host IP)\n"
+                },
+                {
+                    "name": "databaseName",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The name for the specified database.\n"
+                }
+            ],
+            "delete": {
+                "operationId": "revokeUserAccess",
+                "summary": "Revoke user access",
+                "description": "Removes access to the specified database for the specified user.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances/{instanceId}/configuration": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getDefaultConfig",
+                "summary": "Get default configuration",
+                "description": "Lists the default configuration settings from the template that were applied to the specified instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"instance\": {\n        \"configuration\": {\n            \"tmp_table_size\": \"16M\",\n            \"innodb_log_files_in_group\": \"2\",\n            \"skip-external-locking\": \"1\",\n            \"innodb_checksum_algorithm\": \"crc32\",\n            \"read_rnd_buffer_size\": \"1M\",\n            \"skip_name_resolve\": \"1\",\n            \"max_heap_table_size\": \"16M\",\n            \"port\": \"3306\",\n            \"tmpdir\": \"/var/tmp\",\n            \"max_connect_errors\": \"10000\",\n            \"myisam-recover\": \"BACKUP\",\n            \"server_id\": \"1\",\n            \"innodb_buffer_pool_size\": \"175M\",\n            \"user\": \"mysql\",\n            \"basedir\": \"/usr\",\n            \"max_allowed_packet\": \"16M\",\n            \"datadir\": \"/var/lib/mysql\",\n            \"innodb_log_buffer_size\": \"8M\",\n            \"max_connections\": \"40\",\n            \"default_storage_engine\": \"innodb\",\n            \"connect_timeout\": \"15\",\n            \"query_cache_type\": \"1\",\n            \"local-infile\": \"0\",\n            \"innodb_log_file_size\": \"256M\",\n            \"innodb_thread_concurrency\": \"0\",\n            \"pid_file\": \"/var/run/mysqld/mysqld.pid\",\n            \"query_cache_limit\": \"1M\",\n            \"read_buffer_size\": \"256K\",\n            \"innodb_io_capacity_max\": \"400               # 2 x innodb_io_capacity\",\n            \"query_cache_size\": \"8M\",\n            \"innodb_data_file_path\": \"ibdata1:10M:autoextend\",\n            \"performance_schema\": \"off\",\n            \"thread_stack\": \"192K\",\n            \"table_open_cache\": \"4096\",\n            \"log-error\": \"/var/log/mysql/mysqld.log\",\n            \"sort_buffer_size\": \"256K\",\n            \"innodb_buffer_pool_instances\": \"1\",\n            \"wait_timeout\": \"3600\",\n            \"open_files_limit\": \"8192\",\n            \"innodb_io_capacity\": \"200\",\n            \"innodb_file_per_table\": \"1\",\n            \"innodb_open_files\": \"8192\",\n            \"key_buffer_size\": \"50M\",\n            \"join_buffer_size\": \"1M\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances/{instanceId}/root": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createRoot",
+                "summary": "Enable root user",
+                "description": "Enables the root user for the specified database instance and returns the root password.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"user\": {\n        \"password\": \"12345\",\n        \"name\": \"root\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "isRootEnabled",
+                "summary": "List root-enabled status",
+                "description": "Returns true if root user is enabled for the specified database instance or false otherwise.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"rootEnabled\": true\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/instances/{instanceId}/backups": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getBackupsByInstance",
+                "summary": "List backups for instance",
+                "description": "Lists all backups for a specified instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"backup\": {\n        \"status\": \"COMPLETED\",\n        \"updated\": \"2014-06-19T15:56:58\",\n        \"description\": \"Backup from Restored Instance\",\n        \"created\": \"2014-06-19T15:55:54\",\n        \"name\": \"restored_backup\",\n        \"instance_id\": \"34d6c8bf-539e-47d1-8a06-2b7590521309\",\n        \"parent_id\": null,\n        \"locationRef\": \"http://localhost/path/to/backup\",\n        \"datastore\": {\n            \"version\": \"5.1\",\n            \"type\": \"MySQL\",\n            \"version_id\": \"20000000-0000-0000-0000-000000000002\"\n        },\n        \"id\": \"e2d3dfca-430f-4cd2-bec0-884cd7426f13\",\n        \"size\": 0.141026\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/flavors": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getFlavors",
+                "summary": "List flavors",
+                "description": "Lists information for all available flavors.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavors\": [\n        {\n            \"ram\": 512,\n            \"id\": 1,\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/1\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"512MB Instance\"\n        },\n        {\n            \"ram\": 1024,\n            \"id\": 2,\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/2\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/2\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"1GB Instance\"\n        },\n        {\n            \"ram\": 2048,\n            \"id\": 3,\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/3\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/3\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"2GB Instance\"\n        },\n        {\n            \"ram\": 4096,\n            \"id\": 4,\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/4\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/4\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"4GB Instance\"\n        },\n        {\n            \"ram\": 8192,\n            \"id\": 5,\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/5\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/5\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"8GB Instance\"\n        },\n        {\n            \"ram\": 16384,\n            \"id\": 6,\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/6\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"16GB Instance\"\n        },\n        {\n            \"ram\": 32768,\n            \"id\": 7,\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/647683/flavors/7\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/7\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"32GB Instance\"\n        },\n        {\n            \"ram\": 65536,\n            \"id\": 8,\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/647683/flavors/8\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/8\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"64GB Instance\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/flavors/{flavorId}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "flavorId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The flavor ID for the specified flavor.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getFlavorById",
+                "summary": "List flavor by ID",
+                "description": "Lists all flavor information about the specified flavor ID.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"flavor\": {\n        \"ram\": 512,\n        \"id\": 1,\n        \"links\": [\n            {\n                \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/1\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/1\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"name\": \"512MB Instance\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/backups": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createBackup",
+                "summary": "Create backup",
+                "description": "Creates a new backup for a database instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"backup\": {\n        \"status\": \"NEW\",\n        \"updated\": \"2014-02-13T21:47:16\",\n        \"description\": \"My Backup\",\n        \"created\": \"2014-02-13T21:47:16\",\n        \"instance_id\": \"d4603f69-ec7e-4e9b-803f-600b9205576f\",\n        \"parent_id\": null,\n        \"locationRef\": null,\n        \"size\": null,\n        \"id\": \"61f12fef-edb1-4561-8122-e7c00ef26a82\",\n        \"name\": \"snapshot\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getBackups",
+                "summary": "List backups",
+                "description": "Lists all backups for all database instances.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"backups\": [\n        {\n            \"status\": \"COMPLETED\",\n            \"updated\": \"2014-06-19T15:56:58\",\n            \"description\": \"Backup from Restored Instance\",\n            \"created\": \"2014-06-19T15:55:54\",\n            \"name\": \"restored_backup\",\n            \"instance_id\": \"34d6c8bf-539e-47d1-8a06-2b7590521309\",\n            \"parent_id\": null,\n            \"locationRef\": \"http://localhost/path/to/backup\",\n            \"datastore\": {\n                \"version\": \"5.1\",\n                \"type\": \"MySQL\",\n                \"version_id\": \"20000000-0000-0000-0000-000000000002\"\n            },\n            \"id\": \"e2d3dfca-430f-4cd2-bec0-884cd7426f13\",\n            \"size\": 0.141026\n        },\n        {\n            \"status\": \"COMPLETED\",\n            \"updated\": \"2014-06-19T15:26:10\",\n            \"description\": \"Backup from Restored Instance\",\n            \"created\": \"2014-06-19T15:25:06\",\n            \"name\": \"restored_backup\",\n            \"instance_id\": \"c7855b60-2a50-4ed9-8de3-f35f2067fb2a\",\n            \"parent_id\": null,\n            \"locationRef\": \"http://localhost/path/to/backup\",\n            \"datastore\": {\n                \"version\": \"5.1\",\n                \"type\": \"MySQL\",\n                \"version_id\": \"20000000-0000-0000-0000-000000000002\"\n            },\n            \"id\": \"5890e1cc-c5ad-460c-baec-cfdaf2ccf796\",\n            \"size\": 0.141026\n        },\n        {\n            \"status\": \"COMPLETED\",\n            \"updated\": \"2014-06-19T15:20:04\",\n            \"description\": \"Backup from Restored Instance\",\n            \"created\": \"2014-06-19T15:19:00\",\n            \"name\": \"restored_backup\",\n            \"instance_id\": \"e84b5d1c-97c9-4aa1-9f0a-dbf867f1087c\",\n            \"parent_id\": null,\n            \"locationRef\": \"http://localhost/path/to/backup\",\n            \"datastore\": {\n                \"version\": \"5.1\",\n                \"type\": \"MySQL\",\n                \"version_id\": \"20000000-0000-0000-0000-000000000002\"\n            },\n            \"id\": \"6fdbf0cc-8950-481b-995f-1f041abda2b6\",\n            \"size\": 0.141026\n        },\n        {\n            \"status\": \"COMPLETED\",\n            \"updated\": \"2014-06-19T15:05:23\",\n            \"description\": \"Backup from Restored Instance\",\n            \"created\": \"2014-06-19T15:04:19\",\n            \"name\": \"restored_backup\",\n            \"instance_id\": \"3120d7eb-42fe-4d63-b8f6-98396f4c8590\",\n            \"parent_id\": null,\n            \"locationRef\": \"http://localhost/path/to/backup\",\n            \"datastore\": {\n                \"version\": \"5.1\",\n                \"type\": \"MySQL\",\n                \"version_id\": \"20000000-0000-0000-0000-000000000002\"\n            },\n            \"id\": \"b3b8ef8b-36a6-4043-9997-701b34a2b805\",\n            \"size\": 0.141026\n        },\n        {\n            \"status\": \"COMPLETED\",\n            \"updated\": \"2014-06-18T21:24:39\",\n            \"description\": \"Backup from Restored Instance\",\n            \"created\": \"2014-06-18T21:23:35\",\n            \"name\": \"restored_backup\",\n            \"instance_id\": \"29af2cd9-0674-48ab-b87a-b160f00208e6\",\n            \"parent_id\": null,\n            \"locationRef\": \"http://localhost/path/to/backup\",\n            \"datastore\": {\n                \"version\": \"5.1\",\n                \"type\": \"MySQL\",\n                \"version_id\": \"20000000-0000-0000-0000-000000000002\"\n            },\n            \"id\": \"87972694-4be2-40f5-83f8-501656e0032a\",\n            \"size\": 0.141026\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/backups/{backupId}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "backupId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The backup ID for the specified backup.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getBackupById",
+                "summary": "List backup by ID",
+                "description": "Lists details about a specified backup.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"backup\": {\n        \"status\": \"COMPLETED\",\n        \"updated\": \"2014-06-19T15:56:58\",\n        \"description\": \"Backup from Restored Instance\",\n        \"created\": \"2014-06-19T15:55:54\",\n        \"name\": \"restored_backup\",\n        \"instance_id\": \"34d6c8bf-539e-47d1-8a06-2b7590521309\",\n        \"parent_id\": null,\n        \"locationRef\": \"http://localhost/path/to/backup\",\n        \"datastore\": {\n            \"version\": \"5.1\",\n            \"type\": \"MySQL\",\n            \"version_id\": \"20000000-0000-0000-0000-000000000002\"\n        },\n        \"id\": \"e2d3dfca-430f-4cd2-bec0-884cd7426f13\",\n        \"size\": 0.141026\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteBackup",
+                "summary": "Delete backup",
+                "description": "Deletes the specified backup.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/configurations": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getConfigurations",
+                "summary": "List configurations",
+                "description": "Lists all defined configuration groups for the tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"configurations\": [\n        {\n            \"updated\": \"2014-07-31T18:56:09\",\n            \"description\": \"example description\",\n            \"created\": \"2014-07-31T18:56:09\",\n            \"datastore_name\": \"mysql\",\n            \"datastore_version_id\": \"b00000b0-00b0-0b00-00b0-000b000000bb\",\n            \"id\": \"005a8bb7-a8df-40ee-b0b7-fc144641abc2\",\n            \"datastore_version_name\": \"5.6\",\n            \"name\": \"example-configuration-name\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createConfiguration",
+                "summary": "Create configuration",
+                "description": "Creates a new configuration group based on the parameters supplied in the request body.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/configurations/{configId}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "configId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The configuration ID for the specified configuration group.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getConfigurationById",
+                "summary": "List configuration details",
+                "description": "Lists details for the specified configuration group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"configuration\": {\n        \"updated\": \"2014-07-31T15:19:50\",\n        \"description\": \"example description\",\n        \"created\": \"2014-07-31T15:19:50\",\n        \"datastore_name\": \"mysql\",\n        \"values\": {\n            \"collation_server\": \"latin1_swedish_ci\",\n            \"connect_timeout\": 120\n        },\n        \"datastore_version_id\": \"b00000b0-00b0-0b00-00b0-000b000000bb\",\n        \"instance_count\": 0,\n        \"id\": \"005a8bb7-a8df-40ee-b0b7-fc144641abc2\",\n        \"datastore_version_name\": \"5.6\",\n        \"name\": \"example-configuration-name\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "updateSomeConfigParmsById",
+                "summary": "Update some configuration parameters",
+                "description": "Updates some of the configuration parameters associated with the specified configuration group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {}
+                    }
+                }
+            },
+            "put": {
+                "operationId": "replaceAllConfigParmsById",
+                "summary": "Replace all configuration parameters",
+                "description": "Replaces all of the configuration parameters associated with the specified configuration group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {}
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteConfigGroup",
+                "summary": "Delete configuration group",
+                "description": "Deletes the specified configuration group. No message body is expected in the request.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/configurations/{configId}/instances": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "configId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The configuration ID for the specified configuration group.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getInstancesForConfiguration",
+                "summary": "List instances for configuration",
+                "description": "Lists instances that are associated with the specified configuration group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"instances\": [\n        {\n            \"id\": \"d4603f69-ec7e-4e9b-803f-600b9205576f\",\n            \"name\": \"json_rack_instance\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/datastores": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getDatastoreTypes",
+                "summary": "List all datastore types",
+                "description": "Lists all datastore types.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"datastores\": [\n        {\n            \"default_version\": \"c00000b0-00c0-0c00-00c0-000b000000cc\",\n            \"versions\": [\n                {\n                    \"id\": \"b00000b0-00b0-0b00-00b0-000b000000bb\",\n                    \"links\": [\n                        {\n                            \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/b00000b0-00b0-0b00-00b0-000b000000bb\",\n                            \"rel\": \"self\"\n                        },\n                        {\n                            \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/b00000b0-00b0-0b00-00b0-000b000000bb\",\n                            \"rel\": \"bookmark\"\n                        }\n                    ],\n                    \"name\": \"5.1\"\n                },\n                {\n                    \"id\": \"c00000b0-00c0-0c00-00c0-000b000000cc\",\n                    \"links\": [\n                        {\n                            \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/c00000b0-00c0-0c00-00c0-000b000000cc\",\n                            \"rel\": \"self\"\n                        },\n                        {\n                            \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/c00000b0-00c0-0c00-00c0-000b000000cc\",\n                            \"rel\": \"bookmark\"\n                        }\n                    ],\n                    \"name\": \"5.6\"\n                }\n            ],\n            \"id\": \"10000000-0000-0000-0000-000000000001\",\n            \"links\": [\n                {\n                    \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/10000000-0000-0000-0000-000000000001\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/10000000-0000-0000-0000-000000000001\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"mysql\"\n        },\n        {\n            \"default_version\": \"e8b1ee46-58c9-459e-bb02-50ddc8844be7\",\n            \"versions\": [\n                {\n                    \"id\": \"e8b1ee46-58c9-459e-bb02-50ddc8844be7\",\n                    \"links\": [\n                        {\n                            \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/e8b1ee46-58c9-459e-bb02-50ddc8844be7\",\n                            \"rel\": \"self\"\n                        },\n                        {\n                            \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/e8b1ee46-58c9-459e-bb02-50ddc8844be7\",\n                            \"rel\": \"bookmark\"\n                        }\n                    ],\n                    \"name\": \"5.6\"\n                }\n            ],\n            \"id\": \"17e9bb89-0dce-476d-b785-0c8485f932c0\",\n            \"links\": [\n                {\n                    \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/17e9bb89-0dce-476d-b785-0c8485f932c0\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/17e9bb89-0dce-476d-b785-0c8485f932c0\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"percona\"\n        },\n        {\n            \"default_version\": \"bf414e62-0e66-4e0f-9b76-05d7408eb140\",\n            \"versions\": [\n                {\n                    \"id\": \"53e8fe38-c18d-47d8-9d9e-2ba09a57ae6c\",\n                    \"links\": [\n                        {\n                            \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/53e8fe38-c18d-47d8-9d9e-2ba09a57ae6c\",\n                            \"rel\": \"self\"\n                        },\n                        {\n                            \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/53e8fe38-c18d-47d8-9d9e-2ba09a57ae6c\",\n                            \"rel\": \"bookmark\"\n                        }\n                    ],\n                    \"name\": \"10.0\"\n                },\n                {\n                    \"id\": \"bf414e62-0e66-4e0f-9b76-05d7408eb140\",\n                    \"links\": [\n                        {\n                            \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/bf414e62-0e66-4e0f-9b76-05d7408eb140\",\n                            \"rel\": \"self\"\n                        },\n                        {\n                            \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/bf414e62-0e66-4e0f-9b76-05d7408eb140\",\n                            \"rel\": \"bookmark\"\n                        }\n                    ],\n                    \"name\": \"10\"\n                }\n            ],\n            \"id\": \"a87786d5-879d-4680-a98c-684122bd7cce\",\n            \"links\": [\n                {\n                    \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/a87786d5-879d-4680-a98c-684122bd7cce\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/a87786d5-879d-4680-a98c-684122bd7cce\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"mariadb\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/datastores/versions/{versionId}/parameters": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "versionId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The version for the specified datastore.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getConfigurationParametersWithoutDatastore",
+                "summary": "List configuration parameters without datastore",
+                "description": "Lists the configuration parameters that may be configured on the system without specifying a datastore.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"configuration-parameters\": [\n        {\n            \"max\": 1,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_file_per_table\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"autocommit\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"local_infile\",\n            \"min\": 0\n        },\n        {\n            \"max\": 4294967296,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"key_buffer_size\",\n            \"min\": 0\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"connect_timeout\",\n            \"min\": 1\n        },\n        {\n            \"max\": 4294967296,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"join_buffer_size\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"sort_buffer_size\",\n            \"min\": 32768\n        },\n        {\n            \"max\": 68719476736,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_buffer_pool_size\",\n            \"min\": 0\n        },\n        {\n            \"max\": 2,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_flush_log_at_trx_commit\",\n            \"min\": 0\n        },\n        {\n            \"max\": 4294967296,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_log_buffer_size\",\n            \"min\": 1048576\n        },\n        {\n            \"max\": 4294967296,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_open_files\",\n            \"min\": 10\n        },\n        {\n            \"max\": 1000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_thread_concurrency\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"sync_binlog\",\n            \"min\": 0\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"auto_increment_increment\",\n            \"min\": 1\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"auto_increment_offset\",\n            \"min\": 1\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"bulk_insert_buffer_size\",\n            \"min\": 0\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"expire_logs_days\",\n            \"min\": 1\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"interactive_timeout\",\n            \"min\": 1\n        },\n        {\n            \"max\": 1073741824,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_allowed_packet\",\n            \"min\": 1024\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_connect_errors\",\n            \"min\": 1\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_connections\",\n            \"min\": 1\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"myisam_sort_buffer_size\",\n            \"min\": 4\n        },\n        {\n            \"max\": 100000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_user_connections\",\n            \"min\": 1\n        },\n        {\n            \"max\": 100000,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"server_id\",\n            \"min\": 1\n        },\n        {\n            \"max\": 31536000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"wait_timeout\",\n            \"min\": 1\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"character_set_client\",\n            \"restart_required\": false\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"character_set_connection\",\n            \"restart_required\": false\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"character_set_database\",\n            \"restart_required\": false\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"character_set_filesystem\",\n            \"restart_required\": false\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"character_set_results\",\n            \"restart_required\": false\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"character_set_server\",\n            \"restart_required\": false\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"collation_connection\",\n            \"restart_required\": false\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"collation_database\",\n            \"restart_required\": false\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"collation_server\",\n            \"restart_required\": false\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/datastores/versions/{versionId}/parameters/{parameterId}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "versionId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The version for the specified datastore.\n"
+                },
+                {
+                    "name": "parameterId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The parameter that may be configured for the specified datastore and version.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getConfigurationParameterDetailsWithoutDatastore",
+                "summary": "List configuration parameter details without datastore",
+                "description": "Lists the details of a specified configuration parameter that may be configured on the system without specifying a datastore.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"max\": 1,\n    \"restart_required\": true,\n    \"type\": \"integer\",\n    \"name\": \"innodb_file_per_table\",\n    \"min\": 0\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/datastores/{datastoreId}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "datastoreId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the specified datastore.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getDatastoreTypesById",
+                "summary": "List datastore type",
+                "description": "Lists datastore type.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"datastore\": {\n        \"default_version\": \"7104c15f-ace0-479b-97ad-b368de32cb68\",\n        \"versions\": [\n            {\n                \"id\": \"b00000b0-00b0-0b00-00b0-000b000000bb\",\n                \"links\": [\n                    {\n                        \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/b00000b0-00b0-0b00-00b0-000b000000bb\",\n                        \"rel\": \"self\"\n                    },\n                    {\n                        \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/b00000b0-00b0-0b00-00b0-000b000000bb\",\n                        \"rel\": \"bookmark\"\n                    }\n                ],\n                \"name\": \"5.1\"\n            },\n            {\n                \"id\": \"c00000b0-00c0-0c00-00c0-000b000000cc\",\n                \"links\": [\n                    {\n                        \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/c00000b0-00c0-0c00-00c0-000b000000cc\",\n                        \"rel\": \"self\"\n                    },\n                    {\n                        \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/c00000b0-00c0-0c00-00c0-000b000000cc\",\n                        \"rel\": \"bookmark\"\n                    }\n                ],\n                \"name\": \"5.6\"\n            }\n        ],\n        \"id\": \"a00000a0-00a0-0a00-00a0-000a000000aa\",\n        \"links\": [\n            {\n                \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/a00000a0-00a0-0a00-00a0-000a000000aa\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/a00000a0-00a0-0a00-00a0-000a000000aa\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"name\": \"mysql\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/datastores/{datastoreId}/versions": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "datastoreId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the specified datastore.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getDatastoreVersionsById",
+                "summary": "List datastore versions for datastore",
+                "description": "Lists all datastore versions for the specified datastore.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"versions\": [\n        {\n            \"datastore\": \"a00000a0-00a0-0a00-00a0-000a000000aa\",\n            \"id\": \"b00000b0-00b0-0b00-00b0-000b000000bb\",\n            \"links\": [\n                {\n                    \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/b00000b0-00b0-0b00-00b0-000b000000bb\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/b00000b0-00b0-0b00-00b0-000b000000bb\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"5.1\"\n        },\n        {\n            \"datastore\": \"a00000a0-00a0-0a00-00a0-000a000000aa\",\n            \"id\": \"c00000b0-00c0-0c00-00c0-000b000000cc\",\n            \"links\": [\n                {\n                    \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/c00000b0-00c0-0c00-00c0-000b000000cc\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/c00000b0-00c0-0c00-00c0-000b000000cc\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"5.6\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/datastores/{datastoreId}/versions/{versionId}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "datastoreId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the specified datastore.\n"
+                },
+                {
+                    "name": "versionId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The version for the specified datastore.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getDatastoreVersionByVersionId",
+                "summary": "List datastore version",
+                "description": "Lists datastore version.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/datastores/{datastoreId}/versions/{versionId}/parameters": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "datastoreId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the specified datastore.\n"
+                },
+                {
+                    "name": "versionId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The version for the specified datastore.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getConfigurationParameters",
+                "summary": "List configuration parameters",
+                "description": "Lists configuration parameters that may be configured on the system.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"configuration-parameters\": [\n        {\n            \"max\": 1,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_file_per_table\",\n            \"min\": 0\n        },\n        {\n            \"max\": 4294967296,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"key_buffer_size\",\n            \"min\": 0\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"connect_timeout\",\n            \"min\": 2\n        },\n        {\n            \"max\": 4294967296,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"join_buffer_size\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"sort_buffer_size\",\n            \"min\": 32768\n        },\n        {\n            \"max\": 68719476736,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_buffer_pool_size\",\n            \"min\": 0\n        },\n        {\n            \"max\": 2,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_flush_log_at_trx_commit\",\n            \"min\": 0\n        },\n        {\n            \"max\": 4294967296,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_log_buffer_size\",\n            \"min\": 1048576\n        },\n        {\n            \"max\": 4294967296,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_open_files\",\n            \"min\": 10\n        },\n        {\n            \"max\": 1000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_thread_concurrency\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"sync_binlog\",\n            \"min\": 0\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"auto_increment_increment\",\n            \"min\": 1\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"auto_increment_offset\",\n            \"min\": 1\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"bulk_insert_buffer_size\",\n            \"min\": 0\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"expire_logs_days\",\n            \"min\": 1\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"interactive_timeout\",\n            \"min\": 1\n        },\n        {\n            \"max\": 1073741824,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_allowed_packet\",\n            \"min\": 1024\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_connect_errors\",\n            \"min\": 1\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_connections\",\n            \"min\": 1\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"myisam_sort_buffer_size\",\n            \"min\": 4\n        },\n        {\n            \"max\": 100000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_user_connections\",\n            \"min\": 1\n        },\n        {\n            \"max\": 100000,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"server_id\",\n            \"min\": 1\n        },\n        {\n            \"max\": 31536000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"wait_timeout\",\n            \"min\": 1\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"character_set_filesystem\",\n            \"restart_required\": false\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"character_set_server\",\n            \"restart_required\": false\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"collation_server\",\n            \"restart_required\": false\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"ft_max_word_len\",\n            \"min\": 10\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"ft_min_word_len\",\n            \"min\": 1\n        },\n        {\n            \"max\": 16384,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"thread_cache_size\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"query_cache_size\",\n            \"min\": 0\n        },\n        {\n            \"max\": 2,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"query_cache_type\",\n            \"min\": 0\n        },\n        {\n            \"max\": 524288,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"table_definition_cache\",\n            \"min\": 256\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"open-files-limit\",\n            \"min\": 0\n        },\n        {\n            \"max\": 524288,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"table_open_cache\",\n            \"min\": 1\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"default_time_zone\",\n            \"restart_required\": true\n        },\n        {\n            \"max\": 2,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"completion_type\",\n            \"min\": 0\n        },\n        {\n            \"max\": 2,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"concurrent_insert\",\n            \"min\": 0\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"default-storage-engine\",\n            \"restart_required\": false\n        },\n        {\n            \"max\": 7,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"default_week_format\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"delay_key_write\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"delayed_insert_limit\",\n            \"min\": 1\n        },\n        {\n            \"max\": 31536000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"delayed_insert_timeout\",\n            \"min\": 1\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"delayed_queue_size\",\n            \"min\": 1\n        },\n        {\n            \"max\": 30,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"div_precision_increment\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"event_scheduler\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"flush\",\n            \"min\": 0\n        },\n        {\n            \"max\": 31536000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"flush_time\",\n            \"min\": 0\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"ft_boolean_syntax\",\n            \"restart_required\": false\n        },\n        {\n            \"max\": 1000,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"ft_query_expansion_limit\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"general_log\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"group_concat_max_len\",\n            \"min\": 4\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"key_cache_age_threshold\",\n            \"min\": 100\n        },\n        {\n            \"max\": 100,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"key_cache_division_limit\",\n            \"min\": 1\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"log_output\",\n            \"restart_required\": false\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"log_queries_not_using_indexes\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"log_slow_admin_statements\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"log_slow_queries\",\n            \"min\": 0\n        },\n        {\n            \"max\": 31536000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"long_query_time\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"low_priority_updates\",\n            \"min\": 0\n        },\n        {\n            \"max\": 2,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"lower_case_table_names\",\n            \"min\": 0\n        },\n        {\n            \"max\": 16384,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_delayed_threads\",\n            \"min\": 0\n        },\n        {\n            \"max\": 65535,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_error_count\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1844674407370954752,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_heap_table_size\",\n            \"min\": 16384\n        },\n        {\n            \"max\": 4294967295,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_join_size\",\n            \"min\": 1\n        },\n        {\n            \"max\": 8388608,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_length_for_sort_data\",\n            \"min\": 4\n        },\n        {\n            \"max\": 1048576,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_prepared_stmt_count\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_seeks_for_key\",\n            \"min\": 1\n        },\n        {\n            \"max\": 8388608,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_sort_length\",\n            \"min\": 4\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"max_write_lock_count\",\n            \"min\": 1\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"min_examined_rows_limit\",\n            \"min\": 0\n        },\n        {\n            \"max\": 9223372036854775807,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"myisam_max_sort_file_size\",\n            \"min\": 0\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"myisam_stats_method\",\n            \"restart_required\": false\n        },\n        {\n            \"max\": 31536000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"net_read_timeout\",\n            \"min\": 1\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"net_retry_count\",\n            \"min\": 1\n        },\n        {\n            \"max\": 31536000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"net_write_timeout\",\n            \"min\": 1\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"old_alter_table\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"old_style_user_limits\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"old_passwords\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"optimizer_prune_level\",\n            \"min\": 0\n        },\n        {\n            \"max\": 62,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"optimizer_search_depth\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1073741824,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"preload_buffer_size\",\n            \"min\": 1024\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"query_cache_limit\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"query_cache_wlock_invalidate\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"query_prealloc_size\",\n            \"min\": 8192\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"range_alloc_block_size\",\n            \"min\": 4096\n        },\n        {\n            \"max\": 2147479552,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"read_buffer_size\",\n            \"min\": 8200\n        },\n        {\n            \"max\": 2147483647,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"read_rnd_buffer_size\",\n            \"min\": 8200\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"secure_auth\",\n            \"min\": 0\n        },\n        {\n            \"max\": 31536000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"slow_launch_time\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"slow_query_log\",\n            \"min\": 0\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"sql_mode\",\n            \"restart_required\": false\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"sync_frm\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709547520,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"thread_stack\",\n            \"min\": 131072\n        },\n        {\n            \"max\": 18446744073709551615,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"tmp_table_size\",\n            \"min\": 1024\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"transaction-isolation\",\n            \"restart_required\": true\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"updatable_views_with_limit\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_adaptive_hash_index\",\n            \"min\": 0\n        },\n        {\n            \"max\": 2,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_autoinc_lock_mode\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1000,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_commit_concurrency\",\n            \"min\": 0\n        },\n        {\n            \"max\": 4294967295,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_concurrency_tickets\",\n            \"min\": 1\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"innodb_file_format\",\n            \"restart_required\": false\n        },\n        {\n            \"max\": 1073741824,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_lock_wait_timeout\",\n            \"min\": 1\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_locks_unsafe_for_binlog\",\n            \"min\": 0\n        },\n        {\n            \"max\": 100,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_max_dirty_pages_pct\",\n            \"min\": 0\n        },\n        {\n            \"max\": 4294967295,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_max_purge_lag\",\n            \"min\": 0\n        },\n        {\n            \"max\": 95,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_old_blocks_pct\",\n            \"min\": 5\n        },\n        {\n            \"max\": 4294967295,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_old_blocks_time\",\n            \"min\": 0\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": true,\n            \"type\": \"integer\",\n            \"name\": \"innodb_rollback_on_timeout\",\n            \"min\": 0\n        },\n        {\n            \"type\": \"string\",\n            \"name\": \"innodb_stats_method\",\n            \"restart_required\": false\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_stats_on_metadata\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709551615,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_stats_sample_pages\",\n            \"min\": 1\n        },\n        {\n            \"max\": 1,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_strict_mode\",\n            \"min\": 0\n        },\n        {\n            \"max\": 4294967295,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_sync_spin_loops\",\n            \"min\": 0\n        },\n        {\n            \"max\": 18446744073709551615,\n            \"restart_required\": false,\n            \"type\": \"integer\",\n            \"name\": \"innodb_thread_sleep_delay\",\n            \"min\": 1\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/{version}/{accountId}/datastores/{datastoreId}/versions/{versionId}/parameters/{parameterId}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID of the owner of the specified instance.\n"
+                },
+                {
+                    "name": "datastoreId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the specified datastore.\n"
+                },
+                {
+                    "name": "versionId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The version for the specified datastore.\n"
+                },
+                {
+                    "name": "parameterId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The parameter that may be configured for the specified datastore and version.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getConfigurationParameterDetails",
+                "summary": "List configuration parameter details",
+                "description": "Lists the details of a specified configuration parameter that may be configured on the system.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"max\": 1,\n    \"restart_required\": true,\n    \"type\": \"integer\",\n    \"name\": \"innodb_file_per_table\",\n    \"min\": 0\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

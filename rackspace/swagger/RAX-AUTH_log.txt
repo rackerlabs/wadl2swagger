@@ -1,0 +1,9 @@
+INFO:wadls/RAX-AUTH.wadl:Converting: wadls/RAX-AUTH.wadl to swagger/RAX-AUTH.json
+WARNING:wadls/RAX-AUTH.wadl:Autofix: Adding leading / to path
+WARNING:wadls/RAX-AUTH.wadl:No support for application/json for resource at /v2.0/users/{userId}/OS-KSADM/credentials/RAX-KSKEY:apiKeyCredentials/RAX-AUTH/reset
+INFO:root:Saving swagger to swagger/RAX-AUTH.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

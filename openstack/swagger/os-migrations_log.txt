@@ -1,0 +1,8 @@
+INFO:wadls/os-migrations.wadl:Converting: wadls/os-migrations.wadl to swagger/os-migrations.json
+WARNING:wadls/os-migrations.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-migrations.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

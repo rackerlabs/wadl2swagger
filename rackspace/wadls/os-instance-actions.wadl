@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <wadl:grammars xmlns:db="http://docbook.org/ns/docbook"
+                  xmlns="http://wadl.dev.java.net/2009/02">
+      <wadl:include href="35999-os-instance-actions-xsd-1.xsd"/>
+      <wadl:include href="35999-os-instance-actions-xsd-2.xsd"/>
+   </wadl:grammars>
+    <resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:db="http://docbook.org/ns/docbook"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:common="http://docs.openstack.org/common/api/v1.0"
+              xmlns:atom="http://www.w3.org/2005/Atom"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-instance-actions-v2">
+        <resource path="/v2/{tenant_id}/servers/{server_id}/os-instance-actions"
+                id="os-instance-actions">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The UUID of the server
+                                   instance for which you want to list
+                                   actions.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="listActions">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List server actions">
+               <para role="shortdesc">Lists history of successful actions for a
+                specified server. Deployers set permissions for this
+                request in the <filename>policy.json</filename> file.
+                By default, all users can list
+            actions.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "instanceActions": [
+        {
+            "action": "resize",
+            "instance_uuid": "b48316c5-71e8-45e4-9884-6c78055b9b13",
+            "message": "",
+            "project_id": "842",
+            "request_id": "req-25517360-b757-47d3-be45-0e8d2a01b36a",
+            "start_time": "2012-12-05 01:00:00.000000",
+            "user_id": "789"
+        },
+        {
+            "action": "reboot",
+            "instance_uuid": "b48316c5-71e8-45e4-9884-6c78055b9b13",
+            "message": "",
+            "project_id": "147",
+            "request_id": "req-3293a3f1-b44c-4609-b8d2-d81b105636b8",
+            "start_time": "2012-12-05 00:00:00.000000",
+            "user_id": "789"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;instanceActions&gt;
+  &lt;instanceAction instance_uuid="b48316c5-71e8-45e4-9884-6c78055b9b13" user_id="789" start_time="2012-12-05 01:00:00.000000" request_id="req-25517360-b757-47d3-be45-0e8d2a01b36a" action="resize" message="" project_id="842"/&gt;
+  &lt;instanceAction instance_uuid="b48316c5-71e8-45e4-9884-6c78055b9b13" user_id="789" start_time="2012-12-05 00:00:00.000000" request_id="req-3293a3f1-b44c-4609-b8d2-d81b105636b8" action="reboot" message="" project_id="147"/&gt;
+&lt;/instanceActions&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                            <resource path="/v2/{tenant_id}/servers/{server_id}/os-instance-actions/{action_id}"
+                id="action_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The UUID of the server
+                                   instance for which you want to list
+                                   actions.</para>
+            </wadl:doc>
+                        </param>
+         <param name="action_id" style="template" type="csapi:UUID">
+                                   <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get Action Details">
+                                   <para>The UUID of the action for
+                                   which you want to get details.
+                                  </para>
+                                   </wadl:doc>
+                                </param>
+         <method name="GET" rax:id="getActionDetails">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get action details">
+               <para role="shortdesc">Gets details for a specified action
+                for a specified server instance. Deployers set
+                permissions for this request in the
+                    <filename>policy.json</filename> file. By default,
+                only administrators can get details for an action.
+           </para>
+            </wadl:doc>
+            <response status="200 203">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "instanceAction": {
+        "action": "reboot",
+        "events": [
+            {
+                "event": "schedule",
+                "finish_time": "2012-12-05 01:02:00.000000",
+                "result": "Success",
+                "start_time": "2012-12-05 01:00:02.000000",
+                "traceback": ""
+            },
+            {
+                "event": "compute_create",
+                "finish_time": "2012-12-05 01:04:00.000000",
+                "result": "Success",
+                "start_time": "2012-12-05 01:03:00.000000",
+                "traceback": ""
+            }
+        ],
+        "instance_uuid": "b48316c5-71e8-45e4-9884-6c78055b9b13",
+        "message": "",
+        "project_id": "147",
+        "request_id": "req-3293a3f1-b44c-4609-b8d2-d81b105636b8",
+        "start_time": "2012-12-05 00:00:00.000000",
+        "user_id": "789"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;instanceAction instance_uuid="b48316c5-71e8-45e4-9884-6c78055b9b13" user_id="789" start_time="2012-12-05T00:00:00.000000" request_id="req-3293a3f1-b44c-4609-b8d2-d81b105636b8" action="reboot" message="" project_id="147"&gt;
+  &lt;events finish_time="2012-12-05 01:02:00.000000" start_time="2012-12-05 01:00:02.000000" traceback="" event="schedule" result="Success"/&gt;
+  &lt;events finish_time="2012-12-05 01:04:00.000000" start_time="2012-12-05 01:03:00.000000" traceback="" event="compute_create" result="Success"/&gt;
+&lt;/instanceAction&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <!-- Common Faults and GET Faults--> 
+            <response>
+               <representation mediaType="application/xml" element="csapi:computeFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="csapi:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="csapi:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+        
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                                
+                                
+                            
+                        
+    </resources>
+    <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:atom="http://www.w3.org/2005/Atom"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listActions">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:atom="http://www.w3.org/2005/Atom"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getActionDetails">
+        
+        <response status="200 203">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+        <!-- Common Faults and GET Faults--> 
+        <response>
+            <representation mediaType="application/xml" element="csapi:computeFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="csapi:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="csapi:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+        
+        <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+</wadl:application>

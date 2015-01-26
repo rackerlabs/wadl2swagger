@@ -1,0 +1,402 @@
+---
+swagger: '2.0'
+info:
+  title: os-image-1.0
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/":
+    get:
+      operationId: listVersions-image-v1
+      summary: List API versions
+      description: |
+        Lists information about all Image Service API versions.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 300 response
+          examples:
+            application/json: |-
+              {
+                  "versions": [
+                      {
+                          "status": "CURRENT",
+                          "id": "v2.2",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v2.1",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v2.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "CURRENT",
+                          "id": "v1.1",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v1/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v1.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v1/",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+        '300':
+          description: 200 300 response
+          examples:
+            application/json: |-
+              {
+                  "versions": [
+                      {
+                          "status": "CURRENT",
+                          "id": "v2.2",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v2.1",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v2.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "CURRENT",
+                          "id": "v1.1",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v1/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v1.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v1/",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+  "/v1/images":
+    get:
+      operationId: listImage-v1
+      summary: List images
+      description: |
+        Lists public VM images.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "images": [
+                      {
+                          "container_format": "ovf",
+                          "size": "5368709120",
+                          "disk_format": "vhd",
+                          "uri": "http://glance.example.com/images/71c675ab-d94f-49cd-a114-e12490b328d9",
+                          "name": "Ubuntu 10.04 Plain"
+                      },
+                      {
+                          "...": "..."
+                      }
+                  ]
+              }
+      parameters:
+      - name: name
+        required: false
+        in: query
+        type: string
+        description: |
+          Name of the image as a string.
+      - name: container_format
+        required: false
+        in: query
+        type: string
+        description: |
+          Value of the container format, such as ovf, bare, aki, ari, or ami.
+      - name: disk_format
+        required: false
+        in: query
+        type: string
+        description: |
+          Value of the disk format.
+      - name: status
+        required: false
+        in: query
+        type: integer
+        description: |
+          Filters the list of images to those with this status. Valid values are queued, saving, active, killed, deleted, and pending\_delete.
+      - name: size_min
+        required: false
+        in: query
+        type: string
+        description: |
+          Value of the minimum size of the image in bytes.
+      - name: size_min
+        required: false
+        in: query
+        type: string
+        description: |
+          Value of the maximum size of the image in bytes.
+    post:
+      operationId: createImage-v1
+      summary: Create image
+      description: |
+        Registers a virtual machine (VM) image.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+  "/v1/images/detail":
+    get:
+      operationId: listDetailImage-v1
+      summary: List image details
+      description: |
+        Lists details for available images.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+      parameters:
+      - name: name
+        required: false
+        in: query
+        type: string
+        description: |
+          Name of the image as a string.
+      - name: container_format
+        required: false
+        in: query
+        type: string
+        description: |
+          Value of the container format, such as ovf, bare, aki, ari, or ami.
+      - name: disk_format
+        required: false
+        in: query
+        type: string
+        description: |
+          Value of the disk format.
+      - name: status
+        required: false
+        in: query
+        type: integer
+        description: |
+          Filters the list of images to those with this status. Valid values are queued, saving, active, killed, deleted, and pending\_delete.
+      - name: size_min
+        required: false
+        in: query
+        type: string
+        description: |
+          The minimum size of the image, in bytes.
+      - name: size_min
+        required: false
+        in: query
+        type: string
+        description: |
+          Value of the maximum size of the image in bytes.
+      - name: changes-since
+        required: false
+        in: query
+        type: string
+        format: date-time
+        description: |
+          Filters the list of images to those that have changed since this time stamp value.
+  "/v1/images/{image_id}":
+    parameters:
+    - name: image_id
+      required: true
+      in: path
+      type: string
+      description: |
+        Image ID stored through the image API. Typically a UUID.
+    get:
+      operationId: getImage-v1
+      summary: Show image details and image binary
+      description: |
+        Shows the image details as headers and the image binary in the body of the response.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "images": [
+                      {
+                          "status": "active",
+                          "properties": {
+                              "distro": "Ubuntu 10.04 LTS"
+                          },
+                          "name": "Ubuntu 10.04 Plain 5GB",
+                          "container_format": "ovf",
+                          "created_at": "2010-02-03 09:34:01",
+                          "disk_format": "vhd",
+                          "uri": "http://glance.example.com/images/71c675ab-d94f-49cd-a114-e12490b328d9",
+                          "updated_at": "2010-02-03 09:34:01",
+                          "owner": null,
+                          "checksum": "c2e5db72bd7fd153f53ede5da5a06de3",
+                          "min_disk": 5,
+                          "is_public": true,
+                          "deleted_at": "",
+                          "min_ram": 256,
+                          "size": "5368709120"
+                      },
+                      {
+                          "...": "..."
+                      }
+                  ]
+              }
+    put:
+      operationId: updateImage-v1
+      summary: Update image
+      description: |
+        Updates an image, uploads an image file, or updates metadata for an image.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+    delete:
+      operationId: deleteImage-v1
+      summary: Delete image
+      description: |
+        Deletes the specified image.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v1/images/{image_id}/members":
+    parameters:
+    - name: image_id
+      required: true
+      in: path
+      type: string
+      description: |
+        Image ID stored through the image API. Typically a UUID.
+    put:
+      operationId: replaceMember-v1
+      summary: Replace member
+      description: |
+        Replaces a membership list for an image.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v1/images/{image_id}/members/{owner_id}":
+    parameters:
+    - name: image_id
+      required: true
+      in: path
+      type: string
+      description: |
+        Image ID stored through the image API. Typically a UUID.
+    - name: owner_id
+      required: true
+      in: path
+      type: string
+      description: |
+        Owner ID, which is the tenant ID.
+    put:
+      operationId: addMember-v1
+      summary: Add member
+      description: |
+        Adds a member to an image.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+    delete:
+      operationId: removeMember-v1
+      summary: Delete image
+      description: |
+        Removes a member from an image.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v1/shared-images/{owner}":
+    get:
+      operationId: getSharedImages-v1
+      summary: List shared images
+      description: |
+        Lists the VM images shared with a specified owner. The owner ID is the tenant ID.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "shared_images": [
+                      {
+                          "image_id": "71c675ab-d94f-49cd-a114-e12490b328d9",
+                          "can_share": false
+                      },
+                      {
+                          "...": "..."
+                      }
+                  ]
+              }

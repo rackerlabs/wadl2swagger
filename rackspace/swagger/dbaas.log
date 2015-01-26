@@ -1,0 +1,162 @@
+INFO:wadls/dbaas.wadl:Converting: wadls/dbaas.wadl to swagger/dbaas.json
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+ERROR:wadls/dbaas.wadl:Unparsable code sample in wadls/dbaas.wadl ('List all replicas and replica source database instances'), caused by ValueError('Expecting property name enclosed in double quotes: line 8 column 16 (char 147)',)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+ERROR:wadls/dbaas.wadl:Unparsable code sample in wadls/dbaas.wadl ('List replica source'), caused by ValueError('No JSON object could be decoded',)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:No support for application/json for resource at /{version}/{accountId}/instances/{instanceId}/action
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:No support for application/json for resource at /{version}/{accountId}/instances/{instanceId}/databases/{databaseName}
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (databaseName)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (name)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (name)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:No support for application/json for resource at /{version}/{accountId}/instances/{instanceId}/users/{name}/databases/{databaseName}
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (name)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (databaseName)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (flavorId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (backupId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Unknown type: object for param datastore
+WARNING:wadls/dbaas.wadl:Using string for object
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Unknown type: object for param values
+WARNING:wadls/dbaas.wadl:Using string for object
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+ERROR:wadls/dbaas.wadl:Unparsable code sample in wadls/dbaas.wadl ('Create configuration'), caused by ValueError('Expecting , delimiter: line 5 column 71 (char 172)',)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (configId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (configId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (versionId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (versionId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (parameterId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (datastoreId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (datastoreId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (datastoreId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (versionId)
+ERROR:wadls/dbaas.wadl:Unparsable code sample in wadls/dbaas.wadl ('List datastore version'), caused by ValueError('Invalid control character at: line 7 column 126 (char 292)',)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (datastoreId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (versionId)
+WARNING:wadls/dbaas.wadl:Autofix: Adding leading / to path
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (datastoreId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (versionId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (parameterId)
+INFO:root:Saving swagger to swagger/dbaas.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1{version}/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances/post: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}/put: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}/delete: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}/patch: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1action/post: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1databases/post: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1databases/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1databases~1{databaseName}/delete: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1users/post: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1users/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1users/put: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1users~1{name}/delete: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1users~1{name}/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1users~1{name}/put: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1users~1{name}~1databases/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1users~1{name}~1databases/put: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1users~1{name}~1databases~1{databaseName}/delete: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1configuration/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1root/post: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1root/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1instances~1{instanceId}~1backups/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1flavors/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1flavors~1{flavorId}/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1backups/post: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1backups/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1backups~1{backupId}/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1backups~1{backupId}/delete: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1configurations/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1configurations/post: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1configurations~1{configId}/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1configurations~1{configId}/patch: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1configurations~1{configId}/put: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1configurations~1{configId}/delete: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1configurations~1{configId}~1instances/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1datastores/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1datastores~1versions~1{versionId}~1parameters/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1datastores~1versions~1{versionId}~1parameters~1{parameterId}/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1datastores~1{datastoreId}/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1datastores~1{datastoreId}~1versions/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1datastores~1{datastoreId}~1versions~1{versionId}/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1datastores~1{datastoreId}~1versions~1{versionId}~1parameters/get: API requires path parameter but it is not defined: version
+  #/paths/~1{version}~1{accountId}~1datastores~1{datastoreId}~1versions~1{versionId}~1parameters~1{parameterId}/get: API requires path parameter but it is not defined: version
+
+45 errors and 0 warnings
+Invalid

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="flavors_v2.1">
+        <resource id="flavors" path="/v2.1/flavors">
+         <method name="GET" rax:id="getflavorbrief">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List flavors">
+               <para role="shortdesc">Lists flavors.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavors": [
+        {
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/1",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.tiny"
+        },
+        {
+            "id": "2",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/2",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/2",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.small"
+        },
+        {
+            "id": "3",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/3",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/3",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.medium"
+        },
+        {
+            "id": "4",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/4",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/4",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.large"
+        },
+        {
+            "id": "5",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/5",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/5",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.xlarge"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200"> 
+               <param name="X-OpenStack-Request-ID"
+                      style="header"
+                      required="false"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                  </wadl:doc>
+               </param>
+            </response>
+         </method>
+      </resource>
+                
+                <resource id="flavor_id" path="/v2.1/flavors/{flavor_id}">
+         <method name="GET" rax:id="getflavorid">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show flavor details">
+               <para role="shortdesc">Shows information for a specified
+                flavor.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavor": {
+        "disabled": false,
+        "disk": 1,
+        "ephemeral": 0,
+        "flavor-access:is_public": true,
+        "id": "1",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v3/flavors/1",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/flavors/1",
+                "rel": "bookmark"
+            }
+        ],
+        "name": "m1.tiny",
+        "ram": 512,
+        "swap": 0,
+        "vcpus": 1
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200"> 
+               <param name="X-OpenStack-Request-ID"
+                      style="header"
+                      required="false"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                  </wadl:doc>
+               </param>
+            </response>
+         </method>
+      </resource>
+                    
+                
+                <resource id="detail" path="/v2.1/flavors/detail">
+         <method name="GET" rax:id="returnflavorall">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List detailed flavors">
+               <para role="shortdesc">Lists flavors with details.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavors": [
+        {
+            "disabled": false,
+            "disk": 1,
+            "ephemeral": 0,
+            "flavor-access:is_public": true,
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/1",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.tiny",
+            "ram": 512,
+            "swap": 0,
+            "vcpus": 1
+        },
+        {
+            "disabled": false,
+            "disk": 20,
+            "ephemeral": 0,
+            "flavor-access:is_public": true,
+            "id": "2",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/2",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/2",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.small",
+            "ram": 2048,
+            "swap": 0,
+            "vcpus": 1
+        },
+        {
+            "disabled": false,
+            "disk": 40,
+            "ephemeral": 0,
+            "flavor-access:is_public": true,
+            "id": "3",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/3",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/3",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.medium",
+            "ram": 4096,
+            "swap": 0,
+            "vcpus": 2
+        },
+        {
+            "disabled": false,
+            "disk": 80,
+            "ephemeral": 0,
+            "flavor-access:is_public": true,
+            "id": "4",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/4",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/4",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.large",
+            "ram": 8192,
+            "swap": 0,
+            "vcpus": 4
+        },
+        {
+            "disabled": false,
+            "disk": 160,
+            "ephemeral": 0,
+            "flavor-access:is_public": true,
+            "id": "5",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v3/flavors/5",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/flavors/5",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.xlarge",
+            "ram": 16384,
+            "swap": 0,
+            "vcpus": 8
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200"> 
+               <param name="X-OpenStack-Request-ID"
+                      style="header"
+                      required="false"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                  </wadl:doc>
+               </param>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                
+            
+    </resources>
+    <!-- *******************************************************-->
+    <!--             Flavor                            -->
+    <!--*******************************************************-->
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getflavorid">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200"> 
+         <param name="X-OpenStack-Request-ID"
+                style="header"
+                required="false"
+                type="xsd:string">
+    
+</param>
+      </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="returnflavorall">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200"> 
+         <param name="X-OpenStack-Request-ID"
+                style="header"
+                required="false"
+                type="xsd:string">
+    
+</param>
+      </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getflavorbrief">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200"> 
+         <param name="X-OpenStack-Request-ID"
+                style="header"
+                required="false"
+                type="xsd:string">
+    
+</param>
+      </response>
+    </method>
+</wadl:application>

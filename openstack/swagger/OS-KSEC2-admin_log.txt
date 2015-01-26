@@ -1,0 +1,13 @@
+INFO:wadls/OS-KSEC2-admin.wadl:Converting: wadls/OS-KSEC2-admin.wadl to swagger/OS-KSEC2-admin.json
+INFO:root:Saving swagger to swagger/OS-KSEC2-admin.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v2.0~1users~1{userId}~1OS-KSADM~1credentials~1OS-KSEC2:ec2Credentials~1{type}/get: API requires path parameter but it is not defined: type
+
+1 error and 0 warnings
+Invalid

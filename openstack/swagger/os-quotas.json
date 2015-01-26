@@ -1,0 +1,60 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-quotas",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/quotas": {
+            "get": {
+                "operationId": "showQuota",
+                "summary": "Show quota",
+                "description": "Shows quotas for a specified tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota\": {\n        \"subnet\": 10,\n        \"floatingip\": 50,\n        \"port\": 50,\n        \"network\": 10,\n        \"router\": 10\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateQuota",
+                "summary": "Update quota",
+                "description": "Updates quotas for a specified tenant. Use when non-default quotas are desired.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota\": {\n        \"subnet\": 40,\n        \"floatingip\": 30,\n        \"port\": 30,\n        \"network\": 10,\n        \"router\": 50\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "resetQuota",
+                "summary": "Reset quota",
+                "description": "Resets quotas to default values for a specified tenant.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        }
+    }
+}

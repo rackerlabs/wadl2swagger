@@ -1,0 +1,8 @@
+INFO:wadls/RAX-KSKEY-admin.wadl:Converting: wadls/RAX-KSKEY-admin.wadl to swagger/RAX-KSKEY-admin.json
+WARNING:wadls/RAX-KSKEY-admin.wadl:Autofix: Adding leading / to path
+INFO:root:Saving swagger to swagger/RAX-KSKEY-admin.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

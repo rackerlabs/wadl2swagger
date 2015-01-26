@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-flavorextradata-v2">
+        <resource id="Flavors" path="/v2/{tenant_id}/flavors">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="POST" rax:id="createFlavor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create flavor with extra data">
+               <para role="shortdesc">Creates a flavor. Includes the
+                rxtx_factor, OS-FLV-EXT-DATA:ephemeral, and swap
+                extended attributes.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavor": {
+        "name": "flavortest",
+        "ram": 1024,
+        "vcpus": 2,
+        "disk": 10,
+        "id": "666",
+        "rxtx_factor": 2.0,
+        "OS-FLV-EXT-DATA:ephemeral": 30,
+        "swap": 5
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;flavor xmlns="http://docs.openstack.org/compute/api/v1.1"
+    xmlns:OS-FLV-EXT-DATA="http://docs.openstack.org/compute/ext/flavor_extra_data/api/v1.1"
+    name="flavortest"
+    ram="1024"
+    vcpus="2"
+    disk="10"
+    id="666"
+    swap="5"
+    rxtx_factor="2.0"
+    OS-FLV-EXT-DATA:ephemeral="30" /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param style="plain" name="name" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The name for the
+                        flavor.</para>
+                     </wadl:doc>
+                  </param>
+                  <param style="plain" name="ram" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The amount of RAM, in MBs,
+                            for the flavor.</para>
+                     </wadl:doc>
+                  </param>
+                  <param style="plain" name="vcpus" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The virtual CPUs, in a
+                            whole integer amount, for the
+                            flavor.</para>
+                     </wadl:doc>
+                  </param>
+                  <param style="plain" name="disk" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The amount of disk space,
+                            in GBs, for the flavor.</para>
+                     </wadl:doc>
+                  </param>
+                  <param style="plain" name="id" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID, a unique integer
+                            value, for the flavor.</para>
+                     </wadl:doc>
+                  </param>
+                  <param style="plain" name="rxtx_factor" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Enables you to override
+                            the bandwidth cap value, which defaults to
+                            the bandwidth cap value for the network to
+                            which the flavor is attached. The new
+                            bandwidth cap is calculated by multiplying
+                            the rxtx_factor valued that you specify by
+                            the rxtx_base property for the
+                            network.</para>
+                     </wadl:doc>
+                  </param>
+                  <param style="plain" name="OS-FLV-EXT-DATA:ephemeral" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The size of secondary drive, in GBs, to
+                            attach to a server.</para>
+                    </wadl:doc>
+                  </param>
+                  <param style="plain" name="swap" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The amount of swap disk space, in GBs,
+                            to allocate to a server.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavor": {
+        "OS-FLV-EXT-DATA:ephemeral": 30,
+        "disk": 10,
+        "id": "666",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/flavors/666",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/flavors/666",
+                "rel": "bookmark"
+            }
+        ],
+        "name": "flavortest",
+        "ram": 1024,
+        "vcpus": 2
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor xmlns:OS-FLV-EXT-DATA="http://docs.openstack.org/compute/ext/flavor_extra_data/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" disk="10" vcpus="2" ram="1024" name="flavortest" id="666" OS-FLV-EXT-DATA:ephemeral="30"&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/666" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/flavors/666" rel="bookmark"/&gt;
+&lt;/flavor&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    <resource path="/v2/{tenant_id}/flavors/{flavor_id}" id="flavor_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="flavor_id" style="template">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The ID of the flavor of interest
+                                   to you.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getFlavor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get flavor extra data details">
+               <para role="shortdesc">Gets details for a specified
+                flavor. Includes the rxtx_factor,
+                OS-FLV-EXT-DATA:ephemeral, and swap extended
+                attributes.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavor": {
+        "OS-FLV-EXT-DATA:ephemeral": 0,
+        "disk": 1,
+        "id": "1",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/flavors/1",
+                "rel": "bookmark"
+            }
+        ],
+        "name": "m1.tiny",
+        "ram": 512,
+        "vcpus": 1
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor xmlns:OS-FLV-EXT-DATA="http://docs.openstack.org/compute/ext/flavor_extra_data/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" disk="1" vcpus="1" ram="512" name="m1.tiny" id="1" OS-FLV-EXT-DATA:ephemeral="0"&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/1" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+&lt;/flavor&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    
+                    <resource path="/v2/{tenant_id}/flavors/detail" id="detail">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="getFlavorsDetails">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List flavors with extra data">
+               <para role="shortdesc">Lists available flavors. Includes
+                the rxtx_factor, OS-FLV-EXT-DATA:ephemeral, and swap
+                extended attributes.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavors": [
+        {
+            "OS-FLV-EXT-DATA:ephemeral": 0,
+            "disk": 1,
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.tiny",
+            "ram": 512,
+            "vcpus": 1
+        },
+        {
+            "OS-FLV-EXT-DATA:ephemeral": 0,
+            "disk": 20,
+            "id": "2",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/2",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/2",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.small",
+            "ram": 2048,
+            "vcpus": 1
+        },
+        {
+            "OS-FLV-EXT-DATA:ephemeral": 0,
+            "disk": 40,
+            "id": "3",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/3",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/3",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.medium",
+            "ram": 4096,
+            "vcpus": 2
+        },
+        {
+            "OS-FLV-EXT-DATA:ephemeral": 0,
+            "disk": 80,
+            "id": "4",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/4",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/4",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.large",
+            "ram": 8192,
+            "vcpus": 4
+        },
+        {
+            "OS-FLV-EXT-DATA:ephemeral": 0,
+            "disk": 160,
+            "id": "5",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/5",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/5",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.xlarge",
+            "ram": 16384,
+            "vcpus": 8
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavors xmlns:OS-FLV-EXT-DATA="http://docs.openstack.org/compute/ext/flavor_extra_data/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;flavor disk="1" vcpus="1" ram="512" name="m1.tiny" id="1" OS-FLV-EXT-DATA:ephemeral="0"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/1" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="20" vcpus="1" ram="2048" name="m1.small" id="2" OS-FLV-EXT-DATA:ephemeral="0"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/2" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/2" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="40" vcpus="2" ram="4096" name="m1.medium" id="3" OS-FLV-EXT-DATA:ephemeral="0"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/3" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/3" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="80" vcpus="4" ram="8192" name="m1.large" id="4" OS-FLV-EXT-DATA:ephemeral="0"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/4" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/4" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="160" vcpus="8" ram="16384" name="m1.xlarge" id="5" OS-FLV-EXT-DATA:ephemeral="0"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/5" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/5" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+&lt;/flavors&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createFlavor">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param style="plain" name="name" required="true">
+                    
+                </param>
+                <param style="plain" name="ram" required="true">
+                    
+                </param>
+                <param style="plain" name="vcpus" required="true">
+                    
+                </param>
+                <param style="plain" name="disk" required="true">
+                    
+                </param>
+                <param style="plain" name="id" required="true">
+                    
+                </param>
+                <param style="plain" name="rxtx_factor" required="true">
+                    
+                </param>
+                <param style="plain" name="OS-FLV-EXT-DATA:ephemeral" required="true">
+                    
+                </param>
+                <param style="plain" name="swap" required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getFlavor">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getFlavorsDetails">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

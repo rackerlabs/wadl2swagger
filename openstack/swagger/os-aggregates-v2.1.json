@@ -1,0 +1,85 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-aggregates-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/os-aggregates": {
+            "post": {
+                "operationId": "createaggregate",
+                "summary": "Create aggregate",
+                "description": "Creates an aggregate, given its name and availability zone.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"aggregate\": {\n        \"name\": \"name\",\n        \"availability_zone\": \"nova\",\n        \"deleted\": 0,\n        \"created_at\": \"2013-08-18T12:17:55.751757\",\n        \"updated_at\": null,\n        \"deleted_at\": null,\n        \"id\": 1\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "listaggregate",
+                "summary": "List aggregates",
+                "description": "Lists aggregates id, name, and availability\\_zone for an aggregate.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"aggregates\": [\n        {\n            \"name\": \"name\",\n            \"availability_zone\": \"nova\",\n            \"deleted\": 0,\n            \"created_at\": \"2013-08-18T12:17:56.856455\",\n            \"updated_at\": null,\n            \"hosts\": [],\n            \"deleted_at\": null,\n            \"id\": 1,\n            \"metadata\": {\n                \"availability_zone\": \"nova\"\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-aggregates/{aggregate_id}": {
+            "get": {
+                "operationId": "updateaggregate",
+                "summary": "Update aggregate",
+                "description": "Updates either or both the name and availability zone for a specified aggregate.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"aggregate\": {\n        \"name\": \"newname\",\n        \"availability_zone\": \"nova2\",\n        \"deleted\": 0,\n        \"created_at\": \"2013-08-18T12:17:56.259751\",\n        \"updated_at\": \"2013-08-18T12:17:56.286720\",\n        \"hosts\": [],\n        \"deleted_at\": null,\n        \"id\": 1,\n        \"metadata\": {\n            \"availability_zone\": \"nova2\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-aggregates/{aggregate_id}/action": {
+            "post": {
+                "operationId": "removeaggregate",
+                "summary": "Remove host",
+                "description": "Removes a host from the specified aggregate.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"aggregate\": {\n        \"name\": \"name\",\n        \"availability_zone\": \"nova\",\n        \"deleted\": 0,\n        \"created_at\": \"2013-08-18T12:17:56.990581\",\n        \"updated_at\": null,\n        \"hosts\": [],\n        \"deleted_at\": null,\n        \"id\": 1,\n        \"metadata\": {\n            \"availability_zone\": \"nova\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

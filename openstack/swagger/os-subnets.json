@@ -1,0 +1,103 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-subnets",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/subnets": {
+            "get": {
+                "operationId": "listSubnets",
+                "summary": "List subnets",
+                "description": "Lists subnets to which the specified tenant has access.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"subnets\": [\n        {\n            \"name\": \"private-subnet\",\n            \"enable_dhcp\": true,\n            \"network_id\": \"db193ab3-96e3-4cb3-8fc5-05f4296d0324\",\n            \"tenant_id\": \"26a7980765d0414dbc1fc1f88cdb7e6e\",\n            \"dns_nameservers\": [],\n            \"allocation_pools\": [\n                {\n                    \"start\": \"10.0.0.2\",\n                    \"end\": \"10.0.0.254\"\n                }\n            ],\n            \"host_routes\": [],\n            \"ip_version\": 4,\n            \"gateway_ip\": \"10.0.0.1\",\n            \"cidr\": \"10.0.0.0/24\",\n            \"id\": \"08eae331-0402-425a-923c-34f7cfe39c1b\"\n        },\n        {\n            \"name\": \"my_subnet\",\n            \"enable_dhcp\": true,\n            \"network_id\": \"d32019d3-bc6e-4319-9c1d-6722fc136a22\",\n            \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n            \"dns_nameservers\": [],\n            \"allocation_pools\": [\n                {\n                    \"start\": \"192.0.0.2\",\n                    \"end\": \"192.255.255.254\"\n                }\n            ],\n            \"host_routes\": [],\n            \"ip_version\": 4,\n            \"gateway_ip\": \"192.0.0.1\",\n            \"cidr\": \"192.0.0.0/8\",\n            \"id\": \"54d6f61d-db07-451c-9ab3-b9609b6b6f0b\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "bulkCreateSubnet",
+                "summary": "Bulk create subnet",
+                "description": "Creates multiple subnets in a single request. Specify a list of subnets in the request body.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"subnets\": [\n        {\n            \"name\": \"\",\n            \"enable_dhcp\": true,\n            \"network_id\": \"e6031bc2-901a-4c66-82da-f4c32ed89406\",\n            \"tenant_id\": \"d19231fc08ec4bc4829b668040d34512\",\n            \"dns_nameservers\": [],\n            \"allocation_pools\": [\n                {\n                    \"start\": \"192.168.199.2\",\n                    \"end\": \"192.168.199.254\"\n                }\n            ],\n            \"host_routes\": [],\n            \"ip_version\": 4,\n            \"gateway_ip\": \"192.168.199.1\",\n            \"cidr\": \"192.168.199.0/24\",\n            \"id\": \"0468a7a7-290d-4127-aedd-6c9449775a24\"\n        },\n        {\n            \"name\": \"\",\n            \"enable_dhcp\": true,\n            \"network_id\": \"64239a54-dcc4-4b39-920b-b37c2144effa\",\n            \"tenant_id\": \"d19231fc08ec4bc4829b668040d34512\",\n            \"dns_nameservers\": [],\n            \"allocation_pools\": [\n                {\n                    \"start\": \"10.56.4.2\",\n                    \"end\": \"10.56.7.254\"\n                }\n            ],\n            \"host_routes\": [],\n            \"ip_version\": 4,\n            \"gateway_ip\": \"10.56.4.1\",\n            \"cidr\": \"10.56.4.0/22\",\n            \"id\": \"b0e7435c-1512-45fb-aa9e-9a7c5932fb30\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/subnets/{subnet_id}": {
+            "parameters": [
+                {
+                    "name": "subnet_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the subnet of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showSubnet",
+                "summary": "Show subnet",
+                "description": "Shows information for a specified subnet.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"subnet\": {\n        \"name\": \"my_subnet\",\n        \"enable_dhcp\": true,\n        \"network_id\": \"d32019d3-bc6e-4319-9c1d-6722fc136a22\",\n        \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n        \"dns_nameservers\": [],\n        \"allocation_pools\": [\n            {\n                \"start\": \"192.0.0.2\",\n                \"end\": \"192.255.255.254\"\n            }\n        ],\n        \"host_routes\": [],\n        \"ip_version\": 4,\n        \"gateway_ip\": \"192.0.0.1\",\n        \"cidr\": \"192.0.0.0/8\",\n        \"id\": \"54d6f61d-db07-451c-9ab3-b9609b6b6f0b\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateSubnet",
+                "summary": "Update subnet",
+                "description": "Updates a specified subnet.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"subnet\": {\n        \"name\": \"private-subnet\",\n        \"enable_dhcp\": true,\n        \"network_id\": \"db193ab3-96e3-4cb3-8fc5-05f4296d0324\",\n        \"tenant_id\": \"26a7980765d0414dbc1fc1f88cdb7e6e\",\n        \"dns_nameservers\": [],\n        \"allocation_pools\": [\n            {\n                \"start\": \"10.0.0.2\",\n                \"end\": \"10.0.0.254\"\n            }\n        ],\n        \"host_routes\": [],\n        \"ip_version\": 4,\n        \"gateway_ip\": \"10.0.0.1\",\n        \"cidr\": \"10.0.0.0/24\",\n        \"id\": \"08eae331-0402-425a-923c-34f7cfe39c1b\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "removeSubnet",
+                "summary": "Delete subnet",
+                "description": "Deletes a specified subnet.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        }
+    }
+}

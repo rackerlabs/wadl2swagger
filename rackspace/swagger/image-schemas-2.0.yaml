@@ -1,0 +1,687 @@
+---
+swagger: '2.0'
+info:
+  title: image-schemas-2.0
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/schemas/images":
+    get:
+      operationId: getImagesSchema
+      summary: Get images schema
+      description: |
+        Gets a json-schema document that represents an image members entity, which is a container of image member entities.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "name": "images",
+                  "links": [
+                      {
+                          "href": "{first}",
+                          "rel": "first"
+                      },
+                      {
+                          "href": "{next}",
+                          "rel": "next"
+                      },
+                      {
+                          "href": "{schema}",
+                          "rel": "describedby"
+                      }
+                  ],
+                  "properties": {
+                      "images": {
+                          "items": {
+                              "additionalProperties": {
+                                  "type": "string"
+                              },
+                              "name": "image",
+                              "links": [
+                                  {
+                                      "href": "{self}",
+                                      "rel": "self"
+                                  },
+                                  {
+                                      "href": "{file}",
+                                      "rel": "enclosure"
+                                  },
+                                  {
+                                      "href": "{schema}",
+                                      "rel": "describedby"
+                                  }
+                              ],
+                              "properties": {
+                                  "container_format": {
+                                      "enum": [
+                                          "ami",
+                                          "ari",
+                                          "aki",
+                                          "bare",
+                                          "ovf"
+                                      ],
+                                      "type": "string",
+                                      "description": "Format of the container"
+                                  },
+                                  "min_ram": {
+                                      "type": "integer",
+                                      "description": "Amount of ram (in MB) required to boot image."
+                                  },
+                                  "ramdisk_id": {
+                                      "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                                      "type": "string",
+                                      "description": "ID of image stored in Glance that should be used as the ramdisk when booting an AMI-style image."
+                                  },
+                                  "locations": {
+                                      "items": {
+                                          "required": [
+                                              "url",
+                                              "metadata"
+                                          ],
+                                          "type": "object",
+                                          "properties": {
+                                              "url": {
+                                                  "type": "string",
+                                                  "maxLength": 255
+                                              },
+                                              "metadata": {
+                                                  "type": "object"
+                                              }
+                                          }
+                                      },
+                                      "type": "array",
+                                      "description": "A set of URLs to access the image file kept in external store"
+                                  },
+                                  "file": {
+                                      "type": "string",
+                                      "description": "(READ-ONLY)"
+                                  },
+                                  "id": {
+                                      "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                                      "type": "string",
+                                      "description": "An identifier for the image"
+                                  },
+                                  "size": {
+                                      "type": "integer",
+                                      "description": "Size of image file in bytes (READ-ONLY)"
+                                  },
+                                  "os_distro": {
+                                      "type": "string",
+                                      "description": "Common name of operating system distribution as specified in http://docs.openstack.org/trunk/openstack-compute/admin/content/adding-images.html"
+                                  },
+                                  "self": {
+                                      "type": "string",
+                                      "description": "(READ-ONLY)"
+                                  },
+                                  "disk_format": {
+                                      "enum": [
+                                          "ami",
+                                          "ari",
+                                          "aki",
+                                          "vhd",
+                                          "vmdk",
+                                          "raw",
+                                          "qcow2",
+                                          "vdi",
+                                          "iso"
+                                      ],
+                                      "type": "string",
+                                      "description": "Format of the disk"
+                                  },
+                                  "os_version": {
+                                      "type": "string",
+                                      "description": "Operating system version as specified by the distributor"
+                                  },
+                                  "direct_url": {
+                                      "type": "string",
+                                      "description": "URL to access the image file kept in external store (READ-ONLY)"
+                                  },
+                                  "schema": {
+                                      "type": "string",
+                                      "description": "(READ-ONLY)"
+                                  },
+                                  "status": {
+                                      "enum": [
+                                          "queued",
+                                          "saving",
+                                          "active",
+                                          "killed",
+                                          "deleted",
+                                          "pending_delete"
+                                      ],
+                                      "type": "string",
+                                      "description": "Status of the image (READ-ONLY)"
+                                  },
+                                  "tags": {
+                                      "items": {
+                                          "type": "string",
+                                          "maxLength": 255
+                                      },
+                                      "type": "array",
+                                      "description": "List of strings related to the image"
+                                  },
+                                  "kernel_id": {
+                                      "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                                      "type": "string",
+                                      "description": "ID of image stored in Glance that should be used as the kernel when booting an AMI-style image."
+                                  },
+                                  "visibility": {
+                                      "enum": [
+                                          "public",
+                                          "private"
+                                      ],
+                                      "type": "string",
+                                      "description": "Scope of image accessibility"
+                                  },
+                                  "updated_at": {
+                                      "type": "string",
+                                      "description": "Date and time of the last image modification (READ-ONLY)"
+                                  },
+                                  "min_disk": {
+                                      "type": "integer",
+                                      "description": "Amount of disk space (in GB) required to boot image."
+                                  },
+                                  "instance_uuid": {
+                                      "type": "string",
+                                      "description": "ID of instance used to create this image."
+                                  },
+                                  "name": {
+                                      "type": "string",
+                                      "description": "Descriptive name for the image",
+                                      "maxLength": 255
+                                  },
+                                  "checksum": {
+                                      "type": "string",
+                                      "description": "md5 hash of image contents. (READ-ONLY)",
+                                      "maxLength": 32
+                                  },
+                                  "created_at": {
+                                      "type": "string",
+                                      "description": "Date and time of image registration (READ-ONLY)"
+                                  },
+                                  "protected": {
+                                      "type": "boolean",
+                                      "description": "If true, image will not be deletable."
+                                  },
+                                  "architecture": {
+                                      "type": "string",
+                                      "description": "Operating system architecture as specified in http://docs.openstack.org/trunk/openstack-compute/admin/content/adding-images.html"
+                                  }
+                              }
+                          },
+                          "type": "array"
+                      },
+                      "schema": {
+                          "type": "string"
+                      },
+                      "next": {
+                          "type": "string"
+                      },
+                      "first": {
+                          "type": "string"
+                      }
+                  }
+              }
+  "/schemas/image":
+    get:
+      operationId: getImageSchema
+      summary: Get image schema
+      description: |
+        Gets a json-schema document that represents a single image entity.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "additionalProperties": {
+                      "type": "string"
+                  },
+                  "name": "image",
+                  "links": [
+                      {
+                          "href": "{self}",
+                          "rel": "self"
+                      },
+                      {
+                          "href": "{file}",
+                          "rel": "enclosure"
+                      },
+                      {
+                          "href": "{schema}",
+                          "rel": "describedby"
+                      }
+                  ],
+                  "properties": {
+                      "container_format": {
+                          "enum": [
+                              "ami",
+                              "ari",
+                              "aki",
+                              "bare",
+                              "ovf"
+                          ],
+                          "type": "string",
+                          "description": "Format of the container"
+                      },
+                      "min_ram": {
+                          "type": "integer",
+                          "description": "Amount of ram (in MB) required to boot image."
+                      },
+                      "ramdisk_id": {
+                          "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                          "type": "string",
+                          "description": "ID of image stored in Glance that should be used as the ramdisk when booting an AMI-style image."
+                      },
+                      "locations": {
+                          "items": {
+                              "required": [
+                                  "url",
+                                  "metadata"
+                              ],
+                              "type": "object",
+                              "properties": {
+                                  "url": {
+                                      "type": "string",
+                                      "maxLength": 255
+                                  },
+                                  "metadata": {
+                                      "type": "object"
+                                  }
+                              }
+                          },
+                          "type": "array",
+                          "description": "A set of URLs to access the image file kept in external store"
+                      },
+                      "file": {
+                          "type": "string",
+                          "description": "(READ-ONLY)"
+                      },
+                      "id": {
+                          "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                          "type": "string",
+                          "description": "An identifier for the image"
+                      },
+                      "size": {
+                          "type": "integer",
+                          "description": "Size of image file in bytes (READ-ONLY)"
+                      },
+                      "os_distro": {
+                          "type": "string",
+                          "description": "Common name of operating system distribution as specified in http://docs.openstack.org/trunk/openstack-compute/admin/content/adding-images.html"
+                      },
+                      "self": {
+                          "type": "string",
+                          "description": "(READ-ONLY)"
+                      },
+                      "disk_format": {
+                          "enum": [
+                              "ami",
+                              "ari",
+                              "aki",
+                              "vhd",
+                              "vmdk",
+                              "raw",
+                              "qcow2",
+                              "vdi",
+                              "iso"
+                          ],
+                          "type": "string",
+                          "description": "Format of the disk"
+                      },
+                      "os_version": {
+                          "type": "string",
+                          "description": "Operating system version as specified by the distributor"
+                      },
+                      "direct_url": {
+                          "type": "string",
+                          "description": "URL to access the image file kept in external store (READ-ONLY)"
+                      },
+                      "schema": {
+                          "type": "string",
+                          "description": "(READ-ONLY)"
+                      },
+                      "status": {
+                          "enum": [
+                              "queued",
+                              "saving",
+                              "active",
+                              "killed",
+                              "deleted",
+                              "pending_delete"
+                          ],
+                          "type": "string",
+                          "description": "Status of the image (READ-ONLY)"
+                      },
+                      "tags": {
+                          "items": {
+                              "type": "string",
+                              "maxLength": 255
+                          },
+                          "type": "array",
+                          "description": "List of strings related to the image"
+                      },
+                      "kernel_id": {
+                          "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                          "type": "string",
+                          "description": "ID of image stored in Glance that should be used as the kernel when booting an AMI-style image."
+                      },
+                      "visibility": {
+                          "enum": [
+                              "public",
+                              "private"
+                          ],
+                          "type": "string",
+                          "description": "Scope of image accessibility"
+                      },
+                      "updated_at": {
+                          "type": "string",
+                          "description": "Date and time of the last image modification (READ-ONLY)"
+                      },
+                      "min_disk": {
+                          "type": "integer",
+                          "description": "Amount of disk space (in GB) required to boot image."
+                      },
+                      "instance_uuid": {
+                          "type": "string",
+                          "description": "ID of instance used to create this image."
+                      },
+                      "name": {
+                          "type": "string",
+                          "description": "Descriptive name for the image",
+                          "maxLength": 255
+                      },
+                      "checksum": {
+                          "type": "string",
+                          "description": "md5 hash of image contents. (READ-ONLY)",
+                          "maxLength": 32
+                      },
+                      "created_at": {
+                          "type": "string",
+                          "description": "Date and time of image registration (READ-ONLY)"
+                      },
+                      "protected": {
+                          "type": "boolean",
+                          "description": "If true, image will not be deletable."
+                      },
+                      "architecture": {
+                          "type": "string",
+                          "description": "Operating system architecture as specified in http://docs.openstack.org/trunk/openstack-compute/admin/content/adding-images.html"
+                      }
+                  }
+              }
+  "/schemas/members":
+    get:
+      operationId: getImageMembersSchemas
+      summary: Get image members schema
+      description: |
+        Gets a json-schema document that represents an image members entity (a container of member entities).
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "name": "members",
+                  "links": [
+                      {
+                          "href": "{schema}",
+                          "rel": "describedby"
+                      }
+                  ],
+                  "properties": {
+                      "members": {
+                          "items": {
+                              "name": "member",
+                              "properties": {
+                                  "status": {
+                                      "enum": [
+                                          "pending",
+                                          "accepted",
+                                          "rejected"
+                                      ],
+                                      "type": "string",
+                                      "description": "The status of this image member"
+                                  },
+                                  "created_at": {
+                                      "type": "string",
+                                      "description": "Date and time of image member creation"
+                                  },
+                                  "updated_at": {
+                                      "type": "string",
+                                      "description": "Date and time of last modification of image member"
+                                  },
+                                  "image_id": {
+                                      "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                                      "type": "string",
+                                      "description": "An identifier for the image"
+                                  },
+                                  "member_id": {
+                                      "type": "string",
+                                      "description": "An identifier for the image member (tenantId)"
+                                  },
+                                  "schema": {
+                                      "type": "string"
+                                  }
+                              }
+                          },
+                          "type": "array"
+                      },
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              }
+  "/schemas/member":
+    get:
+      operationId: getImageMemberSchema
+      summary: Get image member schema
+      description: |
+        Gets a json-schema document that represents an image member entity.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "name": "member",
+                  "properties": {
+                      "status": {
+                          "enum": [
+                              "pending",
+                              "accepted",
+                              "rejected"
+                          ],
+                          "type": "string",
+                          "description": "The status of this image member"
+                      },
+                      "created_at": {
+                          "type": "string",
+                          "description": "Date and time of image member creation"
+                      },
+                      "updated_at": {
+                          "type": "string",
+                          "description": "Date and time of last modification of image member"
+                      },
+                      "image_id": {
+                          "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                          "type": "string",
+                          "description": "An identifier for the image"
+                      },
+                      "member_id": {
+                          "type": "string",
+                          "description": "An identifier for the image member (tenantId)"
+                      },
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              }
+  "/schemas/tasks":
+    get:
+      operationId: getTasksSchemas
+      summary: Get tasks schema
+      description: |
+        Gets a json-schema document that represents a container of tasks entities.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "name": "tasks",
+                  "links": [
+                      {
+                          "href": "{schema}",
+                          "rel": "describedby"
+                      }
+                  ],
+                  "properties": {
+                      "tasks": {
+                          "items": {
+                              "name": "task",
+                              "properties": {
+                                  "status": {
+                                      "enum": [
+                                          "pending",
+                                          "processing",
+                                          "success",
+                                          "failure"
+                                      ],
+                                      "type": "string",
+                                      "description": "The current status of this task"
+                                  },
+                                  "created_at": {
+                                      "type": "string",
+                                      "description": "Datetime when this resource was created"
+                                  },
+                                  "updated_at": {
+                                      "type": "string",
+                                      "description": "Datetime when this resource was updated"
+                                  },
+                                  "expires_at": {
+                                      "type": "string",
+                                      "description": "Datetime when this resource would be subject to removal"
+                                  },
+                                  "id": {
+                                      "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                                      "type": "string",
+                                      "description": "An identifier for the task"
+                                  },
+                                  "owner": {
+                                      "type": "string",
+                                      "description": "An identifier for the owner of this task"
+                                  },
+                                  "type": {
+                                      "enum": [
+                                          "import",
+                                          "export"
+                                      ],
+                                      "type": "string",
+                                      "description": "The type of task represented by this content"
+                                  },
+                                  "self": {
+                                      "type": "string"
+                                  },
+                                  "schema": {
+                                      "type": "string"
+                                  }
+                              }
+                          },
+                          "type": "array"
+                      },
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              }
+  "/schemas/task":
+    get:
+      operationId: getTaskSchema
+      summary: Get task schema
+      description: |
+        Gets a json-schema document that represents an task entity.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Request succeeded.
+          examples:
+            application/json: |-
+              {
+                  "name": "task",
+                  "properties": {
+                      "status": {
+                          "enum": [
+                              "pending",
+                              "processing",
+                              "success",
+                              "failure"
+                          ],
+                          "type": "string",
+                          "description": "The current status of this task"
+                      },
+                      "created_at": {
+                          "type": "string",
+                          "description": "Datetime when this resource was created"
+                      },
+                      "updated_at": {
+                          "type": "string",
+                          "description": "Datetime when this resource was updated"
+                      },
+                      "expires_at": {
+                          "type": "string",
+                          "description": "Datetime when this resource would be subject to removal"
+                      },
+                      "self": {
+                          "type": "string"
+                      },
+                      "result": {
+                          "type": "object",
+                          "description": "The result of current task, JSON blob"
+                      },
+                      "owner": {
+                          "type": "string",
+                          "description": "An identifier for the owner of this task"
+                      },
+                      "input": {
+                          "type": "object",
+                          "description": "The parameters required by task, JSON blob"
+                      },
+                      "message": {
+                          "type": "string",
+                          "description": "Human-readable informative message only included when appropriate (usually on failure)"
+                      },
+                      "type": {
+                          "enum": [
+                              "import",
+                              "export"
+                          ],
+                          "type": "string",
+                          "description": "The type of task represented by this content"
+                      },
+                      "id": {
+                          "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                          "type": "string",
+                          "description": "An identifier for the task"
+                      },
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              }

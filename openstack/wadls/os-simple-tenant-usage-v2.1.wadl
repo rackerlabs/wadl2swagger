@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-simple-tenant-usage-v2.1">
+        <resource id="os-simple-tenant-usage" path="/v2.1/os-simple-tenant-usage">
+         <method name="GET" rax:id="retrievetenantusage">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List tenant usage for all tenants">
+               <para role="shortdesc">Lists usage information for all
+                tenants.</para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "tenant_usages": [
+        {
+            "start": "2013-09-09T13:18:27.898411",
+            "stop": "2013-09-09T14:18:27.898411",
+            "tenant_id": "openstack",
+            "total_hours": 1.0,
+            "total_local_gb_usage": 1.0,
+            "total_memory_mb_usage": 512.0,
+            "total_vcpus_usage": 1.0
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                
+                <resource id="tenant_id" path="/v2.1/os-simple-tenant-usage/{tenant_id}">
+         <method name="GET" rax:id="retrievetenantall">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show usage details for tenant">
+               <para role="shortdesc">Shows usage details for a specified
+                tenant.</para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "tenant_usage": {
+        "server_usages": [
+            {
+                "ended_at": null,
+                "flavor": "m1.tiny",
+                "hours": 1.0,
+                "instance_id": "bf2fbe78-ae1c-4f6b-a68b-390f12b1b983",
+                "local_gb": 1,
+                "memory_mb": 512,
+                "name": "new-server-test",
+                "started_at": "2013-09-09T13:18:28.101337",
+                "state": "active",
+                "tenant_id": "openstack",
+                "uptime": 3600,
+                "vcpus": 1
+            }
+        ],
+        "start": "2013-09-09T13:18:28.101337",
+        "stop": "2013-09-09T14:18:28.101337",
+        "tenant_id": "openstack",
+        "total_hours": 1.0,
+        "total_local_gb_usage": 1.0,
+        "total_memory_mb_usage": 512.0,
+        "total_vcpus_usage": 1.0
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="X-OpenStack-Request-ID"
+                         style="header"
+                         required="false"
+                         type="xsd:string">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Returns a unique identifier to help provide
+        tracking for the request. Provider must configure middleware
+        to provide the request_id.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                
+            
+    </resources>
+    <!-- *******************************************************-->
+    <!--      OS Simple tenant usage            -->
+    <!--*******************************************************-->
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="retrievetenantusage">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="retrievetenantall">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                 <param name="X-OpenStack-Request-ID"
+                   style="header"
+                   required="false"
+                   type="xsd:string">
+    
+</param>
+            </representation>
+        </response>
+    </method>
+</wadl:application>

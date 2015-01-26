@@ -1,0 +1,129 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "OS-KSVALIDATE-admin",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/OS-KSVALIDATE/token/validate": {
+            "parameters": [
+                {
+                    "name": "X-Auth-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token for an administrative user.\n"
+                },
+                {
+                    "name": "X-Subject-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token.\n"
+                },
+                {
+                    "name": "belongsTo",
+                    "required": false,
+                    "in": "query",
+                    "type": "string",
+                    "description": "Validates that a token has the specified tenant in scope, for performance. Valid tokens are in the `/tokens/{tokenId}` path. An itemNotFound (`404`) fault is returned for a token that is not valid.\n"
+                },
+                {
+                    "name": "HP-IDM-serviceId",
+                    "required": false,
+                    "in": "query",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "operationId": "validateToken",
+                "summary": "Validate token",
+                "description": "Checks that a token is valid and that it belongs to a specified tenant and service IDs. Returns the permissions for a particular client.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"access\": {\n        \"token\": {\n            \"expires\": \"2010-11-01T03:32:15-05:00\",\n            \"id\": \"ab48a9efdfedb23ty3494\",\n            \"tenant\": {\n                \"id\": \"345\",\n                \"name\": \"My Project\"\n            }\n        },\n        \"user\": {\n            \"roles_links\": [],\n            \"id\": \"123\",\n            \"roles\": [\n                {\n                    \"id\": \"234\",\n                    \"name\": \"compute:admin\"\n                },\n                {\n                    \"tenantId\": \"1\",\n                    \"id\": \"234\",\n                    \"name\": \"object-store:admin\"\n                }\n            ],\n            \"name\": \"jqsmith\"\n        }\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"access\": {\n        \"token\": {\n            \"expires\": \"2010-11-01T03:32:15-05:00\",\n            \"id\": \"ab48a9efdfedb23ty3494\",\n            \"tenant\": {\n                \"id\": \"345\",\n                \"name\": \"My Project\"\n            }\n        },\n        \"user\": {\n            \"roles_links\": [],\n            \"id\": \"123\",\n            \"roles\": [\n                {\n                    \"id\": \"234\",\n                    \"name\": \"compute:admin\"\n                },\n                {\n                    \"tenantId\": \"1\",\n                    \"id\": \"234\",\n                    \"name\": \"object-store:admin\"\n                }\n            ],\n            \"name\": \"jqsmith\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "head": {
+                "operationId": "checkToken",
+                "summary": "Check token",
+                "description": "Checks that a token is valid and that it belongs to a specified tenant and service IDs, for performance.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response"
+                    },
+                    "203": {
+                        "description": "200 203 response"
+                    }
+                }
+            }
+        },
+        "/v2.0/OS-KSVALIDATE/token/endpoints": {
+            "parameters": [
+                {
+                    "name": "X-Auth-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token for an administrative user.\n"
+                },
+                {
+                    "name": "X-Subject-Token",
+                    "required": true,
+                    "in": "header",
+                    "type": "string",
+                    "description": "A valid authentication token.\n"
+                },
+                {
+                    "name": "HP-IDM-serviceId",
+                    "required": false,
+                    "in": "query",
+                    "type": "string",
+                    "description": "A comma-separated string of service IDs. Checks the roles against the specified service IDs. If a service ID is not valid or if no roles are associated with a service ID, a 401 fault is returned.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listEndpointsForToken",
+                "summary": "List endpoints for a token",
+                "description": "Lists endpoints associated with a specific token.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"endpoints_links\": [],\n    \"endpoints\": [\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"North\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 1,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"South\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 2,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"East\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 3,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"West\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 4,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"Global\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 5,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"endpoints_links\": [],\n    \"endpoints\": [\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"North\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 1,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"South\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 2,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"East\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 3,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"West\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 4,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        },\n        {\n            \"versionInfo\": \"https://compute.north.public.com/v1/\",\n            \"adminURL\": \"https://compute.north.internal.com/v1\",\n            \"region\": \"Global\",\n            \"internalURL\": \"https://compute.north.internal.com/v1\",\n            \"versionId\": \"1\",\n            \"versionList\": \"https://compute.north.public.com/\",\n            \"tenantId\": \"1\",\n            \"type\": \"compute\",\n            \"id\": 5,\n            \"publicURL\": \"https://compute.north.public.com/v1\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

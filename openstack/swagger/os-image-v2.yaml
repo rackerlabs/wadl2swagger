@@ -1,0 +1,527 @@
+---
+swagger: '2.0'
+info:
+  title: os-image-v2
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/":
+    get:
+      operationId: listVersions-image-v2
+      summary: List API versions
+      description: |
+        Lists information about all Image Service API versions.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 300 response
+          examples:
+            application/json: |-
+              {
+                  "versions": [
+                      {
+                          "status": "CURRENT",
+                          "id": "v2.2",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v2.1",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v2.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "CURRENT",
+                          "id": "v1.1",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v1/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v1.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v1/",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+        '300':
+          description: 200 300 response
+          examples:
+            application/json: |-
+              {
+                  "versions": [
+                      {
+                          "status": "CURRENT",
+                          "id": "v2.2",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v2.1",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v2.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "CURRENT",
+                          "id": "v1.1",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v1/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "SUPPORTED",
+                          "id": "v1.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9292/v1/",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+  "/v2/images":
+    get:
+      operationId: listImages-v2
+      summary: List images
+      description: |
+        Lists public virtual machine (VM) images. (Since Image API v2.0.)
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "images": [
+                      {
+                          "status": "active",
+                          "name": "cirros-0.3.2-x86_64-disk",
+                          "tags": [],
+                          "container_format": "bare",
+                          "created_at": "2014-11-07T17:07:06Z",
+                          "disk_format": "qcow2",
+                          "updated_at": "2014-11-07T17:19:09Z",
+                          "visibility": "public",
+                          "id": "1bea47ed-f6a9-463b-b423-14b9cca9ad27",
+                          "owner": "5ef70662f8b34079a6eddb8da9d75fe8",
+                          "protected": false,
+                          "min_ram": 0,
+                          "file": "/v2/images/1bea47ed-f6a9-463b-b423-14b9cca9ad27/file",
+                          "checksum": "64d7c1cd2b6f60c92c14662941cb7913",
+                          "min_disk": 0,
+                          "schema": "/v2/schemas/image",
+                          "self": "/v2/images/1bea47ed-f6a9-463b-b423-14b9cca9ad27",
+                          "size": 13167616
+                      },
+                      {
+                          "status": "active",
+                          "name": "F17-x86_64-cfntools",
+                          "tags": [],
+                          "container_format": "bare",
+                          "created_at": "2014-10-30T08:23:39Z",
+                          "disk_format": "qcow2",
+                          "updated_at": "2014-11-03T16:40:10Z",
+                          "visibility": "public",
+                          "id": "781b3762-9469-4cec-b58d-3349e5de4e9c",
+                          "owner": "5ef70662f8b34079a6eddb8da9d75fe8",
+                          "protected": false,
+                          "min_ram": 0,
+                          "file": "/v2/images/781b3762-9469-4cec-b58d-3349e5de4e9c/file",
+                          "checksum": "afab0f79bac770d61d24b4d0560b5f70",
+                          "min_disk": 0,
+                          "schema": "/v2/schemas/image",
+                          "self": "/v2/images/781b3762-9469-4cec-b58d-3349e5de4e9c",
+                          "size": 476704768
+                      }
+                  ],
+                  "first": "/v2/images",
+                  "schema": "/v2/schemas/images"
+              }
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        type: string
+        format: date-time
+        description: |
+          Use to request a specific page size. Expect a response to a limited request to return between zero and limit items. The typical pattern of limit and marker is to make an initial limited request and then to use the ID of the last image from the response as the marker parameter in a subsequent limited request.
+      - name: marker
+        required: false
+        in: query
+        type: string
+        description: |
+          Specifies the ID of the last-seen image. The typical pattern of limit and marker is to make an initial limited request and then to use the ID of the last image from the response as the marker parameter in a subsequent limited request.
+      - name: name
+        required: false
+        in: query
+        type: string
+        description: |
+          Filter parameter. Name of the image as a string.
+      - name: visibility
+        required: false
+        in: query
+        type: string
+        description: |
+          Filter parameter. Image visibility. Valid values are `public`, `private`, and `shared`. Default is `public`, `private`, and `shared` images with `accepted` member status.
+      - name: member_status
+        required: false
+        in: query
+        type: string
+        description: |
+          Filter parameter. Only show images with the specified member status. Valid values are `accepted`, `pending`, `rejected`, and `all`. Default is `accepted`.
+      - name: owner
+        required: false
+        in: query
+        type: string
+        description: |
+          Filter parameter. Shows images shared with me by the specified owner, where the owner is indicated by tenant ID.
+      - name: status
+        required: false
+        in: query
+        type: integer
+        description: |
+          Filter parameter. The image status, such as queued, saving, active, killed, deleted, and pending\_delete.
+      - name: size_min
+        required: false
+        in: query
+        type: string
+        description: |
+          Filter parameter. Value of the minimum size of the image in bytes.
+      - name: size_max
+        required: false
+        in: query
+        type: string
+        description: |
+          Filter parameter. Value of the maximum size of the image in bytes.
+      - name: sort_key
+        required: false
+        in: query
+        type: string
+        description: |
+          Sort key. All image attributes can be used as the sort\_key, except tags and link attributes. Default is `created_at`.
+      - name: sort_dir
+        required: false
+        in: query
+        type: string
+        description: |
+          Sort direction. Valid values are `asc` (ascending) and `desc` (descending). Default is `desc`.
+      - name: tag
+        required: false
+        in: query
+        type: string
+        description: |
+          Image tag. For example, `?tag="cirros"`.
+    post:
+      operationId: createImage-v2
+      summary: Create image
+      description: |
+        Creates a virtual machine (VM) image. (Since Image API v2.0.)
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "status": "queued",
+                  "name": "test-001",
+                  "tags": [],
+                  "container_format": "bare",
+                  "created_at": "2014-11-11T20:47:55Z",
+                  "disk_format": "qcow2",
+                  "updated_at": "2014-11-11T20:47:55Z",
+                  "visibility": "private",
+                  "id": "b2173dd3-7ad6-4362-baa6-a68bce3565ca",
+                  "owner": "b4eedccc6fb74fa8a7ad6b08382b852b",
+                  "protected": false,
+                  "min_ram": 0,
+                  "file": "/v2/images/b2173dd3-7ad6-4362-baa6-a68bce3565ca/file",
+                  "min_disk": 0,
+                  "self": "/v2/images/b2173dd3-7ad6-4362-baa6-a68bce3565ca",
+                  "schema": "/v2/schemas/image"
+              }
+  "/v2/images/{image_id}":
+    get:
+      operationId: getImage-v2
+      summary: Get image details
+      description: |
+        Gets details for a specified image. (Since Image API v2.0.)
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "status": "active",
+                  "name": "cirros-0.3.2-x86_64-disk",
+                  "tags": [],
+                  "container_format": "bare",
+                  "created_at": "2014-05-05T17:15:10Z",
+                  "disk_format": "qcow2",
+                  "updated_at": "2014-05-05T17:15:11Z",
+                  "visibility": "public",
+                  "id": "1bea47ed-f6a9-463b-b423-14b9cca9ad27",
+                  "owner": "5ef70662f8b34079a6eddb8da9d75fe8",
+                  "protected": false,
+                  "min_ram": 0,
+                  "file": "/v2/images/1bea47ed-f6a9-463b-b423-14b9cca9ad27/file",
+                  "checksum": "64d7c1cd2b6f60c92c14662941cb7913",
+                  "min_disk": 0,
+                  "schema": "/v2/schemas/image",
+                  "self": "/v2/images/1bea47ed-f6a9-463b-b423-14b9cca9ad27",
+                  "size": 13167616
+              }
+    patch:
+      operationId: updateImage-v2
+      summary: Update image
+      description: |
+        Updates a specified image. (Since Image API v2.0.)
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "status": "active",
+                  "name": "Fedora 17",
+                  "tags": [
+                      "fedora",
+                      "beefy"
+                  ],
+                  "checksum": "2cec138d7dae2aa59038ef8c9aec2390",
+                  "created_at": "2012-08-10T19:23:50Z",
+                  "updated_at": "2012-08-12T11:11:33Z",
+                  "visibility": "public",
+                  "self": "/v2/images/da3b75d9-3f4a-40e7-8a2c-bfab23927dea",
+                  "file": "/v2/images/da3b75d9-3f4a-40e7-8a2c-bfab23927dea/file",
+                  "schema": "/v2/schemas/image",
+                  "id": "da3b75d9-3f4a-40e7-8a2c-bfab23927dea",
+                  "size": 2254249
+              }
+    delete:
+      operationId: deleteImage-v2
+      summary: Delete image
+      description: |
+        Deletes a specified image. (Since Image API v2.0.)
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v2/images/{image_id}/file":
+    put:
+      operationId: storeImageFile-v2
+      summary: Upload binary image data
+      description: |
+        Uploads binary image data. (Since Image API v2.0.)
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+    get:
+      operationId: getImageFile-v2
+      summary: Download binary image data
+      description: |
+        Downloads binary image data. (Since Image API v2.0.)
+      produces: []
+      responses:
+        '200':
+          description: 200 204 response
+        '204':
+          description: 200 204 response
+  "/v2/images/{image_id}/tags/{tag}":
+    parameters:
+    - name: tag
+      required: true
+      in: path
+      type: string
+      description: |
+        Image tag.
+    put:
+      operationId: addImageTag-v2
+      summary: Add image tag
+      description: |
+        Adds a specified tag to a specified image. (Since Image API v2.0.)
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+    delete:
+      operationId: deleteImageTag-v2
+      summary: Delete image tag
+      description: |
+        Deletes a specified tag from a specified image. (Since Image API v2.0.)
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v2/images/{image_id}/members":
+    get:
+      operationId: listImageMembers-v2
+      summary: List image members
+      description: |
+        Lists the tenants with whom this image has been shared. (Since Image API v2.1.)
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "members": [
+                      {
+                          "status": "pending",
+                          "created_at": "2013-10-07T17:58:03Z",
+                          "updated_at": "2013-10-07T17:58:03Z",
+                          "image_id": "dbc999e3-c52f-4200-bedd-3b18fe7f87fe",
+                          "member_id": "123456789",
+                          "schema": "/v2/schemas/member"
+                      },
+                      {
+                          "status": "accepted",
+                          "created_at": "2013-10-07T17:58:55Z",
+                          "updated_at": "2013-10-08T12:08:55Z",
+                          "image_id": "dbc999e3-c52f-4200-bedd-3b18fe7f87fe",
+                          "member_id": "987654321",
+                          "schema": "/v2/schemas/member"
+                      }
+                  ],
+                  "schema": "/v2/schemas/members"
+              }
+    post:
+      operationId: createImageMember-v2
+      summary: Create image member
+      description: |
+        Adds a specified tenant ID as an image member. (Since Image API v2.1.)
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "status": "pending",
+                  "created_at": "2013-09-20T19:22:19Z",
+                  "updated_at": "2013-09-20T19:25:31Z",
+                  "image_id": "a96be11e-8536-4910-92cb-de50aa19dfe6",
+                  "member_id": "8989447062e04a818baf9e073fd04fa7",
+                  "schema": "/v2/schemas/member"
+              }
+  "/v2/images/{image_id}/members/{member_id}":
+    parameters:
+    - name: member_id
+      required: true
+      in: path
+      type: string
+      description: |
+        Image member ID. For example, the tenant ID of the user with whom the image is being shared.
+    get:
+      operationId: getImageMember-v2
+      summary: Show image member details
+      description: |
+        Shows image member details.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "status": "pending",
+                  "created_at": "2013-11-26T07:21:21Z",
+                  "updated_at": "2013-11-26T07:21:21Z",
+                  "image_id": "0ae74cc5-5147-4239-9ce2-b0c580f7067e",
+                  "member_id": "8989447062e04a818baf9e073fd04fa7",
+                  "schema": "/v2/schemas/member"
+              }
+    delete:
+      operationId: deleteImageMember-v2
+      summary: Delete image member
+      description: |
+        Deletes a specified tenant ID from the member list of the specified image. (Since Image API v2.1.)
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+    put:
+      operationId: updateImageMember-v2
+      summary: Update image member
+      description: |
+        Sets the specified status for the specified member of the specified image. (Since Image API v2.1.)
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "status": "accepted",
+                  "created_at": "2013-09-20T19:22:19Z",
+                  "updated_at": "2013-09-20T20:15:31Z",
+                  "image_id": "a96be11e-8536-4910-92cb-de50aa19dfe6",
+                  "member_id": "8989447062e04a818baf9e073fd04fa7",
+                  "schema": "/v2/schemas/member"
+              }

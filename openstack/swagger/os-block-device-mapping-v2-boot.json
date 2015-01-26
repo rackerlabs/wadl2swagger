@@ -1,0 +1,125 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-block-device-mapping-v2-boot",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/servers": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listServers",
+                "summary": "List servers",
+                "description": "Lists IDs, names, and links for all servers.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"servers\": [\n        {\n            \"id\": \"616fb98f-46ca-475e-917e-2563e5a8cd19\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/servers/616fb98f-46ca-475e-917e-2563e5a8cd19\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/servers/616fb98f-46ca-475e-917e-2563e5a8cd19\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"new-server-test\"\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"servers\": [\n        {\n            \"id\": \"616fb98f-46ca-475e-917e-2563e5a8cd19\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/servers/616fb98f-46ca-475e-917e-2563e5a8cd19\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/servers/616fb98f-46ca-475e-917e-2563e5a8cd19\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"name\": \"new-server-test\"\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "changes-since",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "A time/date stamp for when the server last changed status.\n"
+                    },
+                    {
+                        "name": "image",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the image in URL format.\n"
+                    },
+                    {
+                        "name": "flavor",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Name of the flavor in URL format.\n"
+                    },
+                    {
+                        "name": "name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the server as a string; can be queried with regular expressions. Realize that ?name=bob returns both bob and bobb. If you need to match bob only, you can use a regular expression matching the syntax of the underlying database server implemented for Compute (such as MySQL or PostgreSQL).\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "UUID of the server at which you want to set a marker.\n"
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Integer value for the limit of values to return.\n"
+                    },
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Value of the status of the server so that you can filter on \"ACTIVE\" for example.\n"
+                    },
+                    {
+                        "name": "host",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Name of the host as a string.\n"
+                    }
+                ]
+            },
+            "post": {
+                "operationId": "createServer",
+                "summary": "Create server",
+                "description": "Creates a server with a block device mapping.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"id\": \"babd1af0-4fc6-4529-b32f-aad69811ccf5\",\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/servers/babd1af0-4fc6-4529-b32f-aad69811ccf5\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/servers/babd1af0-4fc6-4529-b32f-aad69811ccf5\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"adminPass\": \"N4x7wFX6iN8D\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+INFO:wadls/os-cloudpipe.wadl:Converting: wadls/os-cloudpipe.wadl to swagger/os-cloudpipe.json
+WARNING:wadls/os-cloudpipe.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-cloudpipe.wadl:No support for application/json for resource at /v2/{tenant_id}/os-cloudpipe/configure-project
+WARNING:wadls/os-cloudpipe.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-cloudpipe.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

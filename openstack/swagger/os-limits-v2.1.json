@@ -1,0 +1,28 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-limits-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/limits": {
+            "get": {
+                "operationId": "getlimits",
+                "summary": "Show limits",
+                "description": "Show global and rate limit information.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,183 @@
+---
+swagger: '2.0'
+info:
+  title: ports
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.0/ports":
+    get:
+      operationId: listPorts
+      summary: Retrieve list of ports
+      description: |
+        Retrieves list of ports to which the tenant has access.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "ports": [
+                      {
+                          "status": "ACTIVE",
+                          "name": "port1",
+                          "admin_state_up": true,
+                          "network_id": "6406ed30-193a-4958-aae5-7c05268d332b",
+                          "tenant_id": "123456",
+                          "device_owner": null,
+                          "mac_address": "BE:CB:FE:00:00:EE",
+                          "fixed_ips": [
+                              {
+                                  "subnet_id": "739ecc58-f9a0-4145-8a06-cd415e6e5c8d",
+                                  "ip_address": "192.168.3.11"
+                              }
+                          ],
+                          "id": "10ba23f5-bb70-4fd7-a118-83f89b62e340",
+                          "security_groups": [],
+                          "device_id": ""
+                      }
+                  ]
+              }
+    post:
+      operationId: bulkCreatePorts
+      summary: Bulk Create Ports
+      description: |
+        Creates multiple ports in a single request. Specify a list of ports in the request body.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "ports": [
+                      {
+                          "status": "DOWN",
+                          "binding:host_id": null,
+                          "name": "sample_port_1",
+                          "admin_state_up": true,
+                          "network_id": "a3775a7d-9f8b-4148-be81-c84bbd0837ce",
+                          "tenant_id": "60cd4f6dbc2f491982a284e7b83b5be3",
+                          "binding:vif_type": "ovs",
+                          "device_owner": "",
+                          "binding:capabilities": {
+                              "port_filter": true
+                          },
+                          "mac_address": "fa:16:3e:2e:7c:8a",
+                          "fixed_ips": [],
+                          "id": "8fb361d8-bab0-418d-b1b8-7204a230fb06",
+                          "security_groups": [
+                              "99f465bc-0d7c-4142-8829-7ae0179f2fa8"
+                          ],
+                          "device_id": ""
+                      },
+                      {
+                          "status": "DOWN",
+                          "binding:host_id": null,
+                          "name": "sample_port_2",
+                          "admin_state_up": false,
+                          "network_id": "a3775a7d-9f8b-4148-be81-c84bbd0837ce",
+                          "tenant_id": "60cd4f6dbc2f491982a284e7b83b5be3",
+                          "binding:vif_type": "ovs",
+                          "device_owner": "",
+                          "binding:capabilities": {
+                              "port_filter": true
+                          },
+                          "mac_address": "fa:16:3e:0a:4e:13",
+                          "fixed_ips": [],
+                          "id": "d4c93b0b-f593-424e-a199-d648478a5a3c",
+                          "security_groups": [
+                              "99f465bc-0d7c-4142-8829-7ae0179f2fa8"
+                          ],
+                          "device_id": ""
+                      }
+                  ]
+              }
+  "/v2.0/ports/{port_id}":
+    parameters:
+    - name: port_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the port.
+    get:
+      operationId: showPort
+      summary: Show port
+      description: |
+        Retrieves information for a specified port.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "port": {
+                      "status": "ACTIVE",
+                      "name": "port1",
+                      "admin_state_up": true,
+                      "network_id": "6406ed30-193a-4958-aae5-7c05268d332b",
+                      "tenant_id": "123456",
+                      "device_owner": null,
+                      "mac_address": "BE:CB:FE:00:00:EE",
+                      "fixed_ips": [
+                          {
+                              "subnet_id": "739ecc58-f9a0-4145-8a06-cd415e6e5c8d",
+                              "ip_address": "192.168.3.11"
+                          }
+                      ],
+                      "id": "10ba23f5-bb70-4fd7-a118-83f89b62e340",
+                      "security_groups": [],
+                      "device_id": ""
+                  }
+              }
+    put:
+      operationId: updatePort
+      summary: Update port
+      description: |
+        Updates a specified port.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "port": {
+                      "status": "ACTIVE",
+                      "name": "sample_port_1",
+                      "admin_state_up": true,
+                      "network_id": "a3775a7d-9f8b-4148-be81-c84bbd0837ce",
+                      "tenant_id": "60cd4f6dbc2f491982a284e7b83b5be3",
+                      "device_owner": null,
+                      "mac_address": "fa:16:3e:2e:7c:8a",
+                      "fixed_ips": [
+                          {
+                              "subnet_id": "1d18d76b-a04a-4147-a04c-151630ec80d0",
+                              "ip_address": "fc01::8"
+                          }
+                      ],
+                      "id": "8fb361d8-bab0-418d-b1b8-7204a230fb06",
+                      "security_groups": [],
+                      "device_id": ""
+                  }
+              }
+    delete:
+      operationId: removePort
+      summary: Delete port
+      description: |
+        Deletes a specified port.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: 204 response

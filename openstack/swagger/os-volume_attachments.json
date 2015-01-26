@@ -1,0 +1,117 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-volume_attachments",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/servers/{server_id}/os-volume_attachments": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                }
+            ],
+            "post": {
+                "operationId": "attachVolume",
+                "summary": "Attach volume",
+                "description": "Attaches a volume to the specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"volumeAttachment\": {\n        \"device\": \"/dev/vdd\",\n        \"serverId\": \"0c92f3f6-c253-4c9b-bd43-e880a8d2eb0a\",\n        \"id\": \"a26887c6-c47b-4654-abb5-dfadf7d3f803\",\n        \"volumeId\": \"a26887c6-c47b-4654-abb5-dfadf7d3f803\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "listVolumeAttachments",
+                "summary": "List volume attachments",
+                "description": "Lists the volume attachments for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"volumeAttachments\": [\n        {\n            \"device\": \"/dev/sdd\",\n            \"serverId\": \"4d8c3732-a248-40ed-bebc-539a6ffd25c0\",\n            \"id\": \"a26887c6-c47b-4654-abb5-dfadf7d3f803\",\n            \"volumeId\": \"a26887c6-c47b-4654-abb5-dfadf7d3f803\"\n        },\n        {\n            \"device\": \"/dev/sdc\",\n            \"serverId\": \"4d8c3732-a248-40ed-bebc-539a6ffd25c0\",\n            \"id\": \"a26887c6-c47b-4654-abb5-dfadf7d3f804\",\n            \"volumeId\": \"a26887c6-c47b-4654-abb5-dfadf7d3f804\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/{server_id}/os-volume_attachments/{attachment_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                },
+                {
+                    "name": "attachment_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Volume attachment ID.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getVolumeAttachmentDetails",
+                "summary": "Show volume attachment details",
+                "description": "Shows details for the specified volume attachment.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"volumeAttachment\": {\n        \"device\": \"/dev/sdd\",\n        \"serverId\": \"2390fb4d-1693-45d7-b309-e29c4af16538\",\n        \"id\": \"a26887c6-c47b-4654-abb5-dfadf7d3f803\",\n        \"volumeId\": \"a26887c6-c47b-4654-abb5-dfadf7d3f803\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteVolumeAttachment",
+                "summary": "Delete volume attachment",
+                "description": "Deletes the specified volume attachment from a specified server.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        }
+    }
+}

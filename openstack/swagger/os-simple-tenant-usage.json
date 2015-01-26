@@ -1,0 +1,76 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-simple-tenant-usage",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-simple-tenant-usage": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "ListUsage",
+                "summary": "List usage information for all tenants",
+                "description": "Lists usage information for all tenants.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"tenant_usages\": [\n        {\n            \"total_memory_mb_usage\": 512.0,\n            \"total_vcpus_usage\": 1.0,\n            \"total_hours\": 1.0,\n            \"tenant_id\": \"openstack\",\n            \"stop\": \"2012-10-08T22:10:44.587336\",\n            \"start\": \"2012-10-08T21:10:44.587336\",\n            \"total_local_gb_usage\": 1.0\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-simple-tenant-usage/{tenant_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID.\n"
+                }
+            ],
+            "get": {
+                "operationId": "GetUsage",
+                "summary": "Get tenant usage information",
+                "description": "Gets usage information for a tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"tenant_usage\": {\n        \"total_memory_mb_usage\": 512.0,\n        \"total_vcpus_usage\": 1.0,\n        \"total_hours\": 1.0,\n        \"tenant_id\": \"openstack\",\n        \"stop\": \"2012-10-08T21:10:44.587336\",\n        \"server_usages\": [\n            {\n                \"instance_id\": \"1f1deceb-17b5-4c04-84c7-e0d4499c8fe0\",\n                \"uptime\": 3600,\n                \"started_at\": \"2012-10-08T20:10:44.541277\",\n                \"ended_at\": null,\n                \"memory_mb\": 512,\n                \"tenant_id\": \"openstack\",\n                \"vcpus\": 1,\n                \"hours\": 1.0,\n                \"state\": \"active\",\n                \"flavor\": \"m1.tiny\",\n                \"local_gb\": 1,\n                \"name\": \"new-server-test\"\n            }\n        ],\n        \"start\": \"2012-10-08T20:10:44.587336\",\n        \"total_local_gb_usage\": 1.0\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

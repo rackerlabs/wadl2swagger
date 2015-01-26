@@ -1,0 +1,7 @@
+INFO:wadls/OS-KSVALIDATE-admin.wadl:Converting: wadls/OS-KSVALIDATE-admin.wadl to swagger/OS-KSVALIDATE-admin.json
+INFO:root:Saving swagger to swagger/OS-KSVALIDATE-admin.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

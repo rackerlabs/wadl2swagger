@@ -1,0 +1,41 @@
+INFO:wadls/dbaas.wadl:Converting: wadls/dbaas.wadl to swagger/dbaas.json
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:No support for application/json for resource at /v1.0/{accountId}/instances/{instanceId}/action
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:No support for application/json for resource at /v1.0/{accountId}/instances/{instanceId}/databases/{databaseName}
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (databaseName)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:No support for application/json for resource at /v1.0/{accountId}/instances/{instanceId}/users/{name}
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (name)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (instanceId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (accountId)
+WARNING:wadls/dbaas.wadl:Autofix: path parameters must be required in Swagger (flavorId)
+INFO:root:Saving swagger to swagger/dbaas.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

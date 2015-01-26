@@ -1,0 +1,15 @@
+INFO:wadls/os-aggregates-v2.1.wadl:Converting: wadls/os-aggregates-v2.1.wadl to swagger/os-aggregates-v2.1.json
+WARNING:wadls/os-aggregates-v2.1.wadl:No support for application/json for resource at /v2.1/os-aggregates/{aggregate_id}/action
+INFO:root:Saving swagger to swagger/os-aggregates-v2.1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v2.1~1os-aggregates~1{aggregate_id}/get: API requires path parameter but it is not defined: aggregate_id
+  #/paths/~1v2.1~1os-aggregates~1{aggregate_id}~1action/post: API requires path parameter but it is not defined: aggregate_id
+
+2 errors and 0 warnings
+Invalid

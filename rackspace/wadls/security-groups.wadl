@@ -1,0 +1,2319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!--    <grammars>
+        <include href="xsd/secgr.xsd"/>
+    </grammars>-->
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://www.w3.org/2001/XMLSchema"
+              xmlns:secgr="http://docs.openstack.org/neutron/api/v2.0"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://neutron.example.com/"
+              xml:id="security-groups-v2.0">
+        <resource id="SecGroups" path="v2.0/security-groups">
+         <method name="GET" rax:id="listSecGroups">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Security Groups">
+               <para role="shortdesc">Lists all Cloud Networks security groups to which the specified tenant has access.</para>
+               <para>The operation shows the unique ID for each security group and the rules that are associated with each
+                security group. You can control which parameters are returned by using the <parameter>fields</parameter>
+                query parameter, and you can specify how many results to return per page. For information, see
+                <link xlink:href="http://docs.rackspace.com/networks/api/v2/cn-devguide/content/section_filtering.html">Filtering 
+                    Requests</link>
+                or
+                <link xlink:href="http://docs.rackspace.com/networks/api/v2/cn-devguide/content/section_pagination.html">Pagination 
+                    of Requests</link>
+                in the <citetitle>Cloud Networks API Developer Guide</citetitle>.</para>
+            </wadl:doc>
+            <!-- I commented this example out because it is not a request body -->
+            <!--<request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook"><xsdxt:code
+                        href="../common/samples/security-groups-list-get-req.json"/></wadl:doc>
+            </representation>
+        </request>-->
+            <response status="200">
+
+               <representation mediaType="application/json" element="csapi:network">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "security_groups":[
+      {
+         "description":"default",
+         "id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+         "name":"default",
+         "security_group_rules":[
+            {
+               "direction":"egress",
+               "ethertype":"IPv6",
+               "id":"3c0e45ff-adaf-4124-b083-bf390e5482ff",
+               "port_range_max":null,
+               "port_range_min":null,
+               "protocol":null,
+               "remote_group_id":null,
+               "remote_ip_prefix":null,
+               "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+               "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+            },
+            {
+               "direction":"egress",
+               "ethertype":"IPv4",
+               "id":"93aa42e5-80db-4581-9391-3a608bd0e448",
+               "port_range_max":null,
+               "port_range_min":null,
+               "protocol":null,
+               "remote_group_id":null,
+               "remote_ip_prefix":null,
+               "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+               "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+            },
+            {
+               "direction":"ingress",
+               "ethertype":"IPv6",
+               "id":"c0b09f00-1d49-4e64-a0a7-8a186d928138",
+               "port_range_max":null,
+               "port_range_min":null,
+               "protocol":null,
+               "remote_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+               "remote_ip_prefix":null,
+               "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+               "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+            },
+            {
+               "direction":"ingress",
+               "ethertype":"IPv4",
+               "id":"f7d45c89-008e-4bab-88ad-d6811724c51c",
+               "port_range_max":null,
+               "port_range_min":null,
+               "protocol":null,
+               "remote_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+               "remote_ip_prefix":null,
+               "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+               "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+            }
+         ],
+         "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+      }
+   ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="description"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.description">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group
+                            description.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.id">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The UUID for the security
+                            group.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.name">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group
+                        name.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param name="direction"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.direction">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The direction, either <code>ingress</code> or <code>egress</code>.
+             For a Cloud Servers instance, an <code>ingress</code> security group rule is applied to incoming traffic for 
+             that instance. An <code>egress</code> rule is applied to traffic leaving the instance.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="ethertype"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.ethertype">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network ether type, either <code>IPv4</code> or <code>IPv6</code>.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the security group rule.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_max"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_max">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The maximum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_min"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_min">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The minimum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="protocol"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.protocol">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The protocol. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_group_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote group ID. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_ip_prefix"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_ip_prefix">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote IP prefix. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="security_group_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.security_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group ID for the security group with which the rule is associated.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </response>
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="POST" rax:id="createSecGroup">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create Security Group">
+               <para role="shortdesc">Creates a Cloud Networks security group.</para>
+               <para>This operation creates a security group with default security group rules for the <code>IPv4</code> and
+                    <code>IPv6</code> ether types.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">POST /v2.0/security-groups.json
+Accept: application/json
+{
+   "security_group":{
+      "name":"new-webservers",
+      "description":"security group for webservers"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="name"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.name">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A symbolic name for the security
+                            group. Not required to be unique.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="description"
+                         style="plain"
+                         type="xsd:string"
+                         required="false"
+                         path="$.description">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Describes the security
+                        group.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="201">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "security_group":{
+      "description":"security group for webservers",
+      "id":"2076db17-a522-4506-91de-c6dd8e837028",
+      "name":"new-webservers",
+      "security_group_rules":[
+         {
+            "direction":"egress",
+            "ethertype":"IPv4",
+            "id":"38ce2d8e-e8f1-48bd-83c2-d33cb9f50c3d",
+            "port_range_max":null,
+            "port_range_min":null,
+            "protocol":null,
+            "remote_group_id":null,
+            "remote_ip_prefix":null,
+            "security_group_id":"2076db17-a522-4506-91de-c6dd8e837028",
+            "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+         },
+         {
+            "direction":"egress",
+            "ethertype":"IPv6",
+            "id":"565b9502-12de-4ffd-91e9-68885cff6ae1",
+            "port_range_max":null,
+            "port_range_min":null,
+            "protocol":null,
+            "remote_group_id":null,
+            "remote_ip_prefix":null,
+            "security_group_id":"2076db17-a522-4506-91de-c6dd8e837028",
+            "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+         }
+      ],
+      "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="security_group"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.security_group">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group
+                        object.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="description"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.description">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group
+                            description.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.id">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The UUID for the security
+                            group.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.name">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group
+                        name.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param name="direction"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.direction">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The direction, either <code>ingress</code> or <code>egress</code>.
+             For a Cloud Servers instance, an <code>ingress</code> security group rule is applied to incoming traffic for 
+             that instance. An <code>egress</code> rule is applied to traffic leaving the instance.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="ethertype"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.ethertype">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network ether type, either <code>IPv4</code> or <code>IPv6</code>.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the security group rule.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_max"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_max">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The maximum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_min"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_min">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The minimum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="protocol"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.protocol">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The protocol. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_group_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote group ID. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_ip_prefix"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_ip_prefix">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote IP prefix. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="security_group_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.security_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group ID for the security group with which the rule is associated.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+         
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                
+                
+                <resource id="securityGroupID" path="v2.0/security-groups/{security_group_id}">
+         <param name="security_group_id" style="template" type="csapi:UUID">
+                        <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">The unique identifier of the security
+                            group.</wadl:doc>
+                    </param>
+         <method name="GET" rax:id="showSecGroup">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show Security Group">
+               <para role="shortdesc">Shows information for a specified security group.</para>
+               <para>This operation returns a response body that contains the description, name, ID, and security group rules
+                associated with the specified security group and tenant ID. You can control which parameters are returned by
+                using the <parameter>fields</parameter> query parameter, and you can specify how many results to return per
+                page. For information, see
+                <link xlink:href="http://docs.rackspace.com/networks/api/v2/cn-devguide/content/section_filtering.html">Filtering 
+                    Requests</link>
+                or
+                <link xlink:href="http://docs.rackspace.com/networks/api/v2/cn-devguide/content/section_pagination.html">Pagination 
+                    of Requests</link>
+                in the <citetitle>Cloud Networks API Developer Guide</citetitle>.</para>
+            </wadl:doc>
+            <!-- i commented out request because no body required -->
+            <!--<request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/security-groups-get-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>-->
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "security_group":{
+      "description":"default",
+      "id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+      "name":"default",
+      "security_group_rules":[
+         {
+            "direction":"egress",
+            "ethertype":"IPv6",
+            "id":"3c0e45ff-adaf-4124-b083-bf390e5482ff",
+            "port_range_max":null,
+            "port_range_min":null,
+            "protocol":null,
+            "remote_group_id":null,
+            "remote_ip_prefix":null,
+            "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+            "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+         },
+         {
+            "direction":"egress",
+            "ethertype":"IPv4",
+            "id":"93aa42e5-80db-4581-9391-3a608bd0e448",
+            "port_range_max":null,
+            "port_range_min":null,
+            "protocol":null,
+            "remote_group_id":null,
+            "remote_ip_prefix":null,
+            "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+            "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+         },
+         {
+            "direction":"ingress",
+            "ethertype":"IPv6",
+            "id":"c0b09f00-1d49-4e64-a0a7-8a186d928138",
+            "port_range_max":null,
+            "port_range_min":null,
+            "protocol":null,
+            "remote_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+            "remote_ip_prefix":null,
+            "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+            "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+         },
+         {
+            "direction":"ingress",
+            "ethertype":"IPv4",
+            "id":"f7d45c89-008e-4bab-88ad-d6811724c51c",
+            "port_range_max":null,
+            "port_range_min":null,
+            "protocol":null,
+            "remote_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+            "remote_ip_prefix":null,
+            "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+            "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+         }
+      ],
+      "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="security_group"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.security_group">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Security group
+                        object.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="description"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group
+                            description.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.id">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The UUID for the security
+                            group.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.name">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group
+                        name.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param name="direction"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.direction">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The direction, either <code>ingress</code> or <code>egress</code>.
+             For a Cloud Servers instance, an <code>ingress</code> security group rule is applied to incoming traffic for 
+             that instance. An <code>egress</code> rule is applied to traffic leaving the instance.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="ethertype"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.ethertype">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network ether type, either <code>IPv4</code> or <code>IPv6</code>.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the security group rule.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_max"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_max">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The maximum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_min"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_min">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The minimum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="protocol"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.protocol">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The protocol. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_group_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote group ID. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_ip_prefix"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_ip_prefix">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote IP prefix. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="security_group_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.security_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group ID for the security group with which the rule is associated.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </response>
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+        
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          </method>
+         <method name="DELETE" rax:id="deleteSecGroup">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete Security Group">
+               <para role="shortdesc">Deletes a Cloud Networks security group.</para>
+               <para>This operation deletes a Cloud Networks security group and its associated security group rules, if a port
+                is not associated with the security group. Otherwise, the delete operation fails.</para>
+            </wadl:doc>
+            <!--        <request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/security-groups-delete-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>-->
+            <response status="204">
+            <!--            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/security-groups-delete-resp.json"/>
+                </wadl:doc>
+            </representation>-->
+        </response>
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+        
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          </method>
+      </resource>
+                    
+                    
+                    
+                
+            <resource id="SecGroupsRules" path="v2.0/security-group-rules">
+         <method name="GET" rax:id="listSecGroupRules">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Security Group Rules">
+               <para role="shortdesc">Lists a summary of all Cloud Networks security group rules that the specified tenant can
+                access.</para>
+               <para>The operation lists security group rules for the tenant, including the unique ID for each rule.</para>
+            </wadl:doc>
+            <!--        <request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/rules-security-groups-list-get-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>-->
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "security_group_rules":[
+      {
+         "direction":"egress",
+         "ethertype":"IPv6",
+         "id":"3c0e45ff-adaf-4124-b083-bf390e5482ff",
+         "port_range_max":null,
+         "port_range_min":null,
+         "protocol":null,
+         "remote_group_id":null,
+         "remote_ip_prefix":null,
+         "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+         "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+      },
+      {
+         "direction":"egress",
+         "ethertype":"IPv4",
+         "id":"93aa42e5-80db-4581-9391-3a608bd0e448",
+         "port_range_max":null,
+         "port_range_min":null,
+         "protocol":null,
+         "remote_group_id":null,
+         "remote_ip_prefix":null,
+         "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+         "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+      },
+      {
+         "direction":"ingress",
+         "ethertype":"IPv6",
+         "id":"c0b09f00-1d49-4e64-a0a7-8a186d928138",
+         "port_range_max":null,
+         "port_range_min":null,
+         "protocol":null,
+         "remote_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+         "remote_ip_prefix":null,
+         "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+         "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+      },
+      {
+         "direction":"ingress",
+         "ethertype":"IPv4",
+         "id":"f7d45c89-008e-4bab-88ad-d6811724c51c",
+         "port_range_max":null,
+         "port_range_min":null,
+         "protocol":null,
+         "remote_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+         "remote_ip_prefix":null,
+         "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+         "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+      }
+   ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="direction"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.direction">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The direction, either <code>ingress</code> or <code>egress</code>.
+             For a Cloud Servers instance, an <code>ingress</code> security group rule is applied to incoming traffic for 
+             that instance. An <code>egress</code> rule is applied to traffic leaving the instance.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="ethertype"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.ethertype">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network ether type, either <code>IPv4</code> or <code>IPv6</code>.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the security group rule.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_max"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_max">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The maximum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_min"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_min">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The minimum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="protocol"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.protocol">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The protocol. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_group_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote group ID. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_ip_prefix"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_ip_prefix">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote IP prefix. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="security_group_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.security_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group ID for the security group with which the rule is associated.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </response>
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="POST" rax:id="createSecGroupRule">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create Security Group Rule">
+               <para role="shortdesc">Creates a Cloud Networks security group rule.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">POST /v2.0/security-groups.json
+Accept: application/json
+{
+   "security_group":{
+      "name":"new-webservers",
+      "description":"security group for webservers"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="name"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.name">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group
+                        name.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="description"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.description">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group
+                        description.</para>
+                     </wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="direction"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.direction">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">The direction in which the security group
+                        rule is applied (either <code>ingress</code> or <code>egress</code>). For a Cloud Servers instance,
+                        an ingress security group rule is applied to incoming (ingress) traffic for that instance. An egress
+                        rule is applied to traffic leaving the instance.</wadl:doc>
+                  </param>
+                  <param required="true"
+                         name="security_group_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.security_group_id">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">The security group ID to associate with
+                        this security group rule.</wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="port_range_min"
+                         style="plain"
+                         type="xsd:int"
+                         path="$.port_range_min">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">The minimum port number in the range that
+                        is matched by the security group rule. If the protocol is <literal>TCP</literal> or
+                            <literal>UDP</literal>, this value must be less than or equal to the value of the
+                            <parameter>port_range_max</parameter> parameter. If the protocol is <literal>ICMP</literal>, this
+                        value must be an <code>ICMP</code> type.</wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="port_range_max"
+                         style="plain"
+                         type="xsd:int"
+                         path="$.port_range_max">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">The maximum port number in the range that
+                        is matched by the security group rule. The <parameter>port_range_min</parameter> parameter constrains
+                        this parameter. If the protocol is <literal>ICMP</literal>, this value must be an <code>ICMP</code>
+                        type.</wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="protocol"
+                         style="plain"
+                         type="xsd:string"
+                         path="$.protocol">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">The protocol that is matched by the
+                        security group rule. Valid values are <code>null</code>, <code>tcp</code>, <code>udp</code>, and
+                            <code>icmp</code>.</wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="remote_group_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.remote_group_id">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">The remote group ID to be associated with
+                        this security group rule. You can specify either <parameter>remote_group_id</parameter> or
+                            <parameter>remote_ip_prefix</parameter> in the request body.</wadl:doc>
+                  </param>
+                  <param required="false"
+                         name="remote_ip_prefix"
+                         style="plain"
+                         type="csapi:uuid"
+                         path="$.remote_ip_prefix">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">The remote IP prefix to be associated with
+                        this security group rule. You can specify either <parameter>remote_group_id</parameter> or
+                            <parameter>remote_ip_prefix</parameter> in the request body. This parameter matches the specified
+                        IP prefix as the source IP address of the IP packet.</wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="201">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "security_group":{
+      "description":"security group for webservers",
+      "id":"2076db17-a522-4506-91de-c6dd8e837028",
+      "name":"new-webservers",
+      "security_group_rules":[
+         {
+            "direction":"egress",
+            "ethertype":"IPv4",
+            "id":"38ce2d8e-e8f1-48bd-83c2-d33cb9f50c3d",
+            "port_range_max":null,
+            "port_range_min":null,
+            "protocol":null,
+            "remote_group_id":null,
+            "remote_ip_prefix":null,
+            "security_group_id":"2076db17-a522-4506-91de-c6dd8e837028",
+            "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+         },
+         {
+            "direction":"egress",
+            "ethertype":"IPv6",
+            "id":"565b9502-12de-4ffd-91e9-68885cff6ae1",
+            "port_range_max":null,
+            "port_range_min":null,
+            "protocol":null,
+            "remote_group_id":null,
+            "remote_ip_prefix":null,
+            "security_group_id":"2076db17-a522-4506-91de-c6dd8e837028",
+            "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+         }
+      ],
+      "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="security_group"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.security_group">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Security group
+                        object.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="description"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.description">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group
+                            description.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.id">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The UUID for the security
+                            group.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.name">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group
+                        name.</para>
+                     </wadl:doc>
+                  </param> 
+                  <param name="direction"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.direction">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The direction, either <code>ingress</code> or <code>egress</code>.
+             For a Cloud Servers instance, an <code>ingress</code> security group rule is applied to incoming traffic for 
+             that instance. An <code>egress</code> rule is applied to traffic leaving the instance.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="ethertype"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.ethertype">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network ether type, either <code>IPv4</code> or <code>IPv6</code>.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the security group rule.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_max"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_max">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The maximum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_min"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_min">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The minimum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="protocol"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.protocol">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The protocol. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_group_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote group ID. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_ip_prefix"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_ip_prefix">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote IP prefix. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="security_group_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.security_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group ID for the security group with which the rule is associated.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+        
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+        
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+         
+            <response status="409">
+
+               <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+               <representation mediaType="application/json"/>
+            </response>
+             </method>
+      </resource>
+                
+                
+                <resource id="SecGroupRulesID"
+                path="v2.0/security-group-rules/{rules-security-groups-id}">
+         <param name="rules-security-groups-id" style="template" type="csapi:UUID">
+                        <wadl:doc xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN">The unique identifier of the security
+                            group rule.</wadl:doc>
+                    </param>
+         <method name="GET" rax:id="showSecGroupRule">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show Security Group Rule">
+               <para role="shortdesc">Shows detailed information for the specified security group rule.</para>
+               <para>This operation shows information about the security group rule.</para>
+            </wadl:doc>
+            <!--        <request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/rules-security-groups-get-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>-->
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "security_group_rule":{
+      "direction":"egress",
+      "ethertype":"IPv6",
+      "id":"3c0e45ff-adaf-4124-b083-bf390e5482ff",
+      "port_range_max":null,
+      "port_range_min":null,
+      "protocol":null,
+      "remote_group_id":null,
+      "remote_ip_prefix":null,
+      "security_group_id":"85cc3048-abc3-43cc-89b3-377341426ac5",
+      "tenant_id":"e4f50856753b4dc6afee5fa6b9b6c550"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="direction"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.direction">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The direction, either <code>ingress</code> or <code>egress</code>.
+             For a Cloud Servers instance, an <code>ingress</code> security group rule is applied to incoming traffic for 
+             that instance. An <code>egress</code> rule is applied to traffic leaving the instance.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="ethertype"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.ethertype">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The network ether type, either <code>IPv4</code> or <code>IPv6</code>.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the security group rule.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_max"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_max">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The maximum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="port_range_min"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.port_range_min">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The minimum port ranges. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="protocol"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.protocol">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The protocol. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_group_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote group ID. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="remote_ip_prefix"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.remote_ip_prefix">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The remote IP prefix. Set to null.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="security_group_id"
+                         style="plain"
+                         type="csapi:uuid"
+                         required="true"
+                         path="$.security_group_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The security group ID for the security group with which the rule is associated.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="tenant_id"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         path="$.tenant_id">
+                     <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The tenant ID.</para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </response>
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+        
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          </method>
+         <method name="DELETE" rax:id="deleteSecGroupRule">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete Security Group Rule">
+               <para role="shortdesc">Deletes the specified rule from a Cloud Networks security group.</para>
+            </wadl:doc>
+            <!--        <request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/rules-security-groups-delete-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>-->
+            <response status="204">
+            <!--            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/rules-security-groups-delete-resp.json"/>
+                </wadl:doc>
+            </representation>-->
+        </response>
+           <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+        
+            <response status="404">
+
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+               <representation mediaType="application/json"/>
+            </response>
+          </method>
+      </resource>
+                    
+                    
+                    
+                
+            
+    </resources>
+
+    <!-- List Security Groups -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://www.w3.org/2001/XMLSchema"
+           xmlns:secgr="http://docs.openstack.org/neutron/api/v2.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listSecGroups">
+        
+        <!-- I commented this example out because it is not a request body -->
+        <!--<request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook"><xsdxt:code
+                        href="../common/samples/security-groups-list-get-req.json"/></wadl:doc>
+            </representation>
+        </request>-->
+        <response status="200">
+
+            <representation mediaType="application/json" element="csapi:network">
+                
+                <param name="description"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.description">
+                    
+                </param>
+                <param name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.id">
+                    
+                </param>
+                <param name="name"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.name">
+                    
+                </param> 
+            <param name="direction"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.direction">
+          
+      </param>
+            <param name="ethertype"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.ethertype">
+          
+      </param>
+            <param name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.id">
+          
+      </param>
+            <param name="port_range_max"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_max">
+          
+      </param>
+            <param name="port_range_min"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_min">
+          
+      </param>
+            <param name="protocol"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.protocol">
+          
+      </param>
+            <param name="remote_group_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_group_id">
+          
+      </param>
+            <param name="remote_ip_prefix"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_ip_prefix">
+          
+      </param>
+            <param name="security_group_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.security_group_id">
+          
+      </param>
+            <param name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.tenant_id">
+          
+      </param> 
+         </representation>
+        </response>
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         </method>
+
+    <!-- Create Security Group -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://www.w3.org/2001/XMLSchema"
+           xmlns:secgr="http://docs.openstack.org/neutron/api/v2.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createSecGroup">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+                <param name="name"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.name">
+                    
+                </param>
+                <param name="description"
+                   style="plain"
+                   type="xsd:string"
+                   required="false"
+                   path="$.description">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="201">
+            <representation mediaType="application/json">
+                
+                <param name="security_group"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.security_group">
+                    
+                </param>
+                <param name="description"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.description">
+                    
+                </param>
+                <param name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.id">
+                    
+                </param>
+                <param name="name"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.name">
+                    
+                </param> 
+            <param name="direction"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.direction">
+          
+      </param>
+            <param name="ethertype"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.ethertype">
+          
+      </param>
+            <param name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.id">
+          
+      </param>
+            <param name="port_range_max"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_max">
+          
+      </param>
+            <param name="port_range_min"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_min">
+          
+      </param>
+            <param name="protocol"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.protocol">
+          
+      </param>
+            <param name="remote_group_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_group_id">
+          
+      </param>
+            <param name="remote_ip_prefix"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_ip_prefix">
+          
+      </param>
+            <param name="security_group_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.security_group_id">
+          
+      </param>
+            <param name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.tenant_id">
+          
+      </param> 
+         </representation>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+         
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         </method>
+
+    <!-- Show Security Group -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://www.w3.org/2001/XMLSchema"
+           xmlns:secgr="http://docs.openstack.org/neutron/api/v2.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showSecGroup">
+        
+        <!-- i commented out request because no body required -->
+        <!--<request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/security-groups-get-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>-->
+        <response status="200">
+            <representation mediaType="application/json">
+                
+                <param name="security_group"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.security_group">
+                    
+                </param>
+                <param name="description"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.id">
+                    
+                </param>
+                <param name="name"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.name">
+                    
+                </param> 
+            <param name="direction"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.direction">
+          
+      </param>
+            <param name="ethertype"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.ethertype">
+          
+      </param>
+            <param name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.id">
+          
+      </param>
+            <param name="port_range_max"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_max">
+          
+      </param>
+            <param name="port_range_min"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_min">
+          
+      </param>
+            <param name="protocol"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.protocol">
+          
+      </param>
+            <param name="remote_group_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_group_id">
+          
+      </param>
+            <param name="remote_ip_prefix"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_ip_prefix">
+          
+      </param>
+            <param name="security_group_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.security_group_id">
+          
+      </param>
+            <param name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.tenant_id">
+          
+      </param> 
+         </representation>
+        </response>
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          </method>
+
+    <!-- Delete Security Group -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://www.w3.org/2001/XMLSchema"
+           xmlns:secgr="http://docs.openstack.org/neutron/api/v2.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteSecGroup">
+        
+        <!--        <request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/security-groups-delete-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>-->
+        <response status="204">
+            <!--            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/security-groups-delete-resp.json"/>
+                </wadl:doc>
+            </representation>-->
+        </response>
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          </method>
+
+    <!-- List Security Groups by Servers -->
+    <!-- <method name="GET" id="listSecGroupsByServer">
+        <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook"
+            title="List security groups by server">
+            <para role="shortdesc">Lists a summary of all OpenStack Networking security groups for a specified server.</para>
+        </wadl:doc>
+        <request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN"
+                    xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/rules-security-groups-list-get-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>
+        <response status="200"> &securityGroupRule; <representation
+                mediaType="application/json">
+                <wadl:doc xml:lang="EN"
+                    xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/rules-security-groups-list-get-resp.json"/>
+                </wadl:doc>
+            </representation>
+        </response>
+        <response status="401"
+            xmlns="http://wadl.dev.java.net/2009/02">
+            <representation mediaType="application/xml" element="secgr:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+    </method> -->
+
+    <!-- List Security Group Rules -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://www.w3.org/2001/XMLSchema"
+           xmlns:secgr="http://docs.openstack.org/neutron/api/v2.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listSecGroupRules">
+        
+        <!--        <request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/rules-security-groups-list-get-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>-->
+        <response status="200">
+            <representation mediaType="application/json">
+                 
+            <param name="direction"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.direction">
+          
+      </param>
+            <param name="ethertype"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.ethertype">
+          
+      </param>
+            <param name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.id">
+          
+      </param>
+            <param name="port_range_max"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_max">
+          
+      </param>
+            <param name="port_range_min"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_min">
+          
+      </param>
+            <param name="protocol"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.protocol">
+          
+      </param>
+            <param name="remote_group_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_group_id">
+          
+      </param>
+            <param name="remote_ip_prefix"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_ip_prefix">
+          
+      </param>
+            <param name="security_group_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.security_group_id">
+          
+      </param>
+            <param name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.tenant_id">
+          
+      </param> 
+         </representation>
+        </response>
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+         </method>
+
+    <!-- Create Security Group Rule -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://www.w3.org/2001/XMLSchema"
+           xmlns:secgr="http://docs.openstack.org/neutron/api/v2.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createSecGroupRule">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+                <param name="name"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.name">
+                    
+                </param>
+                <param name="description"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.description">
+                    
+                </param>
+                <param required="true"
+                   name="direction"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.direction">
+                    
+                </param>
+                <param required="true"
+                   name="security_group_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.security_group_id">
+                    
+                </param>
+                <param required="false"
+                   name="port_range_min"
+                   style="plain"
+                   type="xsd:int"
+                   path="$.port_range_min">
+                    
+                </param>
+                <param required="false"
+                   name="port_range_max"
+                   style="plain"
+                   type="xsd:int"
+                   path="$.port_range_max">
+                    
+                </param>
+                <param required="false"
+                   name="protocol"
+                   style="plain"
+                   type="xsd:string"
+                   path="$.protocol">
+                    
+                </param>
+                <param required="false"
+                   name="remote_group_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.remote_group_id">
+                    
+                </param>
+                <param required="false"
+                   name="remote_ip_prefix"
+                   style="plain"
+                   type="csapi:uuid"
+                   path="$.remote_ip_prefix">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="201">
+            <representation mediaType="application/json">
+                
+                <param name="security_group"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.security_group">
+                    
+                </param>
+                <param name="description"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.description">
+                    
+                </param>
+                <param name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.id">
+                    
+                </param>
+                <param name="name"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.name">
+                    
+                </param> 
+            <param name="direction"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.direction">
+          
+      </param>
+            <param name="ethertype"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.ethertype">
+          
+      </param>
+            <param name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.id">
+          
+      </param>
+            <param name="port_range_max"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_max">
+          
+      </param>
+            <param name="port_range_min"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_min">
+          
+      </param>
+            <param name="protocol"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.protocol">
+          
+      </param>
+            <param name="remote_group_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_group_id">
+          
+      </param>
+            <param name="remote_ip_prefix"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_ip_prefix">
+          
+      </param>
+            <param name="security_group_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.security_group_id">
+          
+      </param>
+            <param name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.tenant_id">
+          
+      </param> 
+         </representation>
+        </response> 
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+         
+        <response status="409">
+
+            <representation mediaType="application/xml" element="csapi:buildInProgress"/>
+            <representation mediaType="application/json"/>
+        </response>
+             </method>
+
+    <!-- Show Security Group Rule -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://www.w3.org/2001/XMLSchema"
+           xmlns:secgr="http://docs.openstack.org/neutron/api/v2.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showSecGroupRule">
+        
+        <!--        <request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/rules-security-groups-get-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>-->
+        <response status="200">
+            <representation mediaType="application/json">
+                 
+            <param name="direction"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.direction">
+          
+      </param>
+            <param name="ethertype"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.ethertype">
+          
+      </param>
+            <param name="id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.id">
+          
+      </param>
+            <param name="port_range_max"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_max">
+          
+      </param>
+            <param name="port_range_min"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.port_range_min">
+          
+      </param>
+            <param name="protocol"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.protocol">
+          
+      </param>
+            <param name="remote_group_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_group_id">
+          
+      </param>
+            <param name="remote_ip_prefix"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.remote_ip_prefix">
+          
+      </param>
+            <param name="security_group_id"
+                   style="plain"
+                   type="csapi:uuid"
+                   required="true"
+                   path="$.security_group_id">
+          
+      </param>
+            <param name="tenant_id"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   path="$.tenant_id">
+          
+      </param> 
+         </representation>
+        </response>
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          </method>
+
+    <!-- Delete Security Group Rule -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://www.w3.org/2001/XMLSchema"
+           xmlns:secgr="http://docs.openstack.org/neutron/api/v2.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteSecGroupRule">
+        
+        <!--        <request>
+            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/rules-security-groups-delete-req.json"/>
+                </wadl:doc>
+            </representation>
+        </request>-->
+        <response status="204">
+            <!--            <representation mediaType="application/json">
+                <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:code href="../common/samples/rules-security-groups-delete-resp.json"/>
+                </wadl:doc>
+            </representation>-->
+        </response>
+           <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response> 
+        
+        <response status="404">
+
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+
+            <representation mediaType="application/json"/>
+        </response>
+          </method>
+</wadl:application>

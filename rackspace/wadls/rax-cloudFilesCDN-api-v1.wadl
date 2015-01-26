@@ -1,0 +1,1289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:db="http://docbook.org/ns/docbook"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:files="http://docs.openstack.org/api/openstack-object-storage/1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://storage101.ord1.clouddrive.com/">
+        <resource id="account" path="v1/{account}">
+         <param name="account" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Your unique account identifier.</para>
+                    </wadl:doc>
+                </param>
+         <method name="GET" rax:id="listCDNcontainers">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List CDN-enabled containers">
+               <para role="shortdesc">Lists CDN-enabled containers
+                sorted by name.</para>
+               <para>
+                  <command>GET</command> operations against the
+                    <code>cloudFilesCDN</code> endpoints for an
+                account retrieve a list of CDN-enabled containers. No
+                private containers appear in the list. (For the CDN
+                endpoints, see <link xlink:href="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Service-Access-Endpoints-d1e003.html">"Service access endpoints"</link>.)</para>
+               <!--            <remark>03/2014 cyr removed based on disqus comment </remark>
+                <para>Passing the query parameter
+                <code>?enabled_only=true</code> suppresses any
+                private (non-CDN-enabled) containers from appearing in
+                the list. Thus, Cloud Files provides filtering support
+                to return only the list of containers that are
+                CDN-enabled.</para>
+-->
+               <para>This operation does not require a request body. A
+                list of CDN-enabled containers is returned in the
+                response body, one container name per line.</para>
+               <para>An HTTP response status code of 200 through 299
+                indicates success. A 200 (OK) code is returned if
+                there are containers, and a 204 (No Content) code is
+                returned if there are no containers.</para>
+               <para>To view the CDN container details, see <xref linkend="HEAD_retrieveCDNcontainermeta_v1__account___container__CDN_Container_Services-d1e2632"/>.</para>
+            </wadl:doc>
+            <request>
+            <!--           <param xmlns="http://wadl.dev.java.net/2009/02"
+                name="enabled_only" style="query" required="false"
+                type="xsd:int">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"><para>Set to <code>true</code> to return only
+                    CDN-enabled containers.</para></wadl:doc>
+            </param> -->
+               <param name="limit" style="query" required="false" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>For an integer value n, limits
+                        the number of results to n
+                    values.</para>
+                  </wadl:doc>
+               </param>
+               <param name="marker" style="query" required="false" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Given a string value x,
+                        returns container names greater in value than
+                        the specified marker. Only strings using UTF-8
+                        encoding are valid. Using <code>marker</code>
+                        provides a mechanism for iterating through the
+                        entire list of containers.</para>
+                  </wadl:doc>
+               </param>
+               <param name="end_marker"
+                      style="query"
+                      required="false"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Given a string value x,
+                        returns container names lesser in value than
+                        the specified end marker. Only strings using
+                        UTF-8 encoding are valid.</para>
+                  </wadl:doc>
+               </param>
+               <param name="format" style="query" required="false" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Value of the serialized
+                        response format, either JSON or
+                    XML.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="text/xml" element="files:Files">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="List CDN-enabled containers: HTTP request">
+                    <xsdxt:code>
+                        <programlisting language="xml">GET /v1/MossoCloudFS_0672d7fa-9f85-4a81-a3ab-adb66a880123 HTTP/1.1
+Host: cdn.clouddrive.com
+X-Auth-Token: f064c46a782c444cb4ba4b6434288f7c</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="OK">The request succeeded. The
+                information returned with the response is dependent on
+                the method used in the request. </wadl:doc>
+               <representation mediaType="text/xml" element="files:Files">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="List CDN-enabled containers: HTTP response">
+                    <xsdxt:code>
+                        <programlisting language="xml">HTTP/1.1 200 OK
+Date: Thu, 08 Sep 2011 14:35:45 GMT
+Transfer-Encoding: chunked
+Content-Type: text/plain
+                   
+images
+movies</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <response status="204">
+               <wadl:doc xmlns="http://docbook.org/ns/docbook" title="No Content" xml:lang="EN">The request
+                succeeded. The server fulfilled the request but does
+                not need to return a body.</wadl:doc>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <doc title="Not Found">The requested resource was not found.</doc>
+               <representation mediaType="application/xml" element="files:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+  
+            </method>
+      </resource>
+                
+                
+                <resource id="container" path="v1/{account}/{container}">
+         <param name="account" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Your unique account identifier.</para>
+                    </wadl:doc>
+                </param>
+         <param name="container" style="template" type="xsd:string">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                            <para> The unique identifier of the
+                                container.</para>
+                        </wadl:doc>
+                    </param>
+         <method name="PUT" rax:id="enableDisableCDNcontainer">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="CDN-enable and CDN-disable a container">
+               <para role="shortdesc">Enables or disables a container for
+                use with the CDN.</para>
+               <para>Before a container can be CDN-enabled, it must exist
+                in the storage system. To CDN-enable the container,
+                perform a <command>PUT</command> request against it
+                using the <code>publicURL</code> noted in the service
+                catalog for Cloud Files during authentication, and set
+                the <code>X-CDN-Enabled</code> header to
+                    <code>True</code>.</para>
+               <para>
+                  <xref linkend="Retrieving_Auth_Token"/> provides an
+                example of the information in the service catalog for
+                    <code>cloudfilesCDN</code>.</para>
+               <para>When a container is CDN-enabled, any objects stored
+                in it are publicly accessible over the CDN by
+                combining the container's CDN URI with the object name
+                        (<code>X-Cdn-Uri/<replaceable>objectName</replaceable>
+                  </code>).</para>
+               <note>
+                  <para>The examples in this guide use
+                        <code>cdn.clouddrive.com</code> as the
+                    endpoint for operations against the CDN management
+                    service, but you should use whatever endpoints
+                    your authentication request provides. For more
+                    information about service access endpoints, see <link xlink:href="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Service-Access-Endpoints-d1e003.html">"Service access endpoints"</link>.</para>
+               </note>
+               <para>Any CDN-accessed objects are cached in the CDN for a
+                specified amount of time, called the Time To Live
+                (TTL). Each time the object is accessed after the TTL
+                expires, the CDN refetches and caches the object for
+                the next TTL period.</para>
+               <para>You can specify the TTL for an object by including
+                the <code>X-Ttl: integerSeconds</code> header. Setting
+                the TTL is the same as setting the
+                    <code>Expires</code> and
+                    <code>Cache-Control</code> headers for the cached
+                object. The minimum TTL is 15 minutes (900 seconds),
+                the maximum TTL is 1 year (31536000 seconds), and the
+                default TTL is 72 hours (259200 seconds). However,
+                setting a TTL for a long time does not guarantee that
+                the content stays populated on CDN edge servers for
+                the entire period. The most popular objects stay
+                cached based on the edge location's logic.</para>
+               <!-- <remark> 4/24/2014 cyr: When David Goetz reviewed the new GSG, he requested use of 1 year maximum through API docs, which I did.</remark> 
+               <note>
+               <title>Note</title>
+                <para> On August 13, 2012, the maximum TTL was revised to
+                    31536000 (one year). If you set new TTL values to a
+                    longer time frame, your object still expires at the
+                    one-year mark. However, if you already had a greater TTL
+                    value set on an object, it will expire at the time you
+                    originally set.</para>
+            </note> -->
+               <para>A status code of 201 (Created) indicates that the
+                container was CDN-enabled as requested. If the
+                container is already CDN-enabled, a 202 (Accepted)
+                status code is returned, and the TTL is adjusted. A
+                status code of 204 (No Content) indicates that the
+                container was CDN-enabled as requested but has no
+                content.</para>
+               <para>This operation does not require a request body and
+                does not return a response body.</para>
+               <para>To remove the container from the CDN, change the
+                    <code>X-Cdn-Enabled</code> header to
+                    <code>False</code>. However, note that objects
+                remain on the CDN edge server and are served to the
+                public until their TTL expires.</para>
+               <note>
+                  <para>The CDN URI is unique per container. After the
+                    container is CDN-enabled, you can make a
+                        <command>HEAD</command> request to the Cloud
+                    Files CDN endpoint with the container name to
+                    return the CDN URI in the <code>X-Cdn-Uri</code>
+                    header. You can use a cURL request similar to the
+                    following example:</para>
+                  <programlisting>curl -I -H 'x-auth-token: yourAuthToken' cloudFilesCDN:yourPublicURL/yourContainerName</programlisting>
+               </note>
+            </wadl:doc>
+            <request>
+               <param name="X-Ttl" style="header" required="false" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Specifies the Time To Live
+                        (TTL) in seconds for an object to be cached in
+                        the CDN. The default value is 259200 seconds,
+                        or 72 hours. The minimum TTL is 15 minutes (or
+                        900 seconds), and the maximum is 1 year
+                        (31536000 seconds).</para>
+                  </wadl:doc>
+               </param>
+               <param name="X-Cdn-Enabled"
+                      style="header"
+                      required="false"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Indicates if a container is
+                        CDN-enabled. Valid values are True and
+                        False.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="text/xml" element="files:Files">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="CDN-enable container: HTTP request">
+                    <xsdxt:code>
+                        <programlisting language="xml">PUT /v1/MossoCloudFS_0672d7fa-9f85-4a81-a3ab-adb66a880123/MyContainer HTTP/
+1.1
+Host: cdn.clouddrive.com
+X-Auth-Token: f064c46a782c444cb4ba4b6434288f7c 
+X-Ttl: 259200
+X-Cdn-Enabled: True</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="text/xml" element="files:Files">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="CDN-disable container: HTTP request">
+                    <xsdxt:code>
+                        <programlisting language="xml">POST /v1/MossoCloudFS_0672d7fa-9f85-4a81-a3ab-adb66a880123/MyContainer HTTP/1.1
+Host: cdn.clouddrive.com
+X-Auth-Token: f064c46a782c444cb4ba4b6434288f7c 
+X-CDN-Enabled: False</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="OK">The request has succeeded.
+                The information returned with the response is
+                dependent on the method used in the
+                request.</wadl:doc>
+               <param name="Content-Length"
+                      style="header"
+                      required="true"
+                      type="xsd:string">
+                  <doc>
+                     <p xmlns="http://www.w3.org/1999/xhtml">If the operation succeeds, this value is zero (0).
+                    If the operation fails, this value is the length of the
+                    error text in the response body.
+                </p>
+                  </doc>
+               </param> 
+               <param name="Content-Type"
+                      style="header"
+                      required="true"
+                      type="xsd:string">
+                  <doc>
+                     <p xmlns="http://www.w3.org/1999/xhtml">The MIME type of the list of names. If the operation fails, this value is the MIME type of the error text in the response body.
+                </p>
+                  </doc>
+               </param>
+               <param name="Date" style="header" required="true" type="xsd:datetime">
+                  <doc>
+                     <p xmlns="http://www.w3.org/1999/xhtml">The transaction date and time.
+                </p>
+                  </doc>
+               </param> 
+               <param name="X-Cdn-Ios-Uri"
+                      style="header"
+                      required="true"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The URI for video streaming
+                        that uses HTTP Live Streaming from Apple.</para>
+                  </wadl:doc>
+               </param>
+            
+               <param name="X-Cdn-Ssl-Uri"
+                      style="header"
+                      required="true"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The URI for downloading the
+                        object over HTTPS, using SSL. (The user cannot
+                        have custom SSL certificates because the
+                        Rackspace CDN partner does not provide that
+                        feature.)</para>
+                  </wadl:doc>
+               </param> 
+               <!--            <param xmlns="http://wadl.dev.java.net/2009/02"
+                name="X-Ttl" style="header" required="true"
+                type="xsd:int">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN"><para>Specifies the TTL value in
+                        seconds. The default value is 259200 seconds,
+                        or 72 hours. The minimum TTL is 15 minutes (or
+                        900 seconds), and the maximum is 1 year
+                        (31536000 seconds).</para></wadl:doc>
+            </param>
+           <param xmlns="http://wadl.dev.java.net/2009/02"
+                name="X-Cdn-Enabled" style="header" required="true"
+                type="xsd:boolean">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN"><para>
+                        <code>True</code> or <code>False</code> to
+                        indicate whether the container is currently
+                        marked to allow public serving of objects
+                        through the CDN.</para></wadl:doc>
+            </param>
+            <param xmlns="http://wadl.dev.java.net/2009/02"
+                name="X-Log-Retention" style="header" required="true"
+                type="xsd:boolean">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN"><para>True or False to indicate
+                        whether the CDN access logs should be
+                        collected and stored in the Cloud Files
+                        storage system.</para></wadl:doc>
+            </param> 
+ -->
+               <param name="X-Cdn-Streaming-Uri"
+                      style="header"
+                      required="true"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The URI for video streaming
+                        that uses HTTP Dynamic Streaming from Adobe.</para>
+                  </wadl:doc>
+               </param>
+               <param name="X-Cdn-Uri"
+                      style="header"
+                      required="true"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Indicates the URI that you can
+                        combine with object names to serve objects
+                        through the CDN.</para>
+                  </wadl:doc>
+               </param>
+               <param name="X-Trans-Id"
+                      style="header"
+                      required="true"
+                      type="csapi:uuid">
+                  <doc>
+                     <p xmlns="http://www.w3.org/1999/xhtml">A unique transaction identifier for this request.
+                </p>
+                  </doc>
+               </param>
+               <representation mediaType="text/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="CDN-enable container: HTTP response">
+                    <xsdxt:code>
+                        <programlisting language="xml">HTTP/1.1 204 No Content
+Content-Length: 0
+Content-Type →text/html; charset=UTF-8
+Date →Wed, 17 Dec 2014 19:58:49 GMT
+X-Cdn-Ios-Uri →http://acc3b9ba6a79805f5577-e7e60117100ffd73b45850c0b1fd96c1.iosr.cf5.rackcdn.com
+X-Cdn-Ssl-Uri: https://83c49b9a2f7ad18250b3-346eb45fd42c58ca13011d659bfc1ac1. ssl.cf0.rackcdn.com
+X-Cdn-Streaming-Uri: http://084cc2790632ccee0a12-346eb45fd42c58ca13011d659bfc1ac1. r49.stream.cf0.rackcdn.com
+X-Cdn-Uri: http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.r49.cf0.rackcdn.com
+X-Trans-Id: tx82a6752e00424edb9c46fa2573132e2c</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <response status="202">
+               <wadl:doc xmlns="http://docbook.org/ns/docbook" title="Accepted" xml:lang="EN">The request has been
+                accepted for processing.</wadl:doc>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="204">
+               <wadl:doc xmlns="http://docbook.org/ns/docbook" title="No Content" xml:lang="EN">The request
+                succeeded. The server fulfilled the request but does
+                not need to return a body.</wadl:doc>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <doc title="Not Found">The requested resource was not found.</doc>
+               <representation mediaType="application/xml" element="files:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+  
+            </method>
+         <method name="HEAD" rax:id="retrieveCDNcontainermeta">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List metadata for CDN-enabled container">
+               <para role="shortdesc">Gets a CDN-enabled container's
+                metadata.</para>
+               <para>You can view CDN-enabled container details by
+                performing a <command>HEAD</command> operation on a
+                container where the <code>Host</code> header value is
+                one of the <code>cdnCloudFiles</code> service access
+                endpoints. (For the CDN
+                endpoints, see <link xlink:href="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Service-Access-Endpoints-d1e003.html">"Service access endpoints"</link>.)</para>
+               <para>If the container is (or ever has been) CDN-enabled,
+                the metadata is returned in headers in the response
+                for plain text, or in the response body for XML or
+                JSON, if you request either as your output format.</para>
+               <note>
+                  <para>Remember that your <command>HEAD</command>
+                    operation must be on the CDN host (for example,
+                        <code>cdn.clouddrive.com</code>). Otherwise,
+                    you will see the metadata for your private
+                    container as described in <xref linkend="HEAD_retrieveaccountmeta_v1__account__accountServicesOperations_d1e000"/>.</para>
+               </note>
+               <para>A 204 (No Content) HTTP status code is returned if
+                the account has no containers. Otherwise, the status
+                code of 200 (OK) is returned. Status code 404 (Not
+                Found) is returned if the requested container was not
+                found.</para>
+            </wadl:doc>
+            <request>
+               <param name="format" style="query" required="false" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The optional format for the
+                        returned information, either XML or JSON.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="text/xml" element="files:Files">
+
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="List metadata for CDN-enabled container: HTTP request">
+                    <xsdxt:code>
+                        <programlisting language="xml">HEAD /v1/MossoCloudFS_0672d7fa-9f85-4a81-a3ab-adb66a880123/MyContainer HTTP/1.1
+Host: cdn.clouddrive.com
+X-Auth-Token: f064c46a782c444cb4ba4b6434288f7c
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json" element="files:Files">
+
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">HEAD /v1/MossoCloudFS_0672d7fa-9f85-4a81-a3ab-adb66a880123/MyContainer?format=json
+Host: cdn.clouddrive.com
+X-Auth-Token: f064c46a782c444cb4ba4b6434288f7c</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml" element="files:Files">
+
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">HEAD /v1/MossoCloudFS_0672d7fa-9f85-4a81-a3ab-adb66a880123/MyContainer?format=xml
+Host: cdn.clouddrive.com
+X-Auth-Token: f064c46a782c444cb4ba4b6434288f7c</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="OK">The request has succeeded.
+                The information returned with the response is
+                dependent on the method used in the
+                request.</wadl:doc>
+               <param name="X-Cdn-Uri"
+                      style="header"
+                      required="true"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The URI for downloading the
+                        object over HTTP. This URI can be combined
+                        with any object name within the container to
+                        form the publicly accessible URI for that
+                        object for distribution over a CDN system.</para>
+                  </wadl:doc>
+               </param>
+               <param name="X-Ttl" style="header" required="true" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The TTL value in seconds. The
+                        default value is 259200 seconds, or 72 hours.
+                        The minimum TTL is 15 minutes (or 900
+                        seconds), and the maximum is 1 year (31536000
+                        seconds).</para>
+                  </wadl:doc>
+               </param>
+               <param name="X-Cdn-Enabled"
+                      style="header"
+                      required="true"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para> True or False to indicate
+                        whether the container is currently marked to
+                        allow public serving of objects through the
+                        CDN.</para>
+                  </wadl:doc>
+               </param>
+               <param name="X-Log-Retention"
+                      style="header"
+                      required="true"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>True or False to indicate
+                        whether the CDN access logs should be
+                        collected and stored in the Cloud Files
+                        storage system.</para>
+                  </wadl:doc>
+               </param>
+               <param name="X-Cdn-Ssl-Uri"
+                      style="header"
+                      required="true"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The URI for downloading the
+                        object over HTTPS, using SSL. (The user cannot
+                        have custom SSL certificates because the
+                        Rackspace CDN partner does not provide that
+                        feature.</para>
+                  </wadl:doc>
+               </param>
+               <param name="X-Cdn-Streaming-Uri"
+                      style="header"
+                      required="true"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The URI for video streaming
+                        that uses HTTP Dynamic Streaming from Adobe.</para>
+                  </wadl:doc>
+               </param>
+               <param name="X-Cdn-Ios-Uri"
+                      style="header"
+                      required="true"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The URI for video streaming
+                        that uses HTTP Live Streaming from Apple.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="text/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Get CDN-enabled container metadata: HTTP request">
+                    <xsdxt:code>
+                        <programlisting language="xml">HTTP/1.1 204 No Content
+X-Cdn-Ssl-Uri: https://
+ 83c49b9a2f7ad18250b3-346eb45fd42c58ca13011d659bfc1ac1.
+ ssl.cf0.rackcdn.com
+X-Ttl: 259200
+X-Cdn-Uri: http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.
+ r49.cf0.rackcdn.com
+X-Cdn-Enabled: True
+X-Log-Retention: False
+X-Cdn-Streaming-Uri: http://084cc2790632ccee0a12-346eb45fd42c58ca13011d
+ 659bfc1ac1.r49.stream.cf0.rackcdn.com
+X-Trans-Id: tx82a6752e00424edb9c46fa2573132e2c
+Content-Length: 0</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">HTTP/1.1 200 OK
+Date: Tue, 30 Oct 2012 14:41:29 GMT
+Content-Length: 127
+Content-Type: application/json; charset=utf-8
+[
+ {"name":"test_container",
+ "cdn_enabled":"true",
+ "ttl":28800,
+ "log_retention":"true",
+ "cdn_uri":"http://80745c48926cd286a5a0-48261ebe0e4c795a565ece6b9cca2fe8.
+ r10.cf1.rackcdn.com",
+ "cdn_ssl_uri":"https://
+ 83c49b9a2f7ad18250b3-346eb45fd42c58ca13011d659bfc1ac1.ssl.stg2.rackcdn.com",
+ "cdn_streaming_uri":"http://
+ 80745c48926cd286a5a0-48261ebe0e4c795a565ece6b9cca2fe8.r10.cf1.rackcdn.com"}
+]</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">HTTP/1.1 200 OK
+Date: Tue, 30 Oct 2012 17:57:28 GMT
+Content-Length: 267
+Content-Type: application/xml; charset=utf-8
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;account name="WidgetsRUs.button"&gt;
+  &lt;container&gt;
+    &lt;name&gt;images&lt;/name&gt;
+    &lt;cdn_enabled&gt;True&lt;/cdn_enabled&gt;
+    &lt;ttl&gt;86400&lt;/ttl&gt;
+    &lt;log_retention&gt;True&lt;/log_retention&gt;
+      &lt;cdn_url&gt;
+        http://80745c48926cd286a5a0-48261ebe0e4c795a565ece6b9cca2fe8.r10.
+cf1.rackcdn.com
+      &lt;/cdn_url&gt;
+      &lt;cdn_ssl_url&gt;
+        https://83c49b9a2f7ad18250b3-346eb45fd42c58ca13011d659bfc1ac1.ssl.
+stg2.rackcdn.com
+      &lt;/cdn_ssl_url&gt;
+      &lt;cdn_streaming_url&gt;
+        http://084cc2790632ccee0a12-346eb45fd42c58ca13011d659bfc1ac1. r49.
+stream.cf0.rackcdn.com
+      &lt;/cdn_streaming_url&gt;
+  &lt;/container&gt;
+&lt;/account&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <response status="204">
+               <wadl:doc xmlns="http://docbook.org/ns/docbook" title="No Content" xml:lang="EN">The request
+                succeeded. The server fulfilled the request but does
+                not need to return a body.</wadl:doc>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <doc title="Not Found">The requested resource was not found.</doc>
+               <representation mediaType="application/xml" element="files:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+  
+            </method>
+         <method name="POST" rax:id="updateCDNcontainermeta">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update CDN-enabled container metadata">
+               <para role="shortdesc">Updates the CDN-enabled container's
+                metadata.</para>
+               <para>A <command>POST</command> operation against a
+                CDN-enabled container adjusts the following metadata:</para>
+               <para>
+                  <itemizedlist spacing="compact">
+                    <listitem>
+                        <para>
+                           <code>X-Log-Retention</code>
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                           <code>X-Cdn-Enabled</code>
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                           <code>X-Ttl</code>
+                        </para>
+                    </listitem>
+                  </itemizedlist>
+               </para>
+               <para>A status code of 204 (No Content) indicates success.
+                Status code 404 (Not Found) is returned if the
+                requested container is not found.</para>
+               <para>This operation does not require a request body and
+                does not return a response body.</para>
+            </wadl:doc>
+            <request>
+               <param name="X-Log-Retention"
+                      style="header"
+                      required="false"
+                      type="xsd:Boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>
+                        <code>True</code> or
+                            <code>False</code> to indicate whether the
+                        CDN access logs should be collected and stored
+                        in the Cloud Files storage system.</para>
+                  </wadl:doc>
+               </param>
+               <param name="X-Cdn-Enabled"
+                      style="header"
+                      required="false"
+                      type="xsd:Boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>
+                        <code>True</code> or
+                            <code>False</code> to enable or disable
+                        public sharing over the CDN. If you have
+                        content currently cached in the CDN, setting
+                        your container back to private does not purge
+                        the CDN cache. You have to wait for the TTL to
+                        expire or purge the objects.</para>
+                  </wadl:doc>
+               </param>
+               <param name="X-Ttl" style="header" required="false" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The TTL value in seconds. The
+                        default value is 259200 seconds, or 72 hours.
+                        The minimum TTL is 15 minutes (or 900
+                        seconds), and the maximum is 1 year (31536000
+                        seconds).</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="text/xml" element="files:Files">                   
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Update CDN-enabled container metadata: HTTP request">
+                    <xsdxt:code>
+                        <programlisting language="xml">POST /v1/MossoCloudFS_0672d7fa-9f85-4a81-a3ab-adb66a880123/MyContainer HTTP/1.1
+Host: cdn.clouddrive.com
+X-Auth-Token: f064c46a782c444cb4ba4b6434288f7c
+X-Ttl: 86400
+X-Cdn-Enabled: True
+X-Log-Retention: True</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation> 
+            </request>
+
+            <response status="204">
+               <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="No Content">The server fulfilled
+                the request but does not need to return a
+                body.</wadl:doc>
+               <representation mediaType="text/xml" element="files:Files">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Update CDN-enabled container metadata: HTTP response">
+                    <xsdxt:code>
+                        <programlisting language="xml">HTTP/1.1 204 No Content
+X-Cdn-Ssl-Uri: https://83c49b9a2f7ad18250b3-346eb45fd42c58ca13011d659bfc1ac1.ssl.cf0.rackcdn.com
+X-Ttl: 259200
+X-Cdn-Uri: http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.r49.cf0.rackcdn.com
+X-Cdn-Enabled: True
+X-Log-Retention: False
+X-Cdn-Streaming-Uri: http://084cc2790632ccee0a12-346eb45fd42c58ca13011d659bfc1ac1.r49.stream.cf0.rackcdn.com
+X-Trans-Id: tx82a6752e00424edb9c46fa2573132e2c
+Content-Length: 0</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="404">
+               <doc title="Not Found">The requested resource was not found.</doc>
+               <representation mediaType="application/xml" element="files:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+  
+            </method>
+      </resource>
+                    
+                    
+                    
+                    
+                
+                <resource id="object" path="v1/{account}/{object}">
+         <param name="account" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Your unique account identifier.</para>
+                    </wadl:doc>
+                </param>
+         <param name="object" style="template" type="xsd:string">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                            <para>The unique identifier of the
+                                object.</para>
+                        </wadl:doc>
+                    </param>
+         <method name="DELETE" rax:id="deleteCDNobject">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete CDN-enabled object">
+               <para role="shortdesc">Deletes CDN-enabled objects.</para>
+               <para>When you find it necessary to remove a CDN-enabled
+                object from public access before the TTL expires, you
+                can perform a <command>DELETE</command> operation
+                against the object, or you can create a support ticket
+                to purge the entire container.</para>
+               <note>
+                  <para>You should limit object purges to situations
+                    in which serious personal, business, or security
+                    consequences could occur if the object remained
+                    publicly accessible on the CDN (for example, when
+                    someone publishes your company's quarterly
+                    earnings too early).</para>
+               </note>
+               <para> You can purge objects from the CDN in the following
+                ways: <itemizedlist>
+                    <listitem>
+                        <para>By using <command>DELETE</command> in
+                            the API</para>
+                        <para>You can manually purge CDN-enabled
+                            objects without having to wait for the TTL
+                            to expire, and you can optionally be
+                            notified by email that the object has been
+                            purged.</para>
+                        <para>You can use the
+                                <command>DELETE</command> operation
+                            against a maximum of 25 objects per day
+                            using the API.</para>
+                        <para>An attempt to delete more objects
+                            results in a 400 (Bad Request) status code
+                            with the following message:
+                                <code>X-Purge-Failed-Reason: You have
+                                the maximum number of daily object
+                                purges</code>.</para>
+                        <para>If a purge request is already in
+                            progress for an object, a 400 (Bad
+                            Request) status code is returned with the
+                            following message:
+                                <code>X-Purge-Failed-Reason: That
+                                object is already in the queue to be
+                                purged</code>.</para>
+                    </listitem>
+                    <listitem>
+                        <para>By creating a support ticket to purge an
+                            entire container</para>
+                        <para>The 25-object limit does not apply when
+                            purging an entire container through
+                            Support.</para>
+                    </listitem>
+                  </itemizedlist>
+               </para>
+               <note>
+                  <para>To prevent the container from going back to the
+                    CDN, first change the <code>X-CDN-Enabled</code>
+                    flag to <code>False</code> as shown in <xref linkend="PUT_enableDisableCDNcontainer_v1__account___container__CDN_Container_Services-d1e2632"/>.</para>
+               </note>
+               <para>The system purges the object from the CDN and sends
+                an email to the indicated address or addresses. If you
+                want to notify more than one person about the
+                deletion, you can enter a comma-separated list of
+                addresses. The email address is optional.</para>
+               <para>A status code of 204 (No Content) indicates success.
+                Status code 404 (Not Found) indicates that the
+                requested CDN-enabled object was not found. Status
+                code 403 (Forbidden) indicates that an authorization
+                problem occurred.</para>
+               <para>The CDN URI is returned in the header
+                    <code>X-Cdn-Uri</code> header.</para>
+               <para>Because there are so many edge servers around the
+                world, purging objects might take a long time. Be
+                patient while waiting for a response.</para>
+               <para>This operation does not require a request body and
+                does not return a response body.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="text/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Delete CDN-enabled object: HTTP request">
+                    <xsdxt:code>
+                        <programlisting language="xml">DELETE /v1/MossoCloudFS_0672d7fa-9f85-4a81-a3ab-adb66a880123/MyContainer/MyObject HTTP/1.1
+Host: cdn.clouddrive.com
+X-Auth-Token: f064c46a782c444cb4ba4b6434288f7c
+X-Purge-Email: user@domain.com, user2@domain.com</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="204">
+               <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="No Content">The server fulfilled
+                the request but does not need to return a
+                body.</wadl:doc>
+               <representation mediaType="text/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Delete CDN-enabled object: HTTP response">
+                    <xsdxt:code>
+                        <programlisting language="xml">HTTP/1.1 204 No Content
+Date: Thu, 13 Jan 2010 18:57:07 GMT
+X-Cdn-Uri: http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.r49.cf0.rackcdn.com
+Content-Length: 0
+Content-Type: text/plain; charset=UTF-8</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="404">
+               <doc title="Not Found">The requested resource was not found.</doc>
+               <representation mediaType="application/xml" element="files:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+        
+            <response status="403">
+               <doc title="Forbidden">The server refused to respond to request.</doc>
+               <representation mediaType="application/xml" element="files:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+                    
+                    
+                
+            
+    </resources>
+
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+
+    <!-- CDN Account Services Methods -->
+
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:files="http://docs.openstack.org/api/openstack-object-storage/1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listCDNcontainers">
+        
+        <request>
+            <!--           <param xmlns="http://wadl.dev.java.net/2009/02"
+                name="enabled_only" style="query" required="false"
+                type="xsd:int">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN"><para>Set to <code>true</code> to return only
+                    CDN-enabled containers.</para></wadl:doc>
+            </param> -->
+            <param name="limit" style="query" required="false" type="xsd:int">
+                
+            </param>
+            <param name="marker" style="query" required="false" type="xsd:string">
+                
+            </param>
+            <param name="end_marker"
+                style="query"
+                required="false"
+                type="xsd:string">
+                
+            </param>
+            <param name="format" style="query" required="false" type="xsd:string">
+                
+            </param>
+            <representation mediaType="text/xml" element="files:Files">
+                
+            </representation>
+        </request>
+        <response status="200">
+            
+            <representation mediaType="text/xml" element="files:Files">
+                
+            </representation>
+        </response>
+        <response status="204">
+            
+            <representation mediaType="application/json"/>
+        </response> 
+        <response status="404">
+            
+            <representation mediaType="application/xml" element="files:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+  
+            </method>
+
+    <!--  CDN Container Services Methods  -->
+
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:files="http://docs.openstack.org/api/openstack-object-storage/1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="enableDisableCDNcontainer">
+        
+        <request>
+            <param name="X-Ttl" style="header" required="false" type="xsd:int">
+                
+            </param>
+            <param name="X-Cdn-Enabled"
+                style="header"
+                required="false"
+                type="xsd:string">
+                
+            </param>
+            <representation mediaType="text/xml" element="files:Files">
+                
+            </representation>
+            <representation mediaType="text/xml" element="files:Files">
+                
+            </representation>
+        </request>
+        <response status="200">
+            
+            <param name="Content-Length"
+                style="header"
+                required="true"
+                type="xsd:string">
+                
+            </param> 
+            <param name="Content-Type"
+                style="header"
+                required="true"
+                type="xsd:string">
+                
+            </param>
+            <param name="Date" style="header" required="true" type="xsd:datetime">
+                
+            </param> 
+            <param name="X-Cdn-Ios-Uri"
+                style="header"
+                required="true"
+                type="xsd:string">
+                
+            </param>
+            
+            <param name="X-Cdn-Ssl-Uri"
+                style="header"
+                required="true"
+                type="xsd:string">
+                
+            </param> 
+         <!--            <param xmlns="http://wadl.dev.java.net/2009/02"
+                name="X-Ttl" style="header" required="true"
+                type="xsd:int">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN"><para>Specifies the TTL value in
+                        seconds. The default value is 259200 seconds,
+                        or 72 hours. The minimum TTL is 15 minutes (or
+                        900 seconds), and the maximum is 1 year
+                        (31536000 seconds).</para></wadl:doc>
+            </param>
+           <param xmlns="http://wadl.dev.java.net/2009/02"
+                name="X-Cdn-Enabled" style="header" required="true"
+                type="xsd:boolean">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN"><para>
+                        <code>True</code> or <code>False</code> to
+                        indicate whether the container is currently
+                        marked to allow public serving of objects
+                        through the CDN.</para></wadl:doc>
+            </param>
+            <param xmlns="http://wadl.dev.java.net/2009/02"
+                name="X-Log-Retention" style="header" required="true"
+                type="xsd:boolean">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN"><para>True or False to indicate
+                        whether the CDN access logs should be
+                        collected and stored in the Cloud Files
+                        storage system.</para></wadl:doc>
+            </param> 
+ -->
+            <param name="X-Cdn-Streaming-Uri"
+                style="header"
+                required="true"
+                type="xsd:string">
+                
+            </param>
+            <param name="X-Cdn-Uri"
+                style="header"
+                required="true"
+                type="xsd:string">
+                
+            </param>
+            <param name="X-Trans-Id"
+                style="header"
+                required="true"
+                type="csapi:uuid">
+                
+            </param>
+            <representation mediaType="text/xml">
+                
+            </representation>
+        </response>
+        <response status="202">
+            
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="204">
+            
+            <representation mediaType="application/json"/>
+        </response> 
+        <response status="404">
+            
+            <representation mediaType="application/xml" element="files:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+  
+            </method>
+
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:files="http://docs.openstack.org/api/openstack-object-storage/1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="updateCDNcontainermeta">
+        
+        <request>
+            <param name="X-Log-Retention"
+                style="header"
+                required="false"
+                type="xsd:Boolean">
+                
+            </param>
+            <param name="X-Cdn-Enabled"
+                style="header"
+                required="false"
+                type="xsd:Boolean">
+                
+            </param>
+            <param name="X-Ttl" style="header" required="false" type="xsd:int">
+                
+            </param>
+           <representation mediaType="text/xml" element="files:Files">                   
+                
+           </representation> 
+        </request>
+
+        <response status="204">
+            
+            <representation mediaType="text/xml" element="files:Files">
+                
+            </representation>
+        </response> 
+        <response status="404">
+            
+            <representation mediaType="application/xml" element="files:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+  
+            </method>
+
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:files="http://docs.openstack.org/api/openstack-object-storage/1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="HEAD"
+           id="retrieveCDNcontainermeta">
+        
+        <request>
+            <param name="format" style="query" required="false" type="xsd:string">
+                
+            </param>
+            <representation mediaType="text/xml" element="files:Files">
+
+                
+            </representation>
+            <representation mediaType="application/json" element="files:Files">
+
+                
+            </representation>
+            <representation mediaType="application/xml" element="files:Files">
+
+                
+            </representation>
+        </request>
+        <response status="200">
+            
+            <param name="X-Cdn-Uri"
+                style="header"
+                required="true"
+                type="xsd:string">
+                
+            </param>
+            <param name="X-Ttl" style="header" required="true" type="xsd:int">
+                
+            </param>
+            <param name="X-Cdn-Enabled"
+                style="header"
+                required="true"
+                type="xsd:boolean">
+                
+            </param>
+            <param name="X-Log-Retention"
+                style="header"
+                required="true"
+                type="xsd:boolean">
+                
+            </param>
+            <param name="X-Cdn-Ssl-Uri"
+                style="header"
+                required="true"
+                type="xsd:string">
+                
+            </param>
+            <param name="X-Cdn-Streaming-Uri"
+                style="header"
+                required="true"
+                type="xsd:string">
+                
+            </param>
+            <param name="X-Cdn-Ios-Uri"
+                style="header"
+                required="true"
+                type="xsd:string">
+                
+            </param>
+            <representation mediaType="text/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+        <response status="204">
+            
+            <representation mediaType="application/json"/>
+        </response> 
+        <response status="404">
+            
+            <representation mediaType="application/xml" element="files:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+  
+            </method>
+
+    <!--       CDN Object Services    -->
+
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:files="http://docs.openstack.org/api/openstack-object-storage/1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteCDNobject">
+        
+        <request>
+            <representation mediaType="text/xml">
+                
+            </representation>
+        </request>
+        <response status="204">
+            
+            <representation mediaType="text/xml">
+                
+            </representation>
+        </response> 
+        <response status="404">
+            
+            <representation mediaType="application/xml" element="files:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        
+      <response status="403">
+            
+            <representation mediaType="application/xml" element="files:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+</wadl:application>

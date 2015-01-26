@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://volume.example.com/"
+              xml:id="os-limits-cinder-v2">
+        <resource id="limits-for-cinder-v2" path="v2/{tenant_id}/limits">
+         <param name="tenant_id"
+                style="template"
+                type="xsd:string"
+                required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+                        <para>The ID for the tenant or project in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="showAbsoluteLimits">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show absolute limits">
+               <para role="shortdesc">Shows absolute limits for a
+                tenant.</para>
+            </wadl:doc>
+            <response status="200 203"> 
+               <param name="limits" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>limits</code> object.</para>
+                  </wadl:doc>
+                </param>
+                <param name="absolute" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>An <code>absolute</code> limits object.</para>
+                  </wadl:doc>
+                </param>
+                <param name="totalSnapshotsUsed"
+                      style="plain"
+                      required="true"
+                      type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Total number of snapshots used.</para>
+                  </wadl:doc>
+                </param>
+                <param name="maxTotalVolumeGigabytes"
+                      style="plain"
+                      required="true"
+                      type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Maximum total amount of volumes (GB).</para>
+                  </wadl:doc>
+                </param>
+                <param name="totalGigabytesUsed "
+                      style="plain"
+                      required="true"
+                      type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Total number of GBs used.</para>
+                  </wadl:doc>
+                </param>
+                <param name="maxTotalSnapshots"
+                      style="plain"
+                      required="true"
+                      type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Maximum number of snapshots.</para>
+                  </wadl:doc>
+                </param>
+                <param name="totalVolumesUsed"
+                      style="plain"
+                      required="true"
+                      type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Total number of volumes used.</para>
+                  </wadl:doc>
+                </param>
+                <param name="maxTotalVolumes"
+                      style="plain"
+                      required="true"
+                      type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Maximum number of volumes.</para>
+                  </wadl:doc>
+                </param>
+                <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Show absolute limits: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "limits": {
+        "rate": [],
+        "absolute": {
+            "totalSnapshotsUsed": 0,
+            "maxTotalVolumeGigabytes": 1000,
+            "totalGigabytesUsed": 0,
+            "maxTotalSnapshots": 10,
+            "totalVolumesUsed": 0,
+            "maxTotalVolumes": 10
+        }
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Show absolute limits: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;limits xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns="http://docs.openstack.org/common/api/v1.0"&gt;
+    &lt;rates/&gt;
+    &lt;absolute&gt;
+        &lt;limit name="totalSnapshotsUsed" value="0"/&gt;
+        &lt;limit name="maxTotalVolumeGigabytes" value="1000"/&gt;
+        &lt;limit name="totalGigabytesUsed" value="0"/&gt;
+        &lt;limit name="maxTotalSnapshots" value="10"/&gt;
+        &lt;limit name="totalVolumesUsed" value="0"/&gt;
+        &lt;limit name="maxTotalVolumes" value="10"/&gt;
+    &lt;/absolute&gt;
+&lt;/limits&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showAbsoluteLimits">
+        
+        <response status="200 203"> 
+         <param name="limits" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="absolute" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="totalSnapshotsUsed"
+                style="plain"
+                required="true"
+                type="xsd:int">
+                    
+                </param>
+                <param name="maxTotalVolumeGigabytes"
+                style="plain"
+                required="true"
+                type="xsd:int">
+                    
+                </param>
+                <param name="totalGigabytesUsed "
+                style="plain"
+                required="true"
+                type="xsd:int">
+                    
+                </param>
+                <param name="maxTotalSnapshots"
+                style="plain"
+                required="true"
+                type="xsd:int">
+                    
+                </param>
+                <param name="totalVolumesUsed"
+                style="plain"
+                required="true"
+                type="xsd:int">
+                    
+                </param>
+                <param name="maxTotalVolumes"
+                style="plain"
+                required="true"
+                type="xsd:int">
+                    
+                </param>
+                <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

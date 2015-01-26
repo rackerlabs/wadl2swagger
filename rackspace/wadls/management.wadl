@@ -1,0 +1,4401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <wadl:grammars xmlns:db="http://docbook.org/ns/docbook"
+                  xmlns="http://wadl.dev.java.net/2009/02">
+      <wadl:include href="17977-management-xsd-1.xsd"/>
+      <wadl:include href="17977-management-xsd-2.xsd"/>
+   </wadl:grammars>
+  <resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://localhost:8775">
+      <resource id="hosts" path="mgmt/hosts">
+         <method name="GET" rax:id="gethosts">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List All Compute Hosts">
+               <para role="shortdesc">
+        Lists all of the compute hosts.
+      </para>
+               <remark>Reviewer: in the DNS project, we have been requested by the customer to provide a table of parameters (should be pulled automatically if parms defined in wadl) and a table of attributes (for calls that allow detailed info about the object created to be specified. No doubt our DB customers will want this too.</remark>
+               <remark>Reviewer: These tables probably need 4 columns: name; parameter type: e.g. template, query, etc.; data type: string, etc.; required?; description.</remark>
+               <para>This operation returns a list of all the hosts from the database that are running the binary 'nova-compute'.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List All Compute Hosts request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/hosts HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:Hosts">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List All Compute Hosts response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 101
+Date: Thu, 13 Feb 2014 21:47:18 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "hosts": [
+        {
+            "instanceCount": 0, 
+            "name": "hostname_2"
+        }, 
+        {
+            "instanceCount": 2, 
+            "name": "hostname_1"
+        }
+    ]
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+          
+          <resource id="hostid" path="mgmt/hosts/{hostId}">
+         <param name="hostId" style="template" type="xsd:string">
+                <doc>The host ID for the specified host.</doc>
+         </param>
+         <method name="GET" rax:id="gethostbyid">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List All Instances for a Host">
+               <para role="shortdesc">
+        Lists all of the instances for the specified host.
+      </para>
+               <remark>Reviewer: in the DNS project, we have been requested by the customer to provide a table of parameters (should be pulled automatically if parms defined in wadl) and a table of attributes (for calls that allow detailed info about the object created to be specified. No doubt our DB customers will want this too.</remark>
+               <remark>Reviewer: These tables probably need 4 columns: name; parameter type: e.g. template, query, etc.; data type: string, etc.; required?; description.</remark>
+               <para>This operation returns the following information:</para>
+               <itemizedlist spacing="compact">
+                  <listitem>
+                     <para>host name</para>
+                  </listitem>
+                  <listitem>
+                     <para>percent of RAM used</para>
+                  </listitem>
+                  <listitem>
+                     <para>total RAM on host</para>
+                  </listitem>
+                  <listitem>
+                     <para>used RAM on host</para>
+                  </listitem>
+                  <listitem>
+                     <para>a list of the compute instances running on the given host</para>
+                  </listitem>
+               </itemizedlist>
+               <para>If the host name does not exist, a 404 not found error is returned.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List All Instances for a Host request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/hosts/hostname_1 HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:Host">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List All Instances for a Host response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 501
+Date: Thu, 13 Feb 2014 21:47:18 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "host": {
+        "instances": [
+            {
+                "id": "dcf2c32b-241d-4c39-af70-1001dfe946d6", 
+                "name": "dcf2c32b-241d-4c39-af70-1001dfe946d6-lay", 
+                "server_id": "dc0f43fd-f76f-4e4b-b676-4bf82539ecb9", 
+                "status": "ACTIVE", 
+                "tenant_id": "3000"
+            }, 
+            {
+                "id": "d4603f69-ec7e-4e9b-803f-600b9205576f", 
+                "name": "d4603f69-ec7e-4e9b-803f-600b9205576f-lay", 
+                "server_id": "0a0bb560-362f-407a-90b6-3437f8b6e34f", 
+                "status": "ACTIVE", 
+                "tenant_id": "3000"
+            }
+        ], 
+        "name": "hostname_1", 
+        "percentUsed": 204, 
+        "totalRAM": 2004, 
+        "usedRAM": 4096
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+              
+              
+            <resource id="instanceAction-hostId" path="mgmt/hosts/{hostId}/instances/action">
+         <param name="hostId" style="template" type="xsd:string">
+                <doc>The host ID for the specified host.</doc>
+         </param>
+         <method name="POST" rax:id="updateHostInstances">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update All Instances on Host">
+               <para role="shortdesc">Updates all instances on a specified host.</para>
+               <para>This operation will call on all guest agents in a specified host to install new versions of itself.</para>
+               <para>This operation returns a 202 Accepted response.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="dbaas:Update">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Update all Instances on Host request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">POST /v1.0/1234/mgmt/hosts/hostname/instances/action HTTP/1.1
+User-Agent: python-example-client
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 73d60021-96e1-4d06-843d-72d20fa5377b
+Accept: application/json
+Content-Type: application/json
+
+{
+    "update": {}
+}
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Update all Instances on Host response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 202 Accepted
+Content-Type: text/plain; charset=UTF-8
+Content-Length: 58
+Date: Tue, 07 Feb 2012 23:56:52 GMT
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="415">
+               <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+                
+              
+              
+          <resource id="usage" path="mgmt/usage">
+         <method name="GET" rax:id="getusageall">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List All Usage Records">
+               <para role="shortdesc">
+        Lists all of the usage records.
+      </para>
+               <para>This operation returns a list of all the usage records.</para>
+          
+               <note security="writeronly">
+                  <para>This operation returns a list of all the usage records for the datacenter whose endpoint is specified in the call. For example, using the endpoint for ORD 
+        in the call (https://ord.databases.api.rackspacecloud.com/v1.0/1234/mgmt/usage) returns all usage records for the Chicago (ORD) datacenter.</para>
+               </note>
+      
+            </wadl:doc>
+            <request>
+               <param name="limit" style="query" type="xsd:integer">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                     <para>This query parameter specifies the maximum number of usage records that can be returned. 
+            Its value must be set to a positive integer. By default the maximum number of records returned 
+            is 100. This default is configurable by the NebOps team.
+          </para>
+                  </wadl:doc>
+               </param>
+               <param name="marker" style="query" type="xsd:dateTime">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                     <para>This query parameter specifies the date and time from which to begin returning records. 
+            Its value must be set to a urlencoded datetime string, for example 2013-01-01. By default 
+            the oldest record (up to 90 days ago) up to the latest record are returned.
+          </para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List All Usage Records request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/usage HTTP/1.1
+User-Agent: python-reddwarfclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:Usage">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List All Usage Records response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 533
+Date: Mon, 07 Jan 2013 21:50:53 GMT
+
+{
+   "usage": [
+      {
+         "dataCenter": "DEV1",
+         "dbaas:product": {
+            "memory": 512,
+            "resourceType": "MYSQL",
+            "serviceCode": "CloudDatabase",
+            "storage": 1,
+            "version": "1"
+         },
+         "endTime": "2013-01-07 16:00:00",
+         "environment": "LOCAL",
+         "id": "0f781f37-ef6d-4978-8dbc-f26d29a255a6",
+         "region": "LOCAL_DEV",
+         "resourceId": "ac019a26-acb5-4591-b337-9bbfa8e85727",
+         "resourceName": "test_instance",
+         "rootAction": "reddwarf.instance.exists",
+         "startTime": "2013-01-06 15:59:00",
+         "tenantId": "d91c1201-6136-4b1e-aa16-45380d8733b8",
+         "type": "USAGE",
+         "version": "1"
+      }
+   ]
+}
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+        
+        <resource id="instanceid" path="mgmt/usage/instance/{instanceId}">
+         <param name="instanceId" style="template" type="xsd:string">
+               <doc>The instance ID for the specified instance.</doc>
+         </param>
+         <method name="GET" rax:id="getusagebyinstance">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Instance Usage Records">
+               <para role="shortdesc">
+        Lists the usage records for the specified instance.
+      </para>
+               <para>This operation returns a list of the usage records for an instance.</para>
+            </wadl:doc>
+            <request>
+               <param name="limit" style="query" type="xsd:integer">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                     <para>This query parameter specifies the maximum number of usage records that can be returned. 
+            Its value must be set to a positive integer. By default the maximum number of records returned 
+            is 100. This default is configurable by the NebOps team.
+          </para>
+                  </wadl:doc>
+               </param>
+               <param name="marker" style="query" type="xsd:dateTime">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                     <para>This query parameter specifies the date and time from which to begin returning records. 
+            Its value must be set to a urlencoded datetime string, for example 2013-01-01. By default 
+            the oldest record (up to 90 days ago) up to the latest record are returned.
+          </para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the the List Instance Usage Records request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/usage/instance/1234 HTTP/1.1
+User-Agent: python-reddwarfclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:Usage">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List Instance Usage Records response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 533
+Date: Mon, 07 Jan 2013 21:50:53 GMT
+
+{
+   "usage": [
+      {
+         "dataCenter": "DEV1",
+         "dbaas:product": {
+            "memory": 512,
+            "resourceType": "MYSQL",
+            "serviceCode": "CloudDatabase",
+            "storage": 1,
+            "version": "1"
+         },
+         "endTime": "2013-01-07 16:00:00",
+         "environment": "LOCAL",
+         "id": "0f781f37-ef6d-4978-8dbc-f26d29a255a6",
+         "region": "LOCAL_DEV",
+         "resourceId": "ac019a26-acb5-4591-b337-9bbfa8e85727",
+         "resourceName": "test_instance",
+         "rootAction": "reddwarf.instance.exists",
+         "startTime": "2013-01-06 15:59:00",
+         "tenantId": "d91c1201-6136-4b1e-aa16-45380d8733b8",
+         "type": "USAGE",
+         "version": "1"
+      }
+   ]
+}
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+             
+             
+           
+        <resource id="tenantid" path="mgmt/usage/tenant/{tenantId}">
+         <param name="tenantId" style="template" type="xsd:string">
+              <doc>The tenant ID for the specified account.</doc>
+         </param>
+         <method name="GET" rax:id="getusagebytenant">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Account Usage Records">
+               <para role="shortdesc">
+        Lists the usage records for the specified account.
+      </para>
+               <para>This operation returns a list of the usage records for the specified account.</para>
+            </wadl:doc>
+            <request>
+               <param name="limit" style="query" type="xsd:integer">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                     <para>This query parameter specifies the maximum number of usage records that can be returned. 
+            Its value must be set to a positive integer. By default the maximum number of records returned 
+            is 100. This default is configurable by the NebOps team.
+          </para>
+                  </wadl:doc>
+               </param>
+               <param name="marker" style="query" type="xsd:dateTime">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                     <para>This query parameter specifies the date and time from which to begin returning records. 
+            Its value must be set to a urlencoded datetime string, for example 2013-01-01. By default 
+            the oldest record (up to 90 days ago) up to the latest record are returned.
+          </para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List Account Usage Records request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/usage/tenant/1234 HTTP/1.1
+User-Agent: python-reddwarfclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:Usage">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List Account Usage Records response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 533
+Date: Mon, 07 Jan 2013 21:50:53 GMT
+
+{
+   "usage": [
+      {
+         "dataCenter": "DEV1",
+         "dbaas:product": {
+            "memory": 512,
+            "resourceType": "MYSQL",
+            "serviceCode": "CloudDatabase",
+            "storage": 1,
+            "version": "1"
+         },
+         "endTime": "2013-01-07 16:00:00",
+         "environment": "LOCAL",
+         "id": "0f781f37-ef6d-4978-8dbc-f26d29a255a6",
+         "region": "LOCAL_DEV",
+         "resourceId": "ac019a26-acb5-4591-b337-9bbfa8e85727",
+         "resourceName": "test_instance",
+         "rootAction": "reddwarf.instance.exists",
+         "startTime": "2013-01-06 15:59:00",
+         "tenantId": "d91c1201-6136-4b1e-aa16-45380d8733b8",
+         "type": "USAGE",
+         "version": "1"
+      }
+   ]
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+            
+             
+                        
+      <resource id="instances" path="mgmt/instances">
+         <method name="GET" rax:id="getIndex">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Management Index of Instances">
+               <para role="shortdesc">
+        Lists all of the database instances, optionally filtered by deleted status.
+      </para>
+            </wadl:doc>
+            <request>
+               <param name="deleted" style="query" type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                     <para>This query parameter specifies whether or not to list deleted instances. 
+              If <code>true</code>, deleted instances are listed. If <code>false</code>, deleted instances are not listed.
+            </para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List All Instances request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/instances?deleted=false HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:ManagementIndexInstances">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List All Instances response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 2160
+Date: Thu, 13 Feb 2014 21:47:19 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "instances": [
+        {
+            "created": "2014-02-13T21:47:13", 
+            "datastore": {
+                "type": "mysql", 
+                "version": "5.6"
+            }, 
+            "deleted": false, 
+            "deleted_at": null, 
+            "flavor": {
+                "id": "3", 
+                "links": [
+                    {
+                        "href": "https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/3", 
+                        "rel": "self"
+                    }, 
+                    {
+                        "href": "https://ord.databases.api.rackspacecloud.com/flavors/3", 
+                        "rel": "bookmark"
+                    }
+                ]
+            }, 
+            "hostname": "e09ad9a3f73309469cf1f43d11e79549caf9acf2.rackspaceclouddb.com", 
+            "id": "d4603f69-ec7e-4e9b-803f-600b9205576f", 
+            "links": [
+                {
+                    "href": "https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances/d4603f69-ec7e-4e9b-803f-600b9205576f", 
+                    "rel": "self"
+                }, 
+                {
+                    "href": "https://ord.databases.api.rackspacecloud.com/instances/d4603f69-ec7e-4e9b-803f-600b9205576f", 
+                    "rel": "bookmark"
+                }
+            ], 
+            "name": "json_rack_instance", 
+            "server": {
+                "deleted": false, 
+                "deleted_at": null, 
+                "host": "hostname_1", 
+                "id": "0a0bb560-362f-407a-90b6-3437f8b6e34f", 
+                "local_id": 0, 
+                "name": "d4603f69-ec7e-4e9b-803f-600b9205576f-lay", 
+                "status": "ACTIVE", 
+                "tenant_id": "3000"
+            }, 
+            "service_status": "ACTIVE", 
+            "status": "ACTIVE", 
+            "task_description": "No tasks for the instance.", 
+            "tenant_id": "3000", 
+            "updated": "2014-02-13T21:47:18", 
+            "volume": {
+                "size": 4
+            }
+        }, 
+        {
+            "created": "2014-02-13T21:47:13", 
+            "datastore": {
+                "type": "mysql", 
+                "version": "5.6"
+            }, 
+            "deleted": false, 
+            "deleted_at": null, 
+            "flavor": {
+                "id": "3", 
+                "links": [
+                    {
+                        "href": "https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/3", 
+                        "rel": "self"
+                    }, 
+                    {
+                        "href": "https://ord.databases.api.rackspacecloud.com/flavors/3", 
+                        "rel": "bookmark"
+                    }
+                ]
+            }, 
+            "hostname": "e09ad9a3f73309469cf1f43d11e79549caf9acf2.rackspaceclouddb.com", 
+            "id": "dcf2c32b-241d-4c39-af70-1001dfe946d6", 
+            "links": [
+                {
+                    "href": "https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances/dcf2c32b-241d-4c39-af70-1001dfe946d6", 
+                    "rel": "self"
+                }, 
+                {
+                    "href": "https://ord.databases.api.rackspacecloud.com/instances/dcf2c32b-241d-4c39-af70-1001dfe946d6", 
+                    "rel": "bookmark"
+                }
+            ], 
+            "name": "xml_rack_instance", 
+            "server": {
+                "deleted": false, 
+                "deleted_at": null, 
+                "host": "hostname_1", 
+                "id": "dc0f43fd-f76f-4e4b-b676-4bf82539ecb9", 
+                "local_id": 0, 
+                "name": "dcf2c32b-241d-4c39-af70-1001dfe946d6-lay", 
+                "status": "ACTIVE", 
+                "tenant_id": "3000"
+            }, 
+            "service_status": "ACTIVE", 
+            "status": "ACTIVE", 
+            "task_description": "No tasks for the instance.", 
+            "tenant_id": "3000", 
+            "updated": "2014-02-13T21:47:18", 
+            "volume": {
+                "size": 4
+            }
+        }
+    ]
+}
+</programlisting>
+                     </xsdxt:code>
+                     <para xmlns="http://docbook.org/ns/docbook">By default, all instances (both deleted and not deleted) are displayed. 
+            Use the <code>deleted</code> query parameter to list only the deleted or not deleted instances.</para>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+        
+        <resource id="instanceId" path="mgmt/instances/{instanceId}">
+         <param name="instanceId" style="template" type="xsd:string"> 
+            <doc>The instance ID for the specified database instance.</doc>
+         </param>
+         <method name="GET" rax:id="showinstances">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Database Instance Status and Details">
+               <para role="shortdesc">
+        Returns detailed information for the specified Database Instance.
+      </para>
+               <remark>Reviewer: in the DNS project, we have been requested by the customer to provide a table of parameters (should be pulled automatically if parms defined in wadl) and a table of attributes (for calls that allow detailed info about the object created to be specified. No doubt our DB customers will want this too.</remark>
+               <remark>Reviewer: These tables probably need 4 columns: name; parameter type: e.g. template, query, etc.; data type: string, etc.; required?; description.</remark>
+               <para>This operation returns detailed information about the status and details for the specified database instance.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List Database Instance Status and Details request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/instances/d4603f69-ec7e-4e9b-803f-600b9205576f HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="ManagementInstances">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List Database Instance Status and Details response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 1539
+Date: Thu, 13 Feb 2014 21:47:19 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "instance": {
+        "created": "2014-02-13T21:47:13", 
+        "datastore": {
+            "type": "mysql", 
+            "version": "5.6"
+        }, 
+        "deleted": false, 
+        "deleted_at": null, 
+        "flavor": {
+            "id": "3", 
+            "links": [
+                {
+                    "href": "https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/3", 
+                    "rel": "self"
+                }, 
+                {
+                    "href": "https://ord.databases.api.rackspacecloud.com/flavors/3", 
+                    "rel": "bookmark"
+                }
+            ]
+        }, 
+        "guest_status": {
+            "state_description": "running"
+        }, 
+        "hostname": "e09ad9a3f73309469cf1f43d11e79549caf9acf2.rackspaceclouddb.com", 
+        "id": "d4603f69-ec7e-4e9b-803f-600b9205576f", 
+        "links": [
+            {
+                "href": "https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances/d4603f69-ec7e-4e9b-803f-600b9205576f", 
+                "rel": "self"
+            }, 
+            {
+                "href": "https://ord.databases.api.rackspacecloud.com/instances/d4603f69-ec7e-4e9b-803f-600b9205576f", 
+                "rel": "bookmark"
+            }
+        ], 
+        "name": "json_rack_instance", 
+        "root_enabled": "2014-02-13T21:47:14", 
+        "root_enabled_by": "3000", 
+        "server": {
+            "addresses": {
+                "private": [
+                    {
+                        "addr": "123.123.123.123"
+                    }
+                ]
+            }, 
+            "deleted": false, 
+            "deleted_at": null, 
+            "host": "hostname_1", 
+            "id": "0a0bb560-362f-407a-90b6-3437f8b6e34f", 
+            "local_id": 0, 
+            "name": "d4603f69-ec7e-4e9b-803f-600b9205576f-lay", 
+            "status": "ACTIVE", 
+            "tenant_id": "3000"
+        }, 
+        "service_status": "ACTIVE", 
+        "status": "ACTIVE", 
+        "task_description": "No tasks for the instance.", 
+        "tenant_id": "3000", 
+        "updated": "2014-02-13T21:47:18", 
+        "volume": {
+            "attachments": [
+                {
+                    "device": "vdb", 
+                    "server_id": "0a0bb560-362f-407a-90b6-3437f8b6e34f"
+                }
+            ], 
+            "availability_zone": "fake-availability-zone", 
+            "created_at": "2001-01-01-12:30:30", 
+            "id": "VOL_221ca9a9-5620-4664-9446-0fe21b2a3c63", 
+            "size": 4, 
+            "status": "in-use", 
+            "total": 4.0, 
+            "used": 0.16
+        }
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+          
+          
+          <resource id="rootdetails" path="mgmt/instances/{instanceId}/root">
+         <param name="instanceId" style="template" type="xsd:string"> 
+            <doc>The instance ID for the specified database instance.</doc>
+         </param>
+         <method name="GET" rax:id="getrootdetails">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get Root Details">
+               <para role="shortdesc">
+        Gets the root flag details for the specified instance.
+      </para>
+               <remark>Reviewer: Need the description for the summary table above and the detailed description for the next paragraph.</remark>
+               <para>This operation shows the root flag details for the specified instance.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Get Root Details request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/instances/d4603f69-ec7e-4e9b-803f-600b9205576f/root HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:RootDetails">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Get Root Details response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 114
+Date: Thu, 13 Feb 2014 21:47:19 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "root_history": {
+        "enabled": "2014-02-13T21:47:14", 
+        "id": "d4603f69-ec7e-4e9b-803f-600b9205576f", 
+        "user": "3000"
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+      
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+      
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+              
+          
+          <resource id="diagnostics" path="mgmt/instances/{instanceId}/diagnostics">
+         <param name="instanceId" style="template" type="xsd:string"> 
+            <doc>The instance ID for the specified database instance.</doc>
+         </param>
+         <method name="GET" rax:id="getdiagnosticdetails">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get Diagnostics Info">
+               <para role="shortdesc">
+              Gets the instance agent and other instance diagnostics info.
+          </para>
+               <para>This operation provides the following info for the guest agent managing the specified instance.</para>
+               <table rules="all">
+                  <caption>Return Attributes for Get Diagnostics Info</caption>
+                  <thead>
+                     <tr>
+                        <td colspan="1">Name</td>
+                        <td colspan="3">Description</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td colspan="1">version</td>
+                        <td colspan="3">The version of the guest installed on the instance.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">fdSize</td>
+                        <td colspan="3">Number of file descriptor slots currently allocated.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">vmSize</td>
+                        <td colspan="3">Virtual memory size.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">vmPeak</td>
+                        <td colspan="3">Peak virtual memory size.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">vmRss</td>
+                        <td colspan="3">Resident set size.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">vmHwm</td>
+                        <td colspan="3">Peak resident set size ("high water mark").</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">threads</td>
+                        <td colspan="3">Number of threads in process containing this thread.</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Get Diagnostics Info request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/instances/d4603f69-ec7e-4e9b-803f-600b9205576f/diagnostics HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:DiagnosticsDetails">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Get Diagnostics Info response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 125
+Date: Thu, 13 Feb 2014 21:47:19 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "diagnostics": {
+        "fdSize": 64, 
+        "threads": 2, 
+        "version": "1", 
+        "vmHwm": 2872, 
+        "vmPeak": 29160, 
+        "vmRss": 2872, 
+        "vmSize": 29096
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+      
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+      
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+              
+          
+          <resource id="instanceAction" path="mgmt/instances/{instanceId}/action">
+         <param name="instanceId" style="template" type="xsd:string"> 
+            <doc>The instance ID for the specified database instance.</doc>
+         </param>
+         <method name="POST" rax:id="rebootInstance">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Reboot the Instance">
+               <para role="shortdesc">Performs a reboot of the instance.</para>
+               <para>This operation will reboot the underlying OS along with the mysql instance.</para>
+               <para>This operation returns a 202 Accepted response.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="dbaas:Reboot">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Reboot Instance request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">POST /v1.0/1234/mgmt/instances/d4603f69-ec7e-4e9b-803f-600b9205576f/action HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+{
+    "reboot": {}
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Reboot Instance response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 202 Accepted
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 0
+Date: Thu, 13 Feb 2014 21:47:19 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="415">
+               <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+         <method name="POST" rax:id="resetInstanceTaskStatus">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Reset Instance Task Status">
+               <para role="shortdesc">Resets the instance's task status to NONE.</para>
+               <para>This operation resets the instance's task status to NONE.</para>
+               <para>This operation returns a 202 Accepted response.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="dbaas:reset-task-status">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Reset Instance Task Status request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">POST /v1.0/1234/mgmt/instances/0617673d-a280-40c3-8151-29800a8f9d70/action HTTP/1.1
+User-Agent: python-example-client
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 73d60021-96e1-4d06-843d-72d20fa5377b
+Accept: application/json
+Content-Type: application/json
+
+{
+   "reset-task-status": {}
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Reset Instance Task Status response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 202 Accepted
+Content-Type: text/plain; charset=UTF-8
+Content-Length: 58
+Date: Tue, 07 Feb 2012 23:56:52 GMT
+
+   
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="415">
+               <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+         <method name="POST" rax:id="migrateInstance">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Migrate Instance">
+               <para role="shortdesc">Migrates the instance to a different host.</para>
+               <para>This operation migrates the instance to a different host. The migration can be forced to a specified host using the optional host parameter.
+        If there is not enough space on the host to migrate to the new host then the migrate will fail and you will still see the instance on the 
+        original host. You can verify this by calling the Management API List Database Instance Status and Details call and inspecting the server information.</para>
+               <para>This operation returns a 202 Accepted response.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="dbaas:migrate">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Migrate Instance request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">POST /v1.0/1234/mgmt/instances/0617673d-a280-40c3-8151-29800a8f9d70/action HTTP/1.1
+User-Agent: python-example-client
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 73d60021-96e1-4d06-843d-72d20fa5377b
+Accept: application/json
+Content-Type: application/json
+
+{
+   "migrate": {}
+}</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+      
+               <representation mediaType="application/json" element="dbaas:migrate">
+                  <doc title="Migrate Instance Forced Host Request: JSON">
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Migrate Instance request with the host parameter specified to force migration to a specific host:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">POST /v1.0/1234/mgmt/instances/0617673d-a280-40c3-8151-29800a8f9d70/action HTTP/1.1
+User-Agent: python-example-client
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 73d60021-96e1-4d06-843d-72d20fa5377b
+Accept: application/json
+Content-Type: application/json
+
+{
+   "migrate": {"host": "example-host-name"}
+}</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <doc title="Migrate Instance Forced Host Response: JSON">
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Migrate Instance response for the host parameter specified to force migration to a specific host:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 202 Accepted
+Content-Type: text/plain; charset=UTF-8
+Content-Length: 58
+Date: Tue, 07 Feb 2012 23:56:52 GMT
+
+   
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="415">
+               <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+            
+            
+            
+          
+          <resource id="hwInfo" path="mgmt/instances/{instanceId}/hwinfo">
+         <param name="instanceId" style="template" type="xsd:string"> 
+            <doc>The instance ID for the specified database instance.</doc>
+         </param>
+         <method name="GET" rax:id="getHwInfo">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get Hardware Info">
+               <para role="shortdesc">
+              Gets the instance hardware info from the guest agent.
+          </para>
+               <para>This operation provides the following info from the guest agent managing the specified instance.</para>
+               <table rules="all">
+                  <caption>Return Attributes for Get Hardware Info</caption>
+                  <thead>
+                     <tr>
+                        <td colspan="1">Name</td>
+                        <td colspan="3">Description</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td colspan="1">mem_total</td>
+                        <td colspan="3">Total memory an instance sees.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">num_cpus</td>
+                        <td colspan="3">Number of CPUs an instance sees.</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Get Hardware Info request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/instances/6e038c18-902f-4a41-b2a2-5f46fa62fc1b/hwinfo HTTP/1.1
+User-Agent: python-reddwarfclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:DiagnosticsDetails">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Get Hardware Info response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 48
+Date: Tue, 24 Jul 2012 19:48:33 GMT
+
+{
+    "hwinfo": {
+        "mem_total": 524288, 
+        "num_cpus": 1
+    }
+}
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+      
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+      
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+            
+          
+          <resource id="monitoring" path="mgmt/instances/{instanceId}/monitoring">
+         <param name="instanceId" style="template" type="xsd:string"> 
+            <doc>The instance ID for the specified database instance.</doc>
+         </param>
+         <method name="GET" rax:id="getMonitoringStatus">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get Monitoring Status">
+               <para role="shortdesc">
+        Retrieves the status of the Monitoring Agent on the specified instance.
+      </para>
+               <para>This operation retrieves the status of the Monitoring Agent on the customer's instance.</para>
+               <para>The following table lists the possible monitoring statuses:</para>
+               <table rules="all">
+                  <caption>Monitoring Statuses</caption>
+                  <thead>
+                     <tr>
+                        <td colspan="1">Status String</td>
+                        <td colspan="1">Status Code</td>
+                        <td colspan="3">Description</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td colspan="1">ACTIVE</td>
+                        <td colspan="1">1</td>
+                        <td colspan="3">Monitoring Agent is running.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">REMOVED</td>
+                        <td colspan="1">2</td>
+                        <td colspan="3">Monitoring Agent is not installed.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">SHUTDOWN</td>
+                        <td colspan="1">3</td>
+                        <td colspan="3">Monitoring Agent is not running.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">CRASHED</td>
+                        <td colspan="1">4</td>
+                        <td colspan="3">Monitoring Agent died after starting.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">BUILDING</td>
+                        <td colspan="1">5</td>
+                        <td colspan="3">Monitoring Agent is being installed or prepared.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">UNKNOWN</td>
+                        <td colspan="1">6</td>
+                        <td colspan="3">Monitoring Agent is unresponsive.</td>
+                     </tr>
+                     <tr>
+                        <td colspan="1">NEW</td>
+                        <td colspan="1">7</td>
+                        <td colspan="3">Monitoring Agent is initialized.</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Get Monitoring Status request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/instances/041be99f-ae26-4784-9318-aaf236591066/monitoring HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:DiagnosticsDetails">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Get Monitoring Status response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 142
+Date: Mon, 22 Jul 2013 18:46:25 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "monitoring": {
+        "instance_id": "041be99f-ae26-4784-9318-aaf236591066", 
+        "status": "ACTIVE", 
+        "tenant_id": "1234", 
+        "version": "v1.0-fake"
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+            
+            <resource id="agentAction" path="mgmt/instances/{instanceId}/monitoring/action">
+         <param name="instanceId" style="template" type="xsd:string"> 
+            <doc>The instance ID for the specified database instance.</doc>
+         </param>
+         <method name="POST" rax:id="agentInstall">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Install or Update Monitoring Agent">
+               <para role="shortdesc">Installs or updates the Monitoring Agent on the specified instance.</para>
+               <para>This operation installs or updates the Monitoring Agent on the specified instance.</para>
+               <para>This operation returns a 202 Accepted response.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json" element="dbaas:Install">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Install or Update Monitoring Agent request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">POST /v1.0/1234/mgmt/instances/041be99f-ae26-4784-9318-aaf236591066/monitoring/action HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+{
+    "install": {}
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Install or Update Monitoring Agent response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 202 Accepted
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 0
+Date: Mon, 22 Jul 2013 18:46:21 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="415">
+               <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+         <method name="POST" rax:id="agentRemove">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Remove Monitoring Agent">
+               <para role="shortdesc">Removes and uninstalls the Monitoring Agent on the specified instance.</para>
+               <para>This operation removes and uninstalls the Monitoring Agent on the specified instance.</para>
+               <para>This operation returns a 202 Accepted response.</para>
+            </wadl:doc>
+            <request>
+      
+               <representation mediaType="application/json" element="dbaas:Remove">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Remove Monitoring Agent request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">POST /v1.0/1234/mgmt/instances/041be99f-ae26-4784-9318-aaf236591066/monitoring/action HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+{
+    "remove": {}
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Remove Monitoring Agent response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 202 Accepted
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 0
+Date: Mon, 22 Jul 2013 18:46:21 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="415">
+               <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+         <method name="POST" rax:id="agentStart">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Start Monitoring Agent">
+               <para role="shortdesc">Starts the Monitoring Agent on the specified instance.</para>
+               <para>This operation starts the Monitoring Agent on the specified instance.</para>
+               <para>This operation returns a 202 Accepted response.</para>
+            </wadl:doc>
+            <request>
+      
+               <representation mediaType="application/json" element="dbaas:Start">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Start Monitoring Agent request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">POST /v1.0/1234/mgmt/instances/041be99f-ae26-4784-9318-aaf236591066/monitoring/action HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+{
+    "start": {}
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Start Monitoring Agent response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 202 Accepted
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 0
+Date: Mon, 22 Jul 2013 18:46:24 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="415">
+               <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+         <method name="POST" rax:id="agentRestart">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Restart Monitoring Agent">
+               <para role="shortdesc">Restarts the Monitoring Agent on the specified instance.</para>
+               <para>This operation restarts the Monitoring Agent on the specified instance.</para>
+               <para>This operation returns a 202 Accepted response.</para>
+            </wadl:doc>
+            <request>
+      
+               <representation mediaType="application/json" element="dbaas:Restart">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Restart Monitoring Agent request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">POST /v1.0/1234/mgmt/instances/041be99f-ae26-4784-9318-aaf236591066/monitoring/action HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+{
+    "restart": {}
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Restart Monitoring Agent response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 202 Accepted
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 0
+Date: Mon, 22 Jul 2013 18:46:24 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="415">
+               <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+         <method name="POST" rax:id="agentStop">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Stop Monitoring Agent">
+               <para role="shortdesc">Stops the Monitoring Agent on the specified instance.</para>
+               <para>This operation stops the Monitoring Agent on the specified instance.</para>
+               <para>This operation returns a 202 Accepted response.</para>
+            </wadl:doc>
+            <request>
+      
+               <representation mediaType="application/json" element="dbaas:Stop">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Stop Monitoring Agent request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">POST /v1.0/1234/mgmt/instances/041be99f-ae26-4784-9318-aaf236591066/monitoring/action HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+{
+    "stop": {}
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the Stop Monitoring Agent response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 202 Accepted
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 0
+Date: Mon, 22 Jul 2013 18:46:25 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="415">
+               <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+              
+              
+              
+              
+              
+              
+            
+          
+        
+      <resource id="storage" path="mgmt/storage">
+         <method name="GET" rax:id="indexstorage">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Storage Device Details">
+               <para role="shortdesc">
+        Returns detailed information for the storage device.
+      </para>
+               <remark>Reviewer: in the DNS project, we have been requested by the customer to provide a table of parameters (should be pulled automatically if parms defined in wadl) and a table of attributes (for calls that allow detailed info about the object created to be specified. No doubt our DB customers will want this too.</remark>
+               <remark>Reviewer: These tables probably need 4 columns: name; parameter type: e.g. template, query, etc.; data type: string, etc.; required?; description.</remark>
+               <para>This operation returns detailed information about the details for the storage device.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List Storage Device Details request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/storage HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:Devices">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List Storage Device Details response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 177
+Date: Thu, 13 Feb 2014 21:47:18 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "devices": [
+        {
+            "capacity": {
+                "available": 90, 
+                "total": 100
+            }, 
+            "name": "fake_storage", 
+            "provision": {
+                "available": 40, 
+                "percent": 10, 
+                "total": 50
+            }, 
+            "type": "test_type", 
+            "used": 10
+        }
+    ]
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+        
+      <resource id="accounts" path="mgmt/accounts">
+         <method name="GET" rax:id="getaccounts">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List All Active Accounts">
+               <para role="shortdesc">
+        Lists all of the accounts owning at least one instance that is not deleted.
+      </para>
+               <para>This operation returns a list of all the accounts across all locations that own at least one instance that has not been deleted, that is, all accounts of current users.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List All Active Accounts request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/accounts HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:Hosts">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List All Active Accounts response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 50
+Date: Thu, 13 Feb 2014 21:47:19 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "accounts": [
+        {
+            "id": "3000", 
+            "num_instances": 2
+        }
+    ]
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+        
+        <resource id="accountid" path="mgmt/accounts/{accountId}">
+         <param name="accountId" style="template" type="xsd:string">
+            <doc>The account ID for the specified account.</doc>
+          </param>
+         <method name="GET" rax:id="getaccountbyid">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List Account Details">
+               <para role="shortdesc">
+        Returns detailed information for the specified account.
+      </para>
+               <remark>Reviewer: This section needs examples.</remark>
+               <para>This operation returns: </para>
+               <itemizedlist spacing="compact">
+                  <listitem>
+                     <para>account name</para>
+                  </listitem>
+                  <listitem>
+                     <para>id</para>
+                  </listitem>
+                  <listitem>
+                     <para>list of hosts that have the id</para>
+                  </listitem>
+                  <listitem>
+                     <para>instance name</para>
+                  </listitem>
+                  <listitem>
+                     <para>status of each instance on the hosts</para>
+                  </listitem>
+               </itemizedlist>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List Account Details request:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">GET /v1.0/1234/mgmt/accounts/3000 HTTP/1.1
+User-Agent: python-troveclient
+Host: ord.databases.api.rackspacecloud.com
+X-Auth-Token: 87c6033c-9ff6-405f-943e-2deb73f278b7
+Accept: application/json
+Content-Type: application/json
+
+
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="dbaas:Account">
+                  <doc>
+                     <para xmlns="http://docbook.org/ns/docbook">The following example shows the List Account Details response:</para>
+                     <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">HTTP/1.1 200 OK
+Content-Type: application/json
+Via: 1.1 Repose (Repose/2.6.7)
+Content-Length: 283
+Date: Thu, 13 Feb 2014 21:47:18 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "account": {
+        "id": "3000", 
+        "instances": [
+            {
+                "host": "hostname_1", 
+                "id": "d4603f69-ec7e-4e9b-803f-600b9205576f", 
+                "name": "json_rack_instance", 
+                "status": "ACTIVE"
+            }, 
+            {
+                "host": "hostname_1", 
+                "id": "dcf2c32b-241d-4c39-af70-1001dfe946d6", 
+                "name": "xml_rack_instance", 
+                "status": "ACTIVE"
+            }
+        ]
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+    
+            <response status="400">
+               <representation mediaType="application/xml" element="dbaas:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="dbaas:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="dbaas:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="dbaas:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="422">
+               <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="501">
+               <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+    
+            <response status="404">
+               <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+           
+         </method>
+      </resource>
+          
+          
+        
+      
+  </resources>
+
+  <!--Methods-->
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getaccounts">
+    
+      <request>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+         <representation mediaType="application/json" element="dbaas:Hosts">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="gethosts">
+    
+      <request>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+         <representation mediaType="application/json" element="dbaas:Hosts">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="gethostbyid">
+    
+      <request>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+         <representation mediaType="application/json" element="dbaas:Host">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getIndex">
+    
+      <request>
+        <param name="deleted" style="query" type="xsd:boolean">
+          
+        </param>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+         <representation mediaType="application/json" element="dbaas:ManagementIndexInstances">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showinstances">
+    
+      <request>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+         <representation mediaType="application/json" element="ManagementInstances">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+
+    <!-- Instance Actions -->
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="rebootInstance">
+    
+      <request>
+         <representation mediaType="application/json" element="dbaas:Reboot">
+        
+      </representation>
+      </request>
+      <response status="202">
+         <representation mediaType="application/json">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="415">
+            <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <!-- Instance Actions -->
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="resetInstanceTaskStatus">
+    
+      <request>
+         <representation mediaType="application/json" element="dbaas:reset-task-status">
+        
+      </representation>
+      </request>
+      <response status="202">
+         <representation mediaType="application/json">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="415">
+            <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <!-- Instance Actions -->
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="migrateInstance">
+    
+      <request>
+         <representation mediaType="application/json" element="dbaas:migrate">
+        
+      </representation>
+      
+         <representation mediaType="application/json" element="dbaas:migrate">
+        
+      </representation>
+      </request>
+      <response status="202">
+         <representation mediaType="application/json">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="415">
+            <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="updateHostInstances">
+    
+      <request>
+         <representation mediaType="application/json" element="dbaas:Update">
+        
+      </representation>
+      </request>
+      <response status="202">
+         <representation mediaType="application/json">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="415">
+            <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="indexstorage">
+    
+      <request>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+         <representation mediaType="application/json" element="dbaas:Devices">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getaccountbyid">
+    
+      <request>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+         <representation mediaType="application/json" element="dbaas:Account">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getrootdetails">
+    
+      <request>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+          <representation mediaType="application/json" element="dbaas:RootDetails">
+            
+          </representation>
+      </response>
+      
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+      
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getdiagnosticdetails">
+      
+      <request>
+          <representation mediaType="application/json">
+              
+          </representation>
+      </request>
+      <response status="200">
+        <representation mediaType="application/json" element="dbaas:DiagnosticsDetails">
+              
+          </representation>
+      </response>
+      
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+      
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getHwInfo">
+      
+      <request>
+          <representation mediaType="application/json">
+              
+          </representation>
+      </request>
+      <response status="200">
+        <representation mediaType="application/json" element="dbaas:DiagnosticsDetails">
+              
+          </representation>
+      </response>
+      
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+      
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getusageall">
+    
+      <request>
+         <param name="limit" style="query" type="xsd:integer">
+        
+      </param>
+         <param name="marker" style="query" type="xsd:dateTime">
+        
+      </param>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+         <representation mediaType="application/json" element="dbaas:Usage">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getusagebyinstance">
+    
+      <request>
+         <param name="limit" style="query" type="xsd:integer">
+        
+      </param>
+         <param name="marker" style="query" type="xsd:dateTime">
+        
+      </param>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+         <representation mediaType="application/json" element="dbaas:Usage">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getusagebytenant">
+    
+      <request>
+         <param name="limit" style="query" type="xsd:integer">
+        
+      </param>
+         <param name="marker" style="query" type="xsd:dateTime">
+        
+      </param>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+         <representation mediaType="application/json" element="dbaas:Usage">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getMonitoringStatus">
+    
+      <request>
+         <representation mediaType="application/json">
+        
+      </representation>
+      </request>
+      <response status="200">
+         <representation mediaType="application/json" element="dbaas:DiagnosticsDetails">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <!-- Monitoring Agent Actions -->
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="agentInstall">
+    
+      <request>
+         <representation mediaType="application/json" element="dbaas:Install">
+        
+      </representation>
+      </request>
+      <response status="202">
+         <representation mediaType="application/json">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="415">
+            <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="agentRemove">
+    
+      <request>
+      
+         <representation mediaType="application/json" element="dbaas:Remove">
+        
+      </representation>
+      </request>
+      <response status="202">
+         <representation mediaType="application/json">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="415">
+            <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="agentStart">
+    
+      <request>
+      
+         <representation mediaType="application/json" element="dbaas:Start">
+        
+      </representation>
+      </request>
+      <response status="202">
+         <representation mediaType="application/json">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="415">
+            <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="agentRestart">
+    
+      <request>
+      
+         <representation mediaType="application/json" element="dbaas:Restart">
+        
+      </representation>
+      </request>
+      <response status="202">
+         <representation mediaType="application/json">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="415">
+            <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:dbaas="http://docs.openstack.org/database/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="agentStop">
+    
+      <request>
+      
+         <representation mediaType="application/json" element="dbaas:Stop">
+        
+      </representation>
+      </request>
+      <response status="202">
+         <representation mediaType="application/json">
+        
+      </representation>
+      </response>
+    
+        <response status="400">
+            <representation mediaType="application/xml" element="dbaas:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="dbaas:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="dbaas:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="dbaas:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="dbaas:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="422">
+            <representation mediaType="application/xml" element="dbaas:unprocessableEntity"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            <representation mediaType="application/xml" element="dbaas:instanceFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="501">
+            <representation mediaType="application/xml" element="dbaas:notImplemented"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="dbaas:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="404">
+            <representation mediaType="application/xml" element="dbaas:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+    
+        <response status="415">
+            <representation mediaType="application/xml" element="dbaas:badMediaType"/>
+            <representation mediaType="application/json"/>
+        </response>
+           
+  </method>
+  
+  
+</wadl:application>

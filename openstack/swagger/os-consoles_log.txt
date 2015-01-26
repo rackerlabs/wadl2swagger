@@ -1,0 +1,14 @@
+INFO:wadls/os-consoles.wadl:Converting: wadls/os-consoles.wadl to swagger/os-consoles.json
+WARNING:wadls/os-consoles.wadl:No support for application/json for resource at /v2/{tenant_id}/servers/{server_id}/action
+WARNING:wadls/os-consoles.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-consoles.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-consoles.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-consoles.wadl:Unknown type: csapi:string for param type
+WARNING:wadls/os-consoles.wadl:Using string for csapi:string
+WARNING:wadls/os-consoles.wadl:Ignoring body parameter, converting these is not yet supported...
+INFO:root:Saving swagger to swagger/os-consoles.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

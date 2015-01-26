@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://glance.example.com/"
+              xml:id="os-ext-img-v2">
+        <resource path="/v2/{tenant_id}/images/detail" id="detail">
+         <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                   xml:lang="EN"
+                   title="Image list with details">
+            <para>List of images with details.</para>
+        </wadl:doc>
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <method name="GET" rax:id="listDetailImage">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List details for images">
+               <para role="shortdesc">Lists details for available images.
+                Includes the image size.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "images": [
+        {
+            "OS-EXT-IMG-SIZE:size": "74185822",
+            "created": "2011-01-01T01:02:03Z",
+            "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "architecture": "x86_64",
+                "auto_disk_config": "True",
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage7",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "OS-EXT-IMG-SIZE:size": "25165824",
+            "created": "2011-01-01T01:02:03Z",
+            "id": "155d900f-4e14-4e4c-a73d-069cbf4541e6",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "architecture": "x86_64",
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage123456",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "OS-EXT-IMG-SIZE:size": "58145823",
+            "created": "2011-01-01T01:02:03Z",
+            "id": "a2459075-d96c-40d5-893e-577ff92e721c",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage123456",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "OS-EXT-IMG-SIZE:size": "49163826",
+            "created": "2011-01-01T01:02:03Z",
+            "id": "a440c04b-79fa-479c-bed1-0b816eaec379",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "architecture": "x86_64",
+                "auto_disk_config": "False",
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage6",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "OS-EXT-IMG-SIZE:size": "26360814",
+            "created": "2011-01-01T01:02:03Z",
+            "id": "c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "kernel_id": "155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                "ramdisk_id": null
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage123456",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "OS-EXT-IMG-SIZE:size": "84035174",
+            "created": "2011-01-01T01:02:03Z",
+            "id": "cedef40a-ed67-4d10-800e-17455edce175",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/cedef40a-ed67-4d10-800e-17455edce175",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage123456",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        },
+        {
+            "OS-EXT-IMG-SIZE:size": "83594576",
+            "created": "2011-01-01T01:02:03Z",
+            "id": "76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+                    "rel": "bookmark"
+                },
+                {
+                    "href": "http://glance.openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+                    "rel": "alternate",
+                    "type": "application/vnd.openstack.image"
+                }
+            ],
+            "metadata": {
+                "kernel_id": "nokernel",
+                "ramdisk_id": "nokernel"
+            },
+            "minDisk": 0,
+            "minRam": 0,
+            "name": "fakeimage123456",
+            "progress": 100,
+            "status": "ACTIVE",
+            "updated": "2011-01-01T01:02:03Z"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;images xmlns:OS-EXT-IMG-SIZE="http://docs.openstack.org/compute/ext/image_size/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage7" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="70a599e0-31e7-49b7-b260-868f441e862b" OS-EXT-IMG-SIZE:size="74185822"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="auto_disk_config"&gt;True&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="architecture"&gt;x86_64&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage123456" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="155d900f-4e14-4e4c-a73d-069cbf4541e6" OS-EXT-IMG-SIZE:size="25165824"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="architecture"&gt;x86_64&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage123456" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="a2459075-d96c-40d5-893e-577ff92e721c" OS-EXT-IMG-SIZE:size="58145823"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage6" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="a440c04b-79fa-479c-bed1-0b816eaec379" OS-EXT-IMG-SIZE:size="49163826"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="auto_disk_config"&gt;False&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="architecture"&gt;x86_64&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage123456" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="c905cedb-7281-47e4-8a62-f26bc5fc4c77" OS-EXT-IMG-SIZE:size="26360814"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;155d900f-4e14-4e4c-a73d-069cbf4541e6&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;None&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage123456" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="cedef40a-ed67-4d10-800e-17455edce175" OS-EXT-IMG-SIZE:size="84035174"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/cedef40a-ed67-4d10-800e-17455edce175" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+  &lt;image status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage123456" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="76fa36fc-c930-4bf3-8c8a-ea2a2420deb6" OS-EXT-IMG-SIZE:size="83594576"&gt;
+    &lt;metadata&gt;
+      &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+      &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+    &lt;/metadata&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6" rel="bookmark"/&gt;
+    &lt;atom:link href="http://glance.openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6" type="application/vnd.openstack.image" rel="alternate"/&gt;
+  &lt;/image&gt;
+&lt;/images&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+      <resource path="/v2/{tenant_id}/images/{image_id}" id="image_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="image_id" style="template" type="xsd:string">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Image ID">
+                                <para>Image ID stored through the
+                                   image API. Typically a UUID.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getImage">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get image details">
+               <para role="shortdesc">Gets details for a specified image.
+                Includes the image size.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "image": {
+        "OS-EXT-IMG-SIZE:size": "74185822",
+        "created": "2011-01-01T01:02:03Z",
+        "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                "rel": "bookmark"
+            },
+            {
+                "href": "http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                "rel": "alternate",
+                "type": "application/vnd.openstack.image"
+            }
+        ],
+        "metadata": {
+            "architecture": "x86_64",
+            "auto_disk_config": "True",
+            "kernel_id": "nokernel",
+            "ramdisk_id": "nokernel"
+        },
+        "minDisk": 0,
+        "minRam": 0,
+        "name": "fakeimage7",
+        "progress": 100,
+        "status": "ACTIVE",
+        "updated": "2011-01-01T01:02:03Z"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;image xmlns:OS-EXT-IMG-SIZE="http://docs.openstack.org/compute/ext/image_size/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" status="ACTIVE" updated="2011-01-01T01:02:03Z" name="fakeimage7" created="2011-01-01T01:02:03Z" minDisk="0" progress="100" minRam="0" id="70a599e0-31e7-49b7-b260-868f441e862b" OS-EXT-IMG-SIZE:size="74185822"&gt;
+  &lt;metadata&gt;
+    &lt;meta key="kernel_id"&gt;nokernel&lt;/meta&gt;
+    &lt;meta key="auto_disk_config"&gt;True&lt;/meta&gt;
+    &lt;meta key="ramdisk_id"&gt;nokernel&lt;/meta&gt;
+    &lt;meta key="architecture"&gt;x86_64&lt;/meta&gt;
+  &lt;/metadata&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" rel="bookmark"/&gt;
+  &lt;atom:link href="http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b" type="application/vnd.openstack.image" rel="alternate"/&gt;
+&lt;/image&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    
+    </resources>
+    <!--*******************************************************-->
+    <!--               Resource Types                          -->
+    <!--*******************************************************-->
+    
+    
+    <!-- Method definitions -->
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getImage">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listDetailImage">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

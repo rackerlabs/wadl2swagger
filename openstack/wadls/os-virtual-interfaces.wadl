@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:db="http://docbook.org/ns/docbook"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:common="http://docs.openstack.org/common/api/v1.0"
+              xmlns:atom="http://www.w3.org/2005/Atom"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-virtual-interfaces-v2">
+        <resource path="/v2/{tenant_id}/servers/{server_id}/os-virtual-interfaces"
+                id="os-virtual-interfaces">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The UUID for the server of
+                                   interest to you.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getVirtualInterfaces">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List virtual interfaces">
+               <para role="shortdesc">Lists the virtual interfaces for a
+                specified instance.</para>
+            </wadl:doc>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "virtual_interfaces": [
+        {
+            "id": "cec8b9bb-5d22-4104-b3c8-4c35db3210a6",
+            "mac_address": "fa:16:3e:3c:ce:6f"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;virtual_interfaces xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;virtual_interface id="94edf7aa-565a-469a-8f45-656b4acf8229" mac_address="fa:16:3e:7d:31:9a"/&gt;
+&lt;/virtual_interfaces&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="GET" rax:id="getVirtualInterfacesShowWhichNetwork">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show virtual interface and attached network">
+               <para role="shortdesc">Shows the virtual interface for a specified
+                instance. Includes the <literal>OS-EXT-VIF-NET:net_id</literal>
+                attribute that shows to which network the interface is attached.</para>
+            </wadl:doc>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="javascript">{
+    "virtual_interfaces": [
+        {
+            "id": "cec8b9bb-5d22-4104-b3c8-4c35db3210a6",
+            "mac_address": "fa:16:3e:3c:ce:6f",
+            "OS-EXT-VIF-NET:net_id": "cec8b9bb-5d22-4104-b3c8-4c35db3210a7"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code>
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;virtual_interfaces
+  xmlns:OS-EXT-VIF-NET="http://docs.openstack.org/compute/ext/extended-virtual-interfaces-net/api/v1.1"
+  xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;virtual_interface id="94edf7aa-565a-469a-8f45-656b4acf8229"
+    mac_address="fa:16:3e:7d:31:9a"
+    OS-EXT-VIF-NET:net_id="94edf7aa-565a-469a-8f45-656b4acf8230"/&gt;
+&lt;/virtual_interfaces&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                            
+                        
+    </resources>
+    <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:atom="http://www.w3.org/2005/Atom"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getVirtualInterfaces">
+        
+        <response status="202">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns:atom="http://www.w3.org/2005/Atom"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getVirtualInterfacesShowWhichNetwork">
+        
+        <response status="202">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

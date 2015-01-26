@@ -1,0 +1,190 @@
+---
+swagger: '2.0'
+info:
+  title: metering-labels
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.0/metering/metering-labels":
+    get:
+      operationId: listMeteringLabels
+      summary: List metering labels
+      description: |
+        Lists all l3 metering labels that belong to the specified tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "metering_labels": [
+                      {
+                          "id": "a6700594-5b7a-4105-8bfe-723b346ce866",
+                          "tenant_id": "45345b0ee1ea477fac0f541b2cb79cd4",
+                          "description": "label1 description",
+                          "name": "label1"
+                      },
+                      {
+                          "id": "e131d186-b02d-4c0b-83d5-0c0725c4f812",
+                          "tenant_id": "45345b0ee1ea477fac0f541b2cb79cd4",
+                          "description": "label2 description",
+                          "name": "label2"
+                      }
+                  ]
+              }
+    post:
+      operationId: createMeteringLabel
+      summary: Create metering label
+      description: |
+        Creates a l3 metering label.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "metering_label": {
+                      "id": "bc91b832-8465-40a7-a5d8-ba87de442266",
+                      "tenant_id": "45345b0ee1ea477fac0f541b2cb79cd4",
+                      "description": "description of label1",
+                      "name": "label1"
+                  }
+              }
+  "/v2.0/metering/metering-labels/{metering_label_id}":
+    parameters:
+    - name: metering_label_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the metering label.
+    get:
+      operationId: getMeteringLabel
+      summary: Show metering label
+      description: |
+        Shows informations for a specified metering label.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "metering_label": {
+                      "id": "a6700594-5b7a-4105-8bfe-723b346ce866",
+                      "tenant_id": "45345b0ee1ea477fac0f541b2cb79cd4",
+                      "description": "label1 description",
+                      "name": "label1"
+                  }
+              }
+    delete:
+      operationId: deleteMeteringLabel
+      summary: Delete metering label
+      description: |
+        Deletes a l3 metering label.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: 204 response
+          examples: {}
+  "/v2.0/metering/metering-label-rules":
+    get:
+      operationId: listMeteringLabelRules
+      summary: List metering label rules
+      description: |
+        Lists a summary of all l3 metering label rules belonging to the specified tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "metering_label_rules": [
+                      {
+                          "remote_ip_prefix": "20.0.0.0/24",
+                          "direction": "ingress",
+                          "metering_label_id": "e131d186-b02d-4c0b-83d5-0c0725c4f812",
+                          "id": "9536641a-7d14-4dc5-afaf-93a973ce0eb8",
+                          "excluded": false
+                      },
+                      {
+                          "remote_ip_prefix": "10.0.0.0/24",
+                          "direction": "ingress",
+                          "metering_label_id": "e131d186-b02d-4c0b-83d5-0c0725c4f812",
+                          "id": "ffc6fd15-40de-4e7d-b617-34d3f7a93aec",
+                          "excluded": false
+                      }
+                  ]
+              }
+    post:
+      operationId: createMeteringLabelRule
+      summary: Create metering label rule
+      description: |
+        Creates a l3 metering label rule.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "metering_label_rule": {
+                      "remote_ip_prefix": "10.0.1.0/24",
+                      "direction": "ingress",
+                      "metering_label_id": "e131d186-b02d-4c0b-83d5-0c0725c4f812",
+                      "id": "00e13b58-b4f2-4579-9c9c-7ac94615f9ae",
+                      "excluded": false
+                  }
+              }
+  "/v2.0/metering/metering-label-rules/{metering-label-rule-id}":
+    parameters:
+    - name: metering-label-rule-id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of metering label rule.
+    get:
+      operationId: getMeteringLabelRule
+      summary: Show metering label rule
+      description: |
+        Shows detailed informations for a specified metering label rule.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "metering_label_rule": {
+                      "remote_ip_prefix": "20.0.0.0/24",
+                      "direction": "ingress",
+                      "metering_label_id": "e131d186-b02d-4c0b-83d5-0c0725c4f812",
+                      "id": "9536641a-7d14-4dc5-afaf-93a973ce0eb8",
+                      "excluded": false
+                  }
+              }
+    delete:
+      operationId: deleteMeteringLabelRule
+      summary: Delete metering label rule
+      description: |
+        Deletes a specified l3 metering label rule.
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: 204 response
+          examples: {}

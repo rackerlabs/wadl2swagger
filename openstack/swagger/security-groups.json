@@ -1,0 +1,165 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "security-groups",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.0/security-groups": {
+            "get": {
+                "operationId": "listSecGroups",
+                "summary": "List security groups",
+                "description": "Lists all OpenStack Networking security groups to which the specified tenant has access.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_groups\": [\n        {\n            \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n            \"security_group_rules\": [\n                {\n                    \"remote_group_id\": null,\n                    \"direction\": \"egress\",\n                    \"protocol\": null,\n                    \"ethertype\": \"IPv6\",\n                    \"port_range_max\": null,\n                    \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                    \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n                    \"port_range_min\": null,\n                    \"remote_ip_prefix\": null,\n                    \"id\": \"3c0e45ff-adaf-4124-b083-bf390e5482ff\"\n                },\n                {\n                    \"remote_group_id\": null,\n                    \"direction\": \"egress\",\n                    \"protocol\": null,\n                    \"ethertype\": \"IPv4\",\n                    \"port_range_max\": null,\n                    \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                    \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n                    \"port_range_min\": null,\n                    \"remote_ip_prefix\": null,\n                    \"id\": \"93aa42e5-80db-4581-9391-3a608bd0e448\"\n                },\n                {\n                    \"remote_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                    \"direction\": \"ingress\",\n                    \"protocol\": null,\n                    \"ethertype\": \"IPv6\",\n                    \"port_range_max\": null,\n                    \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                    \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n                    \"port_range_min\": null,\n                    \"remote_ip_prefix\": null,\n                    \"id\": \"c0b09f00-1d49-4e64-a0a7-8a186d928138\"\n                },\n                {\n                    \"remote_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                    \"direction\": \"ingress\",\n                    \"protocol\": null,\n                    \"ethertype\": \"IPv4\",\n                    \"port_range_max\": null,\n                    \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                    \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n                    \"port_range_min\": null,\n                    \"remote_ip_prefix\": null,\n                    \"id\": \"f7d45c89-008e-4bab-88ad-d6811724c51c\"\n                }\n            ],\n            \"description\": \"default\",\n            \"name\": \"default\",\n            \"id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createSecGroup",
+                "summary": "Create security group",
+                "description": "Creates an OpenStack Networking security group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_group\": {\n        \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n        \"security_group_rules\": [\n            {\n                \"remote_group_id\": null,\n                \"direction\": \"egress\",\n                \"protocol\": null,\n                \"ethertype\": \"IPv4\",\n                \"port_range_max\": null,\n                \"security_group_id\": \"2076db17-a522-4506-91de-c6dd8e837028\",\n                \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n                \"port_range_min\": null,\n                \"remote_ip_prefix\": null,\n                \"id\": \"38ce2d8e-e8f1-48bd-83c2-d33cb9f50c3d\"\n            },\n            {\n                \"remote_group_id\": null,\n                \"direction\": \"egress\",\n                \"protocol\": null,\n                \"ethertype\": \"IPv6\",\n                \"port_range_max\": null,\n                \"security_group_id\": \"2076db17-a522-4506-91de-c6dd8e837028\",\n                \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n                \"port_range_min\": null,\n                \"remote_ip_prefix\": null,\n                \"id\": \"565b9502-12de-4ffd-91e9-68885cff6ae1\"\n            }\n        ],\n        \"description\": \"security group for webservers\",\n        \"name\": \"new-webservers\",\n        \"id\": \"2076db17-a522-4506-91de-c6dd8e837028\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/security-groups/{security_group_id}": {
+            "parameters": [
+                {
+                    "name": "security_group_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the security group.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getSecGroup",
+                "summary": "Show security group",
+                "description": "Shows information for a specified security group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_group\": {\n        \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n        \"security_group_rules\": [\n            {\n                \"remote_group_id\": null,\n                \"direction\": \"egress\",\n                \"protocol\": null,\n                \"ethertype\": \"IPv6\",\n                \"port_range_max\": null,\n                \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n                \"port_range_min\": null,\n                \"remote_ip_prefix\": null,\n                \"id\": \"3c0e45ff-adaf-4124-b083-bf390e5482ff\"\n            },\n            {\n                \"remote_group_id\": null,\n                \"direction\": \"egress\",\n                \"protocol\": null,\n                \"ethertype\": \"IPv4\",\n                \"port_range_max\": null,\n                \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n                \"port_range_min\": null,\n                \"remote_ip_prefix\": null,\n                \"id\": \"93aa42e5-80db-4581-9391-3a608bd0e448\"\n            },\n            {\n                \"remote_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                \"direction\": \"ingress\",\n                \"protocol\": null,\n                \"ethertype\": \"IPv6\",\n                \"port_range_max\": null,\n                \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n                \"port_range_min\": null,\n                \"remote_ip_prefix\": null,\n                \"id\": \"c0b09f00-1d49-4e64-a0a7-8a186d928138\"\n            },\n            {\n                \"remote_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                \"direction\": \"ingress\",\n                \"protocol\": null,\n                \"ethertype\": \"IPv4\",\n                \"port_range_max\": null,\n                \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n                \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n                \"port_range_min\": null,\n                \"remote_ip_prefix\": null,\n                \"id\": \"f7d45c89-008e-4bab-88ad-d6811724c51c\"\n            }\n        ],\n        \"description\": \"default\",\n        \"name\": \"default\",\n        \"id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteSecGroup",
+                "summary": "Delete security group",
+                "description": "Deletes an OpenStack Networking security group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "204 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/v2.0/security-group-rules": {
+            "get": {
+                "operationId": "listSecGroupRules",
+                "summary": "List security group rules",
+                "description": "Lists a summary of all OpenStack Networking security group rules that the specified tenant can access.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_group_rules\": [\n        {\n            \"remote_group_id\": null,\n            \"direction\": \"egress\",\n            \"protocol\": null,\n            \"ethertype\": \"IPv6\",\n            \"port_range_max\": null,\n            \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n            \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n            \"port_range_min\": null,\n            \"remote_ip_prefix\": null,\n            \"id\": \"3c0e45ff-adaf-4124-b083-bf390e5482ff\"\n        },\n        {\n            \"remote_group_id\": null,\n            \"direction\": \"egress\",\n            \"protocol\": null,\n            \"ethertype\": \"IPv4\",\n            \"port_range_max\": null,\n            \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n            \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n            \"port_range_min\": null,\n            \"remote_ip_prefix\": null,\n            \"id\": \"93aa42e5-80db-4581-9391-3a608bd0e448\"\n        },\n        {\n            \"remote_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n            \"direction\": \"ingress\",\n            \"protocol\": null,\n            \"ethertype\": \"IPv6\",\n            \"port_range_max\": null,\n            \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n            \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n            \"port_range_min\": null,\n            \"remote_ip_prefix\": null,\n            \"id\": \"c0b09f00-1d49-4e64-a0a7-8a186d928138\"\n        },\n        {\n            \"remote_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n            \"direction\": \"ingress\",\n            \"protocol\": null,\n            \"ethertype\": \"IPv4\",\n            \"port_range_max\": null,\n            \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n            \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n            \"port_range_min\": null,\n            \"remote_ip_prefix\": null,\n            \"id\": \"f7d45c89-008e-4bab-88ad-d6811724c51c\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createSecGroupRule",
+                "summary": "Create security group rule",
+                "description": "Creates an OpenStack Networking security group rule.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_group_rule\": {\n        \"remote_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n        \"direction\": \"ingress\",\n        \"protocol\": \"tcp\",\n        \"ethertype\": \"IPv4\",\n        \"port_range_max\": 80,\n        \"security_group_id\": \"a7734e61-b545-452d-a3cd-0189cbd9747a\",\n        \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n        \"port_range_min\": 80,\n        \"remote_ip_prefix\": null,\n        \"id\": \"2bc0accf-312e-429a-956e-e4407625eb62\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/security-group-rules/{rules-security-groups-id}": {
+            "parameters": [
+                {
+                    "name": "rules-security-groups-id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the security group rule.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getSecGroupRule",
+                "summary": "Show security group rule",
+                "description": "Shows detailed information for a specified security group rule.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_group_rule\": {\n        \"remote_group_id\": null,\n        \"direction\": \"egress\",\n        \"protocol\": null,\n        \"ethertype\": \"IPv6\",\n        \"port_range_max\": null,\n        \"security_group_id\": \"85cc3048-abc3-43cc-89b3-377341426ac5\",\n        \"tenant_id\": \"e4f50856753b4dc6afee5fa6b9b6c550\",\n        \"port_range_min\": null,\n        \"remote_ip_prefix\": null,\n        \"id\": \"3c0e45ff-adaf-4124-b083-bf390e5482ff\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteSecGroupRule",
+                "summary": "Delete security group rule",
+                "description": "Deletes a specified rule from a OpenStack Networking security group.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "204 response",
+                        "examples": {}
+                    }
+                }
+            }
+        }
+    }
+}

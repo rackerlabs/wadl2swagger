@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-server-shelve-v2">
+        <resource path="/v2/{tenant_id}/servers/{server_id}/action" id="action">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+               <para>The ID
+                            for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Server UUID">
+               <para>The UUID for the server of
+                                   interest to you.</para>
+            </wadl:doc>
+                        </param>
+         <method name="POST" rax:id="shelve">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Shelve server">
+               <para role="shortdesc">Shelves a running server and
+                changes its status to SHELVED_OFFLOADED.</para>
+               <para>All associated data and resources are kept; however,
+                anything still in memory is not retained. To restore a
+                shelved instance, use the <code>unshelve</code>
+                action. To remove a shelved instance, use the
+                    <code>shelveOffload</code> action.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/wadl:docbook"
+                            xml:lang="EN"
+                            title="Shelve server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">{
+    "shelve": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/wadl:docbook"
+                            xml:lang="EN"
+                            title="Shelve server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;shelve/&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>  
+                  <param name="shelve" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Specify the <code>shelve</code> action
+                            in the request body.</para>
+                    </wadl:doc>
+                  </param> 
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="shelveOffload">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Remove a shelved instance">
+               <para role="shortdesc">Removes an instance from the
+                server.</para>
+               <para>Data and resource associations are deleted. If an
+                instance is no longer needed, you can move that
+                instance off the hypervisor to minimize resource
+                usage.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/wadl:docbook"
+                            xml:lang="EN"
+                            title="Shelve server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">{
+    "shelveOffload": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/wadl:docbook"
+                            xml:lang="EN"
+                            title="Shelve server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;shelveOffload/&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc> 
+                  <param name="shelveOffload"
+                         style="plain"
+                         required="true"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Specify the
+                                <code>shelveOffload</code> action in
+                            the request body.</para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="unshelve">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Restore shelved server">
+               <para role="shortdesc">Restores a shelved server.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/wadl:docbook"
+                            xml:lang="EN"
+                            title="Unshelve server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">{
+    "unshelve": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/wadl:docbook"
+                            xml:lang="EN"
+                            title="Unshelve server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;unshelve/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>      
+                  <param name="unshelve"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         rax:id="os-unshelve">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Specify the <code>unshelve</code>
+                            action in the request
+                        body.</para>
+                     </wadl:doc>
+                  </param> 
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+      </resource>
+                            
+                            
+                            
+                        
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="shelve">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                  <param name="shelve" style="plain" required="true" type="xsd:string">
+                    
+                </param> 
+         </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="shelveOffload">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                 <param name="shelveOffload"
+                   style="plain"
+                   required="true"
+                   type="xsd:string">
+                    
+                </param> 
+         </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="unshelve">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                      
+            <param name="unshelve"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   rax:id="os-unshelve">
+                    
+                </param> 
+         </representation>
+        </request>
+        <response status="202"/>
+    </method>
+</wadl:application>

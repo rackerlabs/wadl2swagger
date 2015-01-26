@@ -1,0 +1,14 @@
+INFO:wadls/os-server-groups.wadl:Converting: wadls/os-server-groups.wadl to swagger/os-server-groups.json
+WARNING:wadls/os-server-groups.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-server-groups.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-server-groups.wadl:Unknown type: xsd:dict for param policies
+WARNING:wadls/os-server-groups.wadl:Using string for xsd:dict
+WARNING:wadls/os-server-groups.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-server-groups.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-server-groups.wadl:Autofix: path parameters must be required in Swagger (ServerGroup_id)
+INFO:root:Saving swagger to swagger/os-server-groups.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

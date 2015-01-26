@@ -1,0 +1,62 @@
+---
+swagger: '2.0'
+info:
+  title: os-quotas
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.0/quotas":
+    get:
+      operationId: showQuota
+      summary: Show quota
+      description: |
+        Shows quotas for a specified tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota": {
+                      "subnet": 10,
+                      "floatingip": 50,
+                      "port": 50,
+                      "network": 10,
+                      "router": 10
+                  }
+              }
+    put:
+      operationId: updateQuota
+      summary: Update quota
+      description: |
+        Updates quotas for a specified tenant. Use when non-default quotas are desired.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota": {
+                      "subnet": 40,
+                      "floatingip": 30,
+                      "port": 30,
+                      "network": 10,
+                      "router": 50
+                  }
+              }
+    delete:
+      operationId: resetQuota
+      summary: Reset quota
+      description: |
+        Resets quotas to default values for a specified tenant.
+      produces: []
+      responses:
+        '204':
+          description: 204 response

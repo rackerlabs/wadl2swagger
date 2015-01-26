@@ -1,0 +1,14 @@
+INFO:wadls/os-hypervisors.wadl:Converting: wadls/os-hypervisors.wadl to swagger/os-hypervisors.json
+WARNING:wadls/os-hypervisors.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-hypervisors.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-hypervisors.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-hypervisors.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-hypervisors.wadl:Autofix: path parameters must be required in Swagger (hypervisor_hostname)
+WARNING:wadls/os-hypervisors.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-hypervisors.wadl:Autofix: path parameters must be required in Swagger (hypervisor_hostname)
+INFO:root:Saving swagger to swagger/os-hypervisors.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

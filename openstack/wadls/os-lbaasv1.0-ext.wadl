@@ -1,0 +1,4297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entites with xmllint          -->
+<!--                                                       -->
+<!--        xmllint -noent os-lbaas-ext.wadl               -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:linkend="http://www.w3.org/1999/linkend"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://neutron.example.com/"
+              xml:id="os-lbaas-v1.0">
+        <resource id="lb-vips" path="v1.0/lb/vips">
+         <method name="GET" rax:id="listVIPs">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List VIPs">
+               <para role="shortdesc">Lists VIPs.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an admin user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable name for the VIP. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="description"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable description for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="subnet_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet on which to allocate the VIP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="address" style="plain" type="xsd:ip">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP address of the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="protocol" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The protocol of the VIP address. A valid value is TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="protocol_port"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The port on which to listen to client traffic that is associated with the VIP address.
+        A valid value is from 0 to 65535.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="pool_id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the pool with which the VIP is associated.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="session_persistence"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Session persistence parameters for the VIP.  Omit the
+        <parameter>session_persistence</parameter> parameter to prevent
+         session persistence. When no session persistence is used,
+            the <parameter>session_persistence</parameter> parameter does not appear in the
+            API response.
+          To clear session persistence for the VIP, set the
+         <parameter>session_persistence</parameter> parameter to <code>null</code> in a VIP update request.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="connection_limit"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of connections allowed for the VIP.
+        Default is <code>-1</code>, meaning no limit.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the VIP. A valid value is
+        true (UP) or false (DOWN).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the VIP. Indicates whether the VIP is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "vips": [
+        {
+            "status": "ACTIVE",
+            "protocol": "HTTP",
+            "description": "",
+            "admin_state_up": true,
+            "subnet_id": "8032909d-47a1-4715-90af-5153ffe39861",
+            "tenant_id": "83657cfcdfe44cd5920adaf26c48ceea",
+            "connection_limit": 1000,
+            "pool_id": "72741b06-df4d-4715-b142-276b6bce75ab",
+            "session_persistence": {
+                "cookie_name": "MyAppCookie",
+                "type": "APP_COOKIE"
+            },
+            "address": "10.0.0.10",
+            "protocol_port": 80,
+            "port_id": "b5a743d6-056b-468b-862d-fb13a9aa694e",
+            "id": "4ec89087-d057-4e2c-911f-60a3b47ee304",
+            "name": "my-vip"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="POST" rax:id="createVIP">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create a load balancer VIP">
+               <para role="shortdesc">Creates a load balancer VIP.</para>
+            </wadl:doc>
+            <request> 
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an admin user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable name for the VIP. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="description"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable description for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="subnet_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet on which to allocate the VIP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="address" style="plain" type="xsd:ip">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP address of the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="protocol" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The protocol of the VIP address. A valid value is TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="protocol_port"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The port on which to listen to client traffic that is associated with the VIP address. A valid value is from 0 to 65535.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="pool_id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the pool with which the VIP is associated.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="session_persistence"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Session persistence parameters for the VIP. Omit the
+        <parameter>session_persistence</parameter> parameter to prevent
+         session persistence. When no session persistence is used,
+            the <parameter>session_persistence</parameter> parameter does not appear in the
+            API response.
+         To clear session persistence for the VIP, set the
+         <parameter>session_persistence</parameter> parameter to <code>null</code> in a VIP update request.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="connection_limit"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of connections allowed for the VIP.
+        Value is <code>-1</code> if the limit is not set.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the VIP. A valid value is true (UP) or false (DOWN).</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "vip": {
+        "protocol": "HTTP",
+        "name": "NewVip",
+        "admin_state_up": true,
+        "subnet_id": "8032909d-47a1-4715-90af-5153ffe39861",
+        "pool_id": "61b1f87a-7a21-4ad3-9dda-7f81d249944f",
+        "protocol_port": "80"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="201"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an admin user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable name for the VIP. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="description"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable description for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="subnet_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet on which to allocate the VIP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="address" style="plain" type="xsd:ip">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP address of the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="protocol" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The protocol of the VIP address. A valid value is TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="protocol_port"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The port on which to listen to client traffic that is associated with the VIP address.
+        A valid value is from 0 to 65535.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="pool_id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the pool with which the VIP is associated.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="session_persistence"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Session persistence parameters for the VIP.  Omit the
+        <parameter>session_persistence</parameter> parameter to prevent
+         session persistence. When no session persistence is used,
+            the <parameter>session_persistence</parameter> parameter does not appear in the
+            API response.
+          To clear session persistence for the VIP, set the
+         <parameter>session_persistence</parameter> parameter to <code>null</code> in a VIP update request.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="connection_limit"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of connections allowed for the VIP.
+        Default is <code>-1</code>, meaning no limit.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the VIP. A valid value is
+        true (UP) or false (DOWN).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the VIP. Indicates whether the VIP is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "vip": {
+        "status": "PENDING_CREATE",
+        "protocol": "HTTP",
+        "description": "",
+        "admin_state_up": true,
+        "subnet_id": "8032909d-47a1-4715-90af-5153ffe39861",
+        "tenant_id": "83657cfcdfe44cd5920adaf26c48ceea",
+        "connection_limit": -1,
+        "pool_id": "61b1f87a-7a21-4ad3-9dda-7f81d249944f",
+        "address": "10.0.0.11",
+        "protocol_port": 80,
+        "port_id": "f7e6fe6a-b8b5-43a8-8215-73456b32e0f5",
+        "id": "c987d2be-9a3c-4ac9-a046-e8716b1350e2",
+        "name": "NewVip"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                
+                
+                <resource id="vip_id" path="v1.0/lb/vips/{vip_id}">
+         <param name="vip_id" style="template" type="csapi:UUID">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="VIP ID">The UUID for
+                            the VIP.</wadl:doc>
+                    </param>
+         <method name="GET" rax:id="showVIP">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show VIP details">
+               <para role="shortdesc">Shows details for a specified
+                VIP.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an admin user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable name for the VIP. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="description"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable description for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="subnet_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet on which to allocate the VIP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="address" style="plain" type="xsd:ip">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP address of the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="protocol" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The protocol of the VIP address. A valid value is TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="protocol_port"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The port on which to listen to client traffic that is associated with the VIP address.
+        A valid value is from 0 to 65535.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="pool_id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the pool with which the VIP is associated.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="session_persistence"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Session persistence parameters for the VIP.  Omit the
+        <parameter>session_persistence</parameter> parameter to prevent
+         session persistence. When no session persistence is used,
+            the <parameter>session_persistence</parameter> parameter does not appear in the
+            API response.
+          To clear session persistence for the VIP, set the
+         <parameter>session_persistence</parameter> parameter to <code>null</code> in a VIP update request.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="connection_limit"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of connections allowed for the VIP.
+        Default is <code>-1</code>, meaning no limit.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the VIP. A valid value is
+        true (UP) or false (DOWN).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the VIP. Indicates whether the VIP is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "vip": {
+        "status": "ACTIVE",
+        "protocol": "HTTP",
+        "description": "",
+        "admin_state_up": true,
+        "subnet_id": "8032909d-47a1-4715-90af-5153ffe39861",
+        "tenant_id": "83657cfcdfe44cd5920adaf26c48ceea",
+        "connection_limit": 1000,
+        "pool_id": "72741b06-df4d-4715-b142-276b6bce75ab",
+        "session_persistence": {
+            "cookie_name": "MyAppCookie",
+            "type": "APP_COOKIE"
+        },
+        "address": "10.0.0.10",
+        "protocol_port": 80,
+        "port_id": "b5a743d6-056b-468b-862d-fb13a9aa694e",
+        "id": "4ec89087-d057-4e2c-911f-60a3b47ee304",
+        "name": "my-vip"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="PUT" rax:id="updateVIP">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Update VIP">
+               <para role="shortdesc">Updates a specified load balancer
+                VIP.</para>
+            </wadl:doc>
+            <request> 
+               <param required="false" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable name for the VIP. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="description"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable description for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false" name="pool_id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the pool with which the VIP is associated.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="session_persistence"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Session persistence parameters for the VIP. Omit the
+        <parameter>session_persistence</parameter> parameter to prevent
+         session persistence. When no session persistence is used,
+            the <parameter>session_persistence</parameter> parameter does not appear in the
+            API response.
+          To clear session persistence for the VIP, set the
+         <parameter>session_persistence</parameter> parameter to <code>null</code> in a VIP update request.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="connection_limit"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of connections allowed for the VIP.
+        Value is <code>-1</code> if the limit is not set.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the VIP. A valid value is true (UP) or false (DOWN).</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "vip": {
+        "connection_limit": "1000"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an admin user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable name for the VIP. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="description"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable description for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="subnet_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet on which to allocate the VIP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="address" style="plain" type="xsd:ip">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP address of the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="protocol" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The protocol of the VIP address. A valid value is TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="protocol_port"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The port on which to listen to client traffic that is associated with the VIP address.
+        A valid value is from 0 to 65535.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="pool_id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the pool with which the VIP is associated.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="session_persistence"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Session persistence parameters for the VIP.  Omit the
+        <parameter>session_persistence</parameter> parameter to prevent
+         session persistence. When no session persistence is used,
+            the <parameter>session_persistence</parameter> parameter does not appear in the
+            API response.
+          To clear session persistence for the VIP, set the
+         <parameter>session_persistence</parameter> parameter to <code>null</code> in a VIP update request.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="connection_limit"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of connections allowed for the VIP.
+        Default is <code>-1</code>, meaning no limit.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the VIP. A valid value is
+        true (UP) or false (DOWN).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the VIP. Indicates whether the VIP is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "vip": {
+        "status": "PENDING_UPDATE",
+        "protocol": "HTTP",
+        "description": "",
+        "admin_state_up": true,
+        "subnet_id": "8032909d-47a1-4715-90af-5153ffe39861",
+        "tenant_id": "83657cfcdfe44cd5920adaf26c48ceea",
+        "connection_limit": 1000,
+        "pool_id": "61b1f87a-7a21-4ad3-9dda-7f81d249944f",
+        "address": "10.0.0.11",
+        "protocol_port": 80,
+        "port_id": "f7e6fe6a-b8b5-43a8-8215-73456b32e0f5",
+        "id": "c987d2be-9a3c-4ac9-a046-e8716b1350e2",
+        "name": "NewVip"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="DELETE" rax:id="deleteVIP">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Delete VIP">
+               <para role="shortdesc">Deletes a specified load balancer
+                VIP.</para>
+            </wadl:doc>
+            <response status="204"/> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                    
+                    
+                    
+                    
+                
+            <resource id="lb-healthmonitors" path="v1.0/lb/healthmonitors">
+         <method name="GET" rax:id="listHealthMonitors">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List health monitors">
+               <para role="shortdesc">Lists health monitors.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="type" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The type of probe sent by the load balancer to verify the member state, which is PING, TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="delay" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The time, in seconds, between sending probes to members.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="timeout" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of seconds for a monitor to wait for a connection to be established before it times out. This value must be less than the delay value.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="max_retries" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Number of allowed connection failures before changing
+        the status of the member to INACTIVE. A valid value is from 1 to 10.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="http_method"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The HTTP method that the monitor uses for requests.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="url_path"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The HTTP path of the request sent by the monitor to test the health of a member. Must be a string beginning with a forward slash (/).</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="expected_codes"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Expected HTTP codes for a passing HTTP(S) monitor.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the health monitor, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the health monitor. Indicates whether the health monitor is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "health_monitors":[
+      {
+         "admin_state_up":true,
+         "tenant_id":"83657cfcdfe44cd5920adaf26c48ceea",
+         "delay":10,
+         "max_retries":1,
+         "timeout":1,
+         "type":"PING",
+         "id":"466c8345-28d8-4f84-a246-e04380b0461d"
+      },
+      {
+         "admin_state_up":true,
+         "tenant_id":"83657cfcdfe44cd5920adaf26c48ceea",
+         "delay":5,
+         "expected_codes":"200",
+         "max_retries":2,
+         "http_method":"GET",
+         "timeout":2,
+         "url_path":"/",
+         "type":"HTTP",
+         "id":"5d4b5228-33b0-4e60-b225-9b727c1a20e7"
+      }
+   ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="POST" rax:id="createHealthMonitor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create a load balancer health monitor">
+               <para role="shortdesc">Creates a load balancer health
+                monitor.</para>
+            </wadl:doc>
+            <request> 
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="type" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The type of probe, which is PING, TCP, HTTP, or HTTPS, that is sent by the load balancer to verify the member state.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="delay" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The time, in seconds, between sending probes to members.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="timeout" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Time in seconds to timeout each probe.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="max_retries" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Maximum consecutive health probe tries.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="url_path"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Path portion of URI that will be probed if type is HTTP(S).</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="expected_codes"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Expected HTTP codes for a passing HTTP(S) monitor.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "healthmonitor":{
+      "type":"HTTP",
+      "tenant_id":"453105b9-1754-413f-aab1-55f1af620750",
+      "delay":20,
+      "timeout":10,
+      "max_retries":5,
+      "url_path":"/check",
+      "expected_codes":"200-299"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="201"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="type" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The type of probe sent by the load balancer to verify the member state, which is PING, TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="delay" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The time, in seconds, between sending probes to members.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="timeout" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of seconds for a monitor to wait for a connection to be established before it times out. This value must be less than the delay value.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="max_retries" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Number of allowed connection failures before changing
+        the status of the member to INACTIVE. A valid value is from 1 to 10.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="http_method"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The HTTP method that the monitor uses for requests.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="url_path"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The HTTP path of the request sent by the monitor to test the health of a member. Must be a string beginning with a forward slash (/).</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="expected_codes"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Expected HTTP codes for a passing HTTP(S) monitor.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the health monitor, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the health monitor. Indicates whether the health monitor is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "healthmonitor":{
+      "id":"f3eeab00-8367-4524-b662-55e64d4cacb5",
+      "tenant_id":"453105b9-1754-413f-aab1-55f1af620750",
+      "type":"HTTP",
+      "delay":20,
+      "timeout":10,
+      "max_retries":5,
+      "http_method":"GET",
+      "url_path":"/check",
+      "expected_codes":"200-299",
+      "admin_state_up":true,
+      "status":"ACTIVE"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                
+                
+                <resource id="health_monitor_id_hm"
+                path="v1.0/lb/healthmonitors/{health_monitor_id}">
+         <method name="GET" rax:id="showHealthMonitor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show health monitor details">
+               <para role="shortdesc">Shows details for a specified
+                health monitor.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="type" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The type of probe sent by the load balancer to verify the member state, which is PING, TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="delay" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The time, in seconds, between sending probes to members.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="timeout" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of seconds for a monitor to wait for a connection to be established before it times out. This value must be less than the delay value.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="max_retries" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Number of allowed connection failures before changing
+        the status of the member to INACTIVE. A valid value is from 1 to 10.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="http_method"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The HTTP method that the monitor uses for requests.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="url_path"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The HTTP path of the request sent by the monitor to test the health of a member. Must be a string beginning with a forward slash (/).</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="expected_codes"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Expected HTTP codes for a passing HTTP(S) monitor.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the health monitor, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the health monitor. Indicates whether the health monitor is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "healthmonitor":{
+      "id":"f3eeab00-8367-4524-b662-55e64d4cacb5",
+      "tenant_id":"453105b9-1754-413f-aab1-55f1af620750",
+      "type":"HTTP",
+      "delay":20,
+      "timeout":10,
+      "max_retries":5,
+      "http_method":"GET",
+      "url_path":"/check",
+      "expected_codes":"200-299",
+      "admin_state_up":true,
+      "status":"ACTIVE"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="PUT" rax:id="updateHealthMonitor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update health monitor">
+               <para role="shortdesc">Updates a specified load balancer
+                health monitor.</para>
+            </wadl:doc>
+            <request> 
+               <param required="true" name="delay" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The time, in seconds, between sending probes to members.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="url_path" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The HTTP path of the request sent by the monitor to test
+            the health of a member. A valid value is a string that
+            begins with a forward slash (/).</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "health_monitor":{
+      "delay":"3"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="type" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The type of probe sent by the load balancer to verify the member state, which is PING, TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="delay" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The time, in seconds, between sending probes to members.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="timeout" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of seconds for a monitor to wait for a connection to be established before it times out. This value must be less than the delay value.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="max_retries" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Number of allowed connection failures before changing
+        the status of the member to INACTIVE. A valid value is from 1 to 10.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="http_method"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The HTTP method that the monitor uses for requests.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="url_path"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The HTTP path of the request sent by the monitor to test the health of a member. Must be a string beginning with a forward slash (/).</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="expected_codes"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Expected HTTP codes for a passing HTTP(S) monitor.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the health monitor, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the health monitor. Indicates whether the health monitor is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "health_monitor": {
+        "admin_state_up": true,
+        "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+        "delay": 5,
+        "max_retries": 5,
+        "http_method": "GET",
+        "timeout": 1,
+        "pools": [
+            {
+                "status": "PENDING_CREATE",
+                "status_description": null,
+                "pool_id": "6e55751f-6ad4-4e53-b8d4-02e442cd21df"
+            }
+        ],
+        "type": "PING",
+        "id": "b05e44b5-81f9-4551-b474-711a722698f7"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="DELETE" rax:id="deleteHealthMonitor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete health monitor">
+               <para role="shortdesc">Deletes a specified load balancer
+                health monitor.</para>
+            </wadl:doc>
+            <request>
+        </request>
+            <response status="204"/> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                    
+                    
+                    
+                
+            <resource id="lb-pools" path="v1.0/lb/pools">
+         <method name="GET" rax:id="listPools">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="List pools">
+               <para role="shortdesc">Lists pools.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the pool. Indicates whether the pool is operational.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="lb_algorithm"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The load-balancer algorithm, which is round-robin, least-connections, and so on.
+        This value, which must be supported, is dependent on the load-balancer provider. Round-robin must be supported.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="protocol" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The protocol of the pool, which is TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="description"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Description for the pool.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="healthmonitor_id"
+                      style="plain"
+                      type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the health monitor.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the pool. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the pool, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Pool name. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="session_persistence"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Session persistence algorithm that should be used (if any). This is a dictionary that has keys of "type" and "cookie_name"..</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="members" style="plain" type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>List of members that belong to the pool.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the pool.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "pools":[
+      {
+         "status":"ACTIVE",
+         "lb_method":"ROUND_ROBIN",
+         "protocol":"HTTP",
+         "description":"",
+         "health_monitors":[
+            "466c8345-28d8-4f84-a246-e04380b0461d",
+            "5d4b5228-33b0-4e60-b225-9b727c1a20e7"
+         ],
+         "subnet_id":"8032909d-47a1-4715-90af-5153ffe39861",
+         "tenant_id":"83657cfcdfe44cd5920adaf26c48ceea",
+         "admin_state_up":true,
+         "name":"app_pool",
+         "members":[
+            "701b531b-111a-4f21-ad85-4795b7b12af6",
+            "beb53b4d-230b-4abd-8118-575b8fa006ef"
+         ],
+         "id":"72741b06-df4d-4715-b142-276b6bce75ab",
+         "vip_id":"4ec89087-d057-4e2c-911f-60a3b47ee304"
+      }
+   ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="POST" rax:id="createPool">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create a load balancer pool">
+               <para role="shortdesc">Creates a load balancer
+                pool.</para>
+            </wadl:doc>
+            <request> 
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the pool. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Pool name. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="protocol" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The protocol of the pool, which is TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="subnet_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The load-balancer algorithm, which is round-robin, least-connections, and so on. This value, which must be supported, is dependent on the load-balancer provider. Round robin must be supported.</para>   
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "pool": {
+        "lb_method": "ROUND_ROBIN",
+        "protocol": "HTTP",
+        "name": "Example pool",
+        "subnet_id": "1981f108-3c48-48d2-b908-30f7d28532c9",
+        "tenant_id": "2ffc6e22aae24e4795f87155d24c896f"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="201"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an admin user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable name for the VIP. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="description"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Human-readable description for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="subnet_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the subnet on which to allocate the VIP address.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="address" style="plain" type="xsd:ip">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP address of the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="protocol" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The protocol of the VIP address. A valid value is TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="protocol_port"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The port on which to listen to client traffic that is associated with the VIP address.
+        A valid value is from 0 to 65535.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="pool_id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the pool with which the VIP is associated.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="session_persistence"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Session persistence parameters for the VIP.  Omit the
+        <parameter>session_persistence</parameter> parameter to prevent
+         session persistence. When no session persistence is used,
+            the <parameter>session_persistence</parameter> parameter does not appear in the
+            API response.
+          To clear session persistence for the VIP, set the
+         <parameter>session_persistence</parameter> parameter to <code>null</code> in a VIP update request.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="connection_limit"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of connections allowed for the VIP.
+        Default is <code>-1</code>, meaning no limit.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the VIP. A valid value is
+        true (UP) or false (DOWN).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the VIP. Indicates whether the VIP is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "pool": {
+        "status": "PENDING_CREATE",
+        "lb_method": "ROUND_ROBIN",
+        "protocol": "HTTP",
+        "description": "",
+        "health_monitors": [],
+        "members": [],
+        "status_description": null,
+        "id": "69055154-f603-4a28-8951-7cc2d9e54a9a",
+        "vip_id": null,
+        "name": "Example pool",
+        "admin_state_up": true,
+        "subnet_id": "1981f108-3c48-48d2-b908-30f7d28532c9",
+        "tenant_id": "2ffc6e22aae24e4795f87155d24c896f",
+        "health_monitors_status": [],
+        "provider": "haproxy"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                
+                
+                <resource id="pool_id" path="v1.0/lb/pools/{pool_id}">
+         <param name="pool_id" style="template" type="csapi:UUID">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Network ID">The UUID
+                            for the pool.</wadl:doc>
+                    </param>
+         <method name="GET" rax:id="showPool">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show pool details">
+               <para role="shortdesc">Shows details for a specified
+                pool.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the pool. Indicates whether the pool is operational.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="lb_algorithm"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The load-balancer algorithm, which is round-robin, least-connections, and so on.
+        This value, which must be supported, is dependent on the load-balancer provider. Round-robin must be supported.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="protocol" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The protocol of the pool, which is TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="description"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Description for the pool.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="healthmonitor_id"
+                      style="plain"
+                      type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the health monitor.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the pool. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the pool, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Pool name. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="session_persistence"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Session persistence algorithm that should be used (if any). This is a dictionary that has keys of "type" and "cookie_name"..</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="members" style="plain" type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>List of members that belong to the pool.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the pool.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "pool":{
+      "id":"332abe93-f488-41ba-870b-2ac66be7f853",
+      "tenant_id":"19eaa775-cf5d-49bc-902e-2f85f668d995",
+      "name":"Example pool",
+      "description":"",
+      "protocol":"tcp",
+      "lb_algorithm":"ROUND_ROBIN",
+      "session_persistence":{
+      },
+      "healthmonitor_id":null,
+      "members":[
+      ],
+      "admin_state_up":true,
+      "status":"ACTIVE"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="PUT" rax:id="updatePool">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Update pool">
+               <para role="shortdesc">Updates a specified load balancer
+                pool.</para>
+            </wadl:doc>
+            <request> 
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Pool name. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="lb_algorithm"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The load-balancer algorithm, which is round-robin, least-connections, and so on. This value, which must be supported, is dependent on the load-balancer provider. Round robin must be supported.</para>   
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "pool":{
+      "name":"SuperPool"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200"> 
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the pool. Indicates whether the pool is operational.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="lb_algorithm"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The load-balancer algorithm, which is round-robin, least-connections, and so on.
+        This value, which must be supported, is dependent on the load-balancer provider. Round-robin must be supported.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="protocol" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The protocol of the pool, which is TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="description"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Description for the pool.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="healthmonitor_id"
+                      style="plain"
+                      type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The ID of the health monitor.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the pool. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the pool, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="name" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Pool name. Does not have to be unique.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="session_persistence"
+                      style="plain"
+                      type="xsd:dict">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Session persistence algorithm that should be used (if any). This is a dictionary that has keys of "type" and "cookie_name"..</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="members" style="plain" type="xsd:list">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>List of members that belong to the pool.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the pool.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "pool":{
+      "status":"PENDING_UPDATE",
+      "lb_method":"ROUND_ROBIN",
+      "protocol":"TCP",
+      "description":"",
+      "health_monitors":[
+
+      ],
+      "subnet_id":"8032909d-47a1-4715-90af-5153ffe39861",
+      "tenant_id":"83657cfcdfe44cd5920adaf26c48ceea",
+      "admin_state_up":true,
+      "name":"SuperPool",
+      "members":[
+
+      ],
+      "id":"61b1f87a-7a21-4ad3-9dda-7f81d249944f",
+      "vip_id":null
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="DELETE" rax:id="deletePool">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Delete pool">
+               <para role="shortdesc">Deletes a specified load balancer
+                pool.</para>
+            </wadl:doc>
+            <response status="204"/> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                    
+                    
+                    
+                    
+                    <resource id="health_monitors_pool"
+                path="v1.0/lb/pools/{pool_id}/health_monitors">
+         <param name="pool_id" style="template" type="csapi:UUID">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Network ID">The UUID
+                            for the pool.</wadl:doc>
+                    </param>
+         <method name="POST" rax:id="associateHealthMonitor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Associate health monitor with pool">
+               <para role="shortdesc">Associates a health monitor with a
+                specified pool.</para>
+            </wadl:doc>
+            <request> 
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="type" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The type of probe, which is PING, TCP, HTTP, or HTTPS, that is sent by the load balancer to verify the member state.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="delay" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The time, in seconds, between sending probes to members.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="timeout" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Time in seconds to timeout each probe.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="max_retries" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Maximum consecutive health probe tries.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="url_path"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Path portion of URI that will be probed if type is HTTP(S).</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="expected_codes"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Expected HTTP codes for a passing HTTP(S) monitor.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "health_monitor":{
+      "id":"b624decf-d5d3-4c66-9a3d-f047e7786181"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="201"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the VIP.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the VIP. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="type" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The type of probe sent by the load balancer to verify the member state, which is PING, TCP, HTTP, or HTTPS.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="delay" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The time, in seconds, between sending probes to members.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="timeout" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The maximum number of seconds for a monitor to wait for a connection to be established before it times out. This value must be less than the delay value.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="max_retries" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Number of allowed connection failures before changing
+        the status of the member to INACTIVE. A valid value is from 1 to 10.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="http_method"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The HTTP method that the monitor uses for requests.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="url_path"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The HTTP path of the request sent by the monitor to test the health of a member. Must be a string beginning with a forward slash (/).</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="expected_codes"
+                      style="plain"
+                      type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Expected HTTP codes for a passing HTTP(S) monitor.</para>
+                  </wadl:doc>
+               </param>
+               <param required="false"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the health monitor, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the health monitor. Indicates whether the health monitor is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "health_monitor":{
+
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                        
+                        <resource id="health_monitor_id_pool"
+                path="v1.0/lb/pools/{pool_id}/health_monitors/{health_monitor_id}">
+         <param name="pool_id" style="template" type="csapi:UUID">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Network ID">The UUID
+                            for the pool.</wadl:doc>
+                    </param>
+         <param name="health_monitor_id" style="template" type="csapi:UUID">
+                                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Network ID">The UUID for the health
+                                   monitor.</wadl:doc>
+                            </param>
+         <method name="DELETE" rax:id="disassociateHealthMonitor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Disassociate health monitor from pool">
+               <para role="shortdesc">Disassociates a specified health
+                monitor from a pool.</para>
+            </wadl:doc>
+            <response status="204"/> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                            
+                            
+                        
+                    
+                
+            <resource id="lb-members" path="v1.0/lb/members">
+         <method name="GET" rax:id="listMembers">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List members">
+               <para role="shortdesc">Lists members.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the member. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="subnet_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Subnet in which to access this member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="address" style="plain" type="xsd:ip">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP address of the member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="protocol_port"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The port on which the application is hosted.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="weight" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Weight of member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the member, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the member. Indicates whether the member is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "members":[
+      {
+         "status":"ACTIVE",
+         "weight":1,
+         "admin_state_up":true,
+         "tenant_id":"83657cfcdfe44cd5920adaf26c48ceea",
+         "pool_id":"72741b06-df4d-4715-b142-276b6bce75ab",
+         "address":"10.0.0.4",
+         "protocol_port":80,
+         "id":"701b531b-111a-4f21-ad85-4795b7b12af6"
+      },
+      {
+         "status":"ACTIVE",
+         "weight":1,
+         "admin_state_up":true,
+         "tenant_id":"83657cfcdfe44cd5920adaf26c48ceea",
+         "pool_id":"72741b06-df4d-4715-b142-276b6bce75ab",
+         "address":"10.0.0.3",
+         "protocol_port":80,
+         "id":"beb53b4d-230b-4abd-8118-575b8fa006ef"
+      }
+   ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="POST" rax:id="createMember">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create a load balancer member">
+               <para role="shortdesc">Creates a load balancer
+                member.</para>
+            </wadl:doc>
+            <request> 
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the member. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="address" style="plain" type="xsd:ip">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP address of the member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="protocol_port"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The port on which the application is hosted.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="subnet_id" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Subnet in which to access this member.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+  "member": {
+    "tenant_id": "453105b9-1754-413f-aab1-55f1af620750",
+    "address": "192.0.2.14",
+    "protocol_port":8080,
+    "subnet_id": "SUBNET_ID"
+  }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="201"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the member. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="subnet_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Subnet in which to access this member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="address" style="plain" type="xsd:ip">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP address of the member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="protocol_port"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The port on which the application is hosted.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="weight" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Weight of member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the member, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the member. Indicates whether the member is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+  "member": {
+    "id": "975592ca-e308-48ad-8298-731935ee9f45",
+    "address": "192.0.2.14",
+    "protocol_port": 8080,
+    "tenant_id": "453105b9-1754-413f-aab1-55f1af620750",
+    "admin_state_up":true,
+    "weight": 1,
+    "subnet_id": "SUBNET_ID",
+    "status": "DOWN"
+  }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                
+                
+                <resource id="member_id" path="v1.0/lb/members/{member_id}">
+         <param name="member_id" style="template" type="csapi:UUID">
+                        <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Network ID">The UUID
+                            for the member.</wadl:doc>
+                    </param>
+         <method name="GET" rax:id="showMember">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show member details">
+               <para role="shortdesc">Shows details for a specified
+                member.</para>
+            </wadl:doc>
+            <response status="200"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the member. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="subnet_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Subnet in which to access this member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="address" style="plain" type="xsd:ip">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP address of the member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="protocol_port"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The port on which the application is hosted.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="weight" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Weight of member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the member, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the member. Indicates whether the member is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "member":{
+      "id":"975592ca-e308-48ad-8298-731935ee9f45",
+      "address":"192.0.2.14",
+      "protocol_port":8080,
+      "tenant_id":"453105b9-1754-413f-aab1-55f1af620750",
+      "admin_state_up":true,
+      "weight":1,
+      "subnet_id":"SUBNET_ID",
+      "status":"DOWN"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="PUT" rax:id="updateMember">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update member">
+               <para role="shortdesc">Updates a specified load balancer
+                member.</para>
+            </wadl:doc>
+            <request> 
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the member, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "member":{
+      "admin_state_up":false
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200"> 
+               <param required="true" name="id" style="plain" type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The unique ID for the member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="tenant_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Owner of the member. Only an administrative user can specify a tenant ID other than its own.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="subnet_id"
+                      style="plain"
+                      type="csapi:uuid">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Subnet in which to access this member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="address" style="plain" type="xsd:ip">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The IP address of the member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="protocol_port"
+                      style="plain"
+                      type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The port on which the application is hosted.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="weight" style="plain" type="xsd:int">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>Weight of member.</para>
+                  </wadl:doc>
+               </param>
+               <param required="true"
+                      name="admin_state_up"
+                      style="plain"
+                      type="xsd:boolean">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The administrative state of the member, which is up (<code>true</code>) or down (<code>false</code>).</para>
+                  </wadl:doc>
+               </param>
+               <param required="true" name="status" style="plain" type="xsd:string">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                     <para>The status of the member. Indicates whether the member is operational.</para>
+                  </wadl:doc>
+               </param> 
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+   "member":{
+      "status":"PENDING_UPDATE",
+      "protocol_port":8080,
+      "weight":1,
+      "admin_state_up":false,
+      "tenant_id":"4fd44f30292945e481c7b8a0c8908869",
+      "pool_id":"7803631d-f181-4500-b3a2-1b68ba2a75fd",
+      "address":"10.0.0.5",
+      "status_description":null,
+      "id":"48a471ea-64f1-4eb6-9be7-dae6bbe40a0f"
+   }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="DELETE" rax:id="deleteMember">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete member">
+               <para role="shortdesc">Deletes a specified load balancer
+                member.</para>
+            </wadl:doc>
+            <response status="204"/> 
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404">
+               <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="409">
+               <representation mediaType="application/xml" element="csapi:conflict"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                    
+                    
+                    
+                    
+                
+            
+    </resources>
+
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+    <!-- vips -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listVIPs">
+        
+        <response status="200"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="description"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="subnet_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="address" style="plain" type="xsd:ip">
+    
+</param>
+         <param required="true" name="protocol" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="protocol_port"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true" name="pool_id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="session_persistence"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="true"
+                name="connection_limit"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createVIP">
+        
+        <request> 
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="false" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="description"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="subnet_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="false" name="address" style="plain" type="xsd:ip">
+    
+</param>
+         <param required="true" name="protocol" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="protocol_port"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="false" name="pool_id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="false"
+                name="session_persistence"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="connection_limit"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="false"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="201"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="description"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="subnet_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="address" style="plain" type="xsd:ip">
+    
+</param>
+         <param required="true" name="protocol" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="protocol_port"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true" name="pool_id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="session_persistence"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="true"
+                name="connection_limit"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showVIP">
+        
+        <response status="200"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="description"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="subnet_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="address" style="plain" type="xsd:ip">
+    
+</param>
+         <param required="true" name="protocol" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="protocol_port"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true" name="pool_id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="session_persistence"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="true"
+                name="connection_limit"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateVIP">
+        
+        <request> 
+         <param required="false" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="description"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false" name="pool_id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="false"
+                name="session_persistence"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="false"
+                name="connection_limit"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="false"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="description"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="subnet_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="address" style="plain" type="xsd:ip">
+    
+</param>
+         <param required="true" name="protocol" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="protocol_port"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true" name="pool_id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="session_persistence"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="true"
+                name="connection_limit"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteVIP">
+        
+        <response status="204"/> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <!-- pools -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listPools">
+        
+        <response status="200"> 
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="lb_algorithm"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="true" name="protocol" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="description"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="healthmonitor_id"
+                style="plain"
+                type="xsd:list">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="session_persistence"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="true" name="members" style="plain" type="xsd:list">
+    
+</param>
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createPool">
+        
+        <request> 
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true" name="protocol" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="subnet_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="201"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="description"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="subnet_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="address" style="plain" type="xsd:ip">
+    
+</param>
+         <param required="true" name="protocol" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="protocol_port"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true" name="pool_id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="session_persistence"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="true"
+                name="connection_limit"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showPool">
+        
+        <response status="200"> 
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="lb_algorithm"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="true" name="protocol" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="description"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="healthmonitor_id"
+                style="plain"
+                type="xsd:list">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="session_persistence"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="true" name="members" style="plain" type="xsd:list">
+    
+</param>
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updatePool">
+        
+        <request> 
+         <param required="true" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="lb_algorithm"
+                style="plain"
+                type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200"> 
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="lb_algorithm"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="true" name="protocol" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true"
+                name="description"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="healthmonitor_id"
+                style="plain"
+                type="xsd:list">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="name" style="plain" type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="session_persistence"
+                style="plain"
+                type="xsd:dict">
+    
+</param>
+         <param required="true" name="members" style="plain" type="xsd:list">
+    
+</param>
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deletePool">
+        
+        <response status="204"/> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <!-- members -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listMembers">
+        
+        <response status="200"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="subnet_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="address" style="plain" type="xsd:ip">
+    
+</param>
+         <param required="true"
+                name="protocol_port"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true" name="weight" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createMember">
+        
+        <request> 
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="address" style="plain" type="xsd:ip">
+    
+</param>
+         <param required="true"
+                name="protocol_port"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true" name="subnet_id" style="plain" type="xsd:int">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="201"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="subnet_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="address" style="plain" type="xsd:ip">
+    
+</param>
+         <param required="true"
+                name="protocol_port"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true" name="weight" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showMember">
+        
+        <response status="200"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="subnet_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="address" style="plain" type="xsd:ip">
+    
+</param>
+         <param required="true"
+                name="protocol_port"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true" name="weight" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateMember">
+        
+        <request> 
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="subnet_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="address" style="plain" type="xsd:ip">
+    
+</param>
+         <param required="true"
+                name="protocol_port"
+                style="plain"
+                type="xsd:int">
+    
+</param>
+         <param required="true" name="weight" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteMember">
+        
+        <response status="204"/> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <!-- health monitors -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listHealthMonitors">
+        
+        <response status="200"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="type" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true" name="delay" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="timeout" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="max_retries" style="plain" type="xsd:int">
+    
+</param>
+         <param required="false"
+                name="http_method"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="url_path"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="expected_codes"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createHealthMonitor">
+        
+        <request> 
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="type" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true" name="delay" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="timeout" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="max_retries" style="plain" type="xsd:int">
+    
+</param>
+         <param required="false"
+                name="url_path"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="expected_codes"
+                style="plain"
+                type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="201"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="type" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true" name="delay" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="timeout" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="max_retries" style="plain" type="xsd:int">
+    
+</param>
+         <param required="false"
+                name="http_method"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="url_path"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="expected_codes"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showHealthMonitor">
+        
+        <response status="200"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="type" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true" name="delay" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="timeout" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="max_retries" style="plain" type="xsd:int">
+    
+</param>
+         <param required="false"
+                name="http_method"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="url_path"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="expected_codes"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updateHealthMonitor">
+        
+        <request> 
+         <param required="true" name="delay" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="url_path" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="type" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true" name="delay" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="timeout" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="max_retries" style="plain" type="xsd:int">
+    
+</param>
+         <param required="false"
+                name="http_method"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="url_path"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="expected_codes"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="403">
+         <representation mediaType="application/xml" element="csapi:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteHealthMonitor">
+        
+        <request>
+        </request>
+        <response status="204"/> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="associateHealthMonitor">
+        
+        <request> 
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="type" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true" name="delay" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="timeout" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="max_retries" style="plain" type="xsd:int">
+    
+</param>
+         <param required="false"
+                name="url_path"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="expected_codes"
+                style="plain"
+                type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="201"> 
+         <param required="true" name="id" style="plain" type="csapi:uuid">
+    
+</param>
+         <param required="true"
+                name="tenant_id"
+                style="plain"
+                type="csapi:uuid">
+    
+</param>
+         <param required="true" name="type" style="plain" type="xsd:string">
+    
+</param>
+         <param required="true" name="delay" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="timeout" style="plain" type="xsd:int">
+    
+</param>
+         <param required="true" name="max_retries" style="plain" type="xsd:int">
+    
+</param>
+         <param required="false"
+                name="http_method"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="url_path"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="expected_codes"
+                style="plain"
+                type="xsd:string">
+    
+</param>
+         <param required="false"
+                name="admin_state_up"
+                style="plain"
+                type="xsd:boolean">
+    
+</param>
+         <param required="true" name="status" style="plain" type="xsd:string">
+    
+</param> 
+         <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400">
+         <representation mediaType="application/xml" element="csapi:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:linkend="http://www.w3.org/1999/linkend"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="disassociateHealthMonitor">
+        
+        <response status="204"/> 
+      <response status="401">
+         <representation mediaType="application/xml" element="csapi:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404">
+            <representation mediaType="application/xml" element="csapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="409">
+            <representation mediaType="application/xml" element="csapi:conflict"/>
+            <representation mediaType="application/json"/>
+        </response> 
+   </method>
+</wadl:application>

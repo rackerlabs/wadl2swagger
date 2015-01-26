@@ -1,0 +1,1774 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2011-2014 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!-- Import Common XML Entities                            -->
+<!--                                                       -->
+<!-- You can resolve the entites with xmllint              -->
+<!--                                                       -->
+<!-- xmllint -noent OS-OAUTH1.wadl                         -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xsi:schemaLocation="http://docs.openstack.org/identity/api/v3.0 ../xsd/api.xsd     http://docs.openstack.org/common/api/v1.0 ../xsd/api-common.xsd     http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd     ">
+    <wadl:grammars xmlns:db="http://docbook.org/ns/docbook"
+                  xmlns="http://wadl.dev.java.net/2009/02">
+      <wadl:include href="43786-OS-OAUTH1-v3-xsd-1.xsd"/>
+      <wadl:include href="43786-OS-OAUTH1-v3-xsd-2.xsd"/>
+   </wadl:grammars>
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+    <!-- We should use SSL in production -->
+    <resources xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+              xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:db="http://docbook.org/ns/docbook"
+              xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="http://localhost:35357"
+              xml:id="OS-OAUTH1-v3">
+        <!-- FYI: double slash needed in path to get a single slash to display -->
+        <resource id="consumers" path="/v3/OS-OAUTH1/consumers">
+         <method name="POST" rax:id="createConsumer">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create consumer">
+               <para role="shortdesc">Enables a user to create a
+                consumer.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code>
+                           <programlisting language="javascript">{
+    "consumer": {
+        "description": "My consumer"
+    }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="201">
+               <param name="secret" style="plain" type="xsd:string" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>A secret for the consumer, which is returned
+                        only when the consumer is created.</para>
+                  </wadl:doc>
+               </param>
+               <param name="description"
+                      style="plain"
+                      type="xsd:string"
+                      required="false">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The consumer description.</para>
+                  </wadl:doc>
+               </param>
+               <param name="id" style="plain" type="csapi:uuid" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the consumer. In OpenStack, the ID
+                        is the key.</para>
+                  </wadl:doc>
+               </param>
+               <param name="links" style="plain" type="xsd:dict" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Consumer links.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code>
+                           <programlisting language="javascript">{
+    "consumer": {
+        "secret": "secretsecret",
+        "description": "My consumer",
+        "id": "7fea2d",
+        "links": {
+            "self": "http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d"
+        }
+    }
+}
+</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400" rax:phrase="Bad Request">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401" rax:phrase="Unauthorized">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403" rax:phrase="Forbidden">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405" rax:phrase="Method Not Allowed">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413" rax:phrase="Request Entity Too Large">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503" rax:phrase="Service Unavailable">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+         </method>
+         <method name="GET" rax:id="listConsumers">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List consumers">
+               <para role="shortdesc">Lists consumers.</para>
+            </wadl:doc>
+            <response status="200">
+               <param name="description"
+                      style="plain"
+                      type="xsd:string"
+                      required="false">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The consumer description.</para>
+                  </wadl:doc>
+               </param>
+               <param name="id" style="plain" type="csapi:uuid" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the consumer. In OpenStack, the ID
+                        is the key.</para>
+                  </wadl:doc>
+               </param>
+               <param name="links" style="plain" type="xsd:dict" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Consumer links.</para>
+                  </wadl:doc>
+               </param>
+               <param name="next"
+                      style="plain"
+                      type="xsd:anyURI"
+                      path="/common:extensions/atom:link[@rel='next']/@href">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Moves to the next item in the
+                    list.</para>
+                  </wadl:doc>
+                  <link resource_type="#ExtensionList" rel="next"/>
+               </param>
+               <param name="previous"
+                      style="plain"
+                      type="xsd:anyURI"
+                      path="/common:extensions/atom:link[@rel='previous']/@href">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Moves to the previous item in the
+                        list.</para>
+                  </wadl:doc>
+                  <link resource_type="#ExtensionList" rel="previous"/>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code>
+                           <programlisting language="javascript">{
+    "consumers": [
+        {
+            "id": "0c2a74",
+            "links": {
+                "self": "http://identity:35357/v3/OS-OAUTH1/consumers/0c2a74"
+            }
+        },
+        {
+            "description": "My consumer",
+            "id": "7fea2d",
+            "links": {
+                "self": "http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d"
+            }
+        }
+    ],
+    "links": {
+        "next": null,
+        "previous": null,
+        "self": "http://identity:35357/v3/OS-OAUTH1/consumers"
+    }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400" rax:phrase="Bad Request">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401" rax:phrase="Unauthorized">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403" rax:phrase="Forbidden">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405" rax:phrase="Method Not Allowed">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413" rax:phrase="Request Entity Too Large">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503" rax:phrase="Service Unavailable">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404" rax:phrase="Not Found">
+               <representation mediaType="application/xml" element="identity:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                    
+                    
+                    <resource id="consumer_id" path="/v3/OS-OAUTH1/consumers/{consumer_id}">
+         <param name="consumer_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">The ID of the consumer.</wadl:doc>
+                        </param>
+         <method name="GET" rax:id="showConsumer">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show consumer">
+               <para role="shortdesc">Shows information for a specified
+                consumer.</para>
+            </wadl:doc>
+            <response status="200">
+               <param name="id" style="plain" type="csapi:uuid" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the consumer. In OpenStack, the ID
+                        is the key.</para>
+                  </wadl:doc>
+               </param>
+               <param name="description"
+                      style="plain"
+                      type="xsd:string"
+                      required="false">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The consumer description.</para>
+                  </wadl:doc>
+               </param>
+               <param name="links" style="plain" type="xsd:dict" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Consumer links.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code>
+                           <programlisting language="javascript">{
+    "consumer": {
+        "id": "7fea2d",
+        "description": "My consumer",
+        "links": {
+            "self": "http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d"
+        }
+    }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400" rax:phrase="Bad Request">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401" rax:phrase="Unauthorized">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403" rax:phrase="Forbidden">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405" rax:phrase="Method Not Allowed">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413" rax:phrase="Request Entity Too Large">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503" rax:phrase="Service Unavailable">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404" rax:phrase="Not Found">
+               <representation mediaType="application/xml" element="identity:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="PATCH" rax:id="updateConsumer">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update consumer">
+               <para role="shortdesc">Updates the description for a
+                specified consumer.</para>
+               <para>If you try to update any attribute other than
+                description, the HTTP 400 Bad Request error is
+                returned.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code>
+                           <programlisting language="javascript">{
+    "consumer": {
+        "description": "My new consumer"
+    }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <param name="description"
+                      style="plain"
+                      type="xsd:string"
+                      required="false">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The consumer description.</para>
+                  </wadl:doc>
+               </param>
+               <param name="id" style="plain" type="csapi:uuid" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the consumer. In OpenStack, the ID
+                        is the key.</para>
+                  </wadl:doc>
+               </param>
+               <param name="links" style="plain" type="xsd:dict" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Consumer links.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code>
+                           <programlisting language="javascript">{
+    "consumer": {
+        "description": "My new consumer",
+        "id": "7fea2d",
+        "links": {
+            "self": "http://identity:35357/v3/OS-OAUTH1/consumers/7fea2d"
+        }
+    }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response>
+        
+            <response status="400" rax:phrase="Bad Request">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401" rax:phrase="Unauthorized">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403" rax:phrase="Forbidden">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405" rax:phrase="Method Not Allowed">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413" rax:phrase="Request Entity Too Large">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503" rax:phrase="Service Unavailable">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="DELETE" rax:id="deleteConsumer">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete consumer">
+               <para role="shortdesc">Deletes a specified
+                consumer.</para>
+               <para>When you delete a consumer, any associated request
+                tokens, access tokens, and Identity API tokens
+                are also deleted.</para>
+            </wadl:doc>
+            <response status="204"> </response> 
+            <response status="400" rax:phrase="Bad Request">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401" rax:phrase="Unauthorized">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403" rax:phrase="Forbidden">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405" rax:phrase="Method Not Allowed">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413" rax:phrase="Request Entity Too Large">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503" rax:phrase="Service Unavailable">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                        
+                        
+                        
+                        
+                    
+                    
+                <resource id="access_token" path="/v3/OS-OAUTH1/access_token">
+         <method name="POST" rax:id="createAccessToken">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create access token">
+               <para role="shortdesc">Enables a consumer to create an
+                access token by exchanging a request token for an
+                access token.</para>
+               <para>After the user authorizes the request token, the
+                consumer exchanges the authorized request token and
+                OAuth verifier for an access token.</para>
+               <para>Supported signature methods: HMAC-SHA1.</para>
+               <para>The consumer must provide all required OAuth
+                parameters in the request. See <link xlink:href="http://oauth.net/core/1.0a/#auth_step1">Consumer Obtains a Request Token</link>.</para>
+               <para>Supported signature methods: HMAC-SHA1.</para>
+               <para>You must provide all required OAuth parameters in
+                the request. See <link xlink:href="http://oauth.net/core/1.0a/#auth_step1">Consumer Obtains a Request Token</link>.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json"/>
+            </request>
+            <response status="200">
+               <param name="oauth_expires_at"
+                      style="plain"
+                      type="xsd:dict"
+                      required="false">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ISO 8601 date time when a request token
+                        expires. If the Identity Service API does not
+                        include this attribute or the attribute is
+                        null, the token lasts
+                    indefinitely.</para>
+                  </wadl:doc>
+               </param>
+               <param name="oauth_token"
+                      style="plain"
+                      type="xsd:dict"
+                      required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The request token key that the Identity
+                        Service returns.</para>
+                  </wadl:doc>
+               </param>
+               <param name="oauth_token_secret"
+                      style="plain"
+                      type="xsd:dict"
+                      required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The secret associated with the request
+                        token.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/txt">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code>
+                           <programlisting language="">oauth_token=accd36&amp;oauth_token_secret=aa47da&amp;oauth_expires_at=2013-09-11T06:07:51.501805Z</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response>
+        
+            <response status="400" rax:phrase="Bad Request">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401" rax:phrase="Unauthorized">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403" rax:phrase="Forbidden">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405" rax:phrase="Method Not Allowed">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413" rax:phrase="Request Entity Too Large">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503" rax:phrase="Service Unavailable">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                <resource id="access_tokens" path="/v3/OS-OAUTH1/users/{user_id}/access_tokens">
+         <param name="user_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The ID of the user.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="listAuthorizedAccessTokens">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List authorized access tokens">
+               <para role="shortdesc">Lists authorized access
+                tokens.</para>
+            </wadl:doc>
+            <response status="200">
+               <param name="consumer_id"
+                      style="template"
+                      type="csapi:uuid"
+                      required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the consumer.</para>
+                  </wadl:doc>
+               </param>
+               <param name="id" style="plain" type="csapi:uuid" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID for the access
+                    token.</para>
+                  </wadl:doc>
+               </param>
+               <param name="expires_at"
+                      style="plain"
+                      type="xsd:dict"
+                      required="false">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ISO 8601 date time when an access token
+                        expires. If the Identity Service API does not
+                        include this attribute or the attribute is
+                        null, the token lasts
+                    indefinitely.</para>
+                  </wadl:doc>
+               </param>
+               <param name="links" style="plain" type="xsd:dict" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Access token links.</para>
+                  </wadl:doc>
+               </param>
+               <param name="project_id"
+                      style="plain"
+                      type="csapi:uuid"
+                      required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the project.</para>
+                  </wadl:doc>
+               </param>
+               <param name="authorizing_user_id"
+                      style="plain"
+                      type="csapi:uuid"
+                      required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the authorizing user.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code>
+                           <programlisting language="javascript">{
+    "access_tokens": [
+        {
+            "consumer_id": "7fea2d",
+            "id": "6be26a",
+            "expires_at": "2013-09-11T06:07:51.501805Z",
+            "links": {
+                "roles": "http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a/roles",
+                "self": "http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a"
+            },
+            "project_id": "b9fca3",
+            "authorizing_user_id": "ce9e07"
+        }
+    ],
+    "links": {
+        "next": null,
+        "previous": null,
+        "self": "http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens"
+    }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response>
+        
+            <response status="400" rax:phrase="Bad Request">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401" rax:phrase="Unauthorized">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403" rax:phrase="Forbidden">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405" rax:phrase="Method Not Allowed">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413" rax:phrase="Request Entity Too Large">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503" rax:phrase="Service Unavailable">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                            
+                            <resource id="access_token_id"
+                path="/v3/OS-OAUTH1/users/{user_id}/access_tokens/{access_token_id}">
+         <param name="user_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The ID of the user.</para>
+                            </wadl:doc>
+                        </param>
+         <param name="access_token_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                                   <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                   <para>The ID of the access
+                                   token.</para>
+                                   </wadl:doc>
+                                </param>
+         <method name="GET" rax:id="getAuthorizedAccessToken">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get authorized access token">
+               <para role="shortdesc">Gets an authorized access
+                token.</para>
+            </wadl:doc>
+            <response status="200">
+               <param name="consumer_id"
+                      style="template"
+                      type="csapi:uuid"
+                      required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the consumer.</para>
+                  </wadl:doc>
+               </param>
+               <param name="id" style="plain" type="csapi:uuid" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID for the access
+                    token.</para>
+                  </wadl:doc>
+               </param>
+               <param name="expires_at"
+                      style="plain"
+                      type="xsd:dict"
+                      required="false">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ISO 8601 date time when an access token
+                        expires. If the Identity Service API does not
+                        include this attribute or the attribute is
+                        null, the token lasts
+                    indefinitely.</para>
+                  </wadl:doc>
+               </param>
+               <param name="links" style="plain" type="xsd:dict" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Access token links.</para>
+                  </wadl:doc>
+               </param>
+               <param name="project_id"
+                      style="plain"
+                      type="csapi:uuid"
+                      required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the project.</para>
+                  </wadl:doc>
+               </param>
+               <param name="authorizing_user_id"
+                      style="plain"
+                      type="csapi:uuid"
+                      required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The ID of the authorizing user.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code>
+                           <programlisting language="javascript">{
+    "access_token": {
+        "consumer_id": "7fea2d",
+        "id": "6be26a",
+        "expires_at": "2013-09-11T06:07:51.501805Z",
+        "links": {
+            "roles": "http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a/roles",
+            "self": "http://identity:35357/v3/users/ce9e07/OS-OAUTH1/access_tokens/6be26a"
+        },
+        "project_id": "b9fca3",
+        "authorizing_user_id": "ce9e07"
+    }
+}</programlisting>
+                        </xsdxt:code>
+                    </xsdxt:sample>
+                  </wadl:doc>
+               </representation>
+            </response>
+        
+            <response status="400" rax:phrase="Bad Request">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401" rax:phrase="Unauthorized">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403" rax:phrase="Forbidden">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405" rax:phrase="Method Not Allowed">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413" rax:phrase="Request Entity Too Large">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503" rax:phrase="Service Unavailable">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+         <method name="DELETE" rax:id="revokeAccessToken">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Revoke access token">
+               <para role="shortdesc">Enables a user to revoke an access
+                token, which prevents the consumer from requesting new
+                Identity Service API tokens. Also, revokes any
+                Identity Service API tokens that were issued to the
+                consumer through that access token.</para>
+            </wadl:doc>
+            <response status="204"/>
+         </method>
+      </resource>
+                                
+                                
+                                
+                                <resource id="roles"
+                path="/v3/OS-OAUTH1/users/{user_id}/access_tokens/{access_token_id}/roles">
+         <param name="user_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The ID of the user.</para>
+                            </wadl:doc>
+                        </param>
+         <param name="access_token_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                                   <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                   <para>The ID of the access
+                                   token.</para>
+                                   </wadl:doc>
+                                </param>
+         <method name="GET" rax:id="listRolesOfAccessToken">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List roles for an access token">
+               <para role="shortdesc">Lists associated roles for a
+                specified access token.</para>
+               <para>See <command>GET</command> 
+                  <literal>/v3/roles</literal> for an [<link xlink:href="https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#list-roles-get-roles">example</link>) of this response format.</para>
+            </wadl:doc>
+            <response status="200"/>
+        
+            <response status="400" rax:phrase="Bad Request">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401" rax:phrase="Unauthorized">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403" rax:phrase="Forbidden">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405" rax:phrase="Method Not Allowed">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413" rax:phrase="Request Entity Too Large">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503" rax:phrase="Service Unavailable">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                                   
+                                   <resource id="role_id"
+                path="/v3/OS-OAUTH1/users/{user_id}/access_tokens/{access_token_id}/roles/{role_id}">
+         <param name="user_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The ID of the user.</para>
+                            </wadl:doc>
+                        </param>
+         <param name="access_token_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                                   <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                   <para>The ID of the access
+                                   token.</para>
+                                   </wadl:doc>
+                                </param>
+         <param name="role_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                                   <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                   <para>The ID of the role.</para>
+                                   </wadl:doc>
+                                   </param>
+         <method name="GET" rax:id="getRoleOfAccessToken">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get role information for an access token">
+               <para role="shortdesc">Gets information about a specified
+                role for a specified access token.</para>
+               <para>See <command>GET</command> 
+                  <literal>/v3/roles/{role_id}</literal> for
+                an <link xlink:href="https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#get-role-get-rolesrole_id">example</link> of this response format.</para>
+            </wadl:doc>
+            <response status="200">
+               <param name="id" style="plain" type="csapi:uuid" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The role ID.</para>
+                  </wadl:doc>
+               </param>
+               <param name="links" style="plain" type="xsd:dict" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>Links to roles.</para>
+                  </wadl:doc>
+               </param>
+               <param name="name" style="plain" type="xsd:string" required="true">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <para>The role name.</para>
+                  </wadl:doc>
+               </param>
+               <representation mediaType="application/json"/>
+            </response>
+        
+            <response status="400" rax:phrase="Bad Request">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401" rax:phrase="Unauthorized">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403" rax:phrase="Forbidden">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405" rax:phrase="Method Not Allowed">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413" rax:phrase="Request Entity Too Large">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503" rax:phrase="Service Unavailable">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                                   
+                                   
+                                   
+                                
+                            
+                        <resource id="tokens" path="/v3/auth/tokens">
+         <method name="POST" rax:id="authenticate">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get an Identity Service token">
+               <para role="shortdesc">Enables a consumer to get an
+                Identity Service authentication token.</para>
+               <para>The token represents the delegated authorization and
+                identity (impersonation) of the authorizing user. The
+                roles and scope of the generated token match those
+                that the consumer initially
+                requested.</para>
+               <para>Supported signature methods:
+                HMAC-SHA1.</para>
+               <para>The consumer must provide required OAuth parameters
+                in the request. See <link xlink:href="http://oauth.net/core/1.0a/#auth_step1">Consumer Obtains a Request Token</link>.</para>
+               <para>The returned token is scoped to the requested
+                project and with the requested roles. In addition to
+                the standard token response, the token has an
+                OAuth-specific object.</para>
+               <para>Various <link xlink:href="https://github.com/openstack/identity-api/blob/master/openstack-identity-api/v3/src/markdown/identity-api-v3.md#authentication-responses">examples</link> of OpenStack token
+                responses.</para>
+               <para>Example OAuth-specific object in a token:</para>
+               <programlisting language="json">"OS-OAUTH1": {
+                        "access_token_id": "cce0b8be7",
+                        }</programlisting>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="400" rax:phrase="Bad Request">
+               <representation mediaType="application/xml" element="identity:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401" rax:phrase="Unauthorized">
+               <representation mediaType="application/xml" element="identity:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403" rax:phrase="Forbidden">
+               <representation mediaType="application/xml" element="identity:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405" rax:phrase="Method Not Allowed">
+               <representation mediaType="application/xml" element="identity:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413" rax:phrase="Request Entity Too Large">
+               <representation mediaType="application/xml" element="identity:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503" rax:phrase="Service Unavailable">
+               <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response> 
+            <response status="404" rax:phrase="Not Found">
+               <representation mediaType="application/xml" element="identity:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response> 
+         </method>
+      </resource>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+    </resources>
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+    <!--Consumers Operations-->
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createConsumer">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="201">
+            <param name="secret" style="plain" type="xsd:string" required="true">
+                
+            </param>
+            <param name="description"
+                style="plain"
+                type="xsd:string"
+                required="false">
+                
+            </param>
+            <param name="id" style="plain" type="csapi:uuid" required="true">
+                
+            </param>
+            <param name="links" style="plain" type="xsd:dict" required="true">
+                
+            </param>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response>
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listConsumers">
+        
+        <response status="200">
+            <param name="description"
+                style="plain"
+                type="xsd:string"
+                required="false">
+                
+            </param>
+            <param name="id" style="plain" type="csapi:uuid" required="true">
+                
+            </param>
+            <param name="links" style="plain" type="xsd:dict" required="true">
+                
+            </param>
+            <param name="next"
+                style="plain"
+                type="xsd:anyURI"
+                path="/common:extensions/atom:link[@rel='next']/@href">
+                
+                
+            </param>
+            <param name="previous"
+                style="plain"
+                type="xsd:anyURI"
+                path="/common:extensions/atom:link[@rel='previous']/@href">
+                
+                
+            </param>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404" rax:phrase="Not Found">
+         <representation mediaType="application/xml" element="identity:itemNotFound"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showConsumer">
+        
+        <response status="200">
+            <param name="id" style="plain" type="csapi:uuid" required="true">
+                
+            </param>
+            <param name="description"
+                style="plain"
+                type="xsd:string"
+                required="false">
+                
+            </param>
+            <param name="links" style="plain" type="xsd:dict" required="true">
+                
+            </param>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404" rax:phrase="Not Found">
+         <representation mediaType="application/xml" element="identity:itemNotFound"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteConsumer">
+        
+        <response status="204"> </response> 
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PATCH"
+           id="updateConsumer">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <param name="description"
+                style="plain"
+                type="xsd:string"
+                required="false">
+                
+            </param>
+            <param name="id" style="plain" type="csapi:uuid" required="true">
+                
+            </param>
+            <param name="links" style="plain" type="xsd:dict" required="true">
+                
+            </param>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+        
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="getUnauthorizedRequestToken">
+        
+        <request>
+            <representation mediaType="application/json"/>
+        </request>
+        <response status="200">
+            <param name="oauth_token"
+                style="plain"
+                type="xsd:dict"
+                required="true">
+                
+            </param>
+            <param name="oauth_token_secret"
+                style="plain"
+                type="xsd:dict"
+                required="true">
+                
+            </param>
+            <param name="oauth_expires_at"
+                style="plain"
+                type="xsd:dict"
+                required="false">
+                
+            </param>
+            <representation mediaType="application/txt">
+                
+            </representation>
+        </response>
+        
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <!--<method name="PUT" id="authorizeRequestToken">
+        <wadl:doc xml:lang="EN" xmlns="http://docbook.org/ns/docbook"
+            title="Authorize request token">
+            <para role="shortdesc">Enables a user to authorize a
+                request token.</para>
+            <para>The authorizing user must have the requested role
+                assignments on the requested project. Successful
+                authorization returns an OAuth verifier code. The
+                consumer receives the OAuth verifier from the user
+                out-of-band.</para>
+        </wadl:doc>
+        <response status="200">
+            <param name="oauth_verifier" style="plain"
+                type="xsd:string" required="true">
+                <wadl:doc xml:lang="EN"
+                    xmlns="http://docbook.org/ns/docbook">
+                    <para>The OAuth verifier code.</para></wadl:doc>
+            </param>
+            <param name="oauth_token" style="plain" type="xsd:dict"
+                required="true">
+                <wadl:doc xml:lang="EN"
+                    xmlns="http://docbook.org/ns/docbook">
+                    <para>The request token key that the Identity
+                        API returns.</para></wadl:doc>
+            </param>
+            <param name="oauth_token_secret" style="plain"
+                type="xsd:dict" required="true">
+                <wadl:doc xml:lang="EN"
+                    xmlns="http://docbook.org/ns/docbook">
+                    <para>The secret associated with the request
+                        token.</para></wadl:doc>
+            </param>
+            <representation mediaType="application/json">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook">
+                    <xsdxt:sample>
+                        <xsdxt:code
+                            href="../samples/OS-OAUTH1/authorize-PUT-resp.json"
+                        />
+                    </xsdxt:sample>
+                </wadl:doc>
+            </representation>
+        </response>
+        &commonFaults; </method>-->
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createAccessToken">
+        
+        <request>
+            <representation mediaType="application/json"/>
+        </request>
+        <response status="200">
+            <param name="oauth_expires_at"
+                style="plain"
+                type="xsd:dict"
+                required="false">
+                
+            </param>
+            <param name="oauth_token"
+                style="plain"
+                type="xsd:dict"
+                required="true">
+                
+            </param>
+            <param name="oauth_token_secret"
+                style="plain"
+                type="xsd:dict"
+                required="true">
+                
+            </param>
+            <representation mediaType="application/txt">
+                
+            </representation>
+        </response>
+        
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="authenticate">
+        
+        <request>
+            <representation mediaType="application/json"/>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json"/>
+        </response> 
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+      <response status="404" rax:phrase="Not Found">
+         <representation mediaType="application/xml" element="identity:itemNotFound"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listAuthorizedAccessTokens">
+        
+        <response status="200">
+            <param name="consumer_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                
+            </param>
+            <param name="id" style="plain" type="csapi:uuid" required="true">
+                
+            </param>
+            <param name="expires_at"
+                style="plain"
+                type="xsd:dict"
+                required="false">
+                
+            </param>
+            <param name="links" style="plain" type="xsd:dict" required="true">
+                
+            </param>
+            <param name="project_id"
+                style="plain"
+                type="csapi:uuid"
+                required="true">
+                
+            </param>
+            <param name="authorizing_user_id"
+                style="plain"
+                type="csapi:uuid"
+                required="true">
+                
+            </param>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+        
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getAuthorizedAccessToken">
+        
+        <response status="200">
+            <param name="consumer_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                
+            </param>
+            <param name="id" style="plain" type="csapi:uuid" required="true">
+                
+            </param>
+            <param name="expires_at"
+                style="plain"
+                type="xsd:dict"
+                required="false">
+                
+            </param>
+            <param name="links" style="plain" type="xsd:dict" required="true">
+                
+            </param>
+            <param name="project_id"
+                style="plain"
+                type="csapi:uuid"
+                required="true">
+                
+            </param>
+            <param name="authorizing_user_id"
+                style="plain"
+                type="csapi:uuid"
+                required="true">
+                
+            </param>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+        
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listRolesOfAccessToken">
+        
+        <response status="200"/>
+        
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getRoleOfAccessToken">
+        
+        <response status="200">
+            <param name="id" style="plain" type="csapi:uuid" required="true">
+                
+            </param>
+            <param name="links" style="plain" type="xsd:dict" required="true">
+                
+            </param>
+            <param name="name" style="plain" type="xsd:string" required="true">
+                
+            </param>
+            <representation mediaType="application/json"/>
+        </response>
+        
+      <response status="400" rax:phrase="Bad Request">
+         <representation mediaType="application/xml" element="identity:badRequest"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="401" rax:phrase="Unauthorized">
+         <representation mediaType="application/xml" element="identity:unauthorized"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="403" rax:phrase="Forbidden">
+         <representation mediaType="application/xml" element="identity:forbidden"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="405" rax:phrase="Method Not Allowed">
+         <representation mediaType="application/xml" element="identity:badMethod"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="413" rax:phrase="Request Entity Too Large">
+         <representation mediaType="application/xml" element="identity:overLimit"/>
+         <representation mediaType="application/json"/>
+      </response>
+      <response status="503" rax:phrase="Service Unavailable">
+         <representation mediaType="application/xml" element="identity:serviceUnavailable"/>
+         <representation mediaType="application/json"/>
+      </response> 
+   </method>
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:identity="http://docs.openstack.org/identity/api/v2.0"
+           xmlns:capi="http://docs.openstack.org/common/api/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:db="http://docbook.org/ns/docbook"
+           xmlns:csapi="http://docs.openstack.org/identity/api/v3"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="revokeAccessToken">
+        
+        <response status="204"/>
+    </method>
+</wadl:application>

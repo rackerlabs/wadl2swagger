@@ -1,0 +1,49 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-virtual-interfaces",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/servers/{server_id}/os-virtual-interfaces": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getVirtualInterfacesShowWhichNetwork",
+                "summary": "Show virtual interface and attached network",
+                "description": "Shows the virtual interface for a specified instance. Includes the `OS-EXT-VIF-NET:net_id` attribute that shows to which network the interface is attached.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"virtual_interfaces\": [\n        {\n            \"OS-EXT-VIF-NET:net_id\": \"cec8b9bb-5d22-4104-b3c8-4c35db3210a7\",\n            \"id\": \"cec8b9bb-5d22-4104-b3c8-4c35db3210a6\",\n            \"mac_address\": \"fa:16:3e:3c:ce:6f\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

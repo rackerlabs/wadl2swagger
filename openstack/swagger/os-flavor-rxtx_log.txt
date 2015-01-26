@@ -1,0 +1,12 @@
+INFO:wadls/os-flavor-rxtx.wadl:Converting: wadls/os-flavor-rxtx.wadl to swagger/os-flavor-rxtx.json
+WARNING:wadls/os-flavor-rxtx.wadl:No support for application/json for resource at /v2/{tenant_id}/flavors
+WARNING:wadls/os-flavor-rxtx.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-flavor-rxtx.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-flavor-rxtx.wadl:Autofix: path parameters must be required in Swagger (flavor_id)
+WARNING:wadls/os-flavor-rxtx.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-flavor-rxtx.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

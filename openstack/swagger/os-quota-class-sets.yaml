@@ -1,0 +1,72 @@
+---
+swagger: '2.0'
+info:
+  title: os-quota-class-sets
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/os-quota-class-sets/{class_id}":
+    get:
+      operationId: showquota
+      summary: Show quota
+      description: |
+        Shows the quota for a specified class.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_class_set": {
+                      "injected_file_content_bytes": 10240,
+                      "metadata_items": 128,
+                      "server_group_members": 10,
+                      "server_groups": 10,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "id": "test_class",
+                      "instances": 10,
+                      "security_group_rules": 20,
+                      "injected_files": 5,
+                      "cores": 20,
+                      "fixed_ips": -1,
+                      "injected_file_path_bytes": 255,
+                      "security_groups": 10
+                  }
+              }
+    put:
+      operationId: updatequota
+      summary: Update quota
+      description: |
+        Updates quota for a specified class.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_class_set": {
+                      "injected_file_content_bytes": 10240,
+                      "metadata_items": 128,
+                      "server_group_members": 10,
+                      "server_groups": 10,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "instances": 50,
+                      "security_group_rules": 20,
+                      "injected_files": 5,
+                      "cores": 50,
+                      "fixed_ips": -1,
+                      "injected_file_path_bytes": 255,
+                      "security_groups": 10
+                  }
+              }

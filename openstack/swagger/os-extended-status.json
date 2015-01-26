@@ -1,0 +1,76 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-extended-status",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/servers/{server_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "server_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the server of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "os-extended-status-show",
+                "summary": "Show server extended status",
+                "description": "Shows the extended status attributes in the response for a specified server.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"status\": \"ACTIVE\",\n        \"updated\": \"2013-02-07T19:35:10Z\",\n        \"OS-EXT-STS:task_state\": null,\n        \"user_id\": \"fake\",\n        \"addresses\": {\n            \"private\": [\n                {\n                    \"version\": 4,\n                    \"addr\": \"192.168.0.3\"\n                }\n            ]\n        },\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/servers/ecb5e433-fa75-4db2-af3d-a29ae8618edc\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/servers/ecb5e433-fa75-4db2-af3d-a29ae8618edc\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"created\": \"2013-02-07T19:35:09Z\",\n        \"name\": \"new-server-test\",\n        \"image\": {\n            \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"id\": \"ecb5e433-fa75-4db2-af3d-a29ae8618edc\",\n        \"accessIPv4\": \"\",\n        \"accessIPv6\": \"\",\n        \"OS-EXT-STS:vm_state\": \"active\",\n        \"tenant_id\": \"openstack\",\n        \"progress\": 0,\n        \"OS-EXT-STS:power_state\": 1,\n        \"flavor\": {\n            \"id\": \"1\",\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"hostId\": \"570eff4776ab310707d11d181037337197086998a8b3305c90bf87c8\",\n        \"metadata\": {\n            \"My Server Name\": \"Apache1\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/servers/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "os-extended-status-detail",
+                "summary": "List extended status for servers",
+                "description": "Lists the extended status attributes in the detailed response for all servers.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"servers\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"updated\": \"2012-12-05T07:34:10Z\",\n            \"OS-EXT-STS:task_state\": null,\n            \"user_id\": \"fake\",\n            \"addresses\": {\n                \"private\": [\n                    {\n                        \"version\": 4,\n                        \"addr\": \"192.168.0.3\"\n                    }\n                ]\n            },\n            \"links\": [\n                {\n                    \"href\": \"http://openstack.example.com/v2/openstack/servers/030758aa-5c41-41c6-8fb4-29d44eb96a85\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"http://openstack.example.com/openstack/servers/030758aa-5c41-41c6-8fb4-29d44eb96a85\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"created\": \"2012-12-05T07:34:10Z\",\n            \"name\": \"new-server-test\",\n            \"image\": {\n                \"id\": \"70a599e0-31e7-49b7-b260-868f441e862b\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"id\": \"030758aa-5c41-41c6-8fb4-29d44eb96a85\",\n            \"accessIPv4\": \"\",\n            \"accessIPv6\": \"\",\n            \"OS-EXT-STS:vm_state\": \"active\",\n            \"tenant_id\": \"openstack\",\n            \"progress\": 0,\n            \"OS-EXT-STS:power_state\": 1,\n            \"flavor\": {\n                \"id\": \"1\",\n                \"links\": [\n                    {\n                        \"href\": \"http://openstack.example.com/openstack/flavors/1\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            },\n            \"hostId\": \"585aa01f94eca692eff9f77ffe3eab866d8a819e97397e28c5c7df12\",\n            \"metadata\": {\n                \"My Server Name\": \"Apache1\"\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,103 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-security-group-default-rules",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-security-group-default-rules": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listSecGroupDefaultRules",
+                "summary": "List default security group rules",
+                "description": "Lists default security group rules.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_group_default_rules\": [\n        {\n            \"to_port\": 80,\n            \"from_port\": 80,\n            \"ip_range\": {\n                \"cidr\": \"10.10.10.0/24\"\n            },\n            \"id\": 1,\n            \"ip_protocol\": \"TCP\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createSecGroupRule",
+                "summary": "Create default security group rule",
+                "description": "Creates a default security group rule.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_group_default_rule\": {\n        \"to_port\": 80,\n        \"from_port\": 80,\n        \"ip_range\": {\n            \"cidr\": \"10.10.10.0/24\"\n        },\n        \"id\": 1,\n        \"ip_protocol\": \"TCP\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-security-group-default-rules/{security_group_default_rule_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "security_group_default_rule_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the security group rule.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showSecGroupDefaultRule",
+                "summary": "Show default security group rule information",
+                "description": "Shows information for a specified security group rule.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"security_group_default_rule\": {\n        \"to_port\": 80,\n        \"from_port\": 80,\n        \"ip_range\": {\n            \"cidr\": \"10.10.10.0/24\"\n        },\n        \"id\": 1,\n        \"ip_protocol\": \"TCP\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteSecGroupDefaultRule",
+                "summary": "Delete default security group rule",
+                "description": "Deletes a specified security group rule.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        }
+    }
+}

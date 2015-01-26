@@ -1,0 +1,67 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-agents-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/os-agents": {
+            "post": {
+                "operationId": "agentbuild",
+                "summary": "Create agent build",
+                "description": "Creates an agent build.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"agent\": {\n        \"url\": \"xxxxxxxxxxxx\",\n        \"hypervisor\": \"hypervisor\",\n        \"md5hash\": \"add6bb58e139be103324d04d82d8f545\",\n        \"version\": \"8.0\",\n        \"agent_id\": \"1\",\n        \"os\": \"os\",\n        \"architecture\": \"x86\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "listbuilds",
+                "summary": "List agent builds",
+                "description": "Lists agent builds.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"agents\": [\n        {\n            \"url\": \"xxxxxxxxxxxx\",\n            \"hypervisor\": \"hypervisor\",\n            \"md5hash\": \"add6bb58e139be103324d04d82d8f545\",\n            \"version\": \"8.0\",\n            \"agent_id\": \"1\",\n            \"os\": \"os\",\n            \"architecture\": \"x86\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.1/os-agents/{id}": {
+            "put": {
+                "operationId": "updatebuild",
+                "summary": "Update agent build",
+                "description": "Updates an agent build.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"agent\": {\n        \"url\": \"xxx://xxxx/xxx/xxx\",\n        \"md5hash\": \"add6bb58e139be103324d04d82d8f545\",\n        \"agent_id\": \"1\",\n        \"version\": \"7.0\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

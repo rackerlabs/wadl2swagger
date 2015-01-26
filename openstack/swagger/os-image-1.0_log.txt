@@ -1,0 +1,40 @@
+INFO:wadls/os-image-1.0.wadl:Converting: wadls/os-image-1.0.wadl to swagger/os-image-1.0.json
+WARNING:wadls/os-image-1.0.wadl:Unknown type: imageapi:ImageStatus for param container_format
+WARNING:wadls/os-image-1.0.wadl:Using string for imageapi:ImageStatus
+WARNING:wadls/os-image-1.0.wadl:Unknown type: imageapi:UUID for param disk_format
+WARNING:wadls/os-image-1.0.wadl:Using string for imageapi:UUID
+WARNING:wadls/os-image-1.0.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-image-1.0.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-image-1.0.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-image-1.0.wadl:Unknown type: imageapi:ImageStatus for param container_format
+WARNING:wadls/os-image-1.0.wadl:Using string for imageapi:ImageStatus
+WARNING:wadls/os-image-1.0.wadl:Unknown type: imageapi:UUID for param disk_format
+WARNING:wadls/os-image-1.0.wadl:Using string for imageapi:UUID
+WARNING:wadls/os-image-1.0.wadl:Autofix: path parameters must be required in Swagger (image_id)
+WARNING:wadls/os-image-1.0.wadl:No support for application/json for resource at /v1/images/{image_id}/members
+WARNING:wadls/os-image-1.0.wadl:Autofix: path parameters must be required in Swagger (image_id)
+WARNING:wadls/os-image-1.0.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-image-1.0.wadl:Unknown type: ImageForCreate for param can_share
+WARNING:wadls/os-image-1.0.wadl:Using string for ImageForCreate
+WARNING:wadls/os-image-1.0.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-image-1.0.wadl:No support for application/json for resource at /v1/images/{image_id}/members/{owner_id}
+WARNING:wadls/os-image-1.0.wadl:Autofix: path parameters must be required in Swagger (image_id)
+WARNING:wadls/os-image-1.0.wadl:Autofix: path parameters must be required in Swagger (owner_id)
+WARNING:wadls/os-image-1.0.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-image-1.0.wadl:Unknown type: csapi:uuid for param member_id
+WARNING:wadls/os-image-1.0.wadl:Using string for csapi:uuid
+WARNING:wadls/os-image-1.0.wadl:Ignoring body parameter, converting these is not yet supported...
+INFO:root:Saving swagger to swagger/os-image-1.0.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v1~1images/get/parameters/5/name: Parameter already defined: size_min
+  #/paths/~1v1~1images~1detail/get/parameters/5/name: Parameter already defined: size_min
+  #/paths/~1v1~1shared-images~1{owner}/get: API requires path parameter but it is not defined: owner
+
+3 errors and 0 warnings
+Invalid

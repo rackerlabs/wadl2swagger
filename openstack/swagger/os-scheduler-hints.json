@@ -1,0 +1,42 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-scheduler-hints",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/servers": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createServer",
+                "summary": "Create server with scheduler hints",
+                "description": "Creates a server with scheduler hints that are passed directly to the scheduler.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"server\": {\n        \"id\": \"f8f4f3ce-f6e0-4e05-8f79-bf984fdfce45\",\n        \"links\": [\n            {\n                \"href\": \"http://openstack.example.com/v2/openstack/servers/f8f4f3ce-f6e0-4e05-8f79-bf984fdfce45\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://openstack.example.com/openstack/servers/f8f4f3ce-f6e0-4e05-8f79-bf984fdfce45\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"adminPass\": \"yjzytFHb7XHc\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

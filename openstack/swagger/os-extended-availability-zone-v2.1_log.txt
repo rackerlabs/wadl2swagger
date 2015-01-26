@@ -1,0 +1,13 @@
+INFO:wadls/os-extended-availability-zone-v2.1.wadl:Converting: wadls/os-extended-availability-zone-v2.1.wadl to swagger/os-extended-availability-zone-v2.1.json
+INFO:root:Saving swagger to swagger/os-extended-availability-zone-v2.1.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+
+API Errors:
+
+  #/paths/~1v2.1~1servers~1{server_id}/get: API requires path parameter but it is not defined: server_id
+
+1 error and 0 warnings
+Invalid

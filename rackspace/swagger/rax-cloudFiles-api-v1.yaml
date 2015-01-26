@@ -1,0 +1,221 @@
+---
+swagger: '2.0'
+info:
+  title: rax-cloudFiles-api-v1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v1/{account}":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        Your unique account identifier.
+    get:
+      operationId: listcontainers
+      summary: Show account details and list containers
+      description: |
+        Shows details for a specified account and lists containers, sorted by name, in the account.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded. The information returned with the response
+            is dependent on the method used in the request.
+          examples:
+            application/json: |-
+              [
+                  {
+                      "count": 0,
+                      "bytes": 0,
+                      "name": "janeausten"
+                  },
+                  {
+                      "count": 1,
+                      "bytes": 14,
+                      "name": "marktwain"
+                  }
+              ]
+    post:
+      operationId: deleteaccountmeta
+      summary: Delete account metadata
+      description: |
+        Deletes account metadata.
+      produces: []
+      responses:
+        '204':
+          description: The request succeeded. The server fulfilled the request but
+            does not need to return a body.
+    head:
+      operationId: retrieveaccountmeta
+      summary: Get account metadata
+      description: |
+        Gets account metadata.
+      produces: []
+      responses:
+        '204':
+          description: The request succeeded. The server fulfilled the request but
+            does not need to return a body.
+  "/v1/{account}/{container}":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        Your unique account identifier.
+    - name: container
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the container.
+    get:
+      operationId: listcontainerobjects
+      summary: Show container details and list objects
+      description: |
+        Shows details for a specified container and lists objects, sorted by name, in the container.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request succeeded. The information returned with the response
+            is dependent on the method used in the request.
+          examples:
+            application/json: |-
+              [
+                  {
+                      "bytes": 14,
+                      "last_modified": "2014-01-15T16:41:49.390270",
+                      "hash": "451e372e48e0f6b1114fa0724aa79fa1",
+                      "name": "goodbye",
+                      "content_type": "application/octet-stream"
+                  },
+                  {
+                      "bytes": 12,
+                      "last_modified": "2014-01-15T16:37:43.427570",
+                      "hash": "ed076287532e86365e841e92bfc50d8c",
+                      "name": "helloworld",
+                      "content_type": "application/octet-stream"
+                  }
+              ]
+    put:
+      operationId: createcontainer
+      summary: Create container
+      description: |
+        Creates a container.
+      produces: []
+      responses:
+        '201':
+          description: The request has been fulfilled. For 201 Created, the new container
+            has been created. For 202 Accepted, the request has been accepted for
+            processing.
+        '202':
+          description: The request has been fulfilled. For 201 Created, the new container
+            has been created. For 202 Accepted, the request has been accepted for
+            processing.
+    delete:
+      operationId: deletecontainer
+      summary: Delete container
+      description: |
+        Deletes an empty container.
+      produces: []
+      responses:
+        '204':
+          description: The request succeeded. The server fulfilled the request but
+            does not need to return a body.
+    post:
+      operationId: deletecontainermeta
+      summary: Delete container metadata
+      description: |
+        Deletes container metadata.
+      produces: []
+      responses:
+        '204':
+          description: The request succeeded. The server fulfilled the request but
+            does not need to return a body.
+    head:
+      operationId: retrievecontainermeta
+      summary: Show container metadata
+      description: |
+        Shows container metadata, including the number of objects in the container and the total bytes for all objects stored in the container.
+      produces: []
+      responses:
+        '204':
+          description: The request succeeded. The server fulfilled the request but
+            does not need to return a body.
+  "/v1/{account}/{container}/{object}":
+    parameters:
+    - name: account
+      required: true
+      in: path
+      type: string
+      description: |
+        Your unique account identifier.
+    - name: container
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the container.
+    - name: object
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the object.
+    get:
+      operationId: getobjectdata
+      summary: Get object content and metadata
+      description: |
+        Gets the content and metadata for the object.
+      produces: []
+      responses:
+        '200':
+          description: The request has succeeded. The information returned with the
+            response is dependent on the method used in the request.
+    put:
+      operationId: copyobject
+      summary: Copy object
+      description: |
+        Using the `Destination` header, copies an existing object to another object with a new name in the Cloud Files storage system.
+      produces: []
+      responses:
+        '201':
+          description: The request has been fulfilled.
+    delete:
+      operationId: deleteobject
+      summary: Delete object
+      description: |
+        Permanently deletes an object from the Cloud Files storage system. (You can use `COPY` and then `DELETE` to effectively move an object.)
+      produces: []
+      responses:
+        '204':
+          description: The request succeeded. The server fulfilled the request but
+            does not need to return a body.
+    head:
+      operationId: retrieveobjectmeta
+      summary: Show object metadata
+      description: |
+        Shows object metadata.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: The request has succeeded. The information returned with the
+            response is dependent on the method used in the request.
+          examples: {}
+    post:
+      operationId: updateaobjmeta
+      summary: Create or update object metadata
+      description: |
+        Sets or updates your object metadata. Metadata must be in the format `X-Object-Meta-name` where `name` is the name of your metadata. You can also assign `X-Delete-At` or `X-Delete-After` to expiring objects. You cannot use this operation to change other headers, such as `Content-Type`.
+      produces: []
+      responses:
+        '202':
+          description: The request was accepted for processing.

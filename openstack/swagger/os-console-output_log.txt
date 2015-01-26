@@ -1,0 +1,12 @@
+INFO:wadls/os-console-output.wadl:Converting: wadls/os-console-output.wadl to swagger/os-console-output.json
+WARNING:wadls/os-console-output.wadl:No support for application/json for resource at /v2/{tenant_id}/servers/{server_id}/action
+WARNING:wadls/os-console-output.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-console-output.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-console-output.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-console-output.wadl:Ignoring body parameter, converting these is not yet supported...
+INFO:root:Saving swagger to swagger/os-console-output.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

@@ -1,0 +1,648 @@
+---
+swagger: '2.0'
+info:
+  title: os-disk-config
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/servers":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    post:
+      operationId: createServer
+      summary: Create server
+      description: |
+        Creates a server.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "server": {
+                      "OS-DCF:diskConfig": "AUTO",
+                      "id": "324dfb7d-f4a9-419a-9a19-237df04b443b",
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/servers/324dfb7d-f4a9-419a-9a19-237df04b443b",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/servers/324dfb7d-f4a9-419a-9a19-237df04b443b",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "adminPass": "CQH9gWzgkVno"
+                  }
+              }
+  "/v2/{tenant_id}/servers/{server_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: server_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the server of interest to you.
+    get:
+      operationId: getServer
+      summary: Show server information
+      description: |
+        Shows information for a specified server.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "server": {
+                      "status": "ACTIVE",
+                      "updated": "2012-12-02T02:11:55Z",
+                      "hostId": "c949ab4256cea23b6089b710aa2df48bf6577ed915278b62e33ad8bb",
+                      "user_id": "fake",
+                      "addresses": {
+                          "private": [
+                              {
+                                  "version": 4,
+                                  "addr": "192.168.0.3"
+                              }
+                          ]
+                      },
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/servers/5046e2f2-3b33-4041-b3cf-e085f73e78e7",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/servers/5046e2f2-3b33-4041-b3cf-e085f73e78e7",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "created": "2012-12-02T02:11:55Z",
+                      "tenant_id": "openstack",
+                      "image": {
+                          "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "OS-DCF:diskConfig": "AUTO",
+                      "name": "new-server-test",
+                      "accessIPv4": "",
+                      "accessIPv6": "",
+                      "progress": 0,
+                      "flavor": {
+                          "id": "1",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/1",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "id": "5046e2f2-3b33-4041-b3cf-e085f73e78e7",
+                      "metadata": {
+                          "My Server Name": "Apache1"
+                      }
+                  }
+              }
+    put:
+      operationId: updateServer
+      summary: Update server
+      description: |
+        Updates a specified server.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "server": {
+                      "status": "ACTIVE",
+                      "updated": "2012-12-02T02:11:58Z",
+                      "hostId": "6e84af987b4e7ec1c039b16d21f508f4a505672bd94fb0218b668d07",
+                      "user_id": "fake",
+                      "addresses": {
+                          "private": [
+                              {
+                                  "version": 4,
+                                  "addr": "192.168.0.3"
+                              }
+                          ]
+                      },
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/servers/324dfb7d-f4a9-419a-9a19-237df04b443b",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/servers/324dfb7d-f4a9-419a-9a19-237df04b443b",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "created": "2012-12-02T02:11:57Z",
+                      "tenant_id": "openstack",
+                      "image": {
+                          "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "OS-DCF:diskConfig": "AUTO",
+                      "name": "new-server-test",
+                      "accessIPv4": "",
+                      "accessIPv6": "",
+                      "progress": 0,
+                      "flavor": {
+                          "id": "1",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/1",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "id": "324dfb7d-f4a9-419a-9a19-237df04b443b",
+                      "metadata": {
+                          "My Server Name": "Apache1"
+                      }
+                  }
+              }
+  "/v2/{tenant_id}/servers/{server_id}/action":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: server_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the server of interest to you.
+    post:
+      operationId: rebuild
+      summary: Rebuild server
+      description: |
+        Rebuilds a specified server.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "server": {
+                      "status": "ACTIVE",
+                      "updated": "2012-12-02T02:11:56Z",
+                      "hostId": "c076393ad900d62c4805a42df10d9b364f629842681c00cce035487f",
+                      "user_id": "fake",
+                      "addresses": {
+                          "private": [
+                              {
+                                  "version": 4,
+                                  "addr": "192.168.0.3"
+                              }
+                          ]
+                      },
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/servers/63a8aa13-60fe-41c4-b079-77f6fdf3c841",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/servers/63a8aa13-60fe-41c4-b079-77f6fdf3c841",
+                              "rel": "bookmark"
+                          }
+                      ],
+                      "created": "2012-12-02T02:11:56Z",
+                      "tenant_id": "openstack",
+                      "image": {
+                          "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "adminPass": "NBjMaJoFL4EF",
+                      "OS-DCF:diskConfig": "AUTO",
+                      "name": "new-server-test",
+                      "accessIPv4": "",
+                      "accessIPv6": "",
+                      "progress": 0,
+                      "flavor": {
+                          "id": "1",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/openstack/flavors/1",
+                                  "rel": "bookmark"
+                              }
+                          ]
+                      },
+                      "id": "63a8aa13-60fe-41c4-b079-77f6fdf3c841",
+                      "metadata": {
+                          "My Server Name": "Apache1"
+                      }
+                  }
+              }
+  "/v2/{tenant_id}/servers/detail":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: getServersDetailed
+      summary: List servers
+      description: |
+        Lists servers with detailed config drive information.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "servers": [
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2012-12-02T02:11:56Z",
+                          "hostId": "99428f32351a5d89d0f7727c6eec68c1777c545a0972aaac645508dc",
+                          "user_id": "fake",
+                          "addresses": {
+                              "private": [
+                                  {
+                                      "version": 4,
+                                      "addr": "192.168.0.3"
+                                  }
+                              ]
+                          },
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/servers/05372e62-05b9-4ee2-9343-9a1fdf2a5fda",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/servers/05372e62-05b9-4ee2-9343-9a1fdf2a5fda",
+                                  "rel": "bookmark"
+                              }
+                          ],
+                          "created": "2012-12-02T02:11:55Z",
+                          "tenant_id": "openstack",
+                          "image": {
+                              "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                              "links": [
+                                  {
+                                      "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                      "rel": "bookmark"
+                                  }
+                              ]
+                          },
+                          "OS-DCF:diskConfig": "AUTO",
+                          "name": "new-server-test",
+                          "accessIPv4": "",
+                          "accessIPv6": "",
+                          "progress": 0,
+                          "flavor": {
+                              "id": "1",
+                              "links": [
+                                  {
+                                      "href": "http://openstack.example.com/openstack/flavors/1",
+                                      "rel": "bookmark"
+                                  }
+                              ]
+                          },
+                          "id": "05372e62-05b9-4ee2-9343-9a1fdf2a5fda",
+                          "metadata": {
+                              "My Server Name": "Apache1"
+                          }
+                      }
+                  ]
+              }
+  "/v2/{tenant_id}/images/{image_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: image_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the image of interest to you.
+    get:
+      operationId: getImage
+      summary: Get image information
+      description: |
+        Gets information for a specified image.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "image": {
+                      "status": "ACTIVE",
+                      "updated": "2011-01-01T01:02:03Z",
+                      "name": "fakeimage7",
+                      "links": [
+                          {
+                              "href": "http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                              "rel": "self"
+                          },
+                          {
+                              "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                              "rel": "bookmark"
+                          },
+                          {
+                              "href": "http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                              "type": "application/vnd.openstack.image",
+                              "rel": "alternate"
+                          }
+                      ],
+                      "created": "2011-01-01T01:02:03Z",
+                      "OS-DCF:diskConfig": "AUTO",
+                      "minDisk": 0,
+                      "progress": 100,
+                      "minRam": 0,
+                      "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                      "metadata": {
+                          "auto_disk_config": "True",
+                          "kernel_id": "nokernel",
+                          "ramdisk_id": "nokernel",
+                          "architecture": "x86_64"
+                      }
+                  }
+              }
+  "/v2/{tenant_id}/images/detail":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: getImagesDetailed
+      summary: List images
+      description: |
+        Lists images.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "images": [
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2011-01-01T01:02:03Z",
+                          "name": "fakeimage7",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                  "rel": "bookmark"
+                              },
+                              {
+                                  "href": "http://glance.openstack.example.com/openstack/images/70a599e0-31e7-49b7-b260-868f441e862b",
+                                  "type": "application/vnd.openstack.image",
+                                  "rel": "alternate"
+                              }
+                          ],
+                          "created": "2011-01-01T01:02:03Z",
+                          "OS-DCF:diskConfig": "AUTO",
+                          "minDisk": 0,
+                          "progress": 100,
+                          "minRam": 0,
+                          "id": "70a599e0-31e7-49b7-b260-868f441e862b",
+                          "metadata": {
+                              "auto_disk_config": "True",
+                              "kernel_id": "nokernel",
+                              "ramdisk_id": "nokernel",
+                              "architecture": "x86_64"
+                          }
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2011-01-01T01:02:03Z",
+                          "name": "fakeimage123456",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                                  "rel": "bookmark"
+                              },
+                              {
+                                  "href": "http://glance.openstack.example.com/openstack/images/155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                                  "type": "application/vnd.openstack.image",
+                                  "rel": "alternate"
+                              }
+                          ],
+                          "created": "2011-01-01T01:02:03Z",
+                          "minDisk": 0,
+                          "progress": 100,
+                          "minRam": 0,
+                          "id": "155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                          "metadata": {
+                              "kernel_id": "nokernel",
+                              "ramdisk_id": "nokernel",
+                              "architecture": "x86_64"
+                          }
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2011-01-01T01:02:03Z",
+                          "name": "fakeimage123456",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c",
+                                  "rel": "bookmark"
+                              },
+                              {
+                                  "href": "http://glance.openstack.example.com/openstack/images/a2459075-d96c-40d5-893e-577ff92e721c",
+                                  "type": "application/vnd.openstack.image",
+                                  "rel": "alternate"
+                              }
+                          ],
+                          "created": "2011-01-01T01:02:03Z",
+                          "minDisk": 0,
+                          "progress": 100,
+                          "minRam": 0,
+                          "id": "a2459075-d96c-40d5-893e-577ff92e721c",
+                          "metadata": {
+                              "kernel_id": "nokernel",
+                              "ramdisk_id": "nokernel"
+                          }
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2011-01-01T01:02:03Z",
+                          "name": "fakeimage6",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379",
+                                  "rel": "bookmark"
+                              },
+                              {
+                                  "href": "http://glance.openstack.example.com/openstack/images/a440c04b-79fa-479c-bed1-0b816eaec379",
+                                  "type": "application/vnd.openstack.image",
+                                  "rel": "alternate"
+                              }
+                          ],
+                          "created": "2011-01-01T01:02:03Z",
+                          "OS-DCF:diskConfig": "MANUAL",
+                          "minDisk": 0,
+                          "progress": 100,
+                          "minRam": 0,
+                          "id": "a440c04b-79fa-479c-bed1-0b816eaec379",
+                          "metadata": {
+                              "auto_disk_config": "False",
+                              "kernel_id": "nokernel",
+                              "ramdisk_id": "nokernel",
+                              "architecture": "x86_64"
+                          }
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2011-01-01T01:02:03Z",
+                          "name": "fakeimage123456",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+                                  "rel": "bookmark"
+                              },
+                              {
+                                  "href": "http://glance.openstack.example.com/openstack/images/c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+                                  "type": "application/vnd.openstack.image",
+                                  "rel": "alternate"
+                              }
+                          ],
+                          "created": "2011-01-01T01:02:03Z",
+                          "minDisk": 0,
+                          "progress": 100,
+                          "minRam": 0,
+                          "id": "c905cedb-7281-47e4-8a62-f26bc5fc4c77",
+                          "metadata": {
+                              "kernel_id": "155d900f-4e14-4e4c-a73d-069cbf4541e6",
+                              "ramdisk_id": null
+                          }
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2011-01-01T01:02:03Z",
+                          "name": "fakeimage123456",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/images/cedef40a-ed67-4d10-800e-17455edce175",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175",
+                                  "rel": "bookmark"
+                              },
+                              {
+                                  "href": "http://glance.openstack.example.com/openstack/images/cedef40a-ed67-4d10-800e-17455edce175",
+                                  "type": "application/vnd.openstack.image",
+                                  "rel": "alternate"
+                              }
+                          ],
+                          "created": "2011-01-01T01:02:03Z",
+                          "minDisk": 0,
+                          "progress": 100,
+                          "minRam": 0,
+                          "id": "cedef40a-ed67-4d10-800e-17455edce175",
+                          "metadata": {
+                              "kernel_id": "nokernel",
+                              "ramdisk_id": "nokernel"
+                          }
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "updated": "2011-01-01T01:02:03Z",
+                          "name": "fakeimage123456",
+                          "links": [
+                              {
+                                  "href": "http://openstack.example.com/v2/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+                                  "rel": "self"
+                              },
+                              {
+                                  "href": "http://openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+                                  "rel": "bookmark"
+                              },
+                              {
+                                  "href": "http://glance.openstack.example.com/openstack/images/76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+                                  "type": "application/vnd.openstack.image",
+                                  "rel": "alternate"
+                              }
+                          ],
+                          "created": "2011-01-01T01:02:03Z",
+                          "minDisk": 0,
+                          "progress": 100,
+                          "minRam": 0,
+                          "id": "76fa36fc-c930-4bf3-8c8a-ea2a2420deb6",
+                          "metadata": {
+                              "kernel_id": "nokernel",
+                              "ramdisk_id": "nokernel"
+                          }
+                      }
+                  ]
+              }

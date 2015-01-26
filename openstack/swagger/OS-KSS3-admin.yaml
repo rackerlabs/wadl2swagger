@@ -1,0 +1,251 @@
+---
+swagger: '2.0'
+info:
+  title: OS-KSS3-admin
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.0/users/{userId}/OS-OS-KSS3/credentials":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token.
+    - name: userId
+      required: true
+      in: path
+      type: string
+      description: |
+        The user ID.
+    - name: marker
+      required: false
+      in: query
+      type: string
+      description: |
+        The ID of the last item in the previous list.
+    - name: limit
+      required: false
+      in: query
+      type: integer
+      description: |
+        The page size.
+    get:
+      operationId: listCredentials
+      summary: List credentials
+      description: |
+        Lists credentials.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "credentials": [
+                      {
+                          "passwordCredentials": {
+                              "username": "test_user",
+                              "password": "secretsecret"
+                          }
+                      },
+                      {
+                          "OS-KSS3:s3Credentials": {
+                              "username": "test_user",
+                              "secret": "secretsecret",
+                              "signature": "bbb"
+                          }
+                      }
+                  ],
+                  "credentials_links": []
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "credentials": [
+                      {
+                          "passwordCredentials": {
+                              "username": "test_user",
+                              "password": "secretsecret"
+                          }
+                      },
+                      {
+                          "OS-KSS3:s3Credentials": {
+                              "username": "test_user",
+                              "secret": "secretsecret",
+                              "signature": "bbb"
+                          }
+                      }
+                  ],
+                  "credentials_links": []
+              }
+    post:
+      operationId: addUserCredential
+      summary: Add user credential
+      description: |
+        Adds a credential to a user.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "OS-KSS3:s3Credentials": {
+                      "username": "test_user",
+                      "secret": "secretsecret",
+                      "signature": "bbb"
+                  }
+              }
+  "/v2.0/users/{userId}/OS-OS-KSS3/credentials/s3credentials":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token.
+    - name: userId
+      required: true
+      in: path
+      type: string
+      description: |
+        The user ID.
+    get:
+      operationId: getUserCredential
+      summary: Get user credentials
+      description: |
+        Gets user credentials.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "OS-KSS3:s3Credentials": {
+                      "username": "test_user",
+                      "secret": "secretsecret",
+                      "signature": "bbb"
+                  }
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "OS-KSS3:s3Credentials": {
+                      "username": "test_user",
+                      "secret": "secretsecret",
+                      "signature": "bbb"
+                  }
+              }
+    post:
+      operationId: updateUserCredential
+      summary: Update user credentials
+      description: |
+        Updates credentials.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "OS-KSS3:s3Credentials": {
+                      "username": "test_user",
+                      "secret": "secretsecret",
+                      "signature": "bbb"
+                  }
+              }
+    delete:
+      operationId: deleteUserCredential
+      summary: Delete user credentials
+      description: |
+        Deletes user credentials.
+      produces: []
+      responses:
+        '204':
+          description: 204 response
+  "/v2.0/users/{userId}/OS-OS-KSS3/credentials/s3credentials/{type}":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        A valid authentication token.
+    - name: userId
+      required: true
+      in: path
+      type: string
+      description: |
+        The user ID.
+    - name: type
+      required: true
+      in: query
+      type: string
+      description: |
+        The credential type.
+    get:
+      operationId: listCredentialsByType
+      summary: List credentials by type
+      description: |
+        Lists credentials by type.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "credentials": [
+                      {
+                          "passwordCredentials": {
+                              "username": "test_user",
+                              "password": "secretsecret"
+                          }
+                      },
+                      {
+                          "OS-KSS3:s3Credentials": {
+                              "username": "test_user",
+                              "secret": "secretsecret",
+                              "signature": "bbb"
+                          }
+                      }
+                  ],
+                  "credentials_links": []
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "credentials": [
+                      {
+                          "passwordCredentials": {
+                              "username": "test_user",
+                              "password": "secretsecret"
+                          }
+                      },
+                      {
+                          "OS-KSS3:s3Credentials": {
+                              "username": "test_user",
+                              "secret": "secretsecret",
+                              "signature": "bbb"
+                          }
+                      }
+                  ],
+                  "credentials_links": []
+              }

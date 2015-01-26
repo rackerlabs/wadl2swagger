@@ -1,0 +1,1345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2013-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-admin-actions-v2">
+        <resource path="/v2/{tenant_id}/servers/{server_id}/action" id="action-admin">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+               <para>The ID
+                            for the tenant or account in a
+                            multi-tenancy cloud.</para>
+                    </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Server UUID">
+               <para>The UUID for the server of
+                                   interest to you.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="POST" rax:id="pause">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Pause server">
+               <para role="shortdesc">Pauses a server. Changes its status
+                to PAUSED.</para>
+               <para>This operation stores the state of the VM in RAM. A
+                paused instance continues to run in a frozen
+                state.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Pause server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "pause": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Pause server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;pause/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="pause" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Pause action">
+                        <para>Specify the <code>pause</code> action in
+                            the request body.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="unpause">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Unpause server">
+               <para role="shortdesc">Unpauses a PAUSED server. Changes
+                its status to ACTIVE.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Unpause server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "unpause": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Unpause server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;unpause /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="unpause" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Unpause action">
+                        <para>Specify the <code>unpause</code> action
+                            in the request body.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="suspend">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Suspend server">
+               <para role="shortdesc">Suspends a server. Changes its
+                status to SUSPENDED.</para>
+               <para>This operation stores the VM
+                state on disk, writes all memory to disk, and stops
+                the virtual machine.</para>
+               <para>Administrative users might suspend an infrequently
+                used instance or suspend an instance to perform system
+                maintenance. Suspending an instance is similar to
+                placing a device in hibernation; memory and vCPUs
+                become available to create other instances.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Suspend server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "suspend": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Suspend server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;suspend /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="suspend" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Suspend action">
+                        <para>Specify the <code>suspend</code> action
+                            in the request body.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="resume">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Resume server">
+               <para role="shortdesc">Resumes a SUSPENDED server. Changes
+                its status to ACTIVE.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Resume server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "resume": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Resume server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;resume /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="resume" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Resume action">
+                        <para>Specify the <code>resume</code> action
+                            in the request body.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="migrate">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Migrate server">
+               <para role="shortdesc">Migrates a server to a host. The
+                scheduler chooses the host.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Migrate server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "migrate": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Migrate server: xml request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;migrate /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="migrate" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Migrate action">
+                        <para>Specify the <code>migrate</code> action
+                            in the request body.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="resetNetwork">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Reset networking on server">
+               <para role="shortdesc">Resets networking on a
+                server.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Reset network: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "resetNetwork": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Reset network: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;resetNetwork /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="resetNetwork"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Reset network action">
+                        <para>Specify the <code>resetNetwork</code>
+                            action in the request body.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="injectNetworkInfo">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Inject network information">
+               <para role="shortdesc">Injects network information into a
+                server.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Insert network information: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "injectNetworkInfo": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Insert network information: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;injectNetworkInfo /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="injectNetworkInfo"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Inject network information action">
+                        <para>Specify the
+                                <code>injectNetworkInfo</code> action
+                            in the request body.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="lock">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Lock server">
+               <para role="shortdesc">Locks a server.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Lock server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "lock": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Lock server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;lock /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="lock" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Lock server action">
+                        <para>Specify the <code>lock</code> action in
+                            the request body.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="unlock">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Unlock server">
+               <para role="shortdesc">Unlocks a server.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Unlock server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "unlock": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Unlock server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;unlock /&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="unlock" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Unlock server action">
+                        <para>Specify the <code>unlock</code> action
+                            in the request body.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="createBackup">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create server backup">
+               <para role="shortdesc">Backs up a server instance.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Create server backup: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "createBackup": {
+        "name": "Backup 1",
+        "backup_type": "daily",
+        "rotation": 1
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Create server backup: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;createBackup&gt;
+        &lt;name&gt;Backup 1&lt;/name&gt;
+        &lt;backup_type&gt;daily&lt;/backup_type&gt;
+        &lt;rotation&gt;1&lt;/rotation&gt;
+    &lt;/createBackup&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="createBackup"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Create server backup action">
+                        <para>Specify the <code>createBackup</code>
+                            action in the request body.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Name">
+                        <para>Name of the
+                            backup image.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="backup_type"
+                         style="plain"
+                         required="true"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Backup type">
+                        <para>The
+                            backup type. Either 'daily' or
+                            'weekly.'</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="rotation" style="plain" required="true" type="xsd:int">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Rotation">
+                        <para>An
+                            integer value that represents the number
+                            of backups to maintain.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="os-migrateLive">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Live-migrate server">
+               <para role="shortdesc">Live-migrates a server to a new
+                host without rebooting.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Live-migrate server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "os-migrateLive": {
+        "host": "0443e9a1254044d8b99f35eace132080",
+        "block_migration": false,
+        "disk_over_commit": false
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Live-migrate server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+    &lt;os-migrateLive&gt;
+        &lt;host&gt;6217bf142bb3491995f966af999f9f23&lt;/host&gt;
+        &lt;block_migration&gt;false&lt;/block_migration&gt;
+        &lt;disk_over_commit&gt;false&lt;/disk_over_commit&gt;
+    &lt;/os-migrateLive&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="os-migrateLive"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Live-migrate server action">
+                        <para>Specify the <code>os-migrateLive</code>
+                            action in the request body.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="host" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Host">
+                        <para>Name of the
+                            new host.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="block_migration"
+                         style="plain"
+                         required="true"
+                         type="xsd:boolean">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Block migration flag">
+                        <para>If true, block migration is
+                            allowed.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="disk_over_commit"
+                         style="plain"
+                         required="true"
+                         type="xsd:boolean">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Disk overcommit flag">
+                        <para>If true, disk over commit is
+                            allowed.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="os-resetState">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Reset server state">
+               <para role="shortdesc">Resets the state of a server to a
+                specified state.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Reset server state: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "os-resetState": {
+        "state": "active"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Reset server state: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;os-resetState&gt;
+        &lt;state&gt;active&lt;/state&gt;
+    &lt;/os-resetState&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="resetState"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Reset server state action">
+                        <para>Specify the <code>resetState</code>
+                            action in the request body.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="state" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="State">
+                        <para>The desired
+                            state of a server.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="evacuate">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Evacuate server">
+               <para role="shortdesc">Evacuates a server from failed
+                host.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Evacuate server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "evacuate": {
+        "host": "TargetHost",
+        "adminPass": "MySecretPass",
+        "onSharedStorage": "True"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Evacuate server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;evacuate xmlns="http://docs.openstack.org/compute/api/v2"
+    host="TargetHost"
+    adminPass="MySecretPass"
+    onSharedStorage="True"/&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="evacuate" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Evacuate action">
+                        <para>Specify the <code>evacuate</code> action
+                            in the request body.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="host" style="plain" required="false" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Host">
+                        <para>The name or
+                            ID of the host where the server is
+                            evacuated.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="adminPass"
+                         style="plain"
+                         type="xsd:string"
+                         required="false">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Admin password">
+                        <para>Specifies a new admin password for
+                            the evacuated instance.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="onSharedStorage"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="On shared storage flag">
+                        <para>If server is on shared storage, set
+                            to True. Otherwise, set to
+                        False.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Evacuate server: JSON response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "adminPass": "MySecretPass"
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Evacuate server: XML response">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;adminPass&gt;MySecretPass&lt;/adminPass&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="POST" rax:id="addSecurityGroup">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Add security group">
+               <para role="shortdesc">Assigns a specified security group
+                to a specified server.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Add security group: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "security_group": {
+        "name": "test"
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Add security group: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;addSecurityGroup&gt;
+  &lt;name&gt;test&lt;/name&gt;
+&lt;/addSecurityGroup&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="addSecurityGroup"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Add security group action">
+                        <para>Specify the
+                                <code>addSecurityGroup</code> action
+                            in the request body.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Name">
+                        <para>The name of
+                            the security group to assign to the
+                            server.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200"/>
+         </method>
+         <method name="POST" rax:id="removeSecurityGroup">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Remove security group">
+               <para role="shortdesc">Removes a specified security group
+                from a specified server.</para>
+            </wadl:doc>
+            <request>
+
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Remove security group: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "removeSecurityGroup": {
+        "name": "test"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Remove security group: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;removeSecurityGroup&gt;
+  &lt;name&gt;test&lt;/name&gt;
+&lt;/removeSecurityGroup&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="removeSecurityGroup"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Remove security group action">
+                        <para>Specify the
+                                <code>removeSecurityGroup</code>
+                            action in the request
+                        body.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Name">
+                        <para>The name of
+                            the security group to remove from the
+                            server.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="200"/>
+         </method>
+         <method name="POST" rax:id="addFloatingIP">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Add floating IP address">
+               <para role="shortdesc">Adds a floating IP address to an
+                instance.</para>
+               <para>You can optionally associate a fixed IP address with
+                the floating IP address.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                            xml:lang="EN"
+                            title="Add floating IP address: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "addFloatingIp": {
+        "fixed_address": "166.78.185.201",
+        "address": "172.24.4.225"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="addFloatingIp"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Add floating IP action">
+                        <para>Specify the
+                                <code>addFloatingIP</code> action in
+                            the request body.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="fixed_address"
+                         style="plain"
+                         required="false"
+                         type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Fixed address">
+                        <para>A
+                            fixed IP address that you want to
+                            associate with the floating IP
+                            address.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="address" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                               xml:lang="EN"
+                               title="Floating IP address">
+                        <para>A floating IP address to associate
+                            with the instance.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+               <!--  <representation mediaType="application/xml">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN"
+                    title="Add floating IP address: XML request">
+                    <xsdxt:code
+                        href="../api_samples/os-admin-actions/admin-actions-add-floating-ip.xml"
+                    />
+                </wadl:doc>
+            </representation> -->
+            </request>
+            <response status="200"/>
+         </method>
+      </resource>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                        
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="pause">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="pause" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="unpause">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="unpause" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="suspend">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="suspend" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="resume">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="resume" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="migrate">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="migrate" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="resetNetwork">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="resetNetwork"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="injectNetworkInfo">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="injectNetworkInfo"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="lock">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="lock" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="unlock">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="unlock" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createBackup">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="createBackup"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="name" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="backup_type"
+                   style="plain"
+                   required="true"
+                   type="xsd:string">
+                    
+                </param>
+                <param name="rotation" style="plain" required="true" type="xsd:int">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="os-migrateLive">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="os-migrateLive"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="host" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="block_migration"
+                   style="plain"
+                   required="true"
+                   type="xsd:boolean">
+                    
+                </param>
+                <param name="disk_over_commit"
+                   style="plain"
+                   required="true"
+                   type="xsd:boolean">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="os-resetState">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="resetState"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="state" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="evacuate">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="evacuate" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="host" style="plain" required="false" type="xsd:string">
+                    
+                </param>
+                <param name="adminPass"
+                   style="plain"
+                   type="xsd:string"
+                   required="false">
+                    
+                </param>
+                <param name="onSharedStorage"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="addSecurityGroup">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="addSecurityGroup"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="name" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="removeSecurityGroup">
+        
+        <request>
+
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="removeSecurityGroup"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="name" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="addFloatingIP">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+                <param name="addFloatingIp"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="fixed_address"
+                   style="plain"
+                   required="false"
+                   type="xsd:string">
+                    
+                </param>
+                <param name="address" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+            </representation>
+            <!--  <representation mediaType="application/xml">
+                <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                    xml:lang="EN"
+                    title="Add floating IP address: XML request">
+                    <xsdxt:code
+                        href="../api_samples/os-admin-actions/admin-actions-add-floating-ip.xml"
+                    />
+                </wadl:doc>
+            </representation> -->
+        </request>
+        <response status="200"/>
+    </method>
+</wadl:application>

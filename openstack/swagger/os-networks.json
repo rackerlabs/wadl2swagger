@@ -1,0 +1,205 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-networks",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "listVersionsv2-neutron",
+                "summary": "List API versions",
+                "description": "Lists information about all Networking API versions.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": "{\n    \"versions\": [\n        {\n            \"status\": \"CURRENT\",\n            \"id\": \"v2.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9696/v2.0\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    },
+                    "300": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": "{\n    \"versions\": [\n        {\n            \"status\": \"CURRENT\",\n            \"id\": \"v2.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9696/v2.0\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0": {
+            "get": {
+                "operationId": "showVersionDetailsv2-neutron",
+                "summary": "Show API v2.0 details",
+                "description": "Shows details for Networking API v2.0.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"resources\": [\n        {\n            \"collection\": \"subnets\",\n            \"name\": \"subnet\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9696/v2.0/subnets\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"collection\": \"networks\",\n            \"name\": \"network\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9696/v2.0/networks\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"collection\": \"ports\",\n            \"name\": \"port\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9696/v2.0/ports\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"resources\": [\n        {\n            \"collection\": \"subnets\",\n            \"name\": \"subnet\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9696/v2.0/subnets\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"collection\": \"networks\",\n            \"name\": \"network\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9696/v2.0/networks\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"collection\": \"ports\",\n            \"name\": \"port\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9696/v2.0/ports\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/extensions": {
+            "get": {
+                "operationId": "listExtensions",
+                "summary": "List extensions",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"extensions\": [\n        {\n            \"updated\": \"2013-01-20T00:00:00-00:00\",\n            \"name\": \"Neutron Service Type Management\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/service-type/api/v1.0\",\n            \"alias\": \"service-type\",\n            \"description\": \"API for retrieving service providers for Neutron advanced services\"\n        },\n        {\n            \"updated\": \"2012-10-05T10:00:00-00:00\",\n            \"name\": \"security-group\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/securitygroups/api/v2.0\",\n            \"alias\": \"security-group\",\n            \"description\": \"The security groups extension.\"\n        },\n        {\n            \"updated\": \"2013-02-07T10:00:00-00:00\",\n            \"name\": \"L3 Agent Scheduler\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/l3_agent_scheduler/api/v1.0\",\n            \"alias\": \"l3_agent_scheduler\",\n            \"description\": \"Schedule routers among l3 agents\"\n        },\n        {\n            \"updated\": \"2013-02-07T10:00:00-00:00\",\n            \"name\": \"Loadbalancer Agent Scheduler\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/lbaas_agent_scheduler/api/v1.0\",\n            \"alias\": \"lbaas_agent_scheduler\",\n            \"description\": \"Schedule pools among lbaas agents\"\n        },\n        {\n            \"updated\": \"2013-03-28T10:00:00-00:00\",\n            \"name\": \"Neutron L3 Configurable external gateway mode\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/ext-gw-mode/api/v1.0\",\n            \"alias\": \"ext-gw-mode\",\n            \"description\": \"Extension of the router abstraction for specifying whether SNAT should occur on the external gateway\"\n        },\n        {\n            \"updated\": \"2014-02-03T10:00:00-00:00\",\n            \"name\": \"Port Binding\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/binding/api/v1.0\",\n            \"alias\": \"binding\",\n            \"description\": \"Expose port bindings of a virtual port to external application\"\n        },\n        {\n            \"updated\": \"2012-09-07T10:00:00-00:00\",\n            \"name\": \"Provider Network\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/provider/api/v1.0\",\n            \"alias\": \"provider\",\n            \"description\": \"Expose mapping of virtual networks to physical networks\"\n        },\n        {\n            \"updated\": \"2013-02-03T10:00:00-00:00\",\n            \"name\": \"agent\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/agent/api/v2.0\",\n            \"alias\": \"agent\",\n            \"description\": \"The agent management extension.\"\n        },\n        {\n            \"updated\": \"2012-07-29T10:00:00-00:00\",\n            \"name\": \"Quota management support\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/network/ext/quotas-sets/api/v2.0\",\n            \"alias\": \"quotas\",\n            \"description\": \"Expose functions for quotas management per tenant\"\n        },\n        {\n            \"updated\": \"2013-02-07T10:00:00-00:00\",\n            \"name\": \"DHCP Agent Scheduler\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/dhcp_agent_scheduler/api/v1.0\",\n            \"alias\": \"dhcp_agent_scheduler\",\n            \"description\": \"Schedule networks among dhcp agents\"\n        },\n        {\n            \"updated\": \"2013-06-27T10:00:00-00:00\",\n            \"name\": \"Multi Provider Network\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/multi-provider/api/v1.0\",\n            \"alias\": \"multi-provider\",\n            \"description\": \"Expose mapping of virtual networks to multiple physical networks\"\n        },\n        {\n            \"updated\": \"2013-01-14T10:00:00-00:00\",\n            \"name\": \"Neutron external network\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/external_net/api/v1.0\",\n            \"alias\": \"external-net\",\n            \"description\": \"Adds external network attribute to network resource.\"\n        },\n        {\n            \"updated\": \"2012-07-20T10:00:00-00:00\",\n            \"name\": \"Neutron L3 Router\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/router/api/v1.0\",\n            \"alias\": \"router\",\n            \"description\": \"Router abstraction for basic L3 forwarding between L2 Neutron networks and access to external networks via a NAT gateway.\"\n        },\n        {\n            \"updated\": \"2013-07-23T10:00:00-00:00\",\n            \"name\": \"Allowed Address Pairs\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/allowedaddresspairs/api/v2.0\",\n            \"alias\": \"allowed-address-pairs\",\n            \"description\": \"Provides allowed address pairs\"\n        },\n        {\n            \"updated\": \"2013-03-17T12:00:00-00:00\",\n            \"name\": \"Neutron Extra DHCP opts\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/extra_dhcp_opt/api/v1.0\",\n            \"alias\": \"extra_dhcp_opt\",\n            \"description\": \"Extra options configuration for DHCP. For example PXE boot options to DHCP clients can be specified (e.g. tftp-server, server-ip-address, bootfile-name)\"\n        },\n        {\n            \"updated\": \"2012-10-07T10:00:00-00:00\",\n            \"name\": \"LoadBalancing service\",\n            \"links\": [],\n            \"namespace\": \"http://wiki.openstack.org/neutron/LBaaS/API_1.0\",\n            \"alias\": \"lbaas\",\n            \"description\": \"Extension for LoadBalancing service\"\n        },\n        {\n            \"updated\": \"2013-02-01T10:00:00-00:00\",\n            \"name\": \"Neutron Extra Route\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/extraroutes/api/v1.0\",\n            \"alias\": \"extraroute\",\n            \"description\": \"Extra routes configuration for L3 router\"\n        }\n    ]\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"extensions\": [\n        {\n            \"updated\": \"2013-01-20T00:00:00-00:00\",\n            \"name\": \"Neutron Service Type Management\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/service-type/api/v1.0\",\n            \"alias\": \"service-type\",\n            \"description\": \"API for retrieving service providers for Neutron advanced services\"\n        },\n        {\n            \"updated\": \"2012-10-05T10:00:00-00:00\",\n            \"name\": \"security-group\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/securitygroups/api/v2.0\",\n            \"alias\": \"security-group\",\n            \"description\": \"The security groups extension.\"\n        },\n        {\n            \"updated\": \"2013-02-07T10:00:00-00:00\",\n            \"name\": \"L3 Agent Scheduler\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/l3_agent_scheduler/api/v1.0\",\n            \"alias\": \"l3_agent_scheduler\",\n            \"description\": \"Schedule routers among l3 agents\"\n        },\n        {\n            \"updated\": \"2013-02-07T10:00:00-00:00\",\n            \"name\": \"Loadbalancer Agent Scheduler\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/lbaas_agent_scheduler/api/v1.0\",\n            \"alias\": \"lbaas_agent_scheduler\",\n            \"description\": \"Schedule pools among lbaas agents\"\n        },\n        {\n            \"updated\": \"2013-03-28T10:00:00-00:00\",\n            \"name\": \"Neutron L3 Configurable external gateway mode\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/ext-gw-mode/api/v1.0\",\n            \"alias\": \"ext-gw-mode\",\n            \"description\": \"Extension of the router abstraction for specifying whether SNAT should occur on the external gateway\"\n        },\n        {\n            \"updated\": \"2014-02-03T10:00:00-00:00\",\n            \"name\": \"Port Binding\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/binding/api/v1.0\",\n            \"alias\": \"binding\",\n            \"description\": \"Expose port bindings of a virtual port to external application\"\n        },\n        {\n            \"updated\": \"2012-09-07T10:00:00-00:00\",\n            \"name\": \"Provider Network\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/provider/api/v1.0\",\n            \"alias\": \"provider\",\n            \"description\": \"Expose mapping of virtual networks to physical networks\"\n        },\n        {\n            \"updated\": \"2013-02-03T10:00:00-00:00\",\n            \"name\": \"agent\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/agent/api/v2.0\",\n            \"alias\": \"agent\",\n            \"description\": \"The agent management extension.\"\n        },\n        {\n            \"updated\": \"2012-07-29T10:00:00-00:00\",\n            \"name\": \"Quota management support\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/network/ext/quotas-sets/api/v2.0\",\n            \"alias\": \"quotas\",\n            \"description\": \"Expose functions for quotas management per tenant\"\n        },\n        {\n            \"updated\": \"2013-02-07T10:00:00-00:00\",\n            \"name\": \"DHCP Agent Scheduler\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/dhcp_agent_scheduler/api/v1.0\",\n            \"alias\": \"dhcp_agent_scheduler\",\n            \"description\": \"Schedule networks among dhcp agents\"\n        },\n        {\n            \"updated\": \"2013-06-27T10:00:00-00:00\",\n            \"name\": \"Multi Provider Network\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/multi-provider/api/v1.0\",\n            \"alias\": \"multi-provider\",\n            \"description\": \"Expose mapping of virtual networks to multiple physical networks\"\n        },\n        {\n            \"updated\": \"2013-01-14T10:00:00-00:00\",\n            \"name\": \"Neutron external network\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/external_net/api/v1.0\",\n            \"alias\": \"external-net\",\n            \"description\": \"Adds external network attribute to network resource.\"\n        },\n        {\n            \"updated\": \"2012-07-20T10:00:00-00:00\",\n            \"name\": \"Neutron L3 Router\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/router/api/v1.0\",\n            \"alias\": \"router\",\n            \"description\": \"Router abstraction for basic L3 forwarding between L2 Neutron networks and access to external networks via a NAT gateway.\"\n        },\n        {\n            \"updated\": \"2013-07-23T10:00:00-00:00\",\n            \"name\": \"Allowed Address Pairs\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/allowedaddresspairs/api/v2.0\",\n            \"alias\": \"allowed-address-pairs\",\n            \"description\": \"Provides allowed address pairs\"\n        },\n        {\n            \"updated\": \"2013-03-17T12:00:00-00:00\",\n            \"name\": \"Neutron Extra DHCP opts\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/extra_dhcp_opt/api/v1.0\",\n            \"alias\": \"extra_dhcp_opt\",\n            \"description\": \"Extra options configuration for DHCP. For example PXE boot options to DHCP clients can be specified (e.g. tftp-server, server-ip-address, bootfile-name)\"\n        },\n        {\n            \"updated\": \"2012-10-07T10:00:00-00:00\",\n            \"name\": \"LoadBalancing service\",\n            \"links\": [],\n            \"namespace\": \"http://wiki.openstack.org/neutron/LBaaS/API_1.0\",\n            \"alias\": \"lbaas\",\n            \"description\": \"Extension for LoadBalancing service\"\n        },\n        {\n            \"updated\": \"2013-02-01T10:00:00-00:00\",\n            \"name\": \"Neutron Extra Route\",\n            \"links\": [],\n            \"namespace\": \"http://docs.openstack.org/ext/neutron/extraroutes/api/v1.0\",\n            \"alias\": \"extraroute\",\n            \"description\": \"Extra routes configuration for L3 router\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/extensions/{alias}": {
+            "parameters": [
+                {
+                    "name": "alias",
+                    "required": true,
+                    "in": "path",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "operationId": "getExtension",
+                "summary": "Get extension details",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"extension\": {\n        \"updated\": \"2013-02-03T10:00:00-00:00\",\n        \"name\": \"agent\",\n        \"links\": [],\n        \"namespace\": \"http://docs.openstack.org/ext/agent/api/v2.0\",\n        \"alias\": \"agent\",\n        \"description\": \"The agent management extension.\"\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"extension\": {\n        \"updated\": \"2013-02-03T10:00:00-00:00\",\n        \"name\": \"agent\",\n        \"links\": [],\n        \"namespace\": \"http://docs.openstack.org/ext/agent/api/v2.0\",\n        \"alias\": \"agent\",\n        \"description\": \"The agent management extension.\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/networks": {
+            "get": {
+                "operationId": "listNetworks",
+                "summary": "List networks",
+                "description": "Lists networks to which the specified tenant has access.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"networks\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"subnets\": [\n                \"54d6f61d-db07-451c-9ab3-b9609b6b6f0b\"\n            ],\n            \"name\": \"private-network\",\n            \"provider:physical_network\": null,\n            \"admin_state_up\": true,\n            \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n            \"provider:network_type\": \"local\",\n            \"router:external\": true,\n            \"shared\": true,\n            \"id\": \"d32019d3-bc6e-4319-9c1d-6722fc136a22\",\n            \"provider:segmentation_id\": null\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"subnets\": [\n                \"08eae331-0402-425a-923c-34f7cfe39c1b\"\n            ],\n            \"name\": \"private\",\n            \"provider:physical_network\": null,\n            \"admin_state_up\": true,\n            \"tenant_id\": \"26a7980765d0414dbc1fc1f88cdb7e6e\",\n            \"provider:network_type\": \"local\",\n            \"router:external\": true,\n            \"shared\": true,\n            \"id\": \"db193ab3-96e3-4cb3-8fc5-05f4296d0324\",\n            \"provider:segmentation_id\": null\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "bulkCreateNetwork",
+                "summary": "Bulk create networks",
+                "description": "Creates multiple networks in a single request.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"networks\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"subnets\": [],\n            \"name\": \"sample_network3\",\n            \"provider:physical_network\": null,\n            \"admin_state_up\": true,\n            \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n            \"provider:network_type\": \"local\",\n            \"shared\": false,\n            \"id\": \"bc1a76cb-8767-4c3a-bb95-018b822f2130\",\n            \"provider:segmentation_id\": null\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"subnets\": [],\n            \"name\": \"sample_network4\",\n            \"provider:physical_network\": null,\n            \"admin_state_up\": true,\n            \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n            \"provider:network_type\": \"local\",\n            \"shared\": false,\n            \"id\": \"af374017-c9ae-4a1d-b799-ab73111476e2\",\n            \"provider:segmentation_id\": null\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2.0/networks/{network_id}": {
+            "parameters": [
+                {
+                    "name": "network_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The UUID for the network of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showNetwork",
+                "summary": "Show network",
+                "description": "Shows information for a specified network.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"network\": {\n        \"status\": \"ACTIVE\",\n        \"subnets\": [\n            \"54d6f61d-db07-451c-9ab3-b9609b6b6f0b\"\n        ],\n        \"name\": \"private-network\",\n        \"provider:physical_network\": null,\n        \"admin_state_up\": true,\n        \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n        \"provider:network_type\": \"local\",\n        \"router:external\": true,\n        \"shared\": true,\n        \"id\": \"d32019d3-bc6e-4319-9c1d-6722fc136a22\",\n        \"provider:segmentation_id\": null\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateNetwork",
+                "summary": "Update network",
+                "description": "Updates a specified network.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"network\": {\n        \"status\": \"ACTIVE\",\n        \"subnets\": [],\n        \"name\": \"sample_network_5_updated\",\n        \"provider:physical_network\": null,\n        \"admin_state_up\": true,\n        \"tenant_id\": \"4fd44f30292945e481c7b8a0c8908869\",\n        \"provider:network_type\": \"local\",\n        \"router:external\": false,\n        \"shared\": false,\n        \"id\": \"1f370095-98f6-4079-be64-6d3d4a6adcc6\",\n        \"provider:segmentation_id\": null\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteNetwork",
+                "summary": "Delete network",
+                "description": "Deletes a specified network and its associated resources.\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        }
+    }
+}

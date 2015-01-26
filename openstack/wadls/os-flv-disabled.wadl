@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-flv-disabled-v2">
+        <resource path="/v2/{tenant_id}/flavors/{flavor_id}" id="flavor_id">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="flavor_id"
+                style="template"
+                type="csapi:uuid"
+                required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                <para>The ID of the flavor of interest
+                                   to you.</para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getFlavor">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get flavor disabled status details">
+               <para role="shortdesc">Gets details for a specified
+                flavor. Includes the
+                    <literal>OS-FLV-DISABLED:disabled</literal>
+                attribute.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavor": {
+        "OS-FLV-DISABLED:disabled": false,
+        "disk": 1,
+        "id": "1",
+        "links": [
+            {
+                "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                "rel": "self"
+            },
+            {
+                "href": "http://openstack.example.com/openstack/flavors/1",
+                "rel": "bookmark"
+            }
+        ],
+        "name": "m1.tiny",
+        "ram": 512,
+        "vcpus": 1
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavor xmlns:OS-FLV-DISABLED="http://docs.openstack.org/compute/ext/flavor_disabled/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1" disk="1" vcpus="1" ram="512" name="m1.tiny" id="1" OS-FLV-DISABLED:disabled="False"&gt;
+  &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/1" rel="self"/&gt;
+  &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+&lt;/flavor&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                        
+                    <resource path="/v2/{tenant_id}/flavors/detail" id="detail">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The ID for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <method name="GET" rax:id="getFlavorsDetails">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List flavors with flavor disabled status">
+               <para role="shortdesc">Lists available flavors. Includes
+                the <literal>OS-FLV-DISABLED:disabled</literal>
+                attribute.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavors": [
+        {
+            "OS-FLV-DISABLED:disabled": false,
+            "disk": 1,
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.tiny",
+            "ram": 512,
+            "vcpus": 1
+        },
+        {
+            "OS-FLV-DISABLED:disabled": false,
+            "disk": 20,
+            "id": "2",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/2",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/2",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.small",
+            "ram": 2048,
+            "vcpus": 1
+        },
+        {
+            "OS-FLV-DISABLED:disabled": false,
+            "disk": 40,
+            "id": "3",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/3",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/3",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.medium",
+            "ram": 4096,
+            "vcpus": 2
+        },
+        {
+            "OS-FLV-DISABLED:disabled": false,
+            "disk": 80,
+            "id": "4",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/4",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/4",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.large",
+            "ram": 8192,
+            "vcpus": 4
+        },
+        {
+            "OS-FLV-DISABLED:disabled": false,
+            "disk": 160,
+            "id": "5",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/5",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/5",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.xlarge",
+            "ram": 16384,
+            "vcpus": 8
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavors xmlns:OS-FLV-DISABLED="http://docs.openstack.org/compute/ext/flavor_disabled/api/v1.1" xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;flavor disk="1" vcpus="1" ram="512" name="m1.tiny" id="1" OS-FLV-DISABLED:disabled="False"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/1" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="20" vcpus="1" ram="2048" name="m1.small" id="2" OS-FLV-DISABLED:disabled="False"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/2" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/2" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="40" vcpus="2" ram="4096" name="m1.medium" id="3" OS-FLV-DISABLED:disabled="False"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/3" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/3" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="80" vcpus="4" ram="8192" name="m1.large" id="4" OS-FLV-DISABLED:disabled="False"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/4" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/4" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="160" vcpus="8" ram="16384" name="m1.xlarge" id="5" OS-FLV-DISABLED:disabled="False"&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/5" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/5" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+&lt;/flavors&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                        
+                    
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getFlavor">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getFlavorsDetails">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

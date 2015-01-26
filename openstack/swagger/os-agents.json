@@ -1,0 +1,103 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-agents",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-agents": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique ID of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "listAgents",
+                "summary": "List agents",
+                "description": "Lists all agent builds.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"agents\": [\n        {\n            \"url\": \"xxxxxxxxxxxx\",\n            \"hypervisor\": \"hypervisor\",\n            \"md5hash\": \"add6bb58e139be103324d04d82d8f545\",\n            \"version\": \"8.0\",\n            \"agent_id\": \"1\",\n            \"os\": \"os\",\n            \"architecture\": \"x86\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createAgent",
+                "summary": "Create agent",
+                "description": "Creates an agent build.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"agent\": {\n        \"url\": \"xxxxxxxxxxxx\",\n        \"hypervisor\": \"hypervisor\",\n        \"md5hash\": \"add6bb58e139be103324d04d82d8f545\",\n        \"version\": \"8.0\",\n        \"agent_id\": \"1\",\n        \"os\": \"os\",\n        \"architecture\": \"x86\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteAgent",
+                "summary": "Delete agent",
+                "description": "Deletes an existing agent build.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-agents/{id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique ID of the tenant or account.\n"
+                },
+                {
+                    "name": "id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique ID associated with the agent.\n"
+                }
+            ],
+            "put": {
+                "operationId": "updateAgent",
+                "summary": "Update agent",
+                "description": "Updates an agent build.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"agent\": {\n        \"url\": \"xxx://xxxx/xxx/xxx\",\n        \"md5hash\": \"add6bb58e139be103324d04d82d8f545\",\n        \"agent_id\": \"1\",\n        \"version\": \"7.0\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,189 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-floating-ip-dns",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-floating-ip-dns": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "ListDomains",
+                "summary": "List DNS domains",
+                "description": "Lists registered DNS domains published by the DNS drivers.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"domain_entries\": [\n        {\n            \"project\": \"project1\",\n            \"scope\": \"public\",\n            \"domain\": \"domain1.example.org\",\n            \"availability_zone\": null\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-floating-ip-dns/{domain}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "domain",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Registered DNS domain published by the DNS drivers.\n"
+                }
+            ],
+            "put": {
+                "operationId": "CreateDomain",
+                "summary": "Create or update DNS domain",
+                "description": "Creates or updates a DNS domain.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"domain_entry\": {\n        \"project\": \"project1\",\n        \"scope\": \"public\",\n        \"domain\": \"domain1.example.org\",\n        \"availability_zone\": null\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DeleteDomain",
+                "summary": "Delete DNS domain",
+                "description": "Deletes a DNS domain and all associated host entries.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-floating-ip-dns/{domain}/entries/{name}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "domain",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Registered DNS domain published by the DNS drivers.\n"
+                },
+                {
+                    "name": "name",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "DNS entry name assigned under a domain.\n"
+                }
+            ],
+            "put": {
+                "operationId": "CreateEntry",
+                "summary": "Create or update DNS entry",
+                "description": "Creates or updates a DNS entry.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"dns_entry\": {\n        \"ip\": \"192.168.1.1\",\n        \"domain\": \"domain1.example.org\",\n        \"type\": \"A\",\n        \"id\": null,\n        \"name\": \"instance1\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "FindUniqueEntry",
+                "summary": "Find unique DNS entry",
+                "description": "Finds a unique DNS entry for a specified domain and name.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"dns_entry\": {\n        \"ip\": \"192.168.1.1\",\n        \"domain\": \"domain1.example.org\",\n        \"type\": null,\n        \"id\": null,\n        \"name\": \"instance1\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DeleteEntry",
+                "summary": "Delete DNS entry",
+                "description": "Deletes a specified DNS entry.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-floating-ip-dns/{domain}/entries/{ip}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "domain",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Registered DNS domain published by the DNS drivers.\n"
+                }
+            ],
+            "get": {
+                "operationId": "FindEntriesbyIP",
+                "summary": "List DNS entries",
+                "description": "Lists DNS entries for a specified domain and IP.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"dns_entries\": [\n        {\n            \"ip\": \"192.168.1.1\",\n            \"domain\": \"domain1.example.org\",\n            \"type\": null,\n            \"id\": null,\n            \"name\": \"instance1\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

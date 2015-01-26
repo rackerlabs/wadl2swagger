@@ -1,0 +1,67 @@
+---
+swagger: '2.0'
+info:
+  title: os-fixed-ips
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-fixed-ips/{fixed_ip}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: fixed_ip
+      required: true
+      in: path
+      type: string
+      description: |
+        The fixed IP of interest to you.
+    get:
+      operationId: showIP
+      summary: Show fixed IP information
+      description: |
+        Shows information for a specified fixed IP address.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "fixed_ip": {
+                      "cidr": "192.168.1.0/24",
+                      "hostname": "openstack",
+                      "host": "host",
+                      "address": "192.168.1.1"
+                  }
+              }
+  "/v2/{tenant_id}/os-fixed-ips/{fixed_ip}/action":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: fixed_ip
+      required: true
+      in: path
+      type: string
+      description: |
+        The fixed IP of interest to you.
+    post:
+      operationId: reserveIP
+      summary: Reserve or release a fixed IP
+      description: |
+        Reserves or releases a fixed IP.
+      produces: []
+      responses:
+        '202':
+          description: 202 response

@@ -1,0 +1,12 @@
+INFO:wadls/os-instance-actions.wadl:Converting: wadls/os-instance-actions.wadl to swagger/os-instance-actions.json
+WARNING:wadls/os-instance-actions.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-instance-actions.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-instance-actions.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-instance-actions.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-instance-actions.wadl:Autofix: path parameters must be required in Swagger (action_id)
+INFO:root:Saving swagger to swagger/os-instance-actions.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

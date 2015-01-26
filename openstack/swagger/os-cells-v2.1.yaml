@@ -1,0 +1,87 @@
+---
+swagger: '2.0'
+info:
+  title: os-cells-v2.1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.1/os-cells":
+    get:
+      operationId: returnallcell
+      summary: Lists cells with details
+      description: |
+        Lists cells with details.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "cells": []
+              }
+  "/v2.1/os-cells/cell3":
+    get:
+      operationId: datacell
+      summary: Shows cell data
+      description: |
+        Shows data for a specified cell.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "cell": {
+                      "username": "username3",
+                      "rpc_host": null,
+                      "type": "child",
+                      "name": "cell3",
+                      "rpc_port": null
+                  }
+              }
+  "/v2.1/os-cells/nova/capacities":
+    get:
+      operationId: cellcapacity
+      summary: Shows cell capacities
+      description: |
+        Shows capacities for a specified cell.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "cell": {
+                      "capacities": {
+                          "ram_free": {
+                              "units_by_mb": {
+                                  "8192": 0,
+                                  "512": 13,
+                                  "16384": 0,
+                                  "2048": 3,
+                                  "4096": 1
+                              },
+                              "total_mb": 7680
+                          },
+                          "disk_free": {
+                              "units_by_mb": {
+                                  "0": 0,
+                                  "20480": 46,
+                                  "40960": 23,
+                                  "163840": 5,
+                                  "81920": 11
+                              },
+                              "total_mb": 1052672
+                          }
+                      }
+                  }
+              }

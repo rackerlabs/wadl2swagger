@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-server-start-stop-v2">
+        <resource path="/v2/{tenant_id}/servers/{server_id}/action" id="action">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Tenant ID">
+               <para>The ID
+                            for the tenant or account in a
+                            multi-tenancy cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="server_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Server UUID">
+               <para>The UUID for the server of
+                                   interest to you.</para>
+            </wadl:doc>
+                        </param>
+         <method name="POST" rax:id="start">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Start server">
+               <para role="shortdesc">Starts a stopped server and changes
+                its status to ACTIVE.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/wadl:docbook"
+                            xml:lang="EN"
+                            title="Start server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">{
+    "os-start": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/wadl:docbook"
+                            xml:lang="EN"
+                            title="Start server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;os-stop/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="os-start"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         rax:id="os-start">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Specify the
+                                <code>os-start</code> action in the
+                            request body.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+         <method name="POST" rax:id="stop">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Stop server">
+               <para role="shortdesc">Stops a running server and changes
+                its status to STOPPED.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/wadl:docbook"
+                            xml:lang="EN"
+                            title="Stop server: JSON request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">{
+    "os-stop": null
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/wadl:docbook"
+                            xml:lang="EN"
+                            title="Stop server: XML request">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;os-stop/&gt;</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="os-stop"
+                         style="plain"
+                         type="xsd:string"
+                         required="true"
+                         rax:id="os-stop">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Specify the
+                                <code>os-stop</code> action in the
+                            request body.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+      </resource>
+                            
+                            
+                        
+    </resources>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="start">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="os-start"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   rax:id="os-start">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v1.1"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="stop">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="os-stop"
+                   style="plain"
+                   type="xsd:string"
+                   required="true"
+                   rax:id="os-stop">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+</wadl:application>

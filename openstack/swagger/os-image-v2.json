@@ -1,0 +1,353 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-image-v2",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "listVersions-image-v2",
+                "summary": "List API versions",
+                "description": "Lists information about all Image Service API versions.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": "{\n    \"versions\": [\n        {\n            \"status\": \"CURRENT\",\n            \"id\": \"v2.2\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9292/v2/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"SUPPORTED\",\n            \"id\": \"v2.1\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9292/v2/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"SUPPORTED\",\n            \"id\": \"v2.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9292/v2/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"CURRENT\",\n            \"id\": \"v1.1\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9292/v1/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"SUPPORTED\",\n            \"id\": \"v1.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9292/v1/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    },
+                    "300": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": "{\n    \"versions\": [\n        {\n            \"status\": \"CURRENT\",\n            \"id\": \"v2.2\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9292/v2/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"SUPPORTED\",\n            \"id\": \"v2.1\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9292/v2/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"SUPPORTED\",\n            \"id\": \"v2.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9292/v2/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"CURRENT\",\n            \"id\": \"v1.1\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9292/v1/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"SUPPORTED\",\n            \"id\": \"v1.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:9292/v1/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/images": {
+            "get": {
+                "operationId": "listImages-v2",
+                "summary": "List images",
+                "description": "Lists public virtual machine (VM) images. (Since Image API v2.0.)\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"images\": [\n        {\n            \"status\": \"active\",\n            \"name\": \"cirros-0.3.2-x86_64-disk\",\n            \"tags\": [],\n            \"container_format\": \"bare\",\n            \"created_at\": \"2014-11-07T17:07:06Z\",\n            \"disk_format\": \"qcow2\",\n            \"updated_at\": \"2014-11-07T17:19:09Z\",\n            \"visibility\": \"public\",\n            \"id\": \"1bea47ed-f6a9-463b-b423-14b9cca9ad27\",\n            \"owner\": \"5ef70662f8b34079a6eddb8da9d75fe8\",\n            \"protected\": false,\n            \"min_ram\": 0,\n            \"file\": \"/v2/images/1bea47ed-f6a9-463b-b423-14b9cca9ad27/file\",\n            \"checksum\": \"64d7c1cd2b6f60c92c14662941cb7913\",\n            \"min_disk\": 0,\n            \"schema\": \"/v2/schemas/image\",\n            \"self\": \"/v2/images/1bea47ed-f6a9-463b-b423-14b9cca9ad27\",\n            \"size\": 13167616\n        },\n        {\n            \"status\": \"active\",\n            \"name\": \"F17-x86_64-cfntools\",\n            \"tags\": [],\n            \"container_format\": \"bare\",\n            \"created_at\": \"2014-10-30T08:23:39Z\",\n            \"disk_format\": \"qcow2\",\n            \"updated_at\": \"2014-11-03T16:40:10Z\",\n            \"visibility\": \"public\",\n            \"id\": \"781b3762-9469-4cec-b58d-3349e5de4e9c\",\n            \"owner\": \"5ef70662f8b34079a6eddb8da9d75fe8\",\n            \"protected\": false,\n            \"min_ram\": 0,\n            \"file\": \"/v2/images/781b3762-9469-4cec-b58d-3349e5de4e9c/file\",\n            \"checksum\": \"afab0f79bac770d61d24b4d0560b5f70\",\n            \"min_disk\": 0,\n            \"schema\": \"/v2/schemas/image\",\n            \"self\": \"/v2/images/781b3762-9469-4cec-b58d-3349e5de4e9c\",\n            \"size\": 476704768\n        }\n    ],\n    \"first\": \"/v2/images\",\n    \"schema\": \"/v2/schemas/images\"\n}"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Use to request a specific page size. Expect a response to a limited request to return between zero and limit items. The typical pattern of limit and marker is to make an initial limited request and then to use the ID of the last image from the response as the marker parameter in a subsequent limited request.\n"
+                    },
+                    {
+                        "name": "marker",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Specifies the ID of the last-seen image. The typical pattern of limit and marker is to make an initial limited request and then to use the ID of the last image from the response as the marker parameter in a subsequent limited request.\n"
+                    },
+                    {
+                        "name": "name",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter. Name of the image as a string.\n"
+                    },
+                    {
+                        "name": "visibility",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter. Image visibility. Valid values are `public`, `private`, and `shared`. Default is `public`, `private`, and `shared` images with `accepted` member status.\n"
+                    },
+                    {
+                        "name": "member_status",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter. Only show images with the specified member status. Valid values are `accepted`, `pending`, `rejected`, and `all`. Default is `accepted`.\n"
+                    },
+                    {
+                        "name": "owner",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter. Shows images shared with me by the specified owner, where the owner is indicated by tenant ID.\n"
+                    },
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Filter parameter. The image status, such as queued, saving, active, killed, deleted, and pending\\_delete.\n"
+                    },
+                    {
+                        "name": "size_min",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter. Value of the minimum size of the image in bytes.\n"
+                    },
+                    {
+                        "name": "size_max",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Filter parameter. Value of the maximum size of the image in bytes.\n"
+                    },
+                    {
+                        "name": "sort_key",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Sort key. All image attributes can be used as the sort\\_key, except tags and link attributes. Default is `created_at`.\n"
+                    },
+                    {
+                        "name": "sort_dir",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Sort direction. Valid values are `asc` (ascending) and `desc` (descending). Default is `desc`.\n"
+                    },
+                    {
+                        "name": "tag",
+                        "required": false,
+                        "in": "query",
+                        "type": "string",
+                        "description": "Image tag. For example, `?tag=\"cirros\"`.\n"
+                    }
+                ]
+            },
+            "post": {
+                "operationId": "createImage-v2",
+                "summary": "Create image",
+                "description": "Creates a virtual machine (VM) image. (Since Image API v2.0.)\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"queued\",\n    \"name\": \"test-001\",\n    \"tags\": [],\n    \"container_format\": \"bare\",\n    \"created_at\": \"2014-11-11T20:47:55Z\",\n    \"disk_format\": \"qcow2\",\n    \"updated_at\": \"2014-11-11T20:47:55Z\",\n    \"visibility\": \"private\",\n    \"id\": \"b2173dd3-7ad6-4362-baa6-a68bce3565ca\",\n    \"owner\": \"b4eedccc6fb74fa8a7ad6b08382b852b\",\n    \"protected\": false,\n    \"min_ram\": 0,\n    \"file\": \"/v2/images/b2173dd3-7ad6-4362-baa6-a68bce3565ca/file\",\n    \"min_disk\": 0,\n    \"self\": \"/v2/images/b2173dd3-7ad6-4362-baa6-a68bce3565ca\",\n    \"schema\": \"/v2/schemas/image\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/images/{image_id}": {
+            "get": {
+                "operationId": "getImage-v2",
+                "summary": "Get image details",
+                "description": "Gets details for a specified image. (Since Image API v2.0.)\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"active\",\n    \"name\": \"cirros-0.3.2-x86_64-disk\",\n    \"tags\": [],\n    \"container_format\": \"bare\",\n    \"created_at\": \"2014-05-05T17:15:10Z\",\n    \"disk_format\": \"qcow2\",\n    \"updated_at\": \"2014-05-05T17:15:11Z\",\n    \"visibility\": \"public\",\n    \"id\": \"1bea47ed-f6a9-463b-b423-14b9cca9ad27\",\n    \"owner\": \"5ef70662f8b34079a6eddb8da9d75fe8\",\n    \"protected\": false,\n    \"min_ram\": 0,\n    \"file\": \"/v2/images/1bea47ed-f6a9-463b-b423-14b9cca9ad27/file\",\n    \"checksum\": \"64d7c1cd2b6f60c92c14662941cb7913\",\n    \"min_disk\": 0,\n    \"schema\": \"/v2/schemas/image\",\n    \"self\": \"/v2/images/1bea47ed-f6a9-463b-b423-14b9cca9ad27\",\n    \"size\": 13167616\n}"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "updateImage-v2",
+                "summary": "Update image",
+                "description": "Updates a specified image. (Since Image API v2.0.)\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"active\",\n    \"name\": \"Fedora 17\",\n    \"tags\": [\n        \"fedora\",\n        \"beefy\"\n    ],\n    \"checksum\": \"2cec138d7dae2aa59038ef8c9aec2390\",\n    \"created_at\": \"2012-08-10T19:23:50Z\",\n    \"updated_at\": \"2012-08-12T11:11:33Z\",\n    \"visibility\": \"public\",\n    \"self\": \"/v2/images/da3b75d9-3f4a-40e7-8a2c-bfab23927dea\",\n    \"file\": \"/v2/images/da3b75d9-3f4a-40e7-8a2c-bfab23927dea/file\",\n    \"schema\": \"/v2/schemas/image\",\n    \"id\": \"da3b75d9-3f4a-40e7-8a2c-bfab23927dea\",\n    \"size\": 2254249\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteImage-v2",
+                "summary": "Delete image",
+                "description": "Deletes a specified image. (Since Image API v2.0.)\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v2/images/{image_id}/file": {
+            "put": {
+                "operationId": "storeImageFile-v2",
+                "summary": "Upload binary image data",
+                "description": "Uploads binary image data. (Since Image API v2.0.)\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getImageFile-v2",
+                "summary": "Download binary image data",
+                "description": "Downloads binary image data. (Since Image API v2.0.)\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 204 response"
+                    },
+                    "204": {
+                        "description": "200 204 response"
+                    }
+                }
+            }
+        },
+        "/v2/images/{image_id}/tags/{tag}": {
+            "parameters": [
+                {
+                    "name": "tag",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Image tag.\n"
+                }
+            ],
+            "put": {
+                "operationId": "addImageTag-v2",
+                "summary": "Add image tag",
+                "description": "Adds a specified tag to a specified image. (Since Image API v2.0.)\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteImageTag-v2",
+                "summary": "Delete image tag",
+                "description": "Deletes a specified tag from a specified image. (Since Image API v2.0.)\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            }
+        },
+        "/v2/images/{image_id}/members": {
+            "get": {
+                "operationId": "listImageMembers-v2",
+                "summary": "List image members",
+                "description": "Lists the tenants with whom this image has been shared. (Since Image API v2.1.)\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"members\": [\n        {\n            \"status\": \"pending\",\n            \"created_at\": \"2013-10-07T17:58:03Z\",\n            \"updated_at\": \"2013-10-07T17:58:03Z\",\n            \"image_id\": \"dbc999e3-c52f-4200-bedd-3b18fe7f87fe\",\n            \"member_id\": \"123456789\",\n            \"schema\": \"/v2/schemas/member\"\n        },\n        {\n            \"status\": \"accepted\",\n            \"created_at\": \"2013-10-07T17:58:55Z\",\n            \"updated_at\": \"2013-10-08T12:08:55Z\",\n            \"image_id\": \"dbc999e3-c52f-4200-bedd-3b18fe7f87fe\",\n            \"member_id\": \"987654321\",\n            \"schema\": \"/v2/schemas/member\"\n        }\n    ],\n    \"schema\": \"/v2/schemas/members\"\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createImageMember-v2",
+                "summary": "Create image member",
+                "description": "Adds a specified tenant ID as an image member. (Since Image API v2.1.)\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"pending\",\n    \"created_at\": \"2013-09-20T19:22:19Z\",\n    \"updated_at\": \"2013-09-20T19:25:31Z\",\n    \"image_id\": \"a96be11e-8536-4910-92cb-de50aa19dfe6\",\n    \"member_id\": \"8989447062e04a818baf9e073fd04fa7\",\n    \"schema\": \"/v2/schemas/member\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/images/{image_id}/members/{member_id}": {
+            "parameters": [
+                {
+                    "name": "member_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "Image member ID. For example, the tenant ID of the user with whom the image is being shared.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getImageMember-v2",
+                "summary": "Show image member details",
+                "description": "Shows image member details.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"pending\",\n    \"created_at\": \"2013-11-26T07:21:21Z\",\n    \"updated_at\": \"2013-11-26T07:21:21Z\",\n    \"image_id\": \"0ae74cc5-5147-4239-9ce2-b0c580f7067e\",\n    \"member_id\": \"8989447062e04a818baf9e073fd04fa7\",\n    \"schema\": \"/v2/schemas/member\"\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteImageMember-v2",
+                "summary": "Delete image member",
+                "description": "Deletes a specified tenant ID from the member list of the specified image. (Since Image API v2.1.)\n",
+                "produces": [],
+                "responses": {
+                    "204": {
+                        "description": "204 response"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateImageMember-v2",
+                "summary": "Update image member",
+                "description": "Sets the specified status for the specified member of the specified image. (Since Image API v2.1.)\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"status\": \"accepted\",\n    \"created_at\": \"2013-09-20T19:22:19Z\",\n    \"updated_at\": \"2013-09-20T20:15:31Z\",\n    \"image_id\": \"a96be11e-8536-4910-92cb-de50aa19dfe6\",\n    \"member_id\": \"8989447062e04a818baf9e073fd04fa7\",\n    \"schema\": \"/v2/schemas/member\"\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

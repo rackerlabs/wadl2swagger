@@ -1,0 +1,28 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-admin-actions-v2.1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2.1/servers/{server_id}/action/{server_id}/action": {
+            "post": {
+                "operationId": "unpauseserver",
+                "summary": "Unpause server",
+                "description": "Unpauses a PAUSED server and changes its status to ACTIVE.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        }
+    }
+}

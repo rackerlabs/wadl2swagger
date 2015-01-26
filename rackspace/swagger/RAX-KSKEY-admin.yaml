@@ -1,0 +1,94 @@
+---
+swagger: '2.0'
+info:
+  title: RAX-KSKEY-admin
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.0/users/{userId}/OS-KSADM/credentials":
+    parameters:
+    - name: X-Auth-Token
+      required: true
+      in: header
+      type: string
+      description: |
+        Use a valid authentication token for an administrative user.
+    - name: userId
+      required: true
+      in: path
+      type: string
+      description: |
+        The user ID assigned by system when user is added.
+    post:
+      operationId: addUserCredential
+      summary: Add user credential
+      description: |
+        Adds a credential to a user.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "auth": {
+                      "RAX-KSKEY:apiKeyCredentials": {
+                          "username": "demoauthor",
+                          "apiKey": "aaaaa-bbbbb-ccccc-12345678"
+                      }
+                  }
+              }
+    get:
+      operationId: listCredentials
+      summary: List Credentials
+      description: |
+        List credentials.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "credentials": [
+                      {
+                          "passwordCredentials": {
+                              "username": "test_user",
+                              "password": "mypass"
+                          }
+                      },
+                      {
+                          "RAX-KSKEY:apiKeyCredentials": {
+                              "username": "test_user",
+                              "apiKey": "aaaaa-bbbbb-ccccc-12345678"
+                          }
+                      }
+                  ],
+                  "credentials_links": []
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "credentials": [
+                      {
+                          "passwordCredentials": {
+                              "username": "test_user",
+                              "password": "mypass"
+                          }
+                      },
+                      {
+                          "RAX-KSKEY:apiKeyCredentials": {
+                              "username": "test_user",
+                              "apiKey": "aaaaa-bbbbb-ccccc-12345678"
+                          }
+                      }
+                  ],
+                  "credentials_links": []
+              }

@@ -1,0 +1,112 @@
+---
+swagger: '2.0'
+info:
+  title: os-security-group-default-rules
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-security-group-default-rules":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    get:
+      operationId: listSecGroupDefaultRules
+      summary: List default security group rules
+      description: |
+        Lists default security group rules.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "security_group_default_rules": [
+                      {
+                          "to_port": 80,
+                          "from_port": 80,
+                          "ip_range": {
+                              "cidr": "10.10.10.0/24"
+                          },
+                          "id": 1,
+                          "ip_protocol": "TCP"
+                      }
+                  ]
+              }
+    post:
+      operationId: createSecGroupRule
+      summary: Create default security group rule
+      description: |
+        Creates a default security group rule.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "security_group_default_rule": {
+                      "to_port": 80,
+                      "from_port": 80,
+                      "ip_range": {
+                          "cidr": "10.10.10.0/24"
+                      },
+                      "id": 1,
+                      "ip_protocol": "TCP"
+                  }
+              }
+  "/v2/{tenant_id}/os-security-group-default-rules/{security_group_default_rule_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: security_group_default_rule_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the security group rule.
+    get:
+      operationId: showSecGroupDefaultRule
+      summary: Show default security group rule information
+      description: |
+        Shows information for a specified security group rule.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "security_group_default_rule": {
+                      "to_port": 80,
+                      "from_port": 80,
+                      "ip_range": {
+                          "cidr": "10.10.10.0/24"
+                      },
+                      "id": 1,
+                      "ip_protocol": "TCP"
+                  }
+              }
+    delete:
+      operationId: deleteSecGroupDefaultRule
+      summary: Delete default security group rule
+      description: |
+        Deletes a specified security group rule.
+      produces: []
+      responses:
+        '204':
+          description: 204 response

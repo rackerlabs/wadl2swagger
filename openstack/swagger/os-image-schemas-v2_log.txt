@@ -1,0 +1,7 @@
+INFO:wadls/os-image-schemas-v2.wadl:Converting: wadls/os-image-schemas-v2.wadl to swagger/os-image-schemas-v2.json
+INFO:root:Saving swagger to swagger/os-image-schemas-v2.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

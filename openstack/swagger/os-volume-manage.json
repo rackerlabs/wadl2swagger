@@ -1,0 +1,42 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-volume-manage",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-volume-manage": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "post": {
+                "operationId": "manageExisting",
+                "summary": "Manage existing volume",
+                "description": "Creates a Block Storage volume using existing storage instead of creating new storage.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume\": {\n        \"status\": \"creating\",\n        \"size\": 0,\n        \"user_id\": \"eae1472b5fc5496998a3d06550929e7e\",\n        \"attachments\": [],\n        \"links\": [\n            {\n                \"href\": \"http://10.0.2.15:8776/v2/87c8522052ca4eed98bc672b4c1a3ddb/volumes/23cf872b-c781-4cd4-847d-5f2ec8cbd91c\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://10.0.2.15:8776/87c8522052ca4eed98bc672b4c1a3ddb/volumes/23cf872b-c781-4cd4-847d-5f2ec8cbd91c\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"availability_zone\": \"az2\",\n        \"bootable\": \"false\",\n        \"encrypted\": \"false\",\n        \"created_at\": \"2014-07-18T00:12:54.000000\",\n        \"snapshot_id\": null,\n        \"volume_type\": null,\n        \"name\": \"New Volume\",\n        \"source_volid\": null,\n        \"os-vol-tenant-attr:tenant_id\": \"87c8522052ca4eed98bc672b4c1a3ddb\",\n        \"metadata\": {\n            \"key2\": \"value2\",\n            \"key1\": \"value1\"\n        },\n        \"id\": \"23cf872b-c781-4cd4-847d-5f2ec8cbd91c\",\n        \"description\": \"Volume imported from existingLV\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

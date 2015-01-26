@@ -1,0 +1,447 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "volume-api-v1",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "listVersionsv1",
+                "summary": "List API versions",
+                "description": "Lists information about all Block Storage API versions.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": "{\n    \"versions\": [\n        {\n            \"status\": \"CURRENT\",\n            \"updated\": \"2012-01-04T11:33:21Z\",\n            \"id\": \"v1.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:8776/v1/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"CURRENT\",\n            \"updated\": \"2012-11-21T11:33:21Z\",\n            \"id\": \"v2.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:8776/v2/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    },
+                    "300": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": "{\n    \"versions\": [\n        {\n            \"status\": \"CURRENT\",\n            \"updated\": \"2012-01-04T11:33:21Z\",\n            \"id\": \"v1.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:8776/v1/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        },\n        {\n            \"status\": \"CURRENT\",\n            \"updated\": \"2012-11-21T11:33:21Z\",\n            \"id\": \"v2.0\",\n            \"links\": [\n                {\n                    \"href\": \"http://23.253.228.211:8776/v2/\",\n                    \"rel\": \"self\"\n                }\n            ]\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1": {
+            "get": {
+                "operationId": "showVersionDetailsv1",
+                "summary": "Show API v1 details",
+                "description": "Shows details for Block Storage API v1.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"version\": {\n        \"status\": \"CURRENT\",\n        \"updated\": \"2012-01-04T11:33:21Z\",\n        \"media-types\": [\n            {\n                \"base\": \"application/xml\",\n                \"type\": \"application/vnd.openstack.volume+xml;version=1\"\n            },\n            {\n                \"base\": \"application/json\",\n                \"type\": \"application/vnd.openstack.volume+json;version=1\"\n            }\n        ],\n        \"id\": \"v1.0\",\n        \"links\": [\n            {\n                \"href\": \"http://23.253.228.211:8776/v1/\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://jorgew.github.com/block-storage-api/content/os-block-storage-1.0.pdf\",\n                \"type\": \"application/pdf\",\n                \"rel\": \"describedby\"\n            },\n            {\n                \"href\": \"http://docs.rackspacecloud.com/servers/api/v1.1/application.wadl\",\n                \"type\": \"application/vnd.sun.wadl+xml\",\n                \"rel\": \"describedby\"\n            }\n        ]\n    }\n}"
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": "{\n    \"version\": {\n        \"status\": \"CURRENT\",\n        \"updated\": \"2012-01-04T11:33:21Z\",\n        \"media-types\": [\n            {\n                \"base\": \"application/xml\",\n                \"type\": \"application/vnd.openstack.volume+xml;version=1\"\n            },\n            {\n                \"base\": \"application/json\",\n                \"type\": \"application/vnd.openstack.volume+json;version=1\"\n            }\n        ],\n        \"id\": \"v1.0\",\n        \"links\": [\n            {\n                \"href\": \"http://23.253.228.211:8776/v1/\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"http://jorgew.github.com/block-storage-api/content/os-block-storage-1.0.pdf\",\n                \"type\": \"application/pdf\",\n                \"rel\": \"describedby\"\n            },\n            {\n                \"href\": \"http://docs.rackspacecloud.com/servers/api/v1.1/application.wadl\",\n                \"type\": \"application/vnd.sun.wadl+xml\",\n                \"rel\": \"describedby\"\n            }\n        ]\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/volumes": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createVolume",
+                "summary": "Create volume",
+                "description": "Creates a volume.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume\": {\n        \"display_name\": \"vol-001\",\n        \"attachments\": [],\n        \"availability_zone\": \"us-east1\",\n        \"bootable\": \"false\",\n        \"created_at\": \"2012-02-14T20:53:07Z\",\n        \"volume_type\": \"289da7f8-6440-407c-9fb4-7db01ec49164\",\n        \"display_description\": \"Another volume.\",\n        \"snapshot_id\": null,\n        \"size\": 30,\n        \"id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n        \"metadata\": {\n            \"contents\": \"junk\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getVolumesSimple",
+                "summary": "List volumes",
+                "description": "Lists simple volume entities.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volumes\": [\n        {\n            \"display_name\": \"vol-001\",\n            \"attachments\": [],\n            \"availability_zone\": \"us-east1\",\n            \"created_at\": \"2012-02-14T20:53:07Z\",\n            \"volume_type\": \"289da7f8-6440-407c-9fb4-7db01ec49164\",\n            \"display_description\": \"Another volume.\",\n            \"snapshot_id\": null,\n            \"size\": 30,\n            \"id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n            \"metadata\": {\n                \"contents\": \"junk\"\n            }\n        },\n        {\n            \"display_name\": \"vol-002\",\n            \"attachments\": [],\n            \"availability_zone\": \"us-east2\",\n            \"created_at\": \"2012-03-15T19:10:03Z\",\n            \"volume_type\": \"96c3bda7-c82a-4f50-be73-ca7621794835\",\n            \"display_description\": \"Yet another volume.\",\n            \"snapshot_id\": null,\n            \"size\": 25,\n            \"id\": \"76b8950a-8594-4e5b-8dce-0dfa9c696358\",\n            \"metadata\": {}\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/volumes/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getVolumesDetail",
+                "summary": "List volumes (detailed)",
+                "description": "Lists details for volume entities.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volumes\": [\n        {\n            \"display_name\": \"vol-001\",\n            \"attachments\": [],\n            \"availability_zone\": \"us-east1\",\n            \"created_at\": \"2012-02-14T20:53:07Z\",\n            \"volume_type\": \"289da7f8-6440-407c-9fb4-7db01ec49164\",\n            \"display_description\": \"Another volume.\",\n            \"snapshot_id\": null,\n            \"size\": 30,\n            \"id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n            \"metadata\": {\n                \"contents\": \"junk\"\n            }\n        },\n        {\n            \"display_name\": \"vol-002\",\n            \"attachments\": [],\n            \"availability_zone\": \"us-east2\",\n            \"created_at\": \"2012-03-15T19:10:03Z\",\n            \"volume_type\": \"96c3bda7-c82a-4f50-be73-ca7621794835\",\n            \"display_description\": \"Yet another volume.\",\n            \"snapshot_id\": null,\n            \"size\": 25,\n            \"id\": \"76b8950a-8594-4e5b-8dce-0dfa9c696358\",\n            \"metadata\": {}\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/volumes/{volume_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "volume_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of an existing volume.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getVolume",
+                "summary": "Show volume information",
+                "description": "Shows information about a specified volume.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume\": {\n        \"display_name\": \"vol-001\",\n        \"attachments\": [],\n        \"availability_zone\": \"us-east1\",\n        \"bootable\": \"false\",\n        \"created_at\": \"2012-02-14T20:53:07Z\",\n        \"volume_type\": \"289da7f8-6440-407c-9fb4-7db01ec49164\",\n        \"display_description\": \"Another volume.\",\n        \"snapshot_id\": null,\n        \"size\": 30,\n        \"id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n        \"metadata\": {\n            \"contents\": \"junk\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteVolume",
+                "summary": "Delete volume",
+                "description": "Deletes a specified volume.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/types": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getVolumeTypes",
+                "summary": "List volume types",
+                "description": "Request a list of volume types.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume_types\": [\n        {\n            \"extra_specs\": {\n                \"capabilities\": \"gpu\"\n            },\n            \"id\": \"289da7f8-6440-407c-9fb4-7db01ec49164\",\n            \"name\": \"vol-type-001\"\n        },\n        {\n            \"extra_specs\": {},\n            \"id\": \"96c3bda7-c82a-4f50-be73-ca7621794835\",\n            \"name\": \"vol-type-002\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "createVolumeType",
+                "summary": "Create volume type",
+                "description": "Creates a volume type.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume_type\": {\n        \"extra_specs\": {\n            \"capabilities\": \"gpu\"\n        },\n        \"id\": \"289da7f8-6440-407c-9fb4-7db01ec49164\",\n        \"name\": \"vol-type-001\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/types/{volume_type_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "volume_type_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of an existing volume type.\n"
+                }
+            ],
+            "put": {
+                "operationId": "updateVolumeTypeExtraSpecs",
+                "summary": "Update extra specs for a volume type",
+                "description": "Updates the extra specifications assigned to a volume type.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume_type\": {\n        \"extra_specs\": {\n            \"capabilities\": \"gpu\"\n        },\n        \"id\": \"289da7f8-6440-407c-9fb4-7db01ec49164\",\n        \"name\": \"vol-type-001\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getVolumeType",
+                "summary": "Show volume type information",
+                "description": "Shows information about a specified volume type.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"volume_type\": {\n        \"extra_specs\": {\n            \"capabilities\": \"gpu\"\n        },\n        \"id\": \"289da7f8-6440-407c-9fb4-7db01ec49164\",\n        \"name\": \"vol-type-001\"\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteVolumeType",
+                "summary": "Delete volume type",
+                "description": "Deletes a specified volume type.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/snapshots": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "post": {
+                "operationId": "createSnapshot",
+                "summary": "Create snapshot",
+                "description": "Creates a snapshot.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "201 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshot\": {\n        \"status\": \"available\",\n        \"display_name\": \"snap-001\",\n        \"created_at\": \"2012-02-29T03:50:07Z\",\n        \"display_description\": \"Daily backup\",\n        \"volume_id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n        \"id\": \"3fbbcccf-d058-4502-8844-6feeffdf4cb5\",\n        \"size\": 30\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "getSnapshotsSimple",
+                "summary": "List snapshots",
+                "description": "Lists simple snapshot entities.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshots\": [\n        {\n            \"status\": \"available\",\n            \"display_name\": \"snap-001\",\n            \"created_at\": \"2012-02-29T03:50:07Z\",\n            \"display_description\": \"Daily backup\",\n            \"volume_id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n            \"id\": \"3fbbcccf-d058-4502-8844-6feeffdf4cb5\",\n            \"size\": 30\n        },\n        {\n            \"status\": \"available\",\n            \"display_name\": \"snap-002\",\n            \"created_at\": \"2012-03-19T01:52:47Z\",\n            \"display_description\": \"Weekly backup\",\n            \"volume_id\": \"76b8950a-8594-4e5b-8dce-0dfa9c696358\",\n            \"id\": \"e479997c-650b-40a4-9dfe-77655818b0d2\",\n            \"size\": 25\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/snapshots/detail": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getSnapshotsDetail",
+                "summary": "List snapshots (detailed)",
+                "description": "Lists details for snapshot entities.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshots\": [\n        {\n            \"status\": \"available\",\n            \"display_name\": \"snap-001\",\n            \"created_at\": \"2012-02-29T03:50:07Z\",\n            \"display_description\": \"Daily backup\",\n            \"volume_id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n            \"id\": \"3fbbcccf-d058-4502-8844-6feeffdf4cb5\",\n            \"size\": 30\n        },\n        {\n            \"status\": \"available\",\n            \"display_name\": \"snap-002\",\n            \"created_at\": \"2012-03-19T01:52:47Z\",\n            \"display_description\": \"Weekly backup\",\n            \"volume_id\": \"76b8950a-8594-4e5b-8dce-0dfa9c696358\",\n            \"id\": \"e479997c-650b-40a4-9dfe-77655818b0d2\",\n            \"size\": 25\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/snapshots/{snapshot_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "snapshot_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of an existing snapshot.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getSnapshot",
+                "summary": "Show snapshot information",
+                "description": "Shows information about a specified snapshot.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshot\": {\n        \"status\": \"available\",\n        \"display_name\": \"snap-001\",\n        \"created_at\": \"2012-02-29T03:50:07Z\",\n        \"display_description\": \"Daily backup\",\n        \"volume_id\": \"521752a6-acf6-4b2d-bc7a-119f9148cd8c\",\n        \"id\": \"3fbbcccf-d058-4502-8844-6feeffdf4cb5\",\n        \"size\": 30\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteSnapshot",
+                "summary": "Delete snapshot",
+                "description": "Deletes a specified snapshot.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        },
+        "/v1/{tenant_id}/snapshots/{snapshot_id}/metadata": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of the tenant or account.\n"
+                },
+                {
+                    "name": "snapshot_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The unique identifier of an existing snapshot.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showSnapshotMetadata",
+                "summary": "Show snapshot metadata",
+                "description": "Shows the metadata for a specified snapshot.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"snapshot\": {\n        \"status\": \"available\",\n        \"os-extended-snapshot-attributes:progress\": \"0%\",\n        \"description\": null,\n        \"name\": \"my-snapshot\",\n        \"created_at\": \"2014-05-06T17:59:52.000000\",\n        \"id\": \"dfcd17fe-3b64-44ba-b95f-1c9c7109ef95\",\n        \"volume_id\": \"ebd80b99-bc3d-4154-9d28-5583baa80580\",\n        \"size\": 10,\n        \"os-extended-snapshot-attributes:project_id\": \"7e0105e19cd2466193729ef78b604f79\",\n        \"metadata\": {\n            \"key\": \"v1\"\n        }\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateSnapshotMetadata",
+                "summary": "Update snapshot metadata",
+                "description": "Updates the metadata for a specified snapshot.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"metadata\": {\n        \"key\": \"v1\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

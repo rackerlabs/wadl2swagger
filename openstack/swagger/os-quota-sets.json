@@ -1,0 +1,212 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-quota-sets",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-quota-sets/{tenant_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or project in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant for which you want to show, update, or delete quotas. This ID is different from the first tenant ID that you specify in the URI: That ID is for the admin tenant.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showQuota",
+                "summary": "Show quotas",
+                "description": "Shows quotas for a tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota_set\": {\n        \"injected_file_content_bytes\": 10240,\n        \"metadata_items\": 128,\n        \"ram\": 51200,\n        \"floating_ips\": 10,\n        \"key_pairs\": 100,\n        \"id\": \"fake_tenant\",\n        \"instances\": 10,\n        \"security_group_rules\": 20,\n        \"injected_files\": 5,\n        \"cores\": 20,\n        \"fixed_ips\": -1,\n        \"injected_file_path_bytes\": 255,\n        \"security_groups\": 10\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "updateQuota",
+                "summary": "Update quotas",
+                "description": "Updates quotas for a tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota_set\": {\n        \"injected_file_content_bytes\": 10240,\n        \"metadata_items\": 128,\n        \"ram\": 51200,\n        \"floating_ips\": 10,\n        \"key_pairs\": 100,\n        \"instances\": 10,\n        \"security_group_rules\": 20,\n        \"injected_files\": 5,\n        \"cores\": 20,\n        \"fixed_ips\": -1,\n        \"injected_file_path_bytes\": 255,\n        \"security_groups\": 45\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteQuotas",
+                "summary": "Delete quotas",
+                "description": "Deletes quotas for a tenant so the quotas revert to default values.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-quota-sets/defaults": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or project in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getDefaults",
+                "summary": "Get default quotas",
+                "description": "Gets default quotas for a tenant.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota_set\": {\n        \"injected_file_content_bytes\": 10240,\n        \"metadata_items\": 128,\n        \"ram\": 51200,\n        \"floating_ips\": 10,\n        \"key_pairs\": 100,\n        \"id\": \"fake_tenant\",\n        \"instances\": 10,\n        \"security_group_rules\": 20,\n        \"injected_files\": 5,\n        \"cores\": 20,\n        \"fixed_ips\": -1,\n        \"injected_file_path_bytes\": 255,\n        \"security_groups\": 10\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-quota-sets/{tenant_id}/{user_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or project in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant for which you want to show or update quotas. This ID is different from the first tenant ID that you specify in the URI: That ID is for the admin tenant.\n"
+                },
+                {
+                    "name": "user_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The user ID. Specify in the URI as a query string: `user_id={user_id}`.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showQuotaUser",
+                "summary": "Show quotas for user",
+                "description": "Enables an admin user to show quotas for a specified tenant and user.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota_set\": {\n        \"injected_file_content_bytes\": 10240,\n        \"metadata_items\": 128,\n        \"ram\": 51200,\n        \"floating_ips\": 10,\n        \"key_pairs\": 100,\n        \"id\": \"fake_tenant\",\n        \"instances\": 10,\n        \"security_group_rules\": 20,\n        \"injected_files\": 5,\n        \"cores\": 20,\n        \"fixed_ips\": -1,\n        \"injected_file_path_bytes\": 255,\n        \"security_groups\": 10\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "updateQuotaUser",
+                "summary": "Update quotas for user",
+                "description": "Updates quotas for a specified tenant/project and user.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota_set\": {\n        \"injected_file_content_bytes\": 10240,\n        \"metadata_items\": 128,\n        \"ram\": 51200,\n        \"floating_ips\": 10,\n        \"key_pairs\": 100,\n        \"instances\": 9,\n        \"security_group_rules\": 20,\n        \"injected_files\": 5,\n        \"cores\": 20,\n        \"fixed_ips\": -1,\n        \"injected_file_path_bytes\": 255,\n        \"security_groups\": 10\n    }\n}"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "deleteQuotasUser",
+                "summary": "Delete quotas for user",
+                "description": "Deletes quotas for a user so that the quotas revert to default values.\n",
+                "produces": [],
+                "responses": {
+                    "200": {
+                        "description": "200 response"
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-quota-sets/{tenant_id}/detail/{user_id}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or project in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant for which you want to show or update quotas. This ID is different from the first tenant ID that you specify in the URI: That ID is for the admin tenant.\n"
+                },
+                {
+                    "name": "user_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The user ID. Specify in the URI as a query string: `user_id={user_id}`.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showQuotaDetailUser",
+                "summary": "Show quota details for user",
+                "description": "Shows details for quotas for a specified tenant and user.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"quota_set\": {\n        \"metadata_items\": {\n            \"reserved\": 0,\n            \"limit\": 128,\n            \"in_use\": 0\n        },\n        \"injected_file_content_bytes\": {\n            \"reserved\": 0,\n            \"limit\": 10240,\n            \"in_use\": 0\n        },\n        \"ram\": {\n            \"reserved\": 0,\n            \"limit\": 51200,\n            \"in_use\": 0\n        },\n        \"floating_ips\": {\n            \"reserved\": 0,\n            \"limit\": 10,\n            \"in_use\": 0\n        },\n        \"key_pairs\": {\n            \"reserved\": 0,\n            \"limit\": 100,\n            \"in_use\": 0\n        },\n        \"instances\": {\n            \"reserved\": 0,\n            \"limit\": 10,\n            \"in_use\": 0\n        },\n        \"security_group_rules\": {\n            \"reserved\": 0,\n            \"limit\": 20,\n            \"in_use\": 0\n        },\n        \"injected_files\": {\n            \"reserved\": 0,\n            \"limit\": 5,\n            \"in_use\": 0\n        },\n        \"cores\": {\n            \"reserved\": 0,\n            \"limit\": 20,\n            \"in_use\": 0\n        },\n        \"fixed_ips\": {\n            \"reserved\": 0,\n            \"limit\": -1,\n            \"in_use\": 0\n        },\n        \"injected_file_path_bytes\": {\n            \"reserved\": 0,\n            \"limit\": 255,\n            \"in_use\": 0\n        },\n        \"security_groups\": {\n            \"reserved\": 0,\n            \"limit\": 10,\n            \"in_use\": 0\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

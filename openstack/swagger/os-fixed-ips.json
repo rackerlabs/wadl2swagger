@@ -1,0 +1,78 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-fixed-ips",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/os-fixed-ips/{fixed_ip}": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "fixed_ip",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The fixed IP of interest to you.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showIP",
+                "summary": "Show fixed IP information",
+                "description": "Shows information for a specified fixed IP address.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"fixed_ip\": {\n        \"cidr\": \"192.168.1.0/24\",\n        \"hostname\": \"openstack\",\n        \"host\": \"host\",\n        \"address\": \"192.168.1.1\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/{tenant_id}/os-fixed-ips/{fixed_ip}/action": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                },
+                {
+                    "name": "fixed_ip",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The fixed IP of interest to you.\n"
+                }
+            ],
+            "post": {
+                "operationId": "reserveIP",
+                "summary": "Reserve or release a fixed IP",
+                "description": "Reserves or releases a fixed IP.\n",
+                "produces": [],
+                "responses": {
+                    "202": {
+                        "description": "202 response"
+                    }
+                }
+            }
+        }
+    }
+}

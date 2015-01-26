@@ -1,0 +1,635 @@
+---
+swagger: '2.0'
+info:
+  title: os-networks
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/":
+    get:
+      operationId: listVersionsv2-neutron
+      summary: List API versions
+      description: |
+        Lists information about all Networking API versions.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 300 response
+          examples:
+            application/json: |-
+              {
+                  "versions": [
+                      {
+                          "status": "CURRENT",
+                          "id": "v2.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9696/v2.0",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+        '300':
+          description: 200 300 response
+          examples:
+            application/json: |-
+              {
+                  "versions": [
+                      {
+                          "status": "CURRENT",
+                          "id": "v2.0",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9696/v2.0",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+  "/v2.0":
+    get:
+      operationId: showVersionDetailsv2-neutron
+      summary: Show API v2.0 details
+      description: |
+        Shows details for Networking API v2.0.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "resources": [
+                      {
+                          "collection": "subnets",
+                          "name": "subnet",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9696/v2.0/subnets",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "collection": "networks",
+                          "name": "network",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9696/v2.0/networks",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "collection": "ports",
+                          "name": "port",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9696/v2.0/ports",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "resources": [
+                      {
+                          "collection": "subnets",
+                          "name": "subnet",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9696/v2.0/subnets",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "collection": "networks",
+                          "name": "network",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9696/v2.0/networks",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "collection": "ports",
+                          "name": "port",
+                          "links": [
+                              {
+                                  "href": "http://23.253.228.211:9696/v2.0/ports",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+  "/v2.0/extensions":
+    get:
+      operationId: listExtensions
+      summary: List extensions
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "extensions": [
+                      {
+                          "updated": "2013-01-20T00:00:00-00:00",
+                          "name": "Neutron Service Type Management",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/service-type/api/v1.0",
+                          "alias": "service-type",
+                          "description": "API for retrieving service providers for Neutron advanced services"
+                      },
+                      {
+                          "updated": "2012-10-05T10:00:00-00:00",
+                          "name": "security-group",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/securitygroups/api/v2.0",
+                          "alias": "security-group",
+                          "description": "The security groups extension."
+                      },
+                      {
+                          "updated": "2013-02-07T10:00:00-00:00",
+                          "name": "L3 Agent Scheduler",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/l3_agent_scheduler/api/v1.0",
+                          "alias": "l3_agent_scheduler",
+                          "description": "Schedule routers among l3 agents"
+                      },
+                      {
+                          "updated": "2013-02-07T10:00:00-00:00",
+                          "name": "Loadbalancer Agent Scheduler",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/lbaas_agent_scheduler/api/v1.0",
+                          "alias": "lbaas_agent_scheduler",
+                          "description": "Schedule pools among lbaas agents"
+                      },
+                      {
+                          "updated": "2013-03-28T10:00:00-00:00",
+                          "name": "Neutron L3 Configurable external gateway mode",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/ext-gw-mode/api/v1.0",
+                          "alias": "ext-gw-mode",
+                          "description": "Extension of the router abstraction for specifying whether SNAT should occur on the external gateway"
+                      },
+                      {
+                          "updated": "2014-02-03T10:00:00-00:00",
+                          "name": "Port Binding",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/binding/api/v1.0",
+                          "alias": "binding",
+                          "description": "Expose port bindings of a virtual port to external application"
+                      },
+                      {
+                          "updated": "2012-09-07T10:00:00-00:00",
+                          "name": "Provider Network",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/provider/api/v1.0",
+                          "alias": "provider",
+                          "description": "Expose mapping of virtual networks to physical networks"
+                      },
+                      {
+                          "updated": "2013-02-03T10:00:00-00:00",
+                          "name": "agent",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/agent/api/v2.0",
+                          "alias": "agent",
+                          "description": "The agent management extension."
+                      },
+                      {
+                          "updated": "2012-07-29T10:00:00-00:00",
+                          "name": "Quota management support",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/network/ext/quotas-sets/api/v2.0",
+                          "alias": "quotas",
+                          "description": "Expose functions for quotas management per tenant"
+                      },
+                      {
+                          "updated": "2013-02-07T10:00:00-00:00",
+                          "name": "DHCP Agent Scheduler",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/dhcp_agent_scheduler/api/v1.0",
+                          "alias": "dhcp_agent_scheduler",
+                          "description": "Schedule networks among dhcp agents"
+                      },
+                      {
+                          "updated": "2013-06-27T10:00:00-00:00",
+                          "name": "Multi Provider Network",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/multi-provider/api/v1.0",
+                          "alias": "multi-provider",
+                          "description": "Expose mapping of virtual networks to multiple physical networks"
+                      },
+                      {
+                          "updated": "2013-01-14T10:00:00-00:00",
+                          "name": "Neutron external network",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/external_net/api/v1.0",
+                          "alias": "external-net",
+                          "description": "Adds external network attribute to network resource."
+                      },
+                      {
+                          "updated": "2012-07-20T10:00:00-00:00",
+                          "name": "Neutron L3 Router",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/router/api/v1.0",
+                          "alias": "router",
+                          "description": "Router abstraction for basic L3 forwarding between L2 Neutron networks and access to external networks via a NAT gateway."
+                      },
+                      {
+                          "updated": "2013-07-23T10:00:00-00:00",
+                          "name": "Allowed Address Pairs",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/allowedaddresspairs/api/v2.0",
+                          "alias": "allowed-address-pairs",
+                          "description": "Provides allowed address pairs"
+                      },
+                      {
+                          "updated": "2013-03-17T12:00:00-00:00",
+                          "name": "Neutron Extra DHCP opts",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/extra_dhcp_opt/api/v1.0",
+                          "alias": "extra_dhcp_opt",
+                          "description": "Extra options configuration for DHCP. For example PXE boot options to DHCP clients can be specified (e.g. tftp-server, server-ip-address, bootfile-name)"
+                      },
+                      {
+                          "updated": "2012-10-07T10:00:00-00:00",
+                          "name": "LoadBalancing service",
+                          "links": [],
+                          "namespace": "http://wiki.openstack.org/neutron/LBaaS/API_1.0",
+                          "alias": "lbaas",
+                          "description": "Extension for LoadBalancing service"
+                      },
+                      {
+                          "updated": "2013-02-01T10:00:00-00:00",
+                          "name": "Neutron Extra Route",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/extraroutes/api/v1.0",
+                          "alias": "extraroute",
+                          "description": "Extra routes configuration for L3 router"
+                      }
+                  ]
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "extensions": [
+                      {
+                          "updated": "2013-01-20T00:00:00-00:00",
+                          "name": "Neutron Service Type Management",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/service-type/api/v1.0",
+                          "alias": "service-type",
+                          "description": "API for retrieving service providers for Neutron advanced services"
+                      },
+                      {
+                          "updated": "2012-10-05T10:00:00-00:00",
+                          "name": "security-group",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/securitygroups/api/v2.0",
+                          "alias": "security-group",
+                          "description": "The security groups extension."
+                      },
+                      {
+                          "updated": "2013-02-07T10:00:00-00:00",
+                          "name": "L3 Agent Scheduler",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/l3_agent_scheduler/api/v1.0",
+                          "alias": "l3_agent_scheduler",
+                          "description": "Schedule routers among l3 agents"
+                      },
+                      {
+                          "updated": "2013-02-07T10:00:00-00:00",
+                          "name": "Loadbalancer Agent Scheduler",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/lbaas_agent_scheduler/api/v1.0",
+                          "alias": "lbaas_agent_scheduler",
+                          "description": "Schedule pools among lbaas agents"
+                      },
+                      {
+                          "updated": "2013-03-28T10:00:00-00:00",
+                          "name": "Neutron L3 Configurable external gateway mode",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/ext-gw-mode/api/v1.0",
+                          "alias": "ext-gw-mode",
+                          "description": "Extension of the router abstraction for specifying whether SNAT should occur on the external gateway"
+                      },
+                      {
+                          "updated": "2014-02-03T10:00:00-00:00",
+                          "name": "Port Binding",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/binding/api/v1.0",
+                          "alias": "binding",
+                          "description": "Expose port bindings of a virtual port to external application"
+                      },
+                      {
+                          "updated": "2012-09-07T10:00:00-00:00",
+                          "name": "Provider Network",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/provider/api/v1.0",
+                          "alias": "provider",
+                          "description": "Expose mapping of virtual networks to physical networks"
+                      },
+                      {
+                          "updated": "2013-02-03T10:00:00-00:00",
+                          "name": "agent",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/agent/api/v2.0",
+                          "alias": "agent",
+                          "description": "The agent management extension."
+                      },
+                      {
+                          "updated": "2012-07-29T10:00:00-00:00",
+                          "name": "Quota management support",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/network/ext/quotas-sets/api/v2.0",
+                          "alias": "quotas",
+                          "description": "Expose functions for quotas management per tenant"
+                      },
+                      {
+                          "updated": "2013-02-07T10:00:00-00:00",
+                          "name": "DHCP Agent Scheduler",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/dhcp_agent_scheduler/api/v1.0",
+                          "alias": "dhcp_agent_scheduler",
+                          "description": "Schedule networks among dhcp agents"
+                      },
+                      {
+                          "updated": "2013-06-27T10:00:00-00:00",
+                          "name": "Multi Provider Network",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/multi-provider/api/v1.0",
+                          "alias": "multi-provider",
+                          "description": "Expose mapping of virtual networks to multiple physical networks"
+                      },
+                      {
+                          "updated": "2013-01-14T10:00:00-00:00",
+                          "name": "Neutron external network",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/external_net/api/v1.0",
+                          "alias": "external-net",
+                          "description": "Adds external network attribute to network resource."
+                      },
+                      {
+                          "updated": "2012-07-20T10:00:00-00:00",
+                          "name": "Neutron L3 Router",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/router/api/v1.0",
+                          "alias": "router",
+                          "description": "Router abstraction for basic L3 forwarding between L2 Neutron networks and access to external networks via a NAT gateway."
+                      },
+                      {
+                          "updated": "2013-07-23T10:00:00-00:00",
+                          "name": "Allowed Address Pairs",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/allowedaddresspairs/api/v2.0",
+                          "alias": "allowed-address-pairs",
+                          "description": "Provides allowed address pairs"
+                      },
+                      {
+                          "updated": "2013-03-17T12:00:00-00:00",
+                          "name": "Neutron Extra DHCP opts",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/extra_dhcp_opt/api/v1.0",
+                          "alias": "extra_dhcp_opt",
+                          "description": "Extra options configuration for DHCP. For example PXE boot options to DHCP clients can be specified (e.g. tftp-server, server-ip-address, bootfile-name)"
+                      },
+                      {
+                          "updated": "2012-10-07T10:00:00-00:00",
+                          "name": "LoadBalancing service",
+                          "links": [],
+                          "namespace": "http://wiki.openstack.org/neutron/LBaaS/API_1.0",
+                          "alias": "lbaas",
+                          "description": "Extension for LoadBalancing service"
+                      },
+                      {
+                          "updated": "2013-02-01T10:00:00-00:00",
+                          "name": "Neutron Extra Route",
+                          "links": [],
+                          "namespace": "http://docs.openstack.org/ext/neutron/extraroutes/api/v1.0",
+                          "alias": "extraroute",
+                          "description": "Extra routes configuration for L3 router"
+                      }
+                  ]
+              }
+  "/v2.0/extensions/{alias}":
+    parameters:
+    - name: alias
+      required: true
+      in: path
+      type: string
+    get:
+      operationId: getExtension
+      summary: Get extension details
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "extension": {
+                      "updated": "2013-02-03T10:00:00-00:00",
+                      "name": "agent",
+                      "links": [],
+                      "namespace": "http://docs.openstack.org/ext/agent/api/v2.0",
+                      "alias": "agent",
+                      "description": "The agent management extension."
+                  }
+              }
+        '203':
+          description: 200 203 response
+          examples:
+            application/json: |-
+              {
+                  "extension": {
+                      "updated": "2013-02-03T10:00:00-00:00",
+                      "name": "agent",
+                      "links": [],
+                      "namespace": "http://docs.openstack.org/ext/agent/api/v2.0",
+                      "alias": "agent",
+                      "description": "The agent management extension."
+                  }
+              }
+  "/v2.0/networks":
+    get:
+      operationId: listNetworks
+      summary: List networks
+      description: |
+        Lists networks to which the specified tenant has access.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "networks": [
+                      {
+                          "status": "ACTIVE",
+                          "subnets": [
+                              "54d6f61d-db07-451c-9ab3-b9609b6b6f0b"
+                          ],
+                          "name": "private-network",
+                          "provider:physical_network": null,
+                          "admin_state_up": true,
+                          "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+                          "provider:network_type": "local",
+                          "router:external": true,
+                          "shared": true,
+                          "id": "d32019d3-bc6e-4319-9c1d-6722fc136a22",
+                          "provider:segmentation_id": null
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "subnets": [
+                              "08eae331-0402-425a-923c-34f7cfe39c1b"
+                          ],
+                          "name": "private",
+                          "provider:physical_network": null,
+                          "admin_state_up": true,
+                          "tenant_id": "26a7980765d0414dbc1fc1f88cdb7e6e",
+                          "provider:network_type": "local",
+                          "router:external": true,
+                          "shared": true,
+                          "id": "db193ab3-96e3-4cb3-8fc5-05f4296d0324",
+                          "provider:segmentation_id": null
+                      }
+                  ]
+              }
+    post:
+      operationId: bulkCreateNetwork
+      summary: Bulk create networks
+      description: |
+        Creates multiple networks in a single request.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "networks": [
+                      {
+                          "status": "ACTIVE",
+                          "subnets": [],
+                          "name": "sample_network3",
+                          "provider:physical_network": null,
+                          "admin_state_up": true,
+                          "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+                          "provider:network_type": "local",
+                          "shared": false,
+                          "id": "bc1a76cb-8767-4c3a-bb95-018b822f2130",
+                          "provider:segmentation_id": null
+                      },
+                      {
+                          "status": "ACTIVE",
+                          "subnets": [],
+                          "name": "sample_network4",
+                          "provider:physical_network": null,
+                          "admin_state_up": true,
+                          "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+                          "provider:network_type": "local",
+                          "shared": false,
+                          "id": "af374017-c9ae-4a1d-b799-ab73111476e2",
+                          "provider:segmentation_id": null
+                      }
+                  ]
+              }
+  "/v2.0/networks/{network_id}":
+    parameters:
+    - name: network_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The UUID for the network of interest to you.
+    get:
+      operationId: showNetwork
+      summary: Show network
+      description: |
+        Shows information for a specified network.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "network": {
+                      "status": "ACTIVE",
+                      "subnets": [
+                          "54d6f61d-db07-451c-9ab3-b9609b6b6f0b"
+                      ],
+                      "name": "private-network",
+                      "provider:physical_network": null,
+                      "admin_state_up": true,
+                      "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+                      "provider:network_type": "local",
+                      "router:external": true,
+                      "shared": true,
+                      "id": "d32019d3-bc6e-4319-9c1d-6722fc136a22",
+                      "provider:segmentation_id": null
+                  }
+              }
+    put:
+      operationId: updateNetwork
+      summary: Update network
+      description: |
+        Updates a specified network.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "network": {
+                      "status": "ACTIVE",
+                      "subnets": [],
+                      "name": "sample_network_5_updated",
+                      "provider:physical_network": null,
+                      "admin_state_up": true,
+                      "tenant_id": "4fd44f30292945e481c7b8a0c8908869",
+                      "provider:network_type": "local",
+                      "router:external": false,
+                      "shared": false,
+                      "id": "1f370095-98f6-4079-be64-6d3d4a6adcc6",
+                      "provider:segmentation_id": null
+                  }
+              }
+    delete:
+      operationId: deleteNetwork
+      summary: Delete network
+      description: |
+        Deletes a specified network and its associated resources.
+      produces: []
+      responses:
+        '204':
+          description: 204 response

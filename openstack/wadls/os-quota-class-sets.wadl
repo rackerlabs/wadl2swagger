@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-quota-class-sets-v2">
+        <resource id="class_id" path="/v2/os-quota-class-sets/{class_id}">
+         <method name="GET" rax:id="showquota">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="Show quota">
+               <para role="shortdesc">Shows the quota for a specified
+                class.</para>
+            </wadl:doc>
+            <request> </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "quota_class_set": {
+        "cores": 20,
+        "fixed_ips": -1,
+        "floating_ips": 10,
+        "id": "test_class",
+        "injected_file_content_bytes": 10240,
+        "injected_file_path_bytes": 255,
+        "injected_files": 5,
+        "instances": 10,
+        "key_pairs": 100,
+        "metadata_items": 128,
+        "ram": 51200,
+        "security_group_rules": 20,
+        "security_groups": 10,
+        "server_group_members": 10,
+        "server_groups": 10
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;quota_class_set id="test_class"&gt;
+  &lt;cores&gt;20&lt;/cores&gt;
+  &lt;fixed_ips&gt;-1&lt;/fixed_ips&gt;
+  &lt;floating_ips&gt;10&lt;/floating_ips&gt;
+  &lt;injected_file_content_bytes&gt;10240&lt;/injected_file_content_bytes&gt;
+  &lt;injected_file_path_bytes&gt;255&lt;/injected_file_path_bytes&gt;
+  &lt;injected_files&gt;5&lt;/injected_files&gt;
+  &lt;instances&gt;10&lt;/instances&gt;
+  &lt;key_pairs&gt;100&lt;/key_pairs&gt;
+  &lt;metadata_items&gt;128&lt;/metadata_items&gt;
+  &lt;ram&gt;51200&lt;/ram&gt;
+  &lt;security_group_rules&gt;20&lt;/security_group_rules&gt;
+  &lt;security_groups&gt;10&lt;/security_groups&gt;
+  &lt;server_groups&gt;10&lt;/server_groups&gt;
+  &lt;server_group_members&gt;10&lt;/server_group_members&gt;
+&lt;/quota_class_set&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+         <method name="PUT" rax:id="updatequota">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Update quota">
+               <para role="shortdesc">Updates quota for a specified
+                class.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "quota_class_set": {
+        "instances": 50,
+        "cores": 50,
+        "ram": 51200,
+        "floating_ips": 10,
+        "metadata_items": 128,
+        "injected_files": 5,
+        "injected_file_content_bytes": 10240,
+        "injected_file_path_bytes": 255,
+        "security_groups": 10,
+        "security_group_rules": 20,
+        "key_pairs": 100,
+        "server_groups": 10,
+        "server_group_members": 10
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;quota_class_set&gt;
+  &lt;cores&gt;50&lt;/cores&gt;
+  &lt;floating_ips&gt;10&lt;/floating_ips&gt;
+  &lt;injected_file_content_bytes&gt;10240&lt;/injected_file_content_bytes&gt;
+  &lt;injected_file_path_bytes&gt;255&lt;/injected_file_path_bytes&gt;
+  &lt;injected_files&gt;5&lt;/injected_files&gt;
+  &lt;instances&gt;50&lt;/instances&gt;
+  &lt;key_pairs&gt;100&lt;/key_pairs&gt;
+  &lt;metadata_items&gt;128&lt;/metadata_items&gt;
+  &lt;ram&gt;51200&lt;/ram&gt;
+  &lt;security_group_rules&gt;20&lt;/security_group_rules&gt;
+  &lt;security_groups&gt;10&lt;/security_groups&gt;
+  &lt;server_groups&gt;10&lt;/server_groups&gt;
+  &lt;server_group_members&gt;10&lt;/server_group_members&gt;
+&lt;/quota_class_set&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "quota_class_set": {
+        "cores": 50,
+        "fixed_ips": -1,
+        "floating_ips": 10,
+        "injected_file_content_bytes": 10240,
+        "injected_file_path_bytes": 255,
+        "injected_files": 5,
+        "instances": 50,
+        "key_pairs": 100,
+        "metadata_items": 128,
+        "ram": 51200,
+        "security_group_rules": 20,
+        "security_groups": 10,
+        "server_groups": 10,
+        "server_group_members": 10
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;quota_class_set&gt;
+  &lt;cores&gt;50&lt;/cores&gt;
+  &lt;fixed_ips&gt;-1&lt;/fixed_ips&gt;
+  &lt;floating_ips&gt;10&lt;/floating_ips&gt;
+  &lt;injected_file_content_bytes&gt;10240&lt;/injected_file_content_bytes&gt;
+  &lt;injected_file_path_bytes&gt;255&lt;/injected_file_path_bytes&gt;
+  &lt;injected_files&gt;5&lt;/injected_files&gt;
+  &lt;instances&gt;50&lt;/instances&gt;
+  &lt;key_pairs&gt;100&lt;/key_pairs&gt;
+  &lt;metadata_items&gt;128&lt;/metadata_items&gt;
+  &lt;ram&gt;51200&lt;/ram&gt;
+  &lt;security_group_rules&gt;20&lt;/security_group_rules&gt;
+  &lt;security_groups&gt;10&lt;/security_groups&gt;
+  &lt;server_groups&gt;10&lt;/server_groups&gt;
+  &lt;server_group_members&gt;10&lt;/server_group_members&gt;
+&lt;/quota_class_set&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                
+    </resources>
+    <!-- *******************************************************-->
+    <!--      OS Quota Class Sets           -->
+    <!--*******************************************************-->
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showquota">
+        
+        <request> </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://docs.rackspacecloud.com/xsd/v1.0"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="updatequota">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

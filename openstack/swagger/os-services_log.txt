@@ -1,0 +1,18 @@
+INFO:wadls/os-services.wadl:Converting: wadls/os-services.wadl to swagger/os-services.json
+WARNING:wadls/os-services.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-services.wadl:No support for application/json for resource at /v2/{tenant_id}/os-services/enable
+WARNING:wadls/os-services.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-services.wadl:No support for application/json for resource at /v2/{tenant_id}/os-services/disable
+WARNING:wadls/os-services.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-services.wadl:No support for application/json for resource at /v2/{tenant_id}/os-services/disable-log-reason
+WARNING:wadls/os-services.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-services.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-services.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-services.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-services.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-services.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

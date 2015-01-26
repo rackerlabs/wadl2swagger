@@ -1,0 +1,42 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "os-used-limits",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v2/{tenant_id}/limits": {
+            "parameters": [
+                {
+                    "name": "tenant_id",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The ID for the tenant or account in a multi-tenancy cloud.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getLimits",
+                "summary": "Get limits",
+                "description": "Gets absolute and rate limit information, including information on currently used absolute limits.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"limits\": {\n        \"rate\": [\n            {\n                \"regex\": \".*\",\n                \"limit\": [\n                    {\n                        \"value\": 120,\n                        \"verb\": \"POST\",\n                        \"next-available\": \"2012-11-27T17:24:52Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    },\n                    {\n                        \"value\": 120,\n                        \"verb\": \"PUT\",\n                        \"next-available\": \"2012-11-27T17:24:52Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    },\n                    {\n                        \"value\": 120,\n                        \"verb\": \"DELETE\",\n                        \"next-available\": \"2012-11-27T17:24:52Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*\"\n            },\n            {\n                \"regex\": \"^/servers\",\n                \"limit\": [\n                    {\n                        \"value\": 120,\n                        \"verb\": \"POST\",\n                        \"next-available\": \"2012-11-27T17:24:52Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*/servers\"\n            },\n            {\n                \"regex\": \".*changes-since.*\",\n                \"limit\": [\n                    {\n                        \"value\": 120,\n                        \"verb\": \"GET\",\n                        \"next-available\": \"2012-11-27T17:24:52Z\",\n                        \"remaining\": 120,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*changes-since*\"\n            },\n            {\n                \"regex\": \"^/os-fping\",\n                \"limit\": [\n                    {\n                        \"value\": 12,\n                        \"verb\": \"GET\",\n                        \"next-available\": \"2012-11-27T17:24:52Z\",\n                        \"remaining\": 12,\n                        \"unit\": \"MINUTE\"\n                    }\n                ],\n                \"uri\": \"*/os-fping\"\n            }\n        ],\n        \"absolute\": {\n            \"maxServerMeta\": 128,\n            \"maxPersonality\": 5,\n            \"totalServerGroupsUsed\": 0,\n            \"maxImageMeta\": 128,\n            \"maxPersonalitySize\": 10240,\n            \"maxTotalRAMSize\": 51200,\n            \"maxSecurityGroupRules\": 20,\n            \"maxTotalKeypairs\": 100,\n            \"totalCoresUsed\": 0,\n            \"totalRAMUsed\": 0,\n            \"maxSecurityGroups\": 10,\n            \"totalFloatingIpsUsed\": 0,\n            \"totalInstancesUsed\": 0,\n            \"maxServerGroupMembers\": 10,\n            \"maxTotalFloatingIps\": 10,\n            \"totalSecurityGroupsUsed\": 0,\n            \"maxTotalInstances\": 10,\n            \"maxTotalCores\": 20,\n            \"maxServerGroups\": 10\n        }\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

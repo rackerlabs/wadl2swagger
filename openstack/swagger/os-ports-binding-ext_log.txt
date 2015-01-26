@@ -1,0 +1,8 @@
+INFO:wadls/os-ports-binding-ext.wadl:Converting: wadls/os-ports-binding-ext.wadl to swagger/os-ports-binding-ext.json
+WARNING:wadls/os-ports-binding-ext.wadl:Autofix: path parameters must be required in Swagger (port_id)
+INFO:root:Saving swagger to swagger/os-ports-binding-ext.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

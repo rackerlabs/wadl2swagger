@@ -1,0 +1,16 @@
+INFO:wadls/os-interface.wadl:Converting: wadls/os-interface.wadl to swagger/os-interface.json
+WARNING:wadls/os-interface.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-interface.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-interface.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-interface.wadl:Unknown type: csapi:uuid for param port_id
+WARNING:wadls/os-interface.wadl:Using string for csapi:uuid
+WARNING:wadls/os-interface.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/os-interface.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-interface.wadl:Autofix: path parameters must be required in Swagger (server_id)
+WARNING:wadls/os-interface.wadl:Autofix: path parameters must be required in Swagger (attachment_id)
+INFO:root:Saving swagger to swagger/os-interface.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

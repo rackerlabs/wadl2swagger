@@ -1,0 +1,246 @@
+---
+swagger: '2.0'
+info:
+  title: os-hosts
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-hosts":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: listHosts
+      summary: List hosts
+      description: |
+        Lists hosts.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "hosts": [
+                      {
+                          "zone": "nova",
+                          "host_name": "787f4f6dda1b409bb8b2f9082349690e",
+                          "service": "compute"
+                      },
+                      {
+                          "zone": "internal",
+                          "host_name": "a98b433151084aee8b1a986e28823b36",
+                          "service": "cert"
+                      },
+                      {
+                          "zone": "internal",
+                          "host_name": "c56158d13a884a87abf9171efb7de9d8",
+                          "service": "network"
+                      },
+                      {
+                          "zone": "internal",
+                          "host_name": "81d5cdcda0014918b3ebd3503a2e5c9a",
+                          "service": "scheduler"
+                      },
+                      {
+                          "zone": "internal",
+                          "host_name": "6e48bfe1a3304b7b86154326328750ae",
+                          "service": "conductor"
+                      },
+                      {
+                          "zone": "internal",
+                          "host_name": "39f55087a1024d1380755951c945ca69",
+                          "service": "cells"
+                      },
+                      {
+                          "zone": "internal",
+                          "host_name": "7a9a6cb4701f4dee9048fe0bc25d0ee5",
+                          "service": "consoleauth"
+                      }
+                  ]
+              }
+      parameters:
+      - name: service
+        required: false
+        in: query
+        type: string
+        description: |
+          The service name. To filter the returned list by service name, specify `?service={service}` in the URI.
+      - name: zone
+        required: false
+        in: query
+        type: string
+        description: |
+          The zone. To filter the returned list by zone, specify `?zone={zone}` in the URI.
+  "/v2/{tenant_id}/os-hosts/{host_name}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: host_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the host of interest to you.
+    get:
+      operationId: showHost
+      summary: Show host information
+      description: |
+        Shows information for a specified host.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "host": [
+                      {
+                          "resource": {
+                              "memory_mb": 8192,
+                              "project": "(total)",
+                              "host": "5ca60c6792a1442f9471ff575443f94d",
+                              "cpu": 1,
+                              "disk_gb": 1028
+                          }
+                      },
+                      {
+                          "resource": {
+                              "memory_mb": 512,
+                              "project": "(used_now)",
+                              "host": "5ca60c6792a1442f9471ff575443f94d",
+                              "cpu": 0,
+                              "disk_gb": 0
+                          }
+                      },
+                      {
+                          "resource": {
+                              "memory_mb": 0,
+                              "project": "(used_max)",
+                              "host": "5ca60c6792a1442f9471ff575443f94d",
+                              "cpu": 0,
+                              "disk_gb": 0
+                          }
+                      }
+                  ]
+              }
+    put:
+      operationId: updateHost
+      summary: Update host
+      description: |
+        Enables a host or puts it in maintenance mode.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "status": "enabled",
+                  "maintenance_mode": "off_maintenance",
+                  "host": "0738dca90a8c43fdadd0be28715520e2"
+              }
+  "/v2/{tenant_id}/os-hosts/{host_name}/startup":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: host_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the host of interest to you.
+    get:
+      operationId: startupHost
+      summary: Start host
+      description: |
+        Starts a host.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "host": "57f5de2fa5b44f14974a4f50b9ffcbf8",
+                  "power_action": "startup"
+              }
+  "/v2/{tenant_id}/os-hosts/{host_name}/shutdown":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: host_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the host of interest to you.
+    get:
+      operationId: shutdownHost
+      summary: Shut down host
+      description: |
+        Shuts down a host.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "host": "d2576862a2144ee6ad37d9e1938460a2",
+                  "power_action": "shutdown"
+              }
+  "/v2/{tenant_id}/os-hosts/{host_name}/reboot":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: host_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the host of interest to you.
+    get:
+      operationId: rebootHost
+      summary: Reboot host
+      description: |
+        Reboots a host.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "host": "066bf157ab50481d8c607cfe584b2230",
+                  "power_action": "reboot"
+              }

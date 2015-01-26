@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://servers.api.openstack.com"
+              xml:id="os-flavor-swap-v2">
+        <resource path="/v2/{tenant_id}/flavors/{flavor_id}/os-flavor-swap"
+                id="os-flavor-swap">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID for the tenant or
+                            account in a multi-tenancy
+                            cloud.</para>
+            </wadl:doc>
+                </param>
+         <param name="flavor_id" style="template" required="true">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The ID of the
+                                    flavor of interest to you.
+                                </para>
+            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="listFlavor-swap">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List flavor extra specs">
+               <para role="shortdesc">Lists the flavor specs including swap value
+            for the specified flavor. The swap value is the amount of swap disk
+            space, in GBs, to allocate to a server.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "flavors": [
+        {
+            "disk": 1,
+            "id": "1",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/1",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/1",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.tiny",
+            "ram": 512,
+            "swap": "",
+            "vcpus": 1
+        },
+        {
+            "disk": 20,
+            "id": "2",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/2",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/2",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.small",
+            "ram": 2048,
+            "swap": "",
+            "vcpus": 1
+        },
+        {
+            "disk": 40,
+            "id": "3",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/3",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/3",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.medium",
+            "ram": 4096,
+            "swap": "",
+            "vcpus": 2
+        },
+        {
+            "disk": 80,
+            "id": "4",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/4",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/4",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.large",
+            "ram": 8192,
+            "swap": "",
+            "vcpus": 4
+        },
+        {
+            "disk": 160,
+            "id": "5",
+            "links": [
+                {
+                    "href": "http://openstack.example.com/v2/openstack/flavors/5",
+                    "rel": "self"
+                },
+                {
+                    "href": "http://openstack.example.com/openstack/flavors/5",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "m1.xlarge",
+            "ram": 16384,
+            "swap": "",
+            "vcpus": 8
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;flavors xmlns:atom="http://www.w3.org/2005/Atom" xmlns="http://docs.openstack.org/compute/api/v1.1"&gt;
+  &lt;flavor disk="1" vcpus="1" ram="512" name="m1.tiny" id="1" swap=""&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/1" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/1" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="20" vcpus="1" ram="2048" name="m1.small" id="2" swap=""&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/2" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/2" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="40" vcpus="2" ram="4096" name="m1.medium" id="3" swap=""&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/3" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/3" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="80" vcpus="4" ram="8192" name="m1.large" id="4" swap=""&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/4" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/4" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+  &lt;flavor disk="160" vcpus="8" ram="16384" name="m1.xlarge" id="5" swap=""&gt;
+    &lt;atom:link href="http://openstack.example.com/v2/openstack/flavors/5" rel="self"/&gt;
+    &lt;atom:link href="http://openstack.example.com/openstack/flavors/5" rel="bookmark"/&gt;
+  &lt;/flavor&gt;
+&lt;/flavors&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                            
+                        
+    </resources>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listFlavor-swap">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+    <method xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createflavor-swap">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+            </representation>
+        </response>
+    </method>
+</wadl:application>

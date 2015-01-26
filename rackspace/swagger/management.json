@@ -1,0 +1,423 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "management",
+        "version": "Unknown"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/mgmt/hosts": {
+            "get": {
+                "operationId": "gethosts",
+                "summary": "List All Compute Hosts",
+                "description": "Lists all of the compute hosts.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hosts\": [\n        {\n            \"instanceCount\": 0,\n            \"name\": \"hostname_2\"\n        },\n        {\n            \"instanceCount\": 2,\n            \"name\": \"hostname_1\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/hosts/{hostId}": {
+            "parameters": [
+                {
+                    "name": "hostId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The host ID for the specified host.\n"
+                }
+            ],
+            "get": {
+                "operationId": "gethostbyid",
+                "summary": "List All Instances for a Host",
+                "description": "Lists all of the instances for the specified host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"host\": {\n        \"instances\": [\n            {\n                \"status\": \"ACTIVE\",\n                \"tenant_id\": \"3000\",\n                \"server_id\": \"dc0f43fd-f76f-4e4b-b676-4bf82539ecb9\",\n                \"id\": \"dcf2c32b-241d-4c39-af70-1001dfe946d6\",\n                \"name\": \"dcf2c32b-241d-4c39-af70-1001dfe946d6-lay\"\n            },\n            {\n                \"status\": \"ACTIVE\",\n                \"tenant_id\": \"3000\",\n                \"server_id\": \"0a0bb560-362f-407a-90b6-3437f8b6e34f\",\n                \"id\": \"d4603f69-ec7e-4e9b-803f-600b9205576f\",\n                \"name\": \"d4603f69-ec7e-4e9b-803f-600b9205576f-lay\"\n            }\n        ],\n        \"usedRAM\": 4096,\n        \"name\": \"hostname_1\",\n        \"totalRAM\": 2004,\n        \"percentUsed\": 204\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/hosts/{hostId}/instances/action": {
+            "parameters": [
+                {
+                    "name": "hostId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The host ID for the specified host.\n"
+                }
+            ],
+            "post": {
+                "operationId": "updateHostInstances",
+                "summary": "Update All Instances on Host",
+                "description": "Updates all instances on a specified host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/mgmt/usage": {
+            "get": {
+                "operationId": "getusageall",
+                "summary": "List All Usage Records",
+                "description": "Lists all of the usage records.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"usage\": [\n        {\n            \"dataCenter\": \"DEV1\",\n            \"resourceId\": \"ac019a26-acb5-4591-b337-9bbfa8e85727\",\n            \"region\": \"LOCAL_DEV\",\n            \"rootAction\": \"reddwarf.instance.exists\",\n            \"tenantId\": \"d91c1201-6136-4b1e-aa16-45380d8733b8\",\n            \"environment\": \"LOCAL\",\n            \"version\": \"1\",\n            \"dbaas:product\": {\n                \"resourceType\": \"MYSQL\",\n                \"version\": \"1\",\n                \"storage\": 1,\n                \"serviceCode\": \"CloudDatabase\",\n                \"memory\": 512\n            },\n            \"startTime\": \"2013-01-06 15:59:00\",\n            \"resourceName\": \"test_instance\",\n            \"endTime\": \"2013-01-07 16:00:00\",\n            \"type\": \"USAGE\",\n            \"id\": \"0f781f37-ef6d-4978-8dbc-f26d29a255a6\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/usage/instance/{instanceId}": {
+            "parameters": [
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified instance.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getusagebyinstance",
+                "summary": "List Instance Usage Records",
+                "description": "Lists the usage records for the specified instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"usage\": [\n        {\n            \"dataCenter\": \"DEV1\",\n            \"resourceId\": \"ac019a26-acb5-4591-b337-9bbfa8e85727\",\n            \"region\": \"LOCAL_DEV\",\n            \"rootAction\": \"reddwarf.instance.exists\",\n            \"tenantId\": \"d91c1201-6136-4b1e-aa16-45380d8733b8\",\n            \"environment\": \"LOCAL\",\n            \"version\": \"1\",\n            \"dbaas:product\": {\n                \"resourceType\": \"MYSQL\",\n                \"version\": \"1\",\n                \"storage\": 1,\n                \"serviceCode\": \"CloudDatabase\",\n                \"memory\": 512\n            },\n            \"startTime\": \"2013-01-06 15:59:00\",\n            \"resourceName\": \"test_instance\",\n            \"endTime\": \"2013-01-07 16:00:00\",\n            \"type\": \"USAGE\",\n            \"id\": \"0f781f37-ef6d-4978-8dbc-f26d29a255a6\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/usage/tenant/{tenantId}": {
+            "parameters": [
+                {
+                    "name": "tenantId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The tenant ID for the specified account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getusagebytenant",
+                "summary": "List Account Usage Records",
+                "description": "Lists the usage records for the specified account.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"usage\": [\n        {\n            \"dataCenter\": \"DEV1\",\n            \"resourceId\": \"ac019a26-acb5-4591-b337-9bbfa8e85727\",\n            \"region\": \"LOCAL_DEV\",\n            \"rootAction\": \"reddwarf.instance.exists\",\n            \"tenantId\": \"d91c1201-6136-4b1e-aa16-45380d8733b8\",\n            \"environment\": \"LOCAL\",\n            \"version\": \"1\",\n            \"dbaas:product\": {\n                \"resourceType\": \"MYSQL\",\n                \"version\": \"1\",\n                \"storage\": 1,\n                \"serviceCode\": \"CloudDatabase\",\n                \"memory\": 512\n            },\n            \"startTime\": \"2013-01-06 15:59:00\",\n            \"resourceName\": \"test_instance\",\n            \"endTime\": \"2013-01-07 16:00:00\",\n            \"type\": \"USAGE\",\n            \"id\": \"0f781f37-ef6d-4978-8dbc-f26d29a255a6\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/instances": {
+            "get": {
+                "operationId": "getIndex",
+                "summary": "List Management Index of Instances",
+                "description": "Lists all of the database instances, optionally filtered by deleted status.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"instances\": [\n        {\n            \"status\": \"ACTIVE\",\n            \"volume\": {\n                \"size\": 4\n            },\n            \"updated\": \"2014-02-13T21:47:18\",\n            \"name\": \"json_rack_instance\",\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances/d4603f69-ec7e-4e9b-803f-600b9205576f\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/instances/d4603f69-ec7e-4e9b-803f-600b9205576f\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"created\": \"2014-02-13T21:47:13\",\n            \"deleted\": false,\n            \"tenant_id\": \"3000\",\n            \"hostname\": \"e09ad9a3f73309469cf1f43d11e79549caf9acf2.rackspaceclouddb.com\",\n            \"server\": {\n                \"status\": \"ACTIVE\",\n                \"name\": \"d4603f69-ec7e-4e9b-803f-600b9205576f-lay\",\n                \"deleted\": false,\n                \"tenant_id\": \"3000\",\n                \"host\": \"hostname_1\",\n                \"local_id\": 0,\n                \"deleted_at\": null,\n                \"id\": \"0a0bb560-362f-407a-90b6-3437f8b6e34f\"\n            },\n            \"id\": \"d4603f69-ec7e-4e9b-803f-600b9205576f\",\n            \"task_description\": \"No tasks for the instance.\",\n            \"service_status\": \"ACTIVE\",\n            \"datastore\": {\n                \"version\": \"5.6\",\n                \"type\": \"mysql\"\n            },\n            \"deleted_at\": null,\n            \"flavor\": {\n                \"id\": \"3\",\n                \"links\": [\n                    {\n                        \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/3\",\n                        \"rel\": \"self\"\n                    },\n                    {\n                        \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/3\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            }\n        },\n        {\n            \"status\": \"ACTIVE\",\n            \"volume\": {\n                \"size\": 4\n            },\n            \"updated\": \"2014-02-13T21:47:18\",\n            \"name\": \"xml_rack_instance\",\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances/dcf2c32b-241d-4c39-af70-1001dfe946d6\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/instances/dcf2c32b-241d-4c39-af70-1001dfe946d6\",\n                    \"rel\": \"bookmark\"\n                }\n            ],\n            \"created\": \"2014-02-13T21:47:13\",\n            \"deleted\": false,\n            \"tenant_id\": \"3000\",\n            \"hostname\": \"e09ad9a3f73309469cf1f43d11e79549caf9acf2.rackspaceclouddb.com\",\n            \"server\": {\n                \"status\": \"ACTIVE\",\n                \"name\": \"dcf2c32b-241d-4c39-af70-1001dfe946d6-lay\",\n                \"deleted\": false,\n                \"tenant_id\": \"3000\",\n                \"host\": \"hostname_1\",\n                \"local_id\": 0,\n                \"deleted_at\": null,\n                \"id\": \"dc0f43fd-f76f-4e4b-b676-4bf82539ecb9\"\n            },\n            \"id\": \"dcf2c32b-241d-4c39-af70-1001dfe946d6\",\n            \"task_description\": \"No tasks for the instance.\",\n            \"service_status\": \"ACTIVE\",\n            \"datastore\": {\n                \"version\": \"5.6\",\n                \"type\": \"mysql\"\n            },\n            \"deleted_at\": null,\n            \"flavor\": {\n                \"id\": \"3\",\n                \"links\": [\n                    {\n                        \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/3\",\n                        \"rel\": \"self\"\n                    },\n                    {\n                        \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/3\",\n                        \"rel\": \"bookmark\"\n                    }\n                ]\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/instances/{instanceId}": {
+            "parameters": [
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "get": {
+                "operationId": "showinstances",
+                "summary": "List Database Instance Status and Details",
+                "description": "Returns detailed information for the specified Database Instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"instance\": {\n        \"status\": \"ACTIVE\",\n        \"volume\": {\n            \"status\": \"in-use\",\n            \"used\": 0.16,\n            \"attachments\": [\n                {\n                    \"device\": \"vdb\",\n                    \"server_id\": \"0a0bb560-362f-407a-90b6-3437f8b6e34f\"\n                }\n            ],\n            \"availability_zone\": \"fake-availability-zone\",\n            \"created_at\": \"2001-01-01-12:30:30\",\n            \"total\": 4.0,\n            \"id\": \"VOL_221ca9a9-5620-4664-9446-0fe21b2a3c63\",\n            \"size\": 4\n        },\n        \"updated\": \"2014-02-13T21:47:18\",\n        \"name\": \"json_rack_instance\",\n        \"links\": [\n            {\n                \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances/d4603f69-ec7e-4e9b-803f-600b9205576f\",\n                \"rel\": \"self\"\n            },\n            {\n                \"href\": \"https://ord.databases.api.rackspacecloud.com/instances/d4603f69-ec7e-4e9b-803f-600b9205576f\",\n                \"rel\": \"bookmark\"\n            }\n        ],\n        \"created\": \"2014-02-13T21:47:13\",\n        \"deleted\": false,\n        \"tenant_id\": \"3000\",\n        \"hostname\": \"e09ad9a3f73309469cf1f43d11e79549caf9acf2.rackspaceclouddb.com\",\n        \"server\": {\n            \"status\": \"ACTIVE\",\n            \"addresses\": {\n                \"private\": [\n                    {\n                        \"addr\": \"123.123.123.123\"\n                    }\n                ]\n            },\n            \"deleted\": false,\n            \"tenant_id\": \"3000\",\n            \"host\": \"hostname_1\",\n            \"local_id\": 0,\n            \"deleted_at\": null,\n            \"id\": \"0a0bb560-362f-407a-90b6-3437f8b6e34f\",\n            \"name\": \"d4603f69-ec7e-4e9b-803f-600b9205576f-lay\"\n        },\n        \"id\": \"d4603f69-ec7e-4e9b-803f-600b9205576f\",\n        \"task_description\": \"No tasks for the instance.\",\n        \"guest_status\": {\n            \"state_description\": \"running\"\n        },\n        \"service_status\": \"ACTIVE\",\n        \"root_enabled\": \"2014-02-13T21:47:14\",\n        \"datastore\": {\n            \"version\": \"5.6\",\n            \"type\": \"mysql\"\n        },\n        \"deleted_at\": null,\n        \"flavor\": {\n            \"id\": \"3\",\n            \"links\": [\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/3\",\n                    \"rel\": \"self\"\n                },\n                {\n                    \"href\": \"https://ord.databases.api.rackspacecloud.com/flavors/3\",\n                    \"rel\": \"bookmark\"\n                }\n            ]\n        },\n        \"root_enabled_by\": \"3000\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/instances/{instanceId}/root": {
+            "parameters": [
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getrootdetails",
+                "summary": "Get Root Details",
+                "description": "Gets the root flag details for the specified instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"root_history\": {\n        \"enabled\": \"2014-02-13T21:47:14\",\n        \"id\": \"d4603f69-ec7e-4e9b-803f-600b9205576f\",\n        \"user\": \"3000\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/instances/{instanceId}/diagnostics": {
+            "parameters": [
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getdiagnosticdetails",
+                "summary": "Get Diagnostics Info",
+                "description": "Gets the instance agent and other instance diagnostics info.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"diagnostics\": {\n        \"vmHwm\": 2872,\n        \"vmPeak\": 29160,\n        \"vmSize\": 29096,\n        \"version\": \"1\",\n        \"threads\": 2,\n        \"vmRss\": 2872,\n        \"fdSize\": 64\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/instances/{instanceId}/action": {
+            "parameters": [
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "post": {
+                "operationId": "migrateInstance",
+                "summary": "Migrate Instance",
+                "description": "Migrates the instance to a different host.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/mgmt/instances/{instanceId}/hwinfo": {
+            "parameters": [
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getHwInfo",
+                "summary": "Get Hardware Info",
+                "description": "Gets the instance hardware info from the guest agent.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"hwinfo\": {\n        \"num_cpus\": 1,\n        \"mem_total\": 524288\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/instances/{instanceId}/monitoring": {
+            "parameters": [
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getMonitoringStatus",
+                "summary": "Get Monitoring Status",
+                "description": "Retrieves the status of the Monitoring Agent on the specified instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"monitoring\": {\n        \"instance_id\": \"041be99f-ae26-4784-9318-aaf236591066\",\n        \"status\": \"ACTIVE\",\n        \"version\": \"v1.0-fake\",\n        \"tenant_id\": \"1234\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/instances/{instanceId}/monitoring/action": {
+            "parameters": [
+                {
+                    "name": "instanceId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The instance ID for the specified database instance.\n"
+                }
+            ],
+            "post": {
+                "operationId": "agentStop",
+                "summary": "Stop Monitoring Agent",
+                "description": "Stops the Monitoring Agent on the specified instance.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "202 response",
+                        "examples": {}
+                    }
+                }
+            }
+        },
+        "/mgmt/storage": {
+            "get": {
+                "operationId": "indexstorage",
+                "summary": "List Storage Device Details",
+                "description": "Returns detailed information for the storage device.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"devices\": [\n        {\n            \"provision\": {\n                \"available\": 40,\n                \"total\": 50,\n                \"percent\": 10\n            },\n            \"used\": 10,\n            \"capacity\": {\n                \"available\": 90,\n                \"total\": 100\n            },\n            \"name\": \"fake_storage\",\n            \"type\": \"test_type\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/accounts": {
+            "get": {
+                "operationId": "getaccounts",
+                "summary": "List All Active Accounts",
+                "description": "Lists all of the accounts owning at least one instance that is not deleted.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"accounts\": [\n        {\n            \"num_instances\": 2,\n            \"id\": \"3000\"\n        }\n    ]\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/mgmt/accounts/{accountId}": {
+            "parameters": [
+                {
+                    "name": "accountId",
+                    "required": true,
+                    "in": "path",
+                    "type": "string",
+                    "description": "The account ID for the specified account.\n"
+                }
+            ],
+            "get": {
+                "operationId": "getaccountbyid",
+                "summary": "List Account Details",
+                "description": "Returns detailed information for the specified account.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "examples": {
+                            "application/json": "{\n    \"account\": {\n        \"instances\": [\n            {\n                \"status\": \"ACTIVE\",\n                \"host\": \"hostname_1\",\n                \"id\": \"d4603f69-ec7e-4e9b-803f-600b9205576f\",\n                \"name\": \"json_rack_instance\"\n            },\n            {\n                \"status\": \"ACTIVE\",\n                \"host\": \"hostname_1\",\n                \"id\": \"dcf2c32b-241d-4c39-af70-1001dfe946d6\",\n                \"name\": \"xml_rack_instance\"\n            }\n        ],\n        \"id\": \"3000\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

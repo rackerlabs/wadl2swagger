@@ -1,0 +1,134 @@
+---
+swagger: '2.0'
+info:
+  title: os-floating-ips-bulk
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-floating-ips-bulk":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    get:
+      operationId: ListFloatingIPsBulk
+      summary: List floating IPs
+      description: |
+        Lists all floating IPs.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "floating_ip_info": [
+                      {
+                          "instance_uuid": null,
+                          "interface": "eth0",
+                          "project_id": null,
+                          "pool": "nova",
+                          "address": "10.10.10.1"
+                      },
+                      {
+                          "instance_uuid": null,
+                          "interface": "eth0",
+                          "project_id": null,
+                          "pool": "nova",
+                          "address": "10.10.10.2"
+                      },
+                      {
+                          "instance_uuid": null,
+                          "interface": "eth0",
+                          "project_id": null,
+                          "pool": "nova",
+                          "address": "10.10.10.3"
+                      }
+                  ]
+              }
+    post:
+      operationId: CreateFloatingIPsBulk
+      summary: Create floating IPs
+      description: |
+        Bulk-creates floating IPs.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "floating_ips_bulk_create": {
+                      "interface": "eth0",
+                      "ip_range": "192.168.1.0/24",
+                      "pool": "nova"
+                  }
+              }
+  "/v2/{tenant_id}/os-floating-ips-bulk/delete":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    post:
+      operationId: DeleteFloatingIPBulk
+      summary: Bulk-delete floating IPs
+      description: |
+        Bulk-deletes floating IPs.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "floating_ips_bulk_delete": "192.168.1.0/24"
+              }
+  "/v2/{tenant_id}/os-floating-ips-bulk/{host_name}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The unique identifier of the tenant or account.
+    - name: host_name
+      required: true
+      in: path
+      type: string
+      description: |
+        The name of the host of interest to you.
+    get:
+      operationId: ListFloatingIPsBulkbyHost
+      summary: List floating IPs by host
+      description: |
+        Lists all floating IPs for a specified host.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "floating_ip_info": [
+                      {
+                          "instance_uuid": null,
+                          "interface": "eth0",
+                          "project_id": null,
+                          "pool": "nova",
+                          "address": "10.10.10.3"
+                      }
+                  ]
+              }

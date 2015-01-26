@@ -1,0 +1,309 @@
+---
+swagger: '2.0'
+info:
+  title: os-quota-sets
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-quota-sets/{tenant_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or project in a multi-tenancy cloud.
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant for which you want to show, update, or delete quotas. This ID is different from the first tenant ID that you specify in the URI: That ID is for the admin tenant.
+    get:
+      operationId: showQuota
+      summary: Show quotas
+      description: |
+        Shows quotas for a tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_set": {
+                      "injected_file_content_bytes": 10240,
+                      "metadata_items": 128,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "id": "fake_tenant",
+                      "instances": 10,
+                      "security_group_rules": 20,
+                      "injected_files": 5,
+                      "cores": 20,
+                      "fixed_ips": -1,
+                      "injected_file_path_bytes": 255,
+                      "security_groups": 10
+                  }
+              }
+    put:
+      operationId: updateQuota
+      summary: Update quotas
+      description: |
+        Updates quotas for a tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_set": {
+                      "injected_file_content_bytes": 10240,
+                      "metadata_items": 128,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "instances": 10,
+                      "security_group_rules": 20,
+                      "injected_files": 5,
+                      "cores": 20,
+                      "fixed_ips": -1,
+                      "injected_file_path_bytes": 255,
+                      "security_groups": 45
+                  }
+              }
+    delete:
+      operationId: deleteQuotas
+      summary: Delete quotas
+      description: |
+        Deletes quotas for a tenant so the quotas revert to default values.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+  "/v2/{tenant_id}/os-quota-sets/defaults":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or project in a multi-tenancy cloud.
+    get:
+      operationId: getDefaults
+      summary: Get default quotas
+      description: |
+        Gets default quotas for a tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_set": {
+                      "injected_file_content_bytes": 10240,
+                      "metadata_items": 128,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "id": "fake_tenant",
+                      "instances": 10,
+                      "security_group_rules": 20,
+                      "injected_files": 5,
+                      "cores": 20,
+                      "fixed_ips": -1,
+                      "injected_file_path_bytes": 255,
+                      "security_groups": 10
+                  }
+              }
+  "/v2/{tenant_id}/os-quota-sets/{tenant_id}/{user_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or project in a multi-tenancy cloud.
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant for which you want to show or update quotas. This ID is different from the first tenant ID that you specify in the URI: That ID is for the admin tenant.
+    - name: user_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The user ID. Specify in the URI as a query string: `user_id={user_id}`.
+    get:
+      operationId: showQuotaUser
+      summary: Show quotas for user
+      description: |
+        Enables an admin user to show quotas for a specified tenant and user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_set": {
+                      "injected_file_content_bytes": 10240,
+                      "metadata_items": 128,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "id": "fake_tenant",
+                      "instances": 10,
+                      "security_group_rules": 20,
+                      "injected_files": 5,
+                      "cores": 20,
+                      "fixed_ips": -1,
+                      "injected_file_path_bytes": 255,
+                      "security_groups": 10
+                  }
+              }
+    post:
+      operationId: updateQuotaUser
+      summary: Update quotas for user
+      description: |
+        Updates quotas for a specified tenant/project and user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_set": {
+                      "injected_file_content_bytes": 10240,
+                      "metadata_items": 128,
+                      "ram": 51200,
+                      "floating_ips": 10,
+                      "key_pairs": 100,
+                      "instances": 9,
+                      "security_group_rules": 20,
+                      "injected_files": 5,
+                      "cores": 20,
+                      "fixed_ips": -1,
+                      "injected_file_path_bytes": 255,
+                      "security_groups": 10
+                  }
+              }
+    delete:
+      operationId: deleteQuotasUser
+      summary: Delete quotas for user
+      description: |
+        Deletes quotas for a user so that the quotas revert to default values.
+      produces: []
+      responses:
+        '200':
+          description: 200 response
+  "/v2/{tenant_id}/os-quota-sets/{tenant_id}/detail/{user_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or project in a multi-tenancy cloud.
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant for which you want to show or update quotas. This ID is different from the first tenant ID that you specify in the URI: That ID is for the admin tenant.
+    - name: user_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The user ID. Specify in the URI as a query string: `user_id={user_id}`.
+    get:
+      operationId: showQuotaDetailUser
+      summary: Show quota details for user
+      description: |
+        Shows details for quotas for a specified tenant and user.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "quota_set": {
+                      "metadata_items": {
+                          "reserved": 0,
+                          "limit": 128,
+                          "in_use": 0
+                      },
+                      "injected_file_content_bytes": {
+                          "reserved": 0,
+                          "limit": 10240,
+                          "in_use": 0
+                      },
+                      "ram": {
+                          "reserved": 0,
+                          "limit": 51200,
+                          "in_use": 0
+                      },
+                      "floating_ips": {
+                          "reserved": 0,
+                          "limit": 10,
+                          "in_use": 0
+                      },
+                      "key_pairs": {
+                          "reserved": 0,
+                          "limit": 100,
+                          "in_use": 0
+                      },
+                      "instances": {
+                          "reserved": 0,
+                          "limit": 10,
+                          "in_use": 0
+                      },
+                      "security_group_rules": {
+                          "reserved": 0,
+                          "limit": 20,
+                          "in_use": 0
+                      },
+                      "injected_files": {
+                          "reserved": 0,
+                          "limit": 5,
+                          "in_use": 0
+                      },
+                      "cores": {
+                          "reserved": 0,
+                          "limit": 20,
+                          "in_use": 0
+                      },
+                      "fixed_ips": {
+                          "reserved": 0,
+                          "limit": -1,
+                          "in_use": 0
+                      },
+                      "injected_file_path_bytes": {
+                          "reserved": 0,
+                          "limit": 255,
+                          "in_use": 0
+                      },
+                      "security_groups": {
+                          "reserved": 0,
+                          "limit": 10,
+                          "in_use": 0
+                      }
+                  }
+              }

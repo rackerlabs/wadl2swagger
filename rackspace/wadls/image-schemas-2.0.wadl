@@ -1,0 +1,1206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2012-2013 OpenStack Foundation, All Rights Reserved -->
+<!--*******************************************************-->
+<!--         Import Common XML Entities                    -->
+<!--                                                       -->
+<!--     You can resolve the entites with xmllint          -->
+<!--                                                       -->
+<!--        xmllint -noent os-image-2.0.wadl               -->
+<!--*******************************************************-->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <wadl:grammars xmlns:db="http://docbook.org/ns/docbook"
+                  xmlns="http://wadl.dev.java.net/2009/02">
+      <wadl:include href="32909-image-schemas-2.0-xsd-1.xsd"/>
+      <wadl:include href="32909-image-schemas-2.0-xsd-2.xsd"/>
+      <wadl:include href="32909-image-schemas-2.0-xsd-3.xsd"/>
+   </wadl:grammars>
+
+    <!--*******************************************************-->
+    <!--             All Resources                             -->
+    <!--*******************************************************-->
+
+    <resources xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns:imageapi="http://docs.openstack.org/image/api/v2.0"
+              xmlns:atom="http://www.w3.org/2005/Atom"
+              xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+              xmlns:common="http://docs.openstack.org/common/api/v1.0"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://glance.example.com/"
+              xml:id="images-schema-v2">
+        <resource id="Image-schemas" path="schemas/images">
+         <method name="GET" rax:id="getImagesSchema">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get images schema">
+               <para role="shortdesc">Gets a json-schema document that represents an image members entity, which is a container
+                of image member entities.</para>
+               <para>The following schema is just an example. Consider only the response to the API call as
+                authoritative.</para>
+            </wadl:doc>
+            <response status="200">
+               <doc title="Success">Request succeeded.</doc>
+               <representation mediaType="application/json">
+                  <wadl:doc xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">{
+    "name": "images",
+    "properties": {
+        "first": {
+            "type": "string"
+        },
+        "images": {
+            "items": {
+                "name": "image",
+                "properties": {
+                    "architecture": {
+                        "description": "Operating system architecture as specified in http://docs.openstack.org/trunk/openstack-compute/admin/content/adding-images.html",
+                        "type": "string"
+                    },
+                    "checksum": {
+                        "description": "md5 hash of image contents. (READ-ONLY)",
+                        "maxLength": 32,
+                        "type": "string"
+                    },
+                    "container_format": {
+                        "description": "Format of the container",
+                        "enum": [
+                            "ami",
+                            "ari",
+                            "aki",
+                            "bare",
+                            "ovf"
+                        ],
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "Date and time of image registration (READ-ONLY)",
+                        "type": "string"
+                    },
+                    "direct_url": {
+                        "description": "URL to access the image file kept in external store (READ-ONLY)",
+                        "type": "string"
+                    },
+                    "disk_format": {
+                        "description": "Format of the disk",
+                        "enum": [
+                            "ami",
+                            "ari",
+                            "aki",
+                            "vhd",
+                            "vmdk",
+                            "raw",
+                            "qcow2",
+                            "vdi",
+                            "iso"
+                        ],
+                        "type": "string"
+                    },
+                    "file": {
+                        "description": "(READ-ONLY)",
+                        "type": "string"
+                    },
+                    "id": {
+                        "description": "An identifier for the image",
+                        "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                        "type": "string"
+                    },
+                    "instance_uuid": {
+                        "description": "ID of instance used to create this image.",
+                        "type": "string"
+                    },
+                    "kernel_id": {
+                        "description": "ID of image stored in Glance that should be used as the kernel when booting an AMI-style image.",
+                        "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                        "type": "string"
+                    },
+                    "locations": {
+                        "description": "A set of URLs to access the image file kept in external store",
+                        "items": {
+                            "properties": {
+                                "metadata": {
+                                    "type": "object"
+                                },
+                                "url": {
+                                    "maxLength": 255,
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "url",
+                                "metadata"
+                            ],
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "min_disk": {
+                        "description": "Amount of disk space (in GB) required to boot image.",
+                        "type": "integer"
+                    },
+                    "min_ram": {
+                        "description": "Amount of ram (in MB) required to boot image.",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "Descriptive name for the image",
+                        "maxLength": 255,
+                        "type": "string"
+                    },
+                    "os_distro": {
+                        "description": "Common name of operating system distribution as specified in http://docs.openstack.org/trunk/openstack-compute/admin/content/adding-images.html",
+                        "type": "string"
+                    },
+                    "os_version": {
+                        "description": "Operating system version as specified by the distributor",
+                        "type": "string"
+                    },
+                    "protected": {
+                        "description": "If true, image will not be deletable.",
+                        "type": "boolean"
+                    },
+                    "ramdisk_id": {
+                        "description": "ID of image stored in Glance that should be used as the ramdisk when booting an AMI-style image.",
+                        "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                        "type": "string"
+                    },
+                    "schema": {
+                        "description": "(READ-ONLY)",
+                        "type": "string"
+                    },
+                    "self": {
+                        "description": "(READ-ONLY)",
+                        "type": "string"
+                    },
+                    "size": {
+                        "description": "Size of image file in bytes (READ-ONLY)",
+                        "type": "integer"
+                    },
+                    "status": {
+                        "description": "Status of the image (READ-ONLY)",
+                        "enum": [
+                            "queued",
+                            "saving",
+                            "active",
+                            "killed",
+                            "deleted",
+                            "pending_delete"
+                        ],
+                        "type": "string"
+                    },
+                    "tags": {
+                        "description": "List of strings related to the image",
+                        "items": {
+                            "maxLength": 255,
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "updated_at": {
+                        "description": "Date and time of the last image modification (READ-ONLY)",
+                        "type": "string"
+                    },
+                    "visibility": {
+                        "description": "Scope of image accessibility",
+                        "enum": [
+                            "public",
+                            "private"
+                        ],
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": {
+                    "type": "string"
+                },
+                "links": [
+                    {
+                        "href": "{self}",
+                        "rel": "self"
+                    },
+                    {
+                        "href": "{file}",
+                        "rel": "enclosure"
+                    },
+                    {
+                        "href": "{schema}",
+                        "rel": "describedby"
+                    }
+                ]
+            },
+            "type": "array"
+        },
+        "next": {
+            "type": "string"
+        },
+        "schema": {
+            "type": "string"
+        }
+    },
+    "links": [
+        {
+            "href": "{first}",
+            "rel": "first"
+        },
+        {
+            "href": "{next}",
+            "rel": "next"
+        },
+        {
+            "href": "{schema}",
+            "rel": "describedby"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <doc title="Error">A general error has occured.</doc>
+               <representation mediaType="application/xml" element="imageapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <doc title="Unauthorized">Unauthorized.</doc>
+               <representation mediaType="application/xml" element="imageapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <doc title="Forbidden">Forbidden.</doc>
+               <representation mediaType="application/xml" element="imageapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <doc title="Bad Method">Bad method.</doc>
+               <representation mediaType="application/xml" element="imageapi:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <doc title="Over Limit">The number of items returned is above the allowed limit.</doc>
+               <representation mediaType="application/xml" element="imageapi:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <doc title="Service Unavailable">The requested service is unavailable.</doc>
+               <representation mediaType="application/xml" element="imageapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <doc title="API Fault">API fault.</doc>
+               <representation mediaType="application/xml" element="imageapi:imageapiFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            
+            <response status="404">
+               <doc title="Not Found">Resource not found.</doc>
+               <representation mediaType="application/xml" element="imageapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+                
+            <resource id="Image-schema" path="schemas/image">
+         <method name="GET" rax:id="getImageSchema">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get image schema">
+               <para role="shortdesc">Gets a json-schema document that represents a single image entity. </para>
+               <para>The following schema is just an example. Consider only the response to the API call as
+                authoritative.</para>
+            </wadl:doc>
+            <response status="200">
+               <doc title="Success">Request succeeded.</doc>
+               <representation mediaType="application/json">
+                  <doc xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">{
+    "name": "image",
+    "properties": {
+        "architecture": {
+            "description": "Operating system architecture as specified in http://docs.openstack.org/trunk/openstack-compute/admin/content/adding-images.html",
+            "type": "string"
+        },
+        "checksum": {
+            "description": "md5 hash of image contents. (READ-ONLY)",
+            "maxLength": 32,
+            "type": "string"
+        },
+        "container_format": {
+            "description": "Format of the container",
+            "enum": [
+                "ami",
+                "ari",
+                "aki",
+                "bare",
+                "ovf"
+            ],
+            "type": "string"
+        },
+        "created_at": {
+            "description": "Date and time of image registration (READ-ONLY)",
+            "type": "string"
+        },
+        "direct_url": {
+            "description": "URL to access the image file kept in external store (READ-ONLY)",
+            "type": "string"
+        },
+        "disk_format": {
+            "description": "Format of the disk",
+            "enum": [
+                "ami",
+                "ari",
+                "aki",
+                "vhd",
+                "vmdk",
+                "raw",
+                "qcow2",
+                "vdi",
+                "iso"
+            ],
+            "type": "string"
+        },
+        "file": {
+            "description": "(READ-ONLY)",
+            "type": "string"
+        },
+        "id": {
+            "description": "An identifier for the image",
+            "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+            "type": "string"
+        },
+        "instance_uuid": {
+            "description": "ID of instance used to create this image.",
+            "type": "string"
+        },
+        "kernel_id": {
+            "description": "ID of image stored in Glance that should be used as the kernel when booting an AMI-style image.",
+            "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+            "type": "string"
+        },
+        "locations": {
+            "description": "A set of URLs to access the image file kept in external store",
+            "items": {
+                "properties": {
+                    "metadata": {
+                        "type": "object"
+                    },
+                    "url": {
+                        "maxLength": 255,
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "url",
+                    "metadata"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "min_disk": {
+            "description": "Amount of disk space (in GB) required to boot image.",
+            "type": "integer"
+        },
+        "min_ram": {
+            "description": "Amount of ram (in MB) required to boot image.",
+            "type": "integer"
+        },
+        "name": {
+            "description": "Descriptive name for the image",
+            "maxLength": 255,
+            "type": "string"
+        },
+        "os_distro": {
+            "description": "Common name of operating system distribution as specified in http://docs.openstack.org/trunk/openstack-compute/admin/content/adding-images.html",
+            "type": "string"
+        },
+        "os_version": {
+            "description": "Operating system version as specified by the distributor",
+            "type": "string"
+        },
+        "protected": {
+            "description": "If true, image will not be deletable.",
+            "type": "boolean"
+        },
+        "ramdisk_id": {
+            "description": "ID of image stored in Glance that should be used as the ramdisk when booting an AMI-style image.",
+            "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+            "type": "string"
+        },
+        "schema": {
+            "description": "(READ-ONLY)",
+            "type": "string"
+        },
+        "self": {
+            "description": "(READ-ONLY)",
+            "type": "string"
+        },
+        "size": {
+            "description": "Size of image file in bytes (READ-ONLY)",
+            "type": "integer"
+        },
+        "status": {
+            "description": "Status of the image (READ-ONLY)",
+            "enum": [
+                "queued",
+                "saving",
+                "active",
+                "killed",
+                "deleted",
+                "pending_delete"
+            ],
+            "type": "string"
+        },
+        "tags": {
+            "description": "List of strings related to the image",
+            "items": {
+                "maxLength": 255,
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "updated_at": {
+            "description": "Date and time of the last image modification (READ-ONLY)",
+            "type": "string"
+        },
+        "visibility": {
+            "description": "Scope of image accessibility",
+            "enum": [
+                "public",
+                "private"
+            ],
+            "type": "string"
+        }
+    },
+    "additionalProperties": {
+        "type": "string"
+    },
+    "links": [
+        {
+            "href": "{self}",
+            "rel": "self"
+        },
+        {
+            "href": "{file}",
+            "rel": "enclosure"
+        },
+        {
+            "href": "{schema}",
+            "rel": "describedby"
+        }
+    ]
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <doc title="Error">A general error has occured.</doc>
+               <representation mediaType="application/xml" element="imageapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <doc title="Unauthorized">Unauthorized.</doc>
+               <representation mediaType="application/xml" element="imageapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <doc title="Forbidden">Forbidden.</doc>
+               <representation mediaType="application/xml" element="imageapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <doc title="Bad Method">Bad method.</doc>
+               <representation mediaType="application/xml" element="imageapi:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <doc title="Over Limit">The number of items returned is above the allowed limit.</doc>
+               <representation mediaType="application/xml" element="imageapi:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <doc title="Service Unavailable">The requested service is unavailable.</doc>
+               <representation mediaType="application/xml" element="imageapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <doc title="API Fault">API fault.</doc>
+               <representation mediaType="application/xml" element="imageapi:imageapiFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            
+            <response status="404">
+               <doc title="Not Found">Resource not found.</doc>
+               <representation mediaType="application/xml" element="imageapi:itemNotFound"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+                
+            <resource id="Image-members-schemas" path="schemas/members">
+         <method name="GET" rax:id="getImageMembersSchemas">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get image members schema">
+               <para role="shortdesc">Gets a json-schema document that represents an image members entity (a container of member
+                entities).</para>
+               <para>The following schema is just an example. Consider only the response to the API call as
+                authoritative.</para>
+            </wadl:doc>
+            <response status="200">
+               <doc title="Success">Request succeeded.</doc>
+               <representation mediaType="application/json">
+                  <doc xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">{
+    "name": "members",
+    "properties": {
+        "members": {
+            "items": {
+                "name": "member",
+                "properties": {
+                    "created_at": {
+                        "description": "Date and time of image member creation",
+                        "type": "string"
+                    },
+                    "image_id": {
+                        "description": "An identifier for the image",
+                        "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+                        "type": "string"
+                    },
+                    "member_id": {
+                        "description": "An identifier for the image member (tenantId)",
+                        "type": "string"
+                    },
+                    "status": {
+                        "description": "The status of this image member",
+                        "enum": [
+                            "pending",
+                            "accepted",
+                            "rejected"
+                        ],
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "description": "Date and time of last modification of image member",
+                        "type": "string"
+                    },
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            },
+            "type": "array"
+        },
+        "schema": {
+            "type": "string"
+        }
+    },
+    "links": [
+        {
+            "href": "{schema}",
+            "rel": "describedby"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                
+            <resource id="Image-member-schema" path="schemas/member">
+         <method name="GET" rax:id="getImageMemberSchema">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get image member schema">
+               <para role="shortdesc">Gets a json-schema document that represents an image member entity.</para>
+               <para>The following schema is just an example. Consider only the response to the API call as
+                authoritative.</para>
+            </wadl:doc>
+            <response status="200">
+               <doc title="Success">Request succeeded.</doc>
+               <representation mediaType="application/json">
+                  <doc xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">{
+    "name": "member",
+    "properties": {
+        "created_at": {
+            "description": "Date and time of image member creation",
+            "type": "string"
+        },
+        "image_id": {
+            "description": "An identifier for the image",
+            "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$",
+            "type": "string"
+        },
+        "member_id": {
+            "description": "An identifier for the image member (tenantId)",
+            "type": "string"
+        },
+        "status": {
+            "description": "The status of this image member",
+            "enum": [
+                "pending",
+                "accepted",
+                "rejected"
+            ],
+            "type": "string"
+        },
+        "updated_at": {
+            "description": "Date and time of last modification of image member",
+            "type": "string"
+        },
+        "schema": {
+            "type": "string"
+        }
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                
+            <resource id="Image-tasks-schemas" path="schemas/tasks">
+         <method name="GET" rax:id="getTasksSchemas">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get tasks schema">
+               <para role="shortdesc">Gets a json-schema document that represents a container of tasks entities.</para>
+               <para>This operation returns a list of task entities. The following response is just an example. Consider the
+                response to the API call as authoritative.</para>
+            </wadl:doc>
+            <response status="200">
+               <doc title="Success">Request succeeded.</doc>
+               <representation mediaType="application/json">
+                  <doc xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">{
+    "links": [
+        {
+            "href": "{schema}", 
+            "rel": "describedby"
+        }
+    ], 
+    "name": "tasks", 
+    "properties": {
+        "schema": {
+            "type": "string"
+        }, 
+        "tasks": {
+            "items": {
+                "name": "task", 
+                "properties": {
+                    "created_at": {
+                        "description": "Datetime when this resource was created", 
+                        "type": "string"
+                    }, 
+                    "expires_at": {
+                        "description": "Datetime when this resource would be subject to removal", 
+                        "type": "string"
+                    }, 
+                    "id": {
+                        "description": "An identifier for the task", 
+                        "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$", 
+                        "type": "string"
+                    }, 
+                    "owner": {
+                        "description": "An identifier for the owner of this task", 
+                        "type": "string"
+                    }, 
+                    "schema": {
+                        "type": "string"
+                    }, 
+                    "self": {
+                        "type": "string"
+                    }, 
+                    "status": {
+                        "description": "The current status of this task", 
+                        "enum": [
+                            "pending", 
+                            "processing", 
+                            "success", 
+                            "failure"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "type": {
+                        "description": "The type of task represented by this content", 
+                        "enum": [
+                            "import", 
+                            "export"
+                        ], 
+                        "type": "string"
+                    }, 
+                    "updated_at": {
+                        "description": "Datetime when this resource was updated", 
+                        "type": "string"
+                    }
+                }
+            }, 
+            "type": "array"
+        }
+    }
+}
+</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <doc title="Error">A general error has occured.</doc>
+               <representation mediaType="application/xml" element="imageapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <doc title="Unauthorized">Unauthorized.</doc>
+               <representation mediaType="application/xml" element="imageapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <doc title="Forbidden">Forbidden.</doc>
+               <representation mediaType="application/xml" element="imageapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <doc title="Bad Method">Bad method.</doc>
+               <representation mediaType="application/xml" element="imageapi:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <doc title="Over Limit">The number of items returned is above the allowed limit.</doc>
+               <representation mediaType="application/xml" element="imageapi:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <doc title="Service Unavailable">The requested service is unavailable.</doc>
+               <representation mediaType="application/xml" element="imageapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <doc title="API Fault">API fault.</doc>
+               <representation mediaType="application/xml" element="imageapi:imageapiFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+                
+            <resource id="Image-task-schema" path="schemas/task">
+         <method name="GET" rax:id="getTaskSchema">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get task schema">
+               <para role="shortdesc">Gets a json-schema document that represents an task entity.</para>
+               <para>This operation returns the specified task entity. The following response is just an example. Consider the
+                response to the API call as authoritative.</para>
+            </wadl:doc>
+            <response status="200">
+               <doc title="Success">Request succeeded.</doc>
+               <representation mediaType="application/json">
+                  <doc xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting xmlns="http://docbook.org/ns/docbook" language="javascript">{
+    "name": "task", 
+    "properties": {
+        "created_at": {
+            "description": "Datetime when this resource was created", 
+            "type": "string"
+        }, 
+        "expires_at": {
+            "description": "Datetime when this resource would be subject to removal", 
+            "type": "string"
+        }, 
+        "id": {
+            "description": "An identifier for the task", 
+            "pattern": "^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$", 
+            "type": "string"
+        }, 
+        "input": {
+            "description": "The parameters required by task, JSON blob", 
+            "type": "object"
+        }, 
+        "message": {
+            "description": "Human-readable informative message only included when appropriate (usually on failure)", 
+            "type": "string"
+        }, 
+        "owner": {
+            "description": "An identifier for the owner of this task", 
+            "type": "string"
+        }, 
+        "result": {
+            "description": "The result of current task, JSON blob", 
+            "type": "object"
+        }, 
+        "schema": {
+            "type": "string"
+        }, 
+        "self": {
+            "type": "string"
+        }, 
+        "status": {
+            "description": "The current status of this task", 
+            "enum": [
+                "pending", 
+                "processing", 
+                "success", 
+                "failure"
+            ], 
+            "type": "string"
+        }, 
+        "type": {
+            "description": "The type of task represented by this content", 
+            "enum": [
+                "import", 
+                "export"
+            ], 
+            "type": "string"
+        }, 
+        "updated_at": {
+            "description": "Datetime when this resource was updated", 
+            "type": "string"
+        }
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </doc>
+               </representation>
+            </response> 
+            <response status="400">
+               <doc title="Error">A general error has occured.</doc>
+               <representation mediaType="application/xml" element="imageapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <doc title="Unauthorized">Unauthorized.</doc>
+               <representation mediaType="application/xml" element="imageapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <doc title="Forbidden">Forbidden.</doc>
+               <representation mediaType="application/xml" element="imageapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <doc title="Bad Method">Bad method.</doc>
+               <representation mediaType="application/xml" element="imageapi:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <doc title="Over Limit">The number of items returned is above the allowed limit.</doc>
+               <representation mediaType="application/xml" element="imageapi:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <doc title="Service Unavailable">The requested service is unavailable.</doc>
+               <representation mediaType="application/xml" element="imageapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <doc title="API Fault">API fault.</doc>
+               <representation mediaType="application/xml" element="imageapi:imageapiFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+      </resource>
+                
+            
+
+    </resources>
+
+    <!--*******************************************************-->
+    <!--               All Methods                             -->
+    <!--*******************************************************-->
+
+    <!-- Image Schema Operations -->
+    <!-- List Images Schema -->
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:imageapi="http://docs.openstack.org/image/api/v2.0"
+           xmlns:atom="http://www.w3.org/2005/Atom"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getImagesSchema">
+        
+        <response status="200">
+            
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+        <response status="400">
+            
+            <representation mediaType="application/xml" element="imageapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            
+            <representation mediaType="application/xml" element="imageapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            
+            <representation mediaType="application/xml" element="imageapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            
+            <representation mediaType="application/xml" element="imageapi:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            
+            <representation mediaType="application/xml" element="imageapi:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            
+            <representation mediaType="application/xml" element="imageapi:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            
+            <representation mediaType="application/xml" element="imageapi:imageapiFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+            
+        <response status="404">
+            
+            <representation mediaType="application/xml" element="imageapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+    <!-- Get Image Schema -->
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:imageapi="http://docs.openstack.org/image/api/v2.0"
+           xmlns:atom="http://www.w3.org/2005/Atom"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getImageSchema">
+        
+        <response status="200">
+            
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+        <response status="400">
+            
+            <representation mediaType="application/xml" element="imageapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            
+            <representation mediaType="application/xml" element="imageapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            
+            <representation mediaType="application/xml" element="imageapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            
+            <representation mediaType="application/xml" element="imageapi:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            
+            <representation mediaType="application/xml" element="imageapi:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            
+            <representation mediaType="application/xml" element="imageapi:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            
+            <representation mediaType="application/xml" element="imageapi:imageapiFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+            
+        <response status="404">
+            
+            <representation mediaType="application/xml" element="imageapi:itemNotFound"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+    <!-- Image Member Schema Operations -->
+    <!-- List Image Members Schema -->
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:imageapi="http://docs.openstack.org/image/api/v2.0"
+           xmlns:atom="http://www.w3.org/2005/Atom"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getImageMembersSchemas">
+        
+        <response status="200">
+            
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+
+    <!-- Get Image Member Schema -->
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:imageapi="http://docs.openstack.org/image/api/v2.0"
+           xmlns:atom="http://www.w3.org/2005/Atom"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getImageMemberSchema">
+        
+        <response status="200">
+            
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+
+    <!-- Task Schema Operations (need correct text and examples)-->
+    <!-- List Tasks Schemas -->
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:imageapi="http://docs.openstack.org/image/api/v2.0"
+           xmlns:atom="http://www.w3.org/2005/Atom"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getTasksSchemas">
+        
+        <response status="200">
+            
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+        <response status="400">
+            
+            <representation mediaType="application/xml" element="imageapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            
+            <representation mediaType="application/xml" element="imageapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            
+            <representation mediaType="application/xml" element="imageapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            
+            <representation mediaType="application/xml" element="imageapi:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            
+            <representation mediaType="application/xml" element="imageapi:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            
+            <representation mediaType="application/xml" element="imageapi:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            
+            <representation mediaType="application/xml" element="imageapi:imageapiFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+    <!-- Get Task Schema -->
+    <method xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:imageapi="http://docs.openstack.org/image/api/v2.0"
+           xmlns:atom="http://www.w3.org/2005/Atom"
+           xmlns:csapi="http://docs.openstack.org/compute/api/v2"
+           xmlns:common="http://docs.openstack.org/common/api/v1.0"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getTaskSchema">
+        
+        <response status="200">
+            
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response> 
+        <response status="400">
+            
+            <representation mediaType="application/xml" element="imageapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            
+            <representation mediaType="application/xml" element="imageapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            
+            <representation mediaType="application/xml" element="imageapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            
+            <representation mediaType="application/xml" element="imageapi:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            
+            <representation mediaType="application/xml" element="imageapi:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            
+            <representation mediaType="application/xml" element="imageapi:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="500">
+            
+            <representation mediaType="application/xml" element="imageapi:imageapiFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+
+</wadl:application>

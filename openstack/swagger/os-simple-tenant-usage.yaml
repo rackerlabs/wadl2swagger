@@ -1,0 +1,96 @@
+---
+swagger: '2.0'
+info:
+  title: os-simple-tenant-usage
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2/{tenant_id}/os-simple-tenant-usage":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    get:
+      operationId: ListUsage
+      summary: List usage information for all tenants
+      description: |
+        Lists usage information for all tenants.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "tenant_usages": [
+                      {
+                          "total_memory_mb_usage": 512.0,
+                          "total_vcpus_usage": 1.0,
+                          "total_hours": 1.0,
+                          "tenant_id": "openstack",
+                          "stop": "2012-10-08T22:10:44.587336",
+                          "start": "2012-10-08T21:10:44.587336",
+                          "total_local_gb_usage": 1.0
+                      }
+                  ]
+              }
+  "/v2/{tenant_id}/os-simple-tenant-usage/{tenant_id}":
+    parameters:
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The ID for the tenant or account in a multi-tenancy cloud.
+    - name: tenant_id
+      required: true
+      in: path
+      type: string
+      description: |
+        The tenant ID.
+    get:
+      operationId: GetUsage
+      summary: Get tenant usage information
+      description: |
+        Gets usage information for a tenant.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "tenant_usage": {
+                      "total_memory_mb_usage": 512.0,
+                      "total_vcpus_usage": 1.0,
+                      "total_hours": 1.0,
+                      "tenant_id": "openstack",
+                      "stop": "2012-10-08T21:10:44.587336",
+                      "server_usages": [
+                          {
+                              "instance_id": "1f1deceb-17b5-4c04-84c7-e0d4499c8fe0",
+                              "uptime": 3600,
+                              "started_at": "2012-10-08T20:10:44.541277",
+                              "ended_at": null,
+                              "memory_mb": 512,
+                              "tenant_id": "openstack",
+                              "vcpus": 1,
+                              "hours": 1.0,
+                              "state": "active",
+                              "flavor": "m1.tiny",
+                              "local_gb": 1,
+                              "name": "new-server-test"
+                          }
+                      ],
+                      "start": "2012-10-08T20:10:44.587336",
+                      "total_local_gb_usage": 1.0
+                  }
+              }

@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- (C) 2014 OpenStack Foundation, All Rights Reserved -->
+<wadl:application xmlns="http://docbook.org/ns/docbook"
+                  xmlns:wadl="http://wadl.dev.java.net/2009/02"
+                  xmlns:rax="http://docs.rackspace.com/api"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <resources xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+              xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://wadl.dev.java.net/2009/02"
+              base="https://volume.example.com/"
+              xml:id="qos-specs-v2">
+        <resource id="qos-specs" path="/v2/{tenant_id}/qos-specs">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique ID of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <method name="POST" rax:id="createQoSSpec">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Create QoS specification">
+               <para role="shortdesc">Creates a QoS specification.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "qos_specs": {
+        "availability": "100",
+        "name": "reliability-spec",
+        "numberOfFailures": "0"
+    }
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;qos_specs name="performance-spec" delay="0" throughput="100"/&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="qos_specs"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>qos_specs</code>
+                        object.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The name of the QoS
+                            specification.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="specs" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="specs">
+                        <para>Specification key and value
+                            pairs.</para>
+                    </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "qos_specs": {
+        "specs": {
+            "availability": "100",
+            "numberOfFailures": "0"
+        },
+        "consumer": "back-end",
+        "name": "reliability-spec",
+        "id": "0388d6c6-d5d4-42a3-b289-95205c50dd15"
+    },
+    "links": [
+        {
+            "href": "http://23.253.228.211:8776/v2/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15",
+            "rel": "self"
+        },
+        {
+            "href": "http://23.253.228.211:8776/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15",
+            "rel": "bookmark"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;qos_specs&gt;
+    &lt;qos_spec consumer="back-end"
+        id="ecfc6e2e-7117-44a4-8eec-f84d04f531a8"
+        name="performance-spec"&gt;
+        &lt;specs&gt;
+            &lt;delay&gt;0&lt;/delay&gt;
+            &lt;throughput&gt;100&lt;/throughput&gt;
+        &lt;/specs&gt;
+    &lt;/qos_spec&gt;
+&lt;/qos_specs&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="qos_specs"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>qos_specs</code>
+                        object.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="specs" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>specs</code>
+                        object.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="consumer" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The consumer type.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The name of the QoS
+                            specification.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" type="csapi:uuid" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The generated ID for the QoS
+                            specification.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="links" style="plain" type="xsd:dict" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The QoS specification
+                        links.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+         <method name="GET" rax:id="listQoSSpecs">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="List QoS specs">
+               <para role="shortdesc">Lists quality of service (QoS)
+                specifications.</para>
+            </wadl:doc>
+            <response status="200 300">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "qos_specs": [
+        {
+            "specs": {
+                "availability": "100",
+                "numberOfFailures": "0"
+            },
+            "consumer": "back-end",
+            "name": "reliability-spec",
+            "id": "0388d6c6-d5d4-42a3-b289-95205c50dd15"
+        },
+        {
+            "specs": {
+                "delay": "0",
+                "throughput": "100"
+            },
+            "consumer": "back-end",
+            "name": "performance-spec",
+            "id": "ecfc6e2e-7117-44a4-8eec-f84d04f531a8"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;qos_specs&gt;
+    &lt;qos_spec consumer="back-end"
+        id="0388d6c6-d5d4-42a3-b289-95205c50dd15"
+        name="reliability-spec"&gt;
+        &lt;specs&gt;
+            &lt;availability&gt;100&lt;/availability&gt;
+            &lt;numberOfFailures&gt;0&lt;/numberOfFailures&gt;
+        &lt;/specs&gt;
+    &lt;/qos_spec&gt;
+    &lt;qos_spec consumer="back-end"
+        id="ecfc6e2e-7117-44a4-8eec-f84d04f531a8"
+        name="performance-spec"&gt;
+        &lt;specs&gt;
+            &lt;delay&gt;0&lt;/delay&gt;
+            &lt;throughput&gt;100&lt;/throughput&gt;
+        &lt;/specs&gt;
+    &lt;/qos_spec&gt;
+&lt;/qos_specs&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="qos_specs"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>qos_specs</code>
+                        object.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="specs" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="specs">
+                        <para>Specification key and value
+                            pairs.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="consumer" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The consumer type.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The name of the QoS
+                            specification.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" type="csapi:uuid" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The generated ID for the QoS
+                            specification.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                    
+                    
+                    <resource id="qos_id" path="/v2/{tenant_id}/qos-specs/{qos_id}">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique ID of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <param name="qos_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The UUID for the
+                                   QoS specification.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="showQoSDetails">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Show QoS specification details">
+               <para role="shortdesc">Shows details for a specified QoS
+                specification.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "qos_specs": {
+        "specs": {
+            "availability": "100",
+            "numberOfFailures": "0"
+        },
+        "consumer": "back-end",
+        "name": "reliability-spec",
+        "id": "0388d6c6-d5d4-42a3-b289-95205c50dd15"
+    },
+    "links": [
+        {
+            "href": "http://23.253.228.211:8776/v2/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15",
+            "rel": "self"
+        },
+        {
+            "href": "http://23.253.228.211:8776/e1cf63117ae74309a5bcc2002a23be8b/qos_specs/0388d6c6-d5d4-42a3-b289-95205c50dd15",
+            "rel": "bookmark"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;qos_specs&gt;
+    &lt;qos_spec consumer="back-end"
+        id="0388d6c6-d5d4-42a3-b289-95205c50dd15"
+        name="reliability-spec"&gt;
+        &lt;specs&gt;
+            &lt;availability&gt;100&lt;/availability&gt;
+            &lt;numberOfFailures&gt;0&lt;/numberOfFailures&gt;
+        &lt;/specs&gt;
+    &lt;/qos_spec&gt;
+&lt;/qos_specs&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+                  <param name="qos_specs"
+                         style="plain"
+                         type="xsd:string"
+                         required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>A <code>qos_specs</code>
+                        object.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="specs" style="plain" required="true" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN" title="specs">
+                        <para>Specification key and value
+                            pairs.</para>
+                    </wadl:doc>
+                  </param>
+                  <param name="consumer" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The consumer type.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="name" style="plain" type="xsd:string" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The name of the QoS
+                            specification.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="id" style="plain" type="csapi:uuid" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The generated ID for the QoS
+                            specification.</para>
+                     </wadl:doc>
+                  </param>
+                  <param name="links" style="plain" type="xsd:dict" required="true">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The QoS specification
+                        links.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </response>
+            <!-- Common and GET Faults--> 
+            <response>
+               <representation mediaType="application/xml" element="csapi:computeFault"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="503">
+               <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="400">
+               <representation mediaType="application/xml" element="csapi:badRequest"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="401">
+               <representation mediaType="application/xml" element="csapi:unauthorized"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="403">
+               <representation mediaType="application/xml" element="csapi:forbidden"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="405">
+               <representation mediaType="application/xml" element="csapi:badMethod"/>
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="413">
+               <representation mediaType="application/xml" element="csapi:overLimit"/>
+               <representation mediaType="application/json"/>
+            </response>
+            </method>
+         <method name="DELETE" rax:id="deleteQoSSpec">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Delete QoS specification">
+               <para role="shortdesc">Deletes a specified QoS
+                specification.</para>
+            </wadl:doc>
+            <request>
+               <representation mediaType="application/json">
+                  <param name="qos_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique ID of the QoS
+                            specification.</para>
+                     </wadl:doc>
+                  </param>
+                  <param style="template" required="false" name="force">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>Optional flag that indicates whether to
+                            delete the specified QoS specification
+                            even if it is in-use.</para>
+                     </wadl:doc>
+                  </param>
+               </representation>
+            </request>
+            <response status="202"/>
+         </method>
+      </resource>
+                        
+                        
+                        
+                        <resource id="associate" path="/v2/{tenant_id}/qos-specs/{qos_id}/associate">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique ID of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <param name="qos_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The UUID for the
+                                   QoS specification.</para>
+                            </wadl:doc>
+                        </param>
+         <param name="vol_type_id"
+                style="query"
+                type="xsd:string"
+                rax:id="vol_type_id">
+                                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                   <para>The unique ID of the volume
+                                   type.</para>
+            </wadl:doc>
+                            </param>
+         <method name="GET" rax:id="associateQoSSpec">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Associate QoS specification with volume type">
+               <para role="shortdesc">Associates a QoS specification with
+                a specified volume type.</para>
+            </wadl:doc>
+            <response status="202"/>
+         </method>
+      </resource>
+                            
+                            
+                        
+                        <resource id="disassociate"
+                path="/v2/{tenant_id}/qos-specs/{qos_id}/disassociate">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique ID of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <param name="qos_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The UUID for the
+                                   QoS specification.</para>
+                            </wadl:doc>
+                        </param>
+         <param name="vol_type_id"
+                style="query"
+                type="xsd:string"
+                rax:id="vol_type_id-disassociate">
+                                <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                                   <para>The unique ID of the volume
+                                   type.</para>
+            </wadl:doc>
+                            </param>
+         <method name="GET" rax:id="disassociateQoSSpec">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Disassociate QoS specification from volume type">
+               <para role="shortdesc">Disassociates a QoS specification
+                from a specified volume type.</para>
+            </wadl:doc>
+            <response status="202"/>
+         </method>
+      </resource>
+                            
+                            
+                        
+                        <resource id="disassociate_all"
+                path="/v2/{tenant_id}/qos-specs/{qos_id}/disassociate_all">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique ID of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <param name="qos_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The UUID for the
+                                   QoS specification.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="disassociateQoSSpecAll">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Disassociate QoS specification from all associations">
+               <para role="shortdesc">Disassociates a specified QoS
+                specification from all associations.</para>
+            </wadl:doc>
+            <response status="202"/>
+         </method>
+      </resource>
+                            
+                        
+                        <resource id="associations"
+                path="/v2/{tenant_id}/qos-specs/{qos_id}/associations">
+         <param name="tenant_id" style="template" type="xsd:string">
+                    <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                        <para>The unique ID of the tenant or
+                            account.</para>
+            </wadl:doc>
+                </param>
+         <param name="qos_id" style="template" type="csapi:UUID">
+                            <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+               <para>The UUID for the
+                                   QoS specification.</para>
+                            </wadl:doc>
+                        </param>
+         <method name="GET" rax:id="getQoSAssociations">
+            <wadl:doc xmlns="http://docbook.org/ns/docbook"
+                      xml:lang="EN"
+                      title="Get all associations for QoS specification">
+               <para role="shortdesc">Gets all associations for a
+                specified QoS specification.</para>
+            </wadl:doc>
+            <response status="200">
+               <representation mediaType="application/xml">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="xml">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;qos_associations&gt;
+    &lt;associations association_type="volume_type"
+        name="reliability-type"
+        id="a12983c2-83bd-4afa-be9f-ad796573ead6"/&gt;
+&lt;/qos_associations&gt;
+</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+               <representation mediaType="application/json">
+                  <wadl:doc xmlns="http://docbook.org/ns/docbook" xml:lang="EN">
+                    <xsdxt:code xmlns:db="http://docbook.org/ns/docbook">
+                        <programlisting language="javascript">{
+    "qos_associations": [
+        {
+            "association_type": "volume_type",
+            "name": "reliability-type",
+            "id": "a12983c2-83bd-4afa-be9f-ad796573ead6"
+        }
+    ]
+}</programlisting>
+                     </xsdxt:code>
+                  </wadl:doc>
+               </representation>
+            </response>
+         </method>
+      </resource>
+                            
+                        
+                    
+                
+    </resources>
+    <!-- QoS Specs -->
+    <!-- create QoS spec -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="POST"
+           id="createQoSSpec">
+        
+        <request>
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="qos_specs"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="name" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="specs" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="qos_specs"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="specs" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="consumer" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="name" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="id" style="plain" type="csapi:uuid" required="true">
+                    
+                </param>
+                <param name="links" style="plain" type="xsd:dict" required="true">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <!-- list QoS specs -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="listQoSSpecs">
+        
+        <response status="200 300">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="qos_specs"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="specs" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="consumer" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="name" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="id" style="plain" type="csapi:uuid" required="true">
+                    
+                </param>
+            </representation>
+        </response>
+    </method>
+    <!-- show QoS spec details -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="showQoSDetails">
+        
+        <response status="200">
+            <representation mediaType="application/json">
+                
+            </representation>
+            <representation mediaType="application/xml">
+                
+                <param name="qos_specs"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="specs" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+                <param name="consumer" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="name" style="plain" type="xsd:string" required="true">
+                    
+                </param>
+                <param name="id" style="plain" type="csapi:uuid" required="true">
+                    
+                </param>
+                <param name="links" style="plain" type="xsd:dict" required="true">
+                    
+                </param>
+            </representation>
+        </response>
+        <!-- Common and GET Faults--> 
+        <response>
+            <representation mediaType="application/xml" element="csapi:computeFault"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="503">
+            <representation mediaType="application/xml" element="csapi:serviceUnavailable"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="400">
+            <representation mediaType="application/xml" element="csapi:badRequest"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+            <representation mediaType="application/xml" element="csapi:unauthorized"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="403">
+            <representation mediaType="application/xml" element="csapi:forbidden"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="405">
+            <representation mediaType="application/xml" element="csapi:badMethod"/>
+            <representation mediaType="application/json"/>
+        </response>
+        <response status="413">
+            <representation mediaType="application/xml" element="csapi:overLimit"/>
+            <representation mediaType="application/json"/>
+        </response>
+            </method>
+    <!-- associate QoS spec -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="associateQoSSpec">
+        
+        <response status="202"/>
+    </method>
+    <!-- disassociate QoS spec -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="disassociateQoSSpec">
+        
+        <response status="202"/>
+    </method>
+    <!-- disassociate all QoS spec associations -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="disassociateQoSSpecAll">
+        
+        <response status="202"/>
+    </method>
+    <!-- show all QoS spec associations -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="GET"
+           id="getQoSAssociations">
+        
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <!-- update QoS spec key/s -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="PUT"
+           id="setQoSKey">
+        
+        <request>
+
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+                <param name="qos_specs"
+                   style="plain"
+                   type="xsd:string"
+                   required="true">
+                    
+                </param>
+                <param name="specs" style="plain" required="true" type="xsd:string">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="200">
+            <representation mediaType="application/xml">
+                
+            </representation>
+            <representation mediaType="application/json">
+                
+            </representation>
+        </response>
+    </method>
+    <!-- delete QoS spec -->
+    <method xmlns:xsdxt="http://docs.rackspacecloud.com/xsd-ext/v1.0"
+           xmlns:csapi="http://docs.openstack.org/api/openstack-block-storage/v2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://wadl.dev.java.net/2009/02"
+           name="DELETE"
+           id="deleteQoSSpec">
+        
+        <request>
+            <representation mediaType="application/json">
+                <param name="qos_id" style="template" type="xsd:string">
+                    
+                </param>
+                <param style="template" required="false" name="force">
+                    
+                </param>
+            </representation>
+        </request>
+        <response status="202"/>
+    </method>
+</wadl:application>

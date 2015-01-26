@@ -1,0 +1,14 @@
+INFO:wadls/OS-KSCATALOG-admin.wadl:Converting: wadls/OS-KSCATALOG-admin.wadl to swagger/OS-KSCATALOG-admin.json
+WARNING:wadls/OS-KSCATALOG-admin.wadl:Autofix: path parameters must be required in Swagger (tenantId)
+WARNING:wadls/OS-KSCATALOG-admin.wadl:Unknown type: EndpointTemplateWithOnlyId for param endpoint
+WARNING:wadls/OS-KSCATALOG-admin.wadl:Using string for EndpointTemplateWithOnlyId
+WARNING:wadls/OS-KSCATALOG-admin.wadl:Ignoring body parameter, converting these is not yet supported...
+WARNING:wadls/OS-KSCATALOG-admin.wadl:Autofix: path parameters must be required in Swagger (tenantId)
+WARNING:wadls/OS-KSCATALOG-admin.wadl:Autofix: path parameters must be required in Swagger (endpointId)
+WARNING:wadls/OS-KSCATALOG-admin.wadl:Autofix: path parameters must be required in Swagger (endpointTemplateId)
+INFO:root:Saving swagger to swagger/OS-KSCATALOG-admin.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

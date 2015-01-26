@@ -1,0 +1,11 @@
+INFO:wadls/os-flv-disabled.wadl:Converting: wadls/os-flv-disabled.wadl to swagger/os-flv-disabled.json
+WARNING:wadls/os-flv-disabled.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+WARNING:wadls/os-flv-disabled.wadl:Unknown type: csapi:uuid for param flavor_id
+WARNING:wadls/os-flv-disabled.wadl:Using string for csapi:uuid
+WARNING:wadls/os-flv-disabled.wadl:Autofix: path parameters must be required in Swagger (tenant_id)
+INFO:root:Saving swagger to swagger/os-flv-disabled.json
+INFO:root:
+INFO:root:Successfully converted all WADL files
+
+Validating with swagger-tools...
+Valid

@@ -1,0 +1,119 @@
+---
+swagger: '2.0'
+info:
+  title: os-aggregates-v2.1
+  version: Unknown
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/v2.1/os-aggregates":
+    post:
+      operationId: createaggregate
+      summary: Create aggregate
+      description: |
+        Creates an aggregate, given its name and availability zone.
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          examples:
+            application/json: |-
+              {
+                  "aggregate": {
+                      "name": "name",
+                      "availability_zone": "nova",
+                      "deleted": 0,
+                      "created_at": "2013-08-18T12:17:55.751757",
+                      "updated_at": null,
+                      "deleted_at": null,
+                      "id": 1
+                  }
+              }
+    get:
+      operationId: listaggregate
+      summary: List aggregates
+      description: |
+        Lists aggregates id, name, and availability\_zone for an aggregate.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "aggregates": [
+                      {
+                          "name": "name",
+                          "availability_zone": "nova",
+                          "deleted": 0,
+                          "created_at": "2013-08-18T12:17:56.856455",
+                          "updated_at": null,
+                          "hosts": [],
+                          "deleted_at": null,
+                          "id": 1,
+                          "metadata": {
+                              "availability_zone": "nova"
+                          }
+                      }
+                  ]
+              }
+  "/v2.1/os-aggregates/{aggregate_id}":
+    get:
+      operationId: updateaggregate
+      summary: Update aggregate
+      description: |
+        Updates either or both the name and availability zone for a specified aggregate.
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          examples:
+            application/json: |-
+              {
+                  "aggregate": {
+                      "name": "newname",
+                      "availability_zone": "nova2",
+                      "deleted": 0,
+                      "created_at": "2013-08-18T12:17:56.259751",
+                      "updated_at": "2013-08-18T12:17:56.286720",
+                      "hosts": [],
+                      "deleted_at": null,
+                      "id": 1,
+                      "metadata": {
+                          "availability_zone": "nova2"
+                      }
+                  }
+              }
+  "/v2.1/os-aggregates/{aggregate_id}/action":
+    post:
+      operationId: removeaggregate
+      summary: Remove host
+      description: |
+        Removes a host from the specified aggregate.
+      produces:
+      - application/json
+      responses:
+        '202':
+          description: 202 response
+          examples:
+            application/json: |-
+              {
+                  "aggregate": {
+                      "name": "name",
+                      "availability_zone": "nova",
+                      "deleted": 0,
+                      "created_at": "2013-08-18T12:17:56.990581",
+                      "updated_at": null,
+                      "hosts": [],
+                      "deleted_at": null,
+                      "id": 1,
+                      "metadata": {
+                          "availability_zone": "nova"
+                      }
+                  }
+              }

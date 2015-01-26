@@ -7,9 +7,11 @@
     N/A
   <%- else -%>
     <%- raw_git_url = "https://rawgit.com/rackerlabs/wadl2swagger/gh-pages/swagger/" -%>
-    <%- validator_url = "http://online.swagger.io/validator?url=#{raw_git_url}#{basename}.json" -%>
-    <%- validator_debug_url = "http://online.swagger.io/validator/debug?url=#{raw_git_url}#{basename}.json" -%>
-    <%- edit_url = "http://editor.swagger.io/#/edit?import=#{raw_git_url}#{basename}.yaml" -%>
+    <%- full_yaml_url = settings.site_url + url_for(swagger_yaml) %>
+    <%- full_json_url = settings.site_url + url_for(swagger_json) %>
+    <%- validator_url = "http://online.swagger.io/validator?url=#{full_json_url}" -%>
+    <%- validator_debug_url = "http://online.swagger.io/validator/debug?url=#{full_json_url}" -%>
+    <%- edit_url = "http://editor.swagger.io/#/edit?import=#{full_yaml_url}" -%>
     <a href="<%= edit_url %>"><img src="<%= validator_url %>" target="_blank"/></a>
   </td>
   <%- end -%>

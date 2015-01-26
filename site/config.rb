@@ -7,6 +7,10 @@ activate :deploy do |deploy|
   # deploy.commit_message = 'custom-message'      # commit message (can be empty), default: Automated commit at `timestamp` by middleman-deploy `version`
 end
 
+configure :development do
+  set :site_url, "http://localhost:4567"
+end
+
 set :css_dir, 'stylesheets'
 
 set :js_dir, 'javascripts'
@@ -15,6 +19,8 @@ set :images_dir, 'images'
 
 # Build-specific configuration
 configure :build do
+  set :site_url, "http://rackerlabs.github.io/wadl2swagger"
+
   # For example, change the Compass output style for deployment
   activate :minify_css
 

@@ -1,44 +1,6 @@
 #!/usr/bin/env bash
+ALLOWED_FAILURE_PATTERNS=("os-object-api-1.0.wadl" "identity-admin-v3.wadl" "os-image-1.0.wadl" "security-groups.wadl")
+SCRIPTDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source $SCRIPTDIR/build_wadls.sh
 
-# wadl2swagger blows up trying to convert these files, but because the WADLs contain issues
-function fail_unless_expected {
-  echo $1
-  if [[ "$1" == *"os-object-api-1.0.wadl"* ]] || [[ "$1" == *"identity-admin-v3.wadl"* ]] || [[ "$1" == *"os-image-1.0.wadl"* ]] || [[ "$1" == *"security-groups.wadl"* ]]; then
-    echo $1 failed but will not fail the build... this file has known issues that need to be addressed in the wadl
-  else
-    echo $1 failed
-    exit 1
-  fi
-}
-
-pushd openstack
-  # Simple conversion:
-  # wadl2swagger --autofix wadls/*.wadl -f json
-
-  # But if we want separate log files:
-  for wadl in wadls/*.wadl; do
-    basename=${wadl##*/}
-    basename=${basename%.wadl}
-    log_file="swagger/${basename}.log"
-    wadl2swagger --autofix $wadl -f json -l $log_file
-    if [ $? -ne 0 ]; then
-      fail_unless_expected $wadl
-    fi
-    echo >> $log_file
-    echo "Validating with swagger-tools..." >> $log_file
-    swagger-tools validate "swagger/$basename.json" 2>&1 | tee -a $log_file
-    echo >> $log_file
-
-    case "${PIPESTATUS[0]}" in
-      "0")
-        echo "Valid" >> $log_file
-        ;;
-      "1")
-        echo "Invalid" >> $log_file
-        ;;
-      *)
-        echo "Error (exit code ${PIPESTATUS[0]})" >> $log_file
-        ;;
-    esac
-  done
-popd
+build_wadls "openstack" $ALLOWED_FAILURE_PATTERNS

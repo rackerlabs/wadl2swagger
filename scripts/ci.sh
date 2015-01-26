@@ -1,8 +1,11 @@
 #!/bin/bash
+set -e
+
 if [ "$CI" = "true" ]; then
   # We're on Snap-CI, Travis, etc.
+  sudo npm install -g swagger-tools
+  sudo yum install --assumeyes pandoc
   python setup.py install
-  npm install -g swagger-tools
 else
   python setup.py develop
 fi

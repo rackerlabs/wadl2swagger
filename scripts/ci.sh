@@ -2,6 +2,7 @@
 if [ "$CI" = "true" ]; then
   # We're on Snap-CI, Travis, etc.
   python setup.py install
+  npm install -g swagger-tools
 else
   python setup.py develop
 fi

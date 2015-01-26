@@ -6,8 +6,8 @@
     edit_url = "http://editor.swagger.io/#/edit?import=#{full_yaml_url}"
   end
   unless log_file.nil?
-    validation_log = url_for(log_file)
-    validation_img = swagger_validation_image(log_file)
+    validation_log = settings.site_url + url_for(log_file)
+    validation_img = settings.site_url + swagger_validation_image(log_file)
   end
 -%>
 <tr>
@@ -19,10 +19,10 @@
     <td>N/A</td>
   <%- else -%>
     <td>
-      <a href="<%= validation_log %>"><img src="<%= validation_img %>" target="_blank"/></a>
+      <%= link_to(validation_log) { image_tag validation_img } %>
     </td>
     <td>
-      <a href="<%= edit_url %>">Open on Swagger-Editor</a>
+      <a href="<%= edit_url %>" target="_blank">Open on Swagger-Editor</a>
     </td>
   <%- end -%>
 </tr>

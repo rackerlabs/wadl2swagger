@@ -1,5 +1,14 @@
+import pypandoc
 from wadllib.application import Application, Resource, WADLError
 from lxml import etree
+# etree & ElementTree :(
+try:
+    import xml.etree.cElementTree as ET
+except ImportError:
+    try:
+        import cElementTree as ET
+    except ImportError:
+        import elementtree.ElementTree as ET
 import urlparse
 import urllib
 import logging
@@ -64,76 +73,21 @@ class DocHelper:
         return DocHelper.wadl_tag(wadl_object, 'doc')
 
     @staticmethod
-    def short_desc(wadl_object):
-        # HACK: OpenStack specific...
-        return DocHelper.doc_tag(wadl_object).find('./{' + WADL.NAMESPACES['docbook'] + "}para[@role='shortdesc']")
+    def short_desc_as_markdown(wadl_object):
+        short_desc = DocHelper.doc_tag(wadl_object).find('./{' + WADL.NAMESPACES['docbook'] + "}para[@role='shortdesc']")
+        return DocHelper.docbook_to_markdown(short_desc)
 
     @staticmethod
-    def convert_description(doc_tag, description=''):
-        elem = DocHelper.element_for(doc_tag)
-        elem.text = doc_tag.text
-        for tag in list(doc_tag):
-            elem.append(DocHelper.convert_description(tag))
-        elem.tail = doc_tag.tail
-
-        return elem
-
-    @staticmethod
-    def description_text(doc_tag):
-        return etree.tostring(etree.ElementTree(DocHelper.convert_description(doc_tag)))
-
-    @staticmethod
-    def element_for(doc_tag):
-        # TODO: Get rid of all of this, just run through pandoc w/ -f docbook -t markdown_github
-        tag_type = doc_tag.tag
-        attrs = {}
-        if tag_type == WADL.qname('docbook', 'citetitle'):
-            tag = "p"
-        elif tag_type == WADL.qname('docbook', 'code'):
-            tag = "code"
-        elif tag_type == WADL.qname('docbook', 'emphasis'):
-            tag = "strong"
-        elif tag_type == WADL.qname('docbook', 'link'):
-            tag = "a"
-            attrs['href'] = doc_tag.get(WADL.qname('xlink', 'href'))
-        elif tag_type == WADL.qname('docbook', 'listitem'):
-            tag = "li"
-        elif tag_type == WADL.qname('docbook', 'literal'):
-            tag = "p"
-        elif tag_type == WADL.qname('docbook', 'note'):
-            tag = "p"
-        elif tag_type == WADL.qname('docbook', 'olink'):
-            tag = "p"
-        elif tag_type == WADL.qname('docbook', 'para'):
-            tag = "p"
-        elif tag_type == WADL.qname('docbook', 'parameter'):
-            tag = "p"
-        elif tag_type == WADL.qname('docbook', 'term'):
-            tag = "p"
-        elif tag_type == WADL.qname('docbook', 'variablelist'):
-            tag = "p"
-        elif tag_type == WADL.qname('docbook', 'varlistentry'):
-            tag = "p"
-        elif tag_type == WADL.qname('docbook', 'warning'):
-            tag = "p"
-        elif tag_type == WADL.qname('wadl', 'doc'):
-            tag = "p"
-        elif tag_type == WADL.qname('docbook', 'replaceable'):
-            # FIXME: What should this be?
-            tag = "em"
-        elif tag_type == WADL.qname('docbook', 'itemizedlist'):
-            tag = "ul"
-        elif tag_type == WADL.qname('docbook', 'strong'):
-            tag = "strong"
-        elif tag_type == WADL.qname('docbook', 'xref'):
-            logging.warning("xref is not properly supported")
-            tag = "cite"
-        elif tag_type.startswith(WADL.qname('xhtml')):
-            tag = tag_type.replace(WADL.qname('xhtml'), '')
-        else:
-            raise ValueError("Unknown doc tag type: %s" % tag_type)
-        e = etree.Element(tag)
-        for key, value in attrs.iteritems():
-            if value is not None:
-                e.set(key, value)
-        return e
+    def docbook_to_markdown(doc_tag):
+        # We need to convert the element to an XML string
+        # And tostring doesn't like the namespaces for some reason...
+        for prefix, namespace in doc_tag.attrib['xmlns:map'].iteritems():
+            ET.register_namespace(prefix, namespace)
+        if 'xmlns:map' in doc_tag.attrib:
+            del doc_tag.attrib['xmlns:map']
+        for e in doc_tag.iter():
+            if 'xmlns:map' in e.attrib:
+                del e.attrib['xmlns:map']
+        doc_tag_source = ET.tostring(doc_tag)
+        markdown = pypandoc.convert(doc_tag_source, 'markdown_github', format="docbook")
+        return pypandoc.convert(doc_tag_source, 'markdown_github', format="docbook")

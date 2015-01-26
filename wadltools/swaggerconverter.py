@@ -97,10 +97,11 @@ class SwaggerConverter:
                         params.append(
                             wadllib.application.Parameter(resource, param))
                     for param in params:
-                        if "parameters" not in swagger_resource:
-                            swagger_resource["parameters"] = []
-                        swagger_resource["parameters"].append(
-                            self.build_param(param))
+                        swagger_param = self.build_param(param)
+                        if swagger_param is not None:
+                            if "parameters" not in swagger_resource:
+                                swagger_resource["parameters"] = []
+                            swagger_resource["parameters"].append(swagger_param)
                 except AttributeError:
                     self.logger.debug(
                         "   WARN: wadllib can't get parameters, possibly a wadllib bug")
@@ -121,9 +122,9 @@ class SwaggerConverter:
                         swagger_method['operationId'] = method.tag.attrib[
                             '{http://docs.rackspace.com/api}id']
                     swagger_method['summary'] = self.build_summary(method)
-                    description = DocHelper.short_desc(method)
+                    description = DocHelper.short_desc_as_markdown(method)
                     if description is not None:
-                        swagger_method['description'] = folded(description.text.strip())
+                        swagger_method['description'] = folded(description)
                     # swagger_method['operationId'] = method.tag.attrib['id']
                     # swagger_method['consumes'] = []
                     swagger_method['produces'] = []
@@ -134,10 +135,11 @@ class SwaggerConverter:
                             # Swagger schema needs to be updated to allow consumes here
                             # swagger_method['consumes'].append(representation.media_type)
                             for param in representation.params(resource):
-                                if "parameters" not in swagger_method:
-                                    swagger_method['parameters'] = []
-                                swagger_method["parameters"].append(
-                                    self.build_param(param))
+                                swagger_param = self.build_param(param)
+                                if swagger_param is not None:
+                                    if "parameters" not in swagger_method:
+                                        swagger_method["parameters"] = []
+                                    swagger_method["parameters"].append(swagger_param)
 
                     if method.response.tag is not None:
                         response = method.response
@@ -260,12 +262,14 @@ class SwaggerConverter:
 
         if self.autofix:
             if param['in'] == 'body':
+                self.logger.warn("Ignoring body parameter, converting these is not yet supported...")
+                return None
                 # FIXME: Ideally we need to be generating models
-                self.logger.warn("Autofix: Ignoring type on body parameter")
-                type = None  # body cannot have type,
-                if "schema" not in param:
-                    self.logger.warn("Autofix: body params need a schema")
-                    param['schema'] = {}
+                # self.logger.warn("Autofix: Ignoring type on body parameter")
+                # type = None  # body cannot have type,
+                # if "schema" not in param:
+                #     self.logger.warn("Autofix: body params need a schema")
+                #     param['schema'] = {}
             if param['in'] == 'path':
                 if param['required'] is not True:
                     self.logger.warn("Autofix: path parameters must be required in Swagger (%s)", param['name'])
@@ -275,7 +279,7 @@ class SwaggerConverter:
             param["type"] = type
         if self.options.nodoc is not True:
             if DocHelper.doc_tag(wadl_param) is not None and DocHelper.doc_tag(wadl_param).text is not None:
-                description = DocHelper.description_text(
+                description = DocHelper.docbook_to_markdown(
                     DocHelper.doc_tag(wadl_param))
                 # Cleanup whitespace...
                 description = textwrap.dedent(description)

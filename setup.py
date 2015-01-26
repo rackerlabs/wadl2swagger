@@ -21,6 +21,7 @@ setup(name='wadl2swagger',
           'wadllib>=1.3',
           'pyyaml>=3.0',
           'mechanize>=0.2',
-          'lxml>=3.4'
+          'lxml>=3.4',
+          'pypandoc>=0.8'
       ]
       )

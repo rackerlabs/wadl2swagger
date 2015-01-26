@@ -15,7 +15,7 @@ $SCRIPTDIR/build_rackspace_wadls.sh
 $SCRIPTDIR/build_openstack_wadls.sh
 
 echo "Unknown types summary:"
-find rackspace openstack -name \*.log | xargs grep 'Using unknown' | cut -d' ' -f2- | sort | uniq
+find rackspace openstack -name \*.log | xargs grep 'Unknown type' | cut -d' ' -f2- | sort | uniq
 
 echo
 echo

@@ -182,8 +182,8 @@ class SwaggerConverter:
                                     int(status)]['examples'] = self.build_code_sample(code_sample)
             swagger = merge_dicts(swagger, defaults)
             return swagger
-        # except WADLError as e:
-        except Exception as e:
+        except WADLError as e:
+        # except Exception as e:
             raise BadWADLError("Could not convert WADL", e, wadl_file)
 
     def fix_json(self, json_sample):
@@ -213,31 +213,52 @@ class SwaggerConverter:
             swagger = OrderedDict()
         return swagger
 
-    def xsd_to_json_type(self, xsd_type):
-        if xsd_type is None:
-            return "string"
+    def xsd_to_json_type(self, full_type):
+        if full_type is None:
+            return None
+
+        if ":" in full_type:
+            namespace, xsd_type = full_type.split(":")
+            if namespace in ['', 'xs']:
+                namespace = "xsd"
+        else:
+            namespace = 'xsd'
+            xsd_type = full_type
+
+        typemap = {
+            'xsd': {
+                # array?
+                "boolean": "boolean",  # is xsd:bool also valid?
+                "int": "integer",
+                "integer": "integer",
+                "decimal": "number",
+                # null?
+                # object/complex types?
+                "string": "string",
+                "anyURI": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "dateTime": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "date": "string",  # should be string w/ format or regex
+                "time": "string"  # should be string w/ format or regex
+            },
+            'csapi': {
+                "UUID": {
+                    "type": "string"
+                    # format/pattern?
+                }
+            }
+        }
         # This should probably be more namespace aware (e.g. handle xs:string
         # or xsd:string)
         try:
-            return {
-                # array?
-                "xsd:boolean": "boolean",  # is xsd:bool also valid?
-                "xsd:integer": "integer",
-                "xsd:decimal": "number",
-                # null?
-                # object/complex types?
-                "xsd:string": "string",
-                "xsd:anyURI": "string",  # should be string w/ format or regex
-                "xsd:dateTime": "string",  # should be string w/ format or regex
-                "xsd:date": "string",  # should be string w/ format or regex
-                "xsd:time": "string"  # should be string w/ format or regex
-            }[xsd_type]
+            return typemap[namespace][xsd_type]
         except KeyError:
-            self.logger.warn("Using unknown type: %s", xsd_type)
-            # return xsd_type
-            # return "None"
-            # Let's just assume string...
-            return "string"
+            return None
 
     def style_to_in(self, style):
         return {
@@ -254,29 +275,34 @@ class SwaggerConverter:
     def build_param(self, wadl_param):
         self.logger.debug("Found param: %s" % wadl_param.name)
 
-        type = self.xsd_to_json_type(wadl_param.tag.get('type', 'string'))
         param = OrderedDict()
         param['name'] = wadl_param.name
         param['required'] = wadl_param.is_required
         param['in'] = self.style_to_in(wadl_param.style)
 
+        wadl_type = wadl_param.tag.get('type', 'string')
+        json_type = self.xsd_to_json_type(wadl_type)
+        if json_type is None:
+            self.logger.warn("Unknown type: %s for param %s", wadl_type, wadl_param.name)
+            if self.autofix:
+                self.logger.warn("Using string for %s", wadl_type)
+                json_type = "string"
+            else:
+                json_type = wadl_type
+        if isinstance(json_type, dict):
+            param.update(json_type)
+        else:
+            param["type"] = json_type
+
         if self.autofix:
             if param['in'] == 'body':
                 self.logger.warn("Ignoring body parameter, converting these is not yet supported...")
                 return None
-                # FIXME: Ideally we need to be generating models
-                # self.logger.warn("Autofix: Ignoring type on body parameter")
-                # type = None  # body cannot have type,
-                # if "schema" not in param:
-                #     self.logger.warn("Autofix: body params need a schema")
-                #     param['schema'] = {}
             if param['in'] == 'path':
                 if param['required'] is not True:
                     self.logger.warn("Autofix: path parameters must be required in Swagger (%s)", param['name'])
                     param['required'] = True
 
-        if type is not None:
-            param["type"] = type
         if self.options.nodoc is not True:
             if DocHelper.doc_tag(wadl_param) is not None and DocHelper.doc_tag(wadl_param).text is not None:
                 description = DocHelper.docbook_to_markdown(

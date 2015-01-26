@@ -81,9 +81,11 @@ class DocHelper:
     def docbook_to_markdown(doc_tag):
         # We need to convert the element to an XML string
         # And tostring doesn't like the namespaces for some reason...
-        for prefix, namespace in doc_tag.attrib['xmlns:map'].iteritems():
-            ET.register_namespace(prefix, namespace)
+        if doc_tag is None:
+            return None
         if 'xmlns:map' in doc_tag.attrib:
+            for prefix, namespace in doc_tag.attrib['xmlns:map'].iteritems():
+                ET.register_namespace(prefix, namespace)
             del doc_tag.attrib['xmlns:map']
         for e in doc_tag.iter():
             if 'xmlns:map' in e.attrib:

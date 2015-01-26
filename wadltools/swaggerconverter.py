@@ -89,11 +89,11 @@ class SwaggerConverter:
                     # params?)
                     try:
                         params = resource.parameters('application/json')
-                    except UnsupportedMediaTypeError:
+                    except (UnsupportedMediaTypeError, AttributeError):
                         self.logger.warn(
                             "No support for application/json for resource at %s", path)
                         params = []
-                    for param in resource.tag.findall('.//' + WADL.qname('wadl', 'param')):
+                    for param in resource.tag.findall('./' + WADL.qname('wadl', 'param')):
                         params.append(
                             wadllib.application.Parameter(resource, param))
                     for param in params:

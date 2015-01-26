@@ -1,6 +1,6 @@
 function fail_unless_expected {
-  file=$1
-  patterns=$2
+  file="${1}"
+  patterns=("${@}")
   allowed_to_fail=false
   for pattern in $patterns; do
     if [[ "$file" == *"$pattern"* ]]; then
@@ -33,7 +33,7 @@ function build_wadls {
       log_file="swagger/${basename}.log"
       wadl2swagger --autofix $wadl -f json -l $log_file
       if [ $? -ne 0 ]; then
-        fail_unless_expected $wadl $ALLOWED_FAILURE_PATTERNS
+        fail_unless_expected "$wadl" "${ALLOWED_FAILURE_PATTERNS[@]}"
       fi
       echo >> $log_file
       echo "Validating with swagger-tools..." >> $log_file

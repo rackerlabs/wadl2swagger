@@ -30,7 +30,7 @@ function build_wadls {
     for wadl in wadls/*.wadl; do
       basename=${wadl##*/}
       basename=${basename%.wadl}
-      log_file="swagger/${basename}.log"
+      log_file="swagger/${basename}_log.txt"
       wadl2swagger --autofix $wadl -f json -l $log_file
       if [ $? -ne 0 ]; then
         fail_unless_expected "$wadl" "${ALLOWED_FAILURE_PATTERNS[@]}"

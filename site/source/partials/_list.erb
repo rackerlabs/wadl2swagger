@@ -5,7 +5,7 @@
     basename = File.basename(wadl_file.source_file, File.extname(wadl_file.source_file))
     swagger_yaml_file = scoped_resources.find {|resource| File.basename(resource.source_file) == "#{basename}.yaml" }
     swagger_json_file = scoped_resources.find {|resource| File.basename(resource.source_file) == "#{basename}.json" }
-    log_file = scoped_resources.find {|resource| File.basename(resource.source_file) == "#{basename}.log" }
+    log_file = scoped_resources.find {|resource| File.basename(resource.source_file) == "#{basename}_log.txt" }
     { :basename => basename, :wadl => wadl_file, :swagger_yaml => swagger_yaml_file, :swagger_json => swagger_json_file, :log_file => log_file }
   end
 -%>

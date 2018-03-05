@@ -4,7 +4,7 @@ layout: layout
 
 # wadl2swagger
 
-[![Latest Version](https://pypip.in/version/wadl2swagger/badge.svg)](https://pypi.python.org/pypi/wadl2swagger/)
+[![Latest Version](https://img.shields.io/pypi/v/wadl2swagger.svg)](https://pypi.python.org/pypi/wadl2swagger/)
 
 wadl2swagger is a command line tool for converting [WADL](http://www.w3.org/Submission/wadl/) description of an API into [Swagger](http://swagger.io). It's intended to work with generic WADL documents as much as possible, but some of the conversion is mapped to conventions used in OpenStack WADL rather concepts defined in the WADL standard itself.
 
